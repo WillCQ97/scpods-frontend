@@ -7,6 +7,9 @@
 
 <script>
 export default {
-  name: 'SubmissionPage'
+  name: 'SubmissionPage',
+  validate(data) {
+    return /^\d+$/.test(data.params.id);
+  }
 }
 </script>
