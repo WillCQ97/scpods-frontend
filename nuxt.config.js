@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
+// TODO: adicionar imagem e url para o site
 const siteTitle = 'Mapa Colaborativo Projetos ODS na UFES'
 const siteDescription =
   'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na UFES'
