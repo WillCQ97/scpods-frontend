@@ -42,6 +42,7 @@
       </v-btn>
     </v-app-bar>
     <v-main>
+      <v-subheader>Submissions Section</v-subheader>
       <v-container>
         <Nuxt />
       </v-container>
@@ -64,10 +65,10 @@
 
 <script>
 export default {
-  name: 'DefaultLayout',
+  name: 'SubmissionsLayout',
   data() {
     return {
-      clipped: true, // permite que a barra superior ocupe a página toda, inclusive acima do menu lateral
+      clipped: false,
       drawer: false,
       fixed: false,
       items: [

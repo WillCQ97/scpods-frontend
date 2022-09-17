@@ -1,30 +1,32 @@
 <!-- wrapper content for users depending on the subroute -->
 <template>
-<div>
-    <h1>Página de Submissões</h1>
-    <input v-model="submissionId" type="text">
-    <button @click="onLoadSubmission">Carregar Submissão</button>
-    <nuxt-child />
+  <div>
+    <v-card>
+      <h1>Página de Submissões</h1>
+      <v-text-field v-model="submissionId" type="text"></v-text-field>
+      <v-btn @click="onLoadSubmission">Carregar Submissão</v-btn>
+      <nuxt-child />
+    </v-card>
   </div>
 </template>
 
 <script>
 export default {
   name: 'SubmissionPageWrapper',
+  layout: 'submissions',
   data() {
     return {
-      submissionId: ''
+      submissionId: '',
     }
   },
   methods: {
     onLoadSubmission() {
-      this.$router.push('/submissions/' + this.submissionId);
-    }
-  }
+      this.$router.push('/submissions/' + this.submissionId)
+    },
+  },
 }
 </script>
 
 
 <style>
-
 </style>

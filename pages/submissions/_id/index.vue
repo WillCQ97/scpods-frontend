@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'SubmissionPage',
+  layout: 'submissions',
   validate(data) {
     return /^\d+$/.test(data.params.id);
   }
