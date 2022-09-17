@@ -7,21 +7,6 @@ const siteDescription =
 const siteImage = ''
 const siteUrl = ''
 
-const colorUfes = {
-  // Monocromatic pallete from primary color #234379 made on https://pt.paletadecolores.online/cor-monocromatica/
-  default: {
-    primary: '#234379',
-    mono1: '#000011',
-    mono2: '#11182c',
-    mono3: '#182849',
-    mono4: '#203a69',
-    mono5: '#345188',
-    mono6: '#546da8',
-    mono7: '#748bc8',
-    mono8: '#94aaea',
-  },
-}
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -74,21 +59,12 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      ufes_light: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-        },
-        ufes_light: {
-          primary: colorUfes.default.primary,
-          accent: colorUfes.default.light,
-          secondary: colorUfes.default.dark,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

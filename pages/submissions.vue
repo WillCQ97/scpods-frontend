@@ -13,7 +13,6 @@
 <script>
 export default {
   name: 'SubmissionPageWrapper',
-  layout: 'submissions',
   data() {
     return {
       submissionId: '',

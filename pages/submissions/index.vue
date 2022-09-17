@@ -6,6 +6,5 @@
 <script>
 export default {
   name: 'SubmissionPageIndex',
-  layout: 'submissions',
 }
 </script>
