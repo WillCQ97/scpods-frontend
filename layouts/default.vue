@@ -38,10 +38,8 @@
       </v-btn>
 
       <v-spacer />
-      <v-toolbar-title id="title-bar">
-        <h2>
-          {{ title }}
-        </h2>
+      <v-toolbar-title id="title-bar" class="text-h5">
+        <strong>{{ title }}</strong>
       </v-toolbar-title>
       <v-spacer />
 
@@ -64,15 +62,16 @@
 
     <!-- FOOTER -->
     <v-footer :absolute="!fixed" :color="colorFooter" app dark>
-      <span>
-        &copy; {{ new Date().getFullYear() }} - {{ author }}
-      </span>
+      <v-spacer />
+      <span> &copy; {{ new Date().getFullYear() }} - {{ author }} </span>
+      <v-spacer />
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import ufesTheme from 'assets/themes'
+
 export default {
   name: 'DefaultLayout',
   data() {
@@ -81,7 +80,6 @@ export default {
       clipped: true,
       drawer: false,
       fixed: false,
-      colorBackground: ufesTheme.default.mono8,
       colorBar: ufesTheme.default.mono6,
       colorFooter: ufesTheme.default.mono5,
       colorMenu: ufesTheme.default.mono7,
@@ -124,8 +122,13 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Mapa Colaborativo: Ações envolvendo ODS na UFES',
+      title: 'Mapa Colaborativo: Sustentabilidade na UFES',
     }
   },
 }
 </script>
+<style scoped>
+#title-bar {
+  text-shadow: 2px 2px 3px #94aaea;
+}
+</style>
