@@ -1,3 +1,4 @@
+<!-- TODO: Verificar questão do menu lateral e footer em relação ao fixed, para que o footer seja ocultado automaticamente -->
 <template>
   <v-app>
     <!-- MENU -->
@@ -6,7 +7,6 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       :color="colorMenu"
-      fixed
       app
     >
       <v-list>
@@ -61,7 +61,7 @@
     </v-main>
 
     <!-- FOOTER -->
-    <v-footer :absolute="!fixed" :color="colorFooter" app dark>
+    <v-footer :color="colorFooter" app dark>
       <v-spacer />
       <span> &copy; {{ new Date().getFullYear() }} - {{ author }} </span>
       <v-spacer />

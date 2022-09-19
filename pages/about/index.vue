@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-col>
-      <v-card class="mx-auto" dense>
+      <v-card>
         <v-card-title> Sobre o mapa </v-card-title>
         <hr />
         <v-card-text class="text--primary">

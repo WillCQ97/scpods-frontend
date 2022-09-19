@@ -1,22 +1,79 @@
 <template>
   <div>
-    <h1>Página Inicial</h1>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto
-      temporibus necessitatibus quidem quia illum mollitia natus aut corrupti
-      provident, tenetur consectetur officiis cupiditate quibusdam doloribus,
-      laborum inventore rem dolorum adipisci!
-    </p>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ut
-      laudantium iusto, magnam culpa ipsam, alias amet natus dolore error ad quo
-      eaque, reiciendis labore in optio iure. Unde, incidunt.
-    </p>
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi rerum
-      vitae accusamus repudiandae saepe quos. Facilis perferendis nemo fugiat
-      quasi quos autem neque quidem, tenetur totam eaque at qui pariatur.
-    </p>
+    <v-col>
+      <v-card>
+        <v-card-title>
+          Objetivos de Desenvolvimento Sustentável (ODS)
+        </v-card-title>
+        <hr />
+        <v-card-text>
+          A Agenda 2030 consiste em um plano de ação global para governos,
+          sociedade, empresas, academias e pessoas, no qual foram definidos 17
+          objetivos e 169 metas para o fomento de um desenvolvimento mais
+          sustentável das atividades humanas nos próximos anos.
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn>
+            <!--TODO: ESTE LINK NO MOMENTO ESTÁ FORA DO AR -->
+            <a href="http://www.agenda2030.com.br/sobre/" target="_blank">
+              Veja mais
+            </a>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+
+    <v-col>
+      <v-card>
+        <v-card-title>
+          A Ufes faz parte dessa iniciativa e conta com você!
+        </v-card-title>
+        <hr />
+        <v-card-text>
+          A Agenda 2030 é uma oportunidade de a Ufes incorporar os princípios
+          dos ODS nas suas diferentes frentes de atuação (ensino, pesquisa,
+          extensão, assistência e gestão), fortalecendo vínculos e criando
+          conexão entre essas áreas.
+          <br />
+          Em 2020, teve início o projeto institucional de integração dos ODS da
+          Agenda 2030 na Ufes, visando dar transparência às ações de
+          sustentabilidade realizadas pela instituição.
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn>
+            <a href="https://ods.ufes.br/" target="_blank"> Veja mais </a>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+
+    <v-col>
+      <v-card>
+        <v-card-title> Cadastre sua contribuição </v-card-title>
+        <hr />
+        <v-card-text>
+          O mapeamento permitirá o planejamento de ações futuras, o
+          monitoramento dos <em>campi</em> e facilitará a divulgação das boas
+          práticas.
+          <br />
+          Portanto se você coordenou alguma iniciativa que tenha contribuído com
+          um dos ODS,
+          <strong>
+            cadastre sua ação no mapa e mostre sua contribuição nessa importante
+            missão.
+          </strong>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <!-- TODO: ADICIONAR UMA EXPLICAÇÃO PARA COMO É REALIZADA A SUGESTÃO -->
+          <v-btn>
+            <nuxt-link to="/about"> Saiba como </nuxt-link>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
   </div>
 </template>
 
