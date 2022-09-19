@@ -10,6 +10,49 @@
       app
     >
       <v-list>
+        <!-- HOME -->
+        <v-list-item to="/">
+          <v-list-item-action class="mn-li-action">
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              <strong>Início</strong>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <!-- MAPAS -->
+        <v-list-group :value="false" no-action>
+          <template #activator>
+            <v-list-item-action class="mn-li-action">
+              <v-icon>mdi-map</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>
+              <strong>Mapas</strong>
+            </v-list-item-title>
+          </template>
+
+          <v-list-item
+            v-for="(item, i) in itemsActions"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+            class="mn-lg-li-action"
+          >
+            <v-list-item-action class="mn-li-action">
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                <strong>{{ item.title }}</strong>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+
+        <!-- RESTANTE DOS ITEMS DO MENU -->
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -17,7 +60,7 @@
           router
           exact
         >
-          <v-list-item-action>
+          <v-list-item-action class="mn-li-action">
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
@@ -87,26 +130,6 @@ export default {
       iconHeight: 40,
       iconWidth: 40,
       items: [
-        {
-          icon: 'mdi-home',
-          title: 'Página inicial',
-          to: '/',
-        },
-        {
-          icon: 'mdi-map',
-          title: 'Ações em Alegre',
-          to: '/actions/alegre',
-        },
-        {
-          icon: 'mdi-map',
-          title: 'Ações em Goiabeiras',
-          to: '/actions/goiabeiras',
-        },
-        {
-          icon: 'mdi-map',
-          title: 'Ações em São Mateus',
-          to: '/actions/sao-mateus',
-        },
         // TODO: exibir a submissão apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
         {
           icon: 'mdi-format-list-bulleted-type',
@@ -115,8 +138,25 @@ export default {
         },
         {
           icon: 'mdi-text',
-          title: 'Sobre o mapa',
+          title: 'Sobre',
           to: '/about',
+        },
+      ],
+      itemsActions: [
+        {
+          icon: 'mdi-map',
+          title: 'Alegre',
+          to: '/actions/alegre',
+        },
+        {
+          icon: 'mdi-map',
+          title: 'Goiabeiras',
+          to: '/actions/goiabeiras',
+        },
+        {
+          icon: 'mdi-map',
+          title: 'São Mateus',
+          to: '/actions/sao-mateus',
         },
       ],
       miniVariant: false,
@@ -130,5 +170,11 @@ export default {
 <style scoped>
 #title-bar {
   text-shadow: 2px 2px 3px #94aaea;
+}
+.mn-li-action {
+  margin-right: 12px !important;
+}
+.mn-lg-li-action {
+  padding-left: 52px !important;
 }
 </style>
