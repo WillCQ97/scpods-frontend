@@ -74,7 +74,7 @@
             <v-spacer />
             <!-- TODO: ADICIONAR UMA EXPLICAÇÃO PARA COMO É REALIZADA A SUGESTÃO -->
             <v-btn>
-              <nuxt-link to="/sobre"> Saiba como </nuxt-link>
+              <nuxt-link to="/sugerir-acao"> Saiba como </nuxt-link>
             </v-btn>
             <v-spacer />
           </v-card-actions>

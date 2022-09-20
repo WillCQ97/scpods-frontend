@@ -134,7 +134,7 @@ export default {
         {
           icon: 'mdi-message-outline',
           title: 'Sugerir Ação',
-          to: '/formulario',
+          to: '/sugerir-acao',
         },
         {
           icon: 'mdi-text',

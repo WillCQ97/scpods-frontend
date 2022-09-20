@@ -14,6 +14,9 @@
     <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL
     O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
     <VisualMap :bounds="bounds" :center="center" :feature="feature"/>
+
+    <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
+    <p> CARREGAR UMA LISTA COM OS PROJETOS A PARTIR DA INTERAÇÃO COM O MAPA </p>
   </div>
 </template>
 
@@ -22,7 +25,7 @@
 import alegreFeature from '~/assets/features/alegre_min.json';
 
 export default {
-  name: 'AlegrePage',
+  name: 'AlegreActionsPage',
 
   data() {
     return {
