@@ -16,11 +16,11 @@
             <!-- LAYER DO OPENSTREETMAP -->
             <l-tile-layer :attribution="attribution" :url="url"></l-tile-layer>
 
-            <!-- FEATURES DO CAMPUS -->
+            <!-- FEATURES DO CAMPUS NO GEOJSON -->
             <l-geo-json
               v-if="showCampusFeature"
               :geojson="feature"
-              :options="jsonOptions"
+              :options="featureOptions"
             />
           </l-map>
         </client-only>
@@ -66,7 +66,7 @@ export default {
     }
   },
   computed: {
-    jsonOptions() {
+    featureOptions() {
       return {
         onEachFeature: this.onEachFeature,
       }

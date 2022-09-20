@@ -45,11 +45,11 @@
 
     <v-row>
       <v-spacer />
-      <v-col>
+      <v-col cols="8">
         <v-img
+          id="ufes-banner"
           src="/img/logos/ods-ufes-banner.png"
-          max-height="200px"
-          max-width="500px"
+          max-width="550px"
           alt="Banner com logotipo da UFES e o texto 'objetivos de desenvolvimento sustentável'"
         ></v-img>
       </v-col>
@@ -63,3 +63,10 @@ export default {
   name: 'AboutPage',
 }
 </script>
+
+<style scoped>
+#ufes-banner {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

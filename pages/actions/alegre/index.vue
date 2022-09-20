@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// TODO: CORRIGIR DIFERENÇA ENTRE O GEOJSON E A LAYER DO MAPA
 import alegreFeature from '~/assets/features/alegre_min.json';
 
 export default {
