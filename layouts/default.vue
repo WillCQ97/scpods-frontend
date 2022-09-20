@@ -133,30 +133,30 @@ export default {
         // TODO: exibir a submissão apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
         {
           icon: 'mdi-format-list-bulleted-type',
-          title: 'Submissões',
-          to: '/submissions',
+          title: 'Sugerir Ação',
+          to: '/form',
         },
         {
           icon: 'mdi-text',
           title: 'Sobre',
-          to: '/about',
+          to: '/sobre',
         },
       ],
       itemsActions: [
         {
           icon: 'mdi-map',
           title: 'Alegre',
-          to: '/actions/alegre',
+          to: '/acoes/alegre',
         },
         {
           icon: 'mdi-map',
           title: 'Goiabeiras',
-          to: '/actions/goiabeiras',
+          to: '/acoes/goiabeiras',
         },
         {
           icon: 'mdi-map',
           title: 'São Mateus',
-          to: '/actions/sao-mateus',
+          to: '/acoes/sao-mateus',
         },
       ],
       miniVariant: false,

@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     onLoadSubmission() {
-      this.$router.push('/submissions/' + this.submissionId)
+      this.$router.push('/submissoes/' + this.submissionId)
     },
   },
 }
