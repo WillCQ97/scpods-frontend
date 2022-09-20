@@ -132,9 +132,9 @@ export default {
       items: [
         // TODO: exibir a submissão apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
         {
-          icon: 'mdi-format-list-bulleted-type',
+          icon: 'mdi-message-outline',
           title: 'Sugerir Ação',
-          to: '/form',
+          to: '/formulario',
         },
         {
           icon: 'mdi-text',
