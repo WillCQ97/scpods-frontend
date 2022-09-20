@@ -99,7 +99,7 @@
     <!-- MAIN SECTION -->
     <v-main>
       <v-container>
-        <Nuxt />
+        <nuxt />
       </v-container>
     </v-main>
 
