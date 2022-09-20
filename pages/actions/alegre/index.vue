@@ -1,5 +1,6 @@
 <template>
   <div>
+    <VisualMap />
     <h1>Página para alegre</h1>
     <p>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ut
