@@ -14,12 +14,20 @@
     <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL
     O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
     <VisualMap
-      :bounds="bounds"
-      :center="center"
-      :feature="feature"
-      :markers="createMarkers"
+      title="Alegre - Sede"
+      :bounds="alegreBounds"
+      :center="alegreCenter"
+      :feature="alegreFeature"
+      :markers="createMarkersResumed"
     />
-    <!-- adicionar o visualmap para jerônimo e botões para o usuário poder selecionar as informações-->
+
+    <VisualMap
+      title="Jerônimo Monteiro"
+      :bounds="jeronimoBounds"
+      :center="jeronimoCenter"
+      :feature="jeronimoFeature"
+      :markers="createMarkersResumed"
+    />
 
     <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
     <p>CARREGAR UMA LISTA COM OS PROJETOS A PARTIR DA INTERAÇÃO COM O MAPA</p>
@@ -27,8 +35,8 @@
 </template>
 
 <script>
-// TODO: CORRIGIR DIFERENÇA ENTRE O GEOJSON E A LAYER DO MAPA
 import alegreFeature from '~/assets/features/alegre_min.json'
+import jeronimoFeature from '~/assets/features/jeronimo_min.json'
 
 // TROCAR ESSA IMPORTAÇÃO PELO DADO EM SI E EXCLUIR ESSE ARQUIVO
 import acoesResumo from '~/assets/temp/acoes_resumo.json'
@@ -39,18 +47,23 @@ export default {
 
   data() {
     return {
-      // TODO: UTILIZAR UMA ÁREA MENOR EM VOLTA DO CAMPUS
-      bounds: [
+      alegreBounds: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],
       ],
-      center: [-20.76161, -41.536],
-      feature: alegreFeature,
+      alegreCenter: [-20.76161, -41.536],
+      alegreFeature,
+      jeronimoBounds: [
+        [-20.78885, -41.3898],
+        [-20.79236, -41.38772],
+      ],
+      jeronimoCenter: [-20.78981, -41.38849],
+      jeronimoFeature,
     }
   },
 
   computed: {
-    createMarkers() {
+    createMarkersResumed() {
       const markers = acoesResumo.map((resumo) => ({
         id: resumo.id,
         coord: resumo.localizacao.coord,

@@ -3,7 +3,7 @@
     <v-spacer />
     <v-col cols="10">
       <v-card elevation="8" min-width="80vh">
-        <v-card-title>Alegre - Sede</v-card-title>
+        <v-card-title>{{ title }}</v-card-title>
         <hr />
         <client-only>
           <!-- PROPRIEDADES DO MAPA -->
@@ -14,7 +14,10 @@
             :zoom="zoom"
           >
             <!-- LAYER DO OPENSTREETMAP -->
-            <l-tile-layer :attribution="attribution" :url="url"></l-tile-layer>
+            <l-tile-layer
+              :attribution="attribution_hot"
+              :url="url_hot"
+            ></l-tile-layer>
 
             <!-- FEATURES DO CAMPUS NO GEOJSON -->
             <l-geo-json
@@ -43,7 +46,7 @@
         </client-only>
         <hr />
         <v-card-actions>
-          <!-- ADICIONAR O ON CLICK PARA UM MÉTODO EMIT QUE AVISARÁ AO COMPONENTE PAI QUAL AÇÃO EXECUTAR -->
+          <!-- TODO: ADICIONAR O ON CLICK PARA UM MÉTODO EMIT QUE AVISARÁ AO COMPONENTE PAI QUAL AÇÃO EXECUTAR -->
           <v-btn class="btn" :disabled="hideBtnProjectList">
             Exibir Ações
           </v-btn>
@@ -74,17 +77,24 @@ export default {
       type: Array,
       required: true,
     },
+    title: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       attribution:
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      attribution_hot:
+        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
       hideBtnProjectList: true,
       enableTooltip: true,
       markerIconUrl: '/img/logos/ods-small.png',
       markerIconSize: [20, 20],
       showCampusFeature: true,
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      url_hot: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
       zoom: 18,
     }
   },
