@@ -11,9 +11,12 @@
       vitae accusamus repudiandae saepe quos. Facilis perferendis nemo fugiat
       quasi quos autem neque quidem, tenetur totam eaque at qui pariatur.
     </p>
+
     <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL
     O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
+
     <VisualMap
+      v-if="showMapAlegre"
       title="Alegre - Sede"
       :bounds="alegreBounds"
       :center="alegreCenter"
@@ -22,10 +25,20 @@
     />
 
     <VisualMap
+      v-if="showMapJeronimo"
       title="Jerônimo Monteiro"
       :bounds="jeronimoBounds"
       :center="jeronimoCenter"
       :feature="jeronimoFeature"
+      :markers="createMarkersResumed"
+    />
+
+    <VisualMap
+      v-if="showMapRive"
+      title="Área Experimental em Rive"
+      :bounds="riveBounds"
+      :center="riveCenter"
+      :feature="riveFeature"
       :markers="createMarkersResumed"
     />
 
@@ -37,6 +50,7 @@
 <script>
 import alegreFeature from '~/assets/features/alegre_min.json'
 import jeronimoFeature from '~/assets/features/jeronimo_min.json'
+import riveFeature from '~/assets/features/rive_min.json'
 
 // TROCAR ESSA IMPORTAÇÃO PELO DADO EM SI E EXCLUIR ESSE ARQUIVO
 import acoesResumo from '~/assets/temp/acoes_resumo.json'
@@ -59,6 +73,15 @@ export default {
       ],
       jeronimoCenter: [-20.78981, -41.38849],
       jeronimoFeature,
+      riveBounds: [
+        [-20.7492301, -41.4905947],
+        [-20.7535765, -41.4855781],
+      ],
+      riveCenter: [-20.7515466, -41.4883097],
+      riveFeature,
+      showMapAlegre: true,
+      showMapJeronimo: true,
+      showMapRive: true,
     }
   },
 
