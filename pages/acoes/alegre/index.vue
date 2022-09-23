@@ -11,6 +11,15 @@
       vitae accusamus repudiandae saepe quos. Facilis perferendis nemo fugiat
       quasi quos autem neque quidem, tenetur totam eaque at qui pariatur.
     </p>
+    <v-card width="50vh">
+      <v-card-title>Selecione o mapa a ser visualizado</v-card-title>
+
+      <v-card-actions>
+        <v-btn @click="btnShowOnlyAlegre">Alegre Sede</v-btn>
+        <v-btn @click="btnShowOnlyJeronimo">Jerônimo</v-btn>
+        <v-btn @click="btnShowOnlyRive">Área Experimental Rive</v-btn>
+      </v-card-actions>
+    </v-card>
 
     <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL
     O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
@@ -25,7 +34,7 @@
     />
 
     <VisualMap
-      v-if="showMapJeronimo"
+      v-else-if="showMapJeronimo"
       title="Jerônimo Monteiro"
       :bounds="jeronimoBounds"
       :center="jeronimoCenter"
@@ -34,7 +43,7 @@
     />
 
     <VisualMap
-      v-if="showMapRive"
+      v-else-if="showMapRive"
       title="Área Experimental em Rive"
       :bounds="riveBounds"
       :center="riveCenter"
@@ -79,9 +88,35 @@ export default {
       ],
       riveCenter: [-20.7515466, -41.4883097],
       riveFeature,
-      showMapAlegre: true,
-      showMapJeronimo: true,
-      showMapRive: true,
+      showMapAlegre: false,
+      showMapJeronimo: false,
+      showMapRive: false,
+
+      // TODO: varáveis de teste, remover posteriormente
+      mapAlegre: {
+        bounds: [
+          [-20.75885, -41.53911],
+          [-20.76464, -41.53211],
+        ],
+        center: [-20.76161, -41.536],
+        feature: alegreFeature,
+      },
+      mapJeronimo: {
+        bounds: [
+          [-20.78885, -41.3898],
+          [-20.79236, -41.38772],
+        ],
+        center: [-20.78981, -41.38849],
+        feature: jeronimoFeature,
+      },
+      mapRive: {
+        bounds: [
+          [-20.7492301, -41.4905947],
+          [-20.7535765, -41.4855781],
+        ],
+        center: [-20.7515466, -41.4883097],
+        feature: riveFeature,
+      },
     }
   },
 
@@ -108,6 +143,24 @@ export default {
           '</div></div>',
       }))
       return markers
+    },
+  },
+
+  methods: {
+    btnShowOnlyAlegre() {
+      this.showMapAlegre = true;
+      this.showMapJeronimo = false;
+      this.showMapRive = false;
+    },
+    btnShowOnlyJeronimo() {
+      this.showMapAlegre = false;
+      this.showMapJeronimo = true;
+      this.showMapRive = false;
+    },
+    btnShowOnlyRive() {
+      this.showMapAlegre = false;
+      this.showMapJeronimo = false;
+      this.showMapRive = true;
     },
   },
 }
