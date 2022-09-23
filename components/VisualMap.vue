@@ -159,6 +159,8 @@ div.popup {
 
 img.popup_img {
   height: 75px;
+  margin-bottom: auto;
+  margin-top: auto;
   width: 75px;
 }
 
