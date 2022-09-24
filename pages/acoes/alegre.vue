@@ -1,34 +1,63 @@
 <template>
   <div>
-    <!-- TODO: CARREGAR O TEXTO PARA ALEGRE AQUI-->
-    <h1>Página de Wrapper de alegre</h1>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ut
-      laudantium iusto, magnam culpa ipsam, alias amet natus dolore error ad quo
-      eaque, reiciendis labore in optio iure. Unde, incidunt.
-    </p>
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi rerum
-      vitae accusamus repudiandae saepe quos. Facilis perferendis nemo fugiat
-      quasi quos autem neque quidem, tenetur totam eaque at qui pariatur.
-    </p>
+    <!-- INFO SOBRE AS ÁREAS DO CAMPUS E MENU DE SELEÇÃO -->
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title>Campus de Alegre</v-card-title>
+          <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
+          <hr />
+          <v-card-text>
+            <p>Atualmente o campus de Alegre conta com <strong>três localidades</strong>:</p>
+            <p>
+            <ul>
+              <li>
+                A <strong>sede do campus</strong> que está localizada no Alto
+                Universitário, no município de <strong> Alegre, ES</strong>.
+              </li>
+              <li>
+                As instalações do
+                <strong>
+                  Departamento de Ciências Florestais e da Madeira (DCFM)
+                </strong>
+                localizadas no município de
+                <strong> Jerônimo Monteiro, ES</strong>.
+              </li>
+              <li>
+                A <strong> Área Experimental</strong> na localidade de
+                <strong>Rive</strong>, no município de Alegre. Onde estão
+                localizados o <strong>Hospital Veterinário (HOVET)</strong>,
+                o <strong>Laboratório de Solos</strong> e o <strong>Viveiro</strong>.
+              </li>
+            </ul>
+            </p>
+          </v-card-text>
 
-    <v-card>
-      <v-card-title>Selecione o mapa a ser visualizado</v-card-title>
-      <v-card-actions>
-        <v-btn @click="showMapAlegreSede">Alegre Sede</v-btn>
-        <v-btn @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
-        <v-btn @click="showMapRive">Área Experimental Rive</v-btn>
-      </v-card-actions>
-    </v-card>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn @click="showMapAlegreSede">Alegre Sede</v-btn>
+            <v-btn @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
+            <v-btn @click="showMapRive">Área Experimental Rive</v-btn>
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
 
-    <nuxt-child />
-    <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL
-    O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
-    <!--
-    -->
-    <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
-    <p>CARREGAR UMA LISTA COM OS PROJETOS A PARTIR DA INTERAÇÃO COM O MAPA</p>
+    <!-- EXIBIÇÃO DO MAPA -->
+    <!-- TODO: focar automaticamente no mapa -->
+    <v-row>
+      <v-col>
+        <nuxt-child />
+      </v-col>
+    </v-row>
+
+    <!-- EXIBIÇÃO DOS PROJETOS -->
+    <v-row>
+      <v-col>
+        <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
+      </v-col>
+    </v-row>
   </div>
 </template>
 
