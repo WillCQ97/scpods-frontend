@@ -1,4 +1,3 @@
-<!-- TODO: FIX quando clicar no botão, sem ser clicar no link ir para a página em questão -->
 <template>
   <div>
     <v-row>
@@ -17,12 +16,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn>
-              <!--TODO: ESTE LINK NO MOMENTO ESTÁ FORA DO AR -->
-              <a href="http://www.agenda2030.com.br/sobre/" target="_blank">
+            <a href="https://brasil.un.org/pt-br/sdgs" target="_blank">
+              <v-btn color="primary" small text>
                 Veja mais
-              </a>
-            </v-btn>
+                <v-icon right small>mdi-open-in-new</v-icon>
+              </v-btn>
+            </a>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -45,9 +44,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn>
-              <a href="https://ods.ufes.br/" target="_blank"> Veja mais </a>
-            </v-btn>
+            <a href="https://ods.ufes.br/" target="_blank">
+              <v-btn color="primary" small text>
+                Veja mais
+                <v-icon right small>mdi-open-in-new</v-icon>
+              </v-btn>
+            </a>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -73,9 +75,9 @@
           <v-card-actions>
             <v-spacer />
             <!-- TODO: ADICIONAR UMA EXPLICAÇÃO PARA COMO É REALIZADA A SUGESTÃO -->
-            <v-btn>
-              <nuxt-link to="/sugerir-acao"> Saiba como </nuxt-link>
-            </v-btn>
+            <nuxt-link to="/sugerir-acao">
+              <v-btn color="primary" small text> Saiba como </v-btn>
+            </nuxt-link>
             <v-spacer />
           </v-card-actions>
         </v-card>

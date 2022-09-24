@@ -27,9 +27,9 @@
           <v-card-actions>
             <v-spacer />
             <a href="https://alegre.ufes.br/" target="_blank">
-              <v-btn small class="primary">
+              <v-btn color="primary" small text>
                 Ir para o site
-                <v-icon small right>mdi-open-in-new</v-icon>
+                <v-icon right small>mdi-open-in-new</v-icon>
               </v-btn>
             </a>
           </v-card-actions>
