@@ -32,12 +32,12 @@
             </ul>
             </p>
           </v-card-text>
-
+          <hr />
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="showMapAlegreSede">Alegre Sede</v-btn>
-            <v-btn @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
-            <v-btn @click="showMapRive">Área Experimental Rive</v-btn>
+            <v-btn :color="btnColor" @click="showMapAlegreSede">Alegre Sede</v-btn>
+            <v-btn :color="btnColor" @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
+            <v-btn :color="btnColor" @click="showMapRive">Área Experimental Rive</v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -66,7 +66,9 @@ export default {
   name: 'AlegreActionsWrapperPage',
 
   data() {
-    return {}
+    return {
+      btnColor: '#d2dce8',
+    }
   },
 
   methods: {
