@@ -32,9 +32,7 @@ export default {
       { hid: 'og-url', name: 'og:url', content: siteUrl },
       { hid: 'og-locale', name: 'og:locale', content: 'pt_BR' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/img/logos/ods-small.png' },
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
