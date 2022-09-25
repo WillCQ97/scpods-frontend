@@ -1,24 +1,42 @@
 import colors from 'vuetify/es5/util/colors'
 
+// TODO: adicionar imagem e url para o site
+const siteTitle = 'Mapa Colaborativo: ODS na UFES'
+const siteDescription =
+  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) na UFES'
+const siteImage = ''
+const siteUrl = ''
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - scpods-frontend',
-    title: 'scpods-frontend',
+    titleTemplate: '%s',
+    title: siteTitle,
     htmlAttrs: {
-      lang: 'en',
+      lang: 'pt-br',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
+
+      // Open Graph attributes
+      { hid: 'og-type', name: 'og:type', content: 'website' },
+      { hid: 'og-title', name: 'og:title', content: siteTitle },
+      {
+        hid: 'og-description',
+        name: 'og:description',
+        content: siteDescription,
+      },
+      { hid: 'og-image', name: 'og:image', content: siteImage },
+      { hid: 'og-url', name: 'og:url', content: siteUrl },
+      { hid: 'og-locale', name: 'og:locale', content: 'pt_BR' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/styles/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -35,13 +53,13 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['nuxt-leaflet'],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,

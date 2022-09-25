@@ -1,12 +1,42 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/"> Home page </NuxtLink>
+  <v-app>
+    <v-row>
+      <v-spacer />
+      <v-col>
+        <v-card width="80vh">
+          <v-card-title v-if="error.statusCode === 404">
+            {{ pageNotFound }}
+          </v-card-title>
+          <v-card-title v-else>
+            {{ otherError }} Erro {{ error.statusCode }}
+          </v-card-title>
+
+          <hr />
+          <v-card-text v-if="error.statusCode === 404">
+            <p>
+              Lamentamos, mas a página que você está tentando acessar não
+              existe!
+            </p>
+          </v-card-text>
+          <v-card-text v-else>
+            <p>
+              Ocorreu um erro inesperado, por favor retorne a página inicial.
+            </p>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/">
+              <v-btn color="primary" small text>
+                <v-icon small>mdi-home</v-icon> Página Inicial
+              </v-btn>
+            </nuxt-link>
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-spacer />
+    </v-row>
   </v-app>
 </template>
 
@@ -22,8 +52,8 @@ export default {
   },
   data() {
     return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred',
+      pageNotFound: 'Erro 404: Conteúdo não encontrado',
+      otherError: 'Ocorreu um problema!',
     }
   },
   head() {

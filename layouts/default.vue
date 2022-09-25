@@ -1,13 +1,58 @@
+<!-- TODO: Verificar questão do menu lateral e footer em relação ao fixed, para que o footer seja ocultado automaticamente -->
 <template>
-  <v-app dark>
+  <v-app>
+    <!-- MENU -->
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
-      fixed
+      :color="colorMenu"
       app
     >
       <v-list>
+        <!-- HOME -->
+        <v-list-item to="/">
+          <v-list-item-action class="mn-li-action">
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              <strong>Início</strong>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <!-- MAPAS -->
+        <v-list-group :value="true" no-action>
+          <template #activator>
+            <v-list-item-action class="mn-li-action">
+              <v-icon>mdi-map</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>
+              <strong>Mapas</strong>
+            </v-list-item-title>
+          </template>
+
+          <v-list-item
+            v-for="(item, i) in itemsActions"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+            class="mn-lg-li-action"
+          >
+            <v-list-item-action class="mn-li-action">
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                <strong>{{ item.title }}</strong>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+
+        <!-- RESTANTE DOS ITEMS DO MENU -->
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -15,78 +60,121 @@
           router
           exact
         >
-          <v-list-item-action>
+          <v-list-item-action class="mn-li-action">
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>
+              <strong>{{ item.title }}</strong>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+
+    <!-- TOP BAR -->
+    <v-app-bar :clipped-left="clipped" :color="colorBar" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
+      <v-toolbar-title id="title-bar" class="text-h5">
+        <strong>{{ title }}</strong>
+      </v-toolbar-title>
+      <v-spacer />
+
+      <v-btn icon left disabled>
+        <v-img
+          :src="iconSrc"
+          :height="iconHeight"
+          :width="iconWidth"
+          contain
+        ></v-img>
       </v-btn>
     </v-app-bar>
+
+    <!-- MAIN SECTION -->
     <v-main>
       <v-container>
-        <Nuxt />
+        <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light> mdi-repeat </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+
+    <!-- FOOTER -->
+    <v-footer :color="colorFooter" app dark>
+      <v-spacer />
+      <span> &copy; {{ new Date().getFullYear() }} - {{ author }} </span>
+      <v-spacer />
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import ufesTheme from 'assets/themes'
+
 export default {
   name: 'DefaultLayout',
   data() {
     return {
-      clipped: false,
+      author: 'Willian',
+      clipped: true,
       drawer: false,
       fixed: false,
+      colorBar: ufesTheme.default.mono6,
+      colorFooter: ufesTheme.default.mono5,
+      colorMenu: ufesTheme.default.mono7,
+      iconSrc: require('~/assets/logos/ods-na-ufes.png'),
+      iconHeight: 40,
+      iconWidth: 40,
       items: [
+        // TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
+          icon: 'mdi-message-outline',
+          title: 'Sugerir Ação',
+          to: '/sugerir-acao',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'mdi-text',
+          title: 'Sobre',
+          to: '/sobre',
+        },
+      ],
+      itemsActions: [
+        {
+          icon: 'mdi-map',
+          title: 'Alegre',
+          to: '/acoes/alegre',
+        },
+        {
+          icon: 'mdi-map',
+          title: 'Goiabeiras',
+          to: '/acoes/goiabeiras',
+        },
+        {
+          icon: 'mdi-map',
+          title: 'São Mateus',
+          to: '/acoes/sao-mateus',
         },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js',
+      title: 'Mapa Colaborativo: Sustentabilidade na UFES',
     }
   },
 }
 </script>
+<style scoped>
+#title-bar {
+  text-shadow: 2px 2px 3px #94aaea;
+}
+.mn-li-action {
+  margin-right: 12px !important;
+}
+.mn-lg-li-action {
+  padding-left: 52px !important;
+}
+</style>
