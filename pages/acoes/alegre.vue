@@ -8,7 +8,7 @@
           <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
           <hr />
           <v-card-text>
-            <p>Atualmente o campus de Alegre conta com <strong>três localidades</strong>:</p>
+            <p>Atualmente, o campus de Alegre conta com <strong>três localidades</strong>:</p>
             <p>
             <ul>
               <li>
@@ -35,9 +35,9 @@
           <hr />
           <v-card-actions>
             <v-spacer />
-            <v-btn :color="btnColor" @click="showMapAlegreSede">Alegre Sede</v-btn>
+            <v-btn :color="btnColor" @click="showMapAlegreSede">Alegre</v-btn>
             <v-btn :color="btnColor" @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
-            <v-btn :color="btnColor" @click="showMapRive">Área Experimental Rive</v-btn>
+            <v-btn :color="btnColor" @click="showMapRive">Rive</v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
