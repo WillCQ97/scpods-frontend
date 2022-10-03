@@ -83,7 +83,14 @@ export default {
     },
   },
   data() {
+    /*
+    const attr_prodesign = { link: 'https://mapa.ufes.br', text: 'Prodesing UFES' };
+    const attr_osm = {link: 'http://osm.org/copyright', text: 'OpenStreetMap Contributors'};
+    const attr_hotosm = {link: 'https://www.hotosm.org/', text: 'Humanitarian OpenStreetMap Team'}
+    const attr_osm_fr = {link: 'https://openstreetmap.fr/', text: 'OpenStreetMap France'};
+    */
     return {
+      // TODO: CRIAR OBJETOS PuRA CADA LINK E O TEXTO QUE O REFERENCIA
       attribution:
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       attribution_hot:

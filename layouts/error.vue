@@ -26,6 +26,7 @@
 
           <v-card-actions>
             <v-spacer />
+            <!--TODO: trocar para um link normal, pois caso o javascript quebre, possa ser recarregado a partir da página inicial -->
             <nuxt-link to="/">
               <v-btn color="primary" small text>
                 <v-icon small>mdi-home</v-icon> Página Inicial

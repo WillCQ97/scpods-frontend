@@ -17,9 +17,26 @@ import alegreFeature from '~/assets/features/alegre_min.json'
 import acoesResumo from '~/assets/temp/acoes_resumo.json'
 // import acoes from '~/assets/temp/acoes_alegre.json'
 
+// TODO: AÇÕES RESUMO SERÁ CARREGADO DO SERVIDOR
 export default {
   name: 'AlegreSedeMapPage',
 
+  // this method is executed in the server, before returns the page for the client
+  // it is only used on pages
+  /*
+  asyncData() {
+    //this example show one maner to return a async data via promise
+    return new Promise()
+  },
+  */
+  // Mais detalhes na seção 4 do curso. aula 4.3
+  asyncData(context, callback) {
+    callback(null, {
+      // the data that it will be returned here
+    })
+  },
+
+  // this overwrite the asyncData
   data() {
     return {
       alegreBounds: [
