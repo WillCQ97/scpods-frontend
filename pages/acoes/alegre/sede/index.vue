@@ -36,15 +36,15 @@ export default {
     createMarkersResumed() {
       const markers = acoesResumo.map((resumo) => ({
         id: resumo.id,
-        coord: resumo.localizacao.coord,
+        coord: resumo.local.coord,
         content:
           '<div class="popup">' +
           '<img class="popup_img" src="' +
           require('~/assets/ods_icons/' + resumo.id_ods_principal + '.png') +
           '"><br>' +
           '<div class="popup_text">' +
-          '<strong> ' +
-          resumo.localizacao.nome +
+          '<strong> Projetos cadastrados: </br>' +
+          resumo.local.nome +
           '</strong>' +
           '<br/>Total de Projetos: ' +
           resumo.qtd_projetos_totais +
@@ -52,6 +52,8 @@ export default {
           resumo.qtd_projetos_ativos +
           '<br/>Total de ODS atendidos: ' +
           resumo.qtd_ods +
+          '<br/>ODS Principal Atendido: ' +
+          resumo.id_ods_principal +
           '</div></div>',
       }))
       return markers
