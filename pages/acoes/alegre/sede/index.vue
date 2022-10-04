@@ -13,10 +13,6 @@
 <script>
 import alegreFeature from '~/assets/features/alegre_min.json'
 
-// TODO: TROCAR ESSA IMPORTAÇÃO PELO DADO EM SI E EXCLUIR ESSE ARQUIVO
-import acoesResumo from '~/assets/temp/acoes_resumo.json'
-// import acoes from '~/assets/temp/acoes_alegre.json'
-
 export default {
   name: 'AlegreSedeMapPage',
 
@@ -32,9 +28,8 @@ export default {
   },
 
   computed: {
-    // TODO: carregar os marcadores para alegre
     createMarkersResumed() {
-      const markers = acoesResumo.map((resumo) => ({
+      const markers = this.$store.getters.loadedAlegreInfo.map((resumo) => ({
         id: resumo.id,
         coord: resumo.local.coord,
         content:
@@ -43,7 +38,7 @@ export default {
           require('~/assets/ods_icons/' + resumo.id_ods_principal + '.png') +
           '"><br>' +
           '<div class="popup_text">' +
-          '<strong> Projetos cadastrados: </br>' +
+          '<strong>' +
           resumo.local.nome +
           '</strong>' +
           '<br/>Total de Projetos: ' +
