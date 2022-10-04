@@ -44,28 +44,16 @@ const createStore = () => {
       loadedTargets(state) {
         return state.loadedTargets
       },
-      getGoalById(state, id) {
-        for (const goal of state.loadedGoals) {
-          if (goal.id === id) {
-            return goal
-          }
-        }
+      getGoalById: (state) => (id) => {
+        return state.loadedGoals.find((goal) => goal.id === id)
       },
-      getTargetById(state, id) {
-        for (const target of state.loadedTargets) {
-          if (target.id === id) {
-            return target
-          }
-        }
+      getTargetById: (state) => (id) => {
+        return state.loadedTargets.find((target) => target.id === id)
       },
-      getTargetByGoalId(state, id) {
-        const targets = []
-        for (const target of state.loadedTargets) {
-          if (target.id.split('.')[0] === id) {
-            targets.push(target)
-          }
-        }
-        return targets
+      getTargetByGoalId: (state) => (id) => {
+        return state.loadedTargets.filter(
+          (target) => target.id.split('.')[0] === id
+        )
       },
     },
   })

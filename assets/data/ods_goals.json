@@ -1,103 +1,103 @@
 {
   "goals": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Erradicação da pobreza",
       "description": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
       "color": "#e5233d"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Fome zero e agricultura sustentável",
       "description": "Acabar com a fome, alcançar a segurança alimentar e melhoria da nutrição e promover a agricultura sustentável",
       "color": "#dda73a"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Saúde e bem-estar",
       "description": "Assegurar uma vida saudável e promover o bem-estar para todos, em todas as idades",
       "color": "#4ca146"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Educação de Qualidade",
       "description": "Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todos",
       "color": "#c7212f"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Igualdade de gênero",
       "description": "Alcançar a igualdade de gênero e empoderar todas as mulheres e meninas",
       "color": "#ef402d"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Água potável e saneamento",
       "description": "Garantir disponibilidade e manejo sustentável da água e saneamento para todos",
       "color": "#27bfe6"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Energia limpa e acessível",
       "description": "Garantir acesso à energia barata, confiável, sustentável e renovável para todos",
       "color": "#fbc412"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Trabalho decente e crescimento econômico",
       "description": "Promover o crescimento econômico sustentado, inclusivo e sustentável, emprego pleno e produtivo, e trabalho decente para todos",
       "color": "#a31c44"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Indústria, inovação e infraestrutura",
       "description": "Construir infraestrutura resiliente, promover a industrialização inclusiva e sustentável, e fomentar a inovação",
       "color": "#f26a2e"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Redução das desigualdades",
       "description": "Reduzir a desigualdade dentro dos países e entre eles",
       "color": "#de1768"
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Cidades e comunidades sustentáveis",
       "description": "Tornar as cidades e os assentamentos humanos inclusivos, seguros, resilientes e sustentáveis",
       "color": "#f89d2a"
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Consumo e produção responsáveis",
       "description": "Assegurar padrões de produção e de consumo sustentáveis",
       "color": "#bf8d2c"
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Ação contra a ação global do clima",
       "description": "Tomar medidas urgentes para combater a mudança do clima e seus impactos",
       "color": "#407f46"
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Vida na água",
       "description": "Conservação e uso sustentável dos oceanos, dos mares e dos recursos marinhos para o desenvolvimento sustentável",
       "color": "#1f97d4"
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Vida terrestre",
       "description": "Proteger, recuperar e promover o uso sustentável dos ecossistemas terrestres, gerir de forma sustentável as florestas, combater a desertificação, deter e reverter a degradação da terra e deter a perda de biodiversidade",
       "color": "#59ba47"
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Paz, justiça e instituições eficazes",
       "description": "Promover sociedades pacíficas e inclusivas para o desenvolvimento sustentável, proporcionar o acesso à justiça para todos e construir instituições eficazes, responsáveis e inclusivas em todos os níveis",
       "color": "#136a9f"
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Parcerias e meios de implementação",
       "description": "Fortalecer os meios de implementação e revitalizar a parceria global para o desenvolvimento sustentável",
       "color": "#14496b"
