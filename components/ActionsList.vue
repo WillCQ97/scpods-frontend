@@ -1,7 +1,9 @@
 <template>
   <v-card class="mx-auto" max-width="800" tile>
+    <!-- LISTA COM OS PROJETOS-->
     <v-list>
       <v-subheader>{{ title }}</v-subheader>
+
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-if="projects.length === 0">
           <v-list-item-content>
@@ -35,10 +37,38 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <v-dialog v-model="dialogSuccess" width="500">
+
+    <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
+    <v-dialog v-model="dialogSuccess" width="80vh">
       <v-card>
-        <v-card-title>Projeto X</v-card-title>
-        <v-card-text> Informações completas sobre o projeto X. </v-card-text>
+        <v-card-title> Informações detalhadas sobre o projeto </v-card-title>
+
+        <v-card-text>
+          <strong>Ação:</strong> {{ selectedProject.action }} <br />
+          <strong>ODS:</strong>
+          {{ selectedProject.target_id.split('.')[0] }} -
+          {{ getGoalName(selectedProject.target_id.split('.')[0]) }} <br />
+          <strong>Meta ODS: </strong>
+          {{ selectedProject.target_id }}
+          -
+          {{ getTargetDescription(selectedProject.target_id) }}<br />
+          <strong>Descrição: </strong>{{ selectedProject.description }}
+          <br />
+          <strong>Centro: </strong>
+          {{ selectedProject.location.center }}
+          <br />
+          <strong>Departamento: </strong>
+          {{ selectedProject.location.departament }}
+          <br />
+          <strong>Coordenador: </strong>
+          {{ selectedProject.coordinator.name }}<br />
+          <strong>Vínculo com a UFES: </strong>
+          {{ selectedProject.coordinator.role }} <br />
+          <strong>E-mail: </strong>
+          {{ selectedProject.coordinator.email }}
+          <br />
+          <!--strong>Data de envio: </strong>{{ date }}<br /-->
+        </v-card-text>
 
         <v-divider></v-divider>
 
@@ -56,26 +86,46 @@ import projects from '~/assets/data/alegre_actions.json'
 
 export default {
   name: 'ActionsListComponent',
+
   props: {
     title: {
       type: String,
       required: true,
     },
   },
+
   data() {
     return {
       dialogSuccess: false,
       projects,
       selectedItem: undefined,
+      selectedProject: {
+        id: '1',
+        action: '',
+        target_id: '1.1',
+        location: {
+          center: '',
+          departament: '',
+          coord: '',
+        },
+        coordinator: {
+          name: '',
+          role: '',
+        },
+      },
     }
   },
+
   methods: {
     showActionInfo(index) {
       this.dialogSuccess = true
-      console.log('Info projeto ' + index)
+      this.selectedProject = projects[index]
     },
     getGoalName(id) {
       return this.$store.getters.getGoalById(id).name
+    },
+    getTargetDescription(id) {
+      return this.$store.getters.getTargetById(id).description
     },
   },
 }
