@@ -1,13 +1,16 @@
 import { Store } from 'vuex'
 // TODO: TROCAR IMPORTAÇÃO DO ARQUIVO PELA SOLICITAÇÃO DOS DADOS AO SERVIDOR
 import odsGoals from '~/assets/data/ods_goals.json'
-import odsInfoAlegre from '~/assets/data/alegre_info.json'
+import actionsAlegre from '~/assets/data/alegre_actions'
+import odsInfoAlegre from '~/assets/data/alegre_info'
 
 const createStore = () => {
   return new Store({
     state: {
       loadedGoals: [],
       loadedTargets: [],
+
+      alegreActions: [],
       odsInfoAlegre: [],
     },
 
@@ -15,11 +18,15 @@ const createStore = () => {
       setGoals(state, goals) {
         state.loadedGoals = goals
       },
-      setInfoAlegre(state, info) {
-        state.odsInfoAlegre = info
-      },
       setTargets(state, targets) {
         state.loadedTargets = targets
+      },
+
+      setAlegreActions(state, actions) {
+        state.alegreActions = actions
+      },
+      setInfoAlegre(state, info) {
+        state.odsInfoAlegre = info
       },
     },
 
@@ -28,6 +35,8 @@ const createStore = () => {
         return new Promise((resolve, reject) => {
           vuexContext.commit('setGoals', odsGoals.goals)
           vuexContext.commit('setTargets', odsGoals.targets)
+
+          vuexContext.commit('setAlegreActions', actionsAlegre)
           vuexContext.commit('setInfoAlegre', odsInfoAlegre)
           resolve()
         })
@@ -35,9 +44,6 @@ const createStore = () => {
     },
 
     getters: {
-      loadedAlegreInfo(state) {
-        return state.odsInfoAlegre
-      },
       loadedGoals(state) {
         return state.loadedGoals
       },
@@ -54,6 +60,13 @@ const createStore = () => {
         return state.loadedTargets.filter(
           (target) => target.id.split('.')[0] === id
         )
+      },
+
+      loadedActions(state) {
+        return state.alegreActions
+      },
+      loadedAlegreInfo(state) {
+        return state.odsInfoAlegre
       },
     },
   })

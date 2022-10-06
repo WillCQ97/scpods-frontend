@@ -56,18 +56,15 @@
     <v-row>
       <v-col>
         <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
-        <actions-list title="Ações em Alegre"/>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import ActionsList from '~/components/ActionsList.vue'
-
 export default {
   name: 'AlegreActionsWrapperPage',
-  components: { ActionsList },
+  components: {},
 
   data() {
     return {

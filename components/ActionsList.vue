@@ -82,8 +82,6 @@
 </template>
 
 <script>
-import projects from '~/assets/data/alegre_actions.json'
-
 export default {
   name: 'ActionsListComponent',
 
@@ -97,7 +95,7 @@ export default {
   data() {
     return {
       dialogSuccess: false,
-      projects,
+      projects: this.$store.getters.loadedActions,
       selectedItem: undefined,
       selectedProject: {
         id: '1',
@@ -119,7 +117,7 @@ export default {
   methods: {
     showActionInfo(index) {
       this.dialogSuccess = true
-      this.selectedProject = projects[index]
+      this.selectedProject = this.projects[index]
     },
     getGoalName(id) {
       return this.$store.getters.getGoalById(id).name
