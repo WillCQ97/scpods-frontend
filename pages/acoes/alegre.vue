@@ -82,7 +82,7 @@ export default {
       setTimeout(() => {
         this.$refs.childContainer.scrollIntoView({
           behavior: 'smooth',
-          block: 'start',
+          block: 'nearest',
         })
       }, 250)
     },
