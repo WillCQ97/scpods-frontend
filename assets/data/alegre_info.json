@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "localizacao": {
+    "local": {
       "nome": "Agronomia",
       "coord": [
         -20.761913,
@@ -15,7 +15,7 @@
   },
   {
     "id": 2,
-    "localizacao": {
+    "local": {
       "nome": "Farmácia",
       "coord": [
         -20.762294,
@@ -29,7 +29,7 @@
   },
   {
     "id": 3,
-    "localizacao": {
+    "local": {
       "nome": "Geologia",
       "coord": [
         -20.76050,
@@ -43,7 +43,7 @@
   },
   {
     "id": 4,
-    "localizacao": {
+    "local": {
       "nome": "Engenharia de Alimentos",
       "coord": [
         -20.76208,

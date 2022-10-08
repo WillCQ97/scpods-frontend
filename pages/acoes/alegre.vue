@@ -46,18 +46,18 @@
       </v-col>
     </v-row>
 
-      <!-- EXIBIÇÃO DO MAPA -->
-      <v-row>
-        <v-col>
-          <nuxt-child />
-        </v-col>
-      </v-row>
+    <!-- EXIBIÇÃO DO MAPA -->
+    <v-row>
+      <v-col id="child-container" ref="childContainer">
+        <nuxt-child />
+      </v-col>
+    </v-row>
 
       <!-- LISTA DE PROJETOS -->
       <v-row>
         <v-col>
           <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
-          <actions-list />
+          <actions-list title="Lista de projetos para Alegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -78,14 +78,25 @@ export default {
   },
 
   methods: {
+    scrollToIntoChild() {
+      setTimeout(() => {
+        this.$refs.childContainer.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        })
+      }, 250)
+    },
     showMapAlegreSede() {
       this.$router.push('/acoes/alegre/sede/')
+      this.scrollToIntoChild()
     },
     showMapJeronimo() {
       this.$router.push('/acoes/alegre/jeronimo/')
+      this.scrollToIntoChild()
     },
     showMapRive() {
       this.$router.push('/acoes/alegre/rive/')
+      this.scrollToIntoChild()
     },
   },
 }

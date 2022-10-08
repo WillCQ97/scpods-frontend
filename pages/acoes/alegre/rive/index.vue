@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <VisualMap
-      title="Área Experimental em Rive"
-      :bounds="riveBounds"
-      :center="riveCenter"
-      :feature="riveFeature"
-      :markers="createMarkersResumed"
-    />
-  </div>
+  <VisualMap
+    title="Área Experimental em Rive"
+    :bounds="riveBounds"
+    :center="riveCenter"
+    :feature="riveFeature"
+    :markers="createMarkersResumed"
+    :zoom="zoom"
+  />
 </template>
 
 <script>
@@ -18,11 +17,12 @@ export default {
   data() {
     return {
       riveBounds: [
-        [-20.7492301, -41.4905947],
-        [-20.7535765, -41.4855781],
+        [-20.7422, -41.4932],
+        [-20.7562, -41.4815],
       ],
-      riveCenter: [-20.75142, -41.48825],
+      riveCenter: [-20.7494, -41.4875],
       riveFeature,
+      zoom: 16,
     }
   },
 
