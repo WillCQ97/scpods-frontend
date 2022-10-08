@@ -16,17 +16,17 @@
         <v-list-item v-for="(project, index) in projects" :key="index" two-line>
           <v-list-item-content>
             <v-list-item-title>
-              <strong>Ação: </strong>{{ project.action }}
+              <strong>Ação: </strong>{{ project.titulo }}
             </v-list-item-title>
 
             <v-list-item-subtitle>
               <strong>ODS: </strong>
-              {{ project.target_id.split('.')[0] }}.
-              {{ getGoalName(project.target_id.split('.')[0]) }} <br />
-              <strong>Descrição: </strong>{{ project.description }}
+              {{ project.meta.id.split('.')[0] }}.
+              {{ getGoalName(project.meta.id.split('.')[0]) }} <br />
+              <strong>Descrição: </strong>{{ project.descricao }}
               <br />
               <strong>Coordenador: </strong>
-              {{ project.coordinator.name }}<br />
+              {{ project.coordenador.nome }}<br />
               <br />
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -44,30 +44,37 @@
         <v-card-title> Informações detalhadas sobre o projeto </v-card-title>
 
         <v-card-text>
-          <strong>Ação:</strong> {{ selectedProject.action }} <br />
+          <strong>Ação:</strong> {{ selectedProject.titulo }}
+          <br />
           <strong>ODS:</strong>
-          {{ selectedProject.target_id.split('.')[0] }} -
-          {{ getGoalName(selectedProject.target_id.split('.')[0]) }} <br />
+          {{ selectedProject.meta.id.split('.')[0] }} -
+          {{ getGoalName(selectedProject.meta.id.split('.')[0]) }}
+          <br />
           <strong>Meta ODS: </strong>
-          {{ selectedProject.target_id }}
+          {{ selectedProject.meta.id }}
           -
-          {{ getTargetDescription(selectedProject.target_id) }}<br />
-          <strong>Descrição: </strong>{{ selectedProject.description }}
+          {{ getTargetDescription(selectedProject.meta.id) }}
+          <br />
+          <strong>Descrição: </strong>{{ selectedProject.descricao }}
           <br />
           <strong>Centro: </strong>
-          {{ selectedProject.location.center }}
+          {{ selectedProject.departamento.centro.nome }}
           <br />
           <strong>Departamento: </strong>
-          {{ selectedProject.location.departament }}
+          {{ selectedProject.departamento.nome }}
           <br />
           <strong>Coordenador: </strong>
-          {{ selectedProject.coordinator.name }}<br />
-          <strong>Vínculo com a UFES: </strong>
-          {{ selectedProject.coordinator.role }} <br />
-          <strong>E-mail: </strong>
-          {{ selectedProject.coordinator.email }}
+          {{ selectedProject.coordenador.nome }}
           <br />
-          <!--strong>Data de envio: </strong>{{ date }}<br /-->
+          <strong>Vínculo com a UFES: </strong>
+          {{ selectedProject.coordenador.vinculo.tipo }}
+          <br />
+          <strong>Data de Início: </strong>
+          {{ selectedProject.data_inicio }}
+          <div v-if="selectedProject.data_fim">
+            <strong>Data Fim: </strong>
+            {{ selectedProject.data_fim }} <br />
+          </div>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -99,17 +106,25 @@ export default {
       selectedItem: undefined,
       selectedProject: {
         id: '1',
-        action: '',
-        target_id: '1.1',
-        location: {
-          center: '',
-          departament: '',
-          coord: '',
+        titulo: '',
+        meta: {
+          id: '1.1',
         },
-        coordinator: {
-          name: '',
-          role: '',
+        departamento: {
+          nome: '',
+          centro: {
+            nome: '',
+          },
+          local: '',
         },
+        coordenador: {
+          nome: '',
+          vinculo: {
+            tipo: '',
+          },
+        },
+        data_inicio: '',
+        data_fim: undefined,
       },
     }
   },

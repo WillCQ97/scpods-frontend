@@ -1,5 +1,7 @@
+<!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
 <template>
-  <div>
+  <v-row>
+    <v-col>
     <!-- INFO SOBRE AS ÁREAS DO CAMPUS E MENU DE SELEÇÃO -->
     <v-row>
       <v-col>
@@ -51,19 +53,23 @@
       </v-col>
     </v-row>
 
-    <!-- EXIBIÇÃO DOS PROJETOS -->
-    <v-row>
-      <v-col>
-        <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
-      </v-col>
-    </v-row>
-  </div>
+      <!-- LISTA DE PROJETOS -->
+      <v-row>
+        <v-col>
+          <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
+          <actions-list title="Lista de projetos para Alegre" />
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+import ActionsList from '~/components/ActionsList.vue'
+
 export default {
   name: 'AlegreActionsWrapperPage',
-  components: {},
+  components: { ActionsList },
 
   data() {
     return {
