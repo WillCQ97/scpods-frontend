@@ -18,7 +18,7 @@ export default {
 
   data() {
     return {
-      jeronimoCenter: [-20.78981, -41.38849],
+      jeronimoCenter: [-20.79051, -41.38881],
       jeronimoFeature,
       riveBounds: [
         [-20.7492301, -41.4905947],
