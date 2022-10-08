@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <VisualMap
-      title="Jerônimo Monteiro"
-      :bounds="jeronimoBounds"
-      :center="jeronimoCenter"
-      :feature="jeronimoFeature"
-      :markers="createMarkersResumed"
-    />
-  </div>
+  <VisualMap
+    title="Jerônimo Monteiro"
+    :bounds="jeronimoBounds"
+    :center="jeronimoCenter"
+    :feature="jeronimoFeature"
+    :markers="createMarkersResumed"
+  />
 </template>
 
 <script>
@@ -18,11 +16,11 @@ export default {
 
   data() {
     return {
-      jeronimoCenter: [-20.78981, -41.38849],
+      jeronimoCenter: [-20.79071, -41.38887],
       jeronimoFeature,
-      riveBounds: [
-        [-20.7492301, -41.4905947],
-        [-20.7535765, -41.4855781],
+      jeronimoBounds: [
+        [-20.78827, -41.39275],
+        [-20.79285, -41.38471],
       ],
     }
   },
