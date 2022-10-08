@@ -23,7 +23,7 @@
         </v-list-item>
 
         <!-- MAPAS -->
-        <v-list-group :value="false" no-action>
+        <v-list-group :value="true" no-action>
           <template #activator>
             <v-list-item-action class="mn-li-action">
               <v-icon>mdi-map</v-icon>
@@ -126,11 +126,11 @@ export default {
       colorBar: ufesTheme.default.mono6,
       colorFooter: ufesTheme.default.mono5,
       colorMenu: ufesTheme.default.mono7,
-      iconSrc: '/img/logos/ods-na-ufes.png',
+      iconSrc: require('~/assets/logos/ods-na-ufes.png'),
       iconHeight: 40,
       iconWidth: 40,
       items: [
-        // TODO: exibir a submissão apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
+        // TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
         {
           icon: 'mdi-message-outline',
           title: 'Sugerir Ação',

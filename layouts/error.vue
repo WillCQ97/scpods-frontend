@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-row>
       <v-spacer />
       <v-col>
@@ -8,20 +8,29 @@
             {{ pageNotFound }}
           </v-card-title>
           <v-card-title v-else>
-            {{ otherError }}
+            {{ otherError }} Erro {{ error.statusCode }}
           </v-card-title>
 
           <hr />
           <v-card-text v-if="error.statusCode === 404">
-            <p>A página que você está tentando acessar não existe.</p>
+            <p>
+              Lamentamos, mas a página que você está tentando acessar não
+              existe!
+            </p>
+          </v-card-text>
+          <v-card-text v-else>
+            <p>
+              Ocorreu um erro inesperado, por favor retorne a página inicial.
+            </p>
           </v-card-text>
 
           <v-card-actions>
             <v-spacer />
-            <!-- TODO: FIX quando clicar no botão, sem ser clicar no link ir para a página em questão -->
-            <v-btn>
-              <nuxt-link to="/"> Página Inicial </nuxt-link>
-            </v-btn>
+            <nuxt-link to="/">
+              <v-btn color="primary" small text>
+                <v-icon small>mdi-home</v-icon> Página Inicial
+              </v-btn>
+            </nuxt-link>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -43,8 +52,8 @@ export default {
   },
   data() {
     return {
-      pageNotFound: '404 Conteúdo Não Encontrado',
-      otherError: 'Ocorreu um problema.',
+      pageNotFound: 'Erro 404: Conteúdo não encontrado',
+      otherError: 'Ocorreu um problema!',
     }
   },
   head() {

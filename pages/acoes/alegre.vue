@@ -1,42 +1,49 @@
 <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
 <template>
-  <v-row>
-    <v-col>
-      <!-- TEXTO DA PÁGINA -->
-      <v-row>
-        <v-col>
-          <h1>Página de Wrapper de alegre</h1>
-          <!-- TODO: ADICIONAR O TEXTO PARA ALEGRE AQUI -->
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ut
-            laudantium iusto, magnam culpa ipsam, alias amet natus dolore error
-            ad quo eaque, reiciendis labore in optio iure. Unde, incidunt.
-          </p>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi
-            rerum vitae accusamus repudiandae saepe quos. Facilis perferendis
-            nemo fugiat quasi quos autem neque quidem, tenetur totam eaque at
-            qui pariatur.
-          </p>
-        </v-col>
-      </v-row>
-
-      <!-- MENU DE ESCOLHA DO MAPA -->
-      <v-row>
-        <v-spacer />
-        <v-col>
-          <v-card>
-            <v-card-title>Escolha o mapa que deseja ver</v-card-title>
-            <!-- TODO: no momento do clique centralizar no mapa -->
-            <v-card-actions>
-              <v-btn @click="showMapAlegreSede">Alegre Sede</v-btn>
-              <v-btn @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
-              <v-btn @click="showMapRive">Área Experimental Rive</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-spacer />
-      </v-row>
+  <div>
+    <!-- INFO SOBRE AS ÁREAS DO CAMPUS E MENU DE SELEÇÃO -->
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title>Campus de Alegre</v-card-title>
+          <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
+          <hr />
+          <v-card-text>
+            <p>Atualmente, o campus de Alegre conta com <strong>três localidades</strong>:</p>
+            <p>
+            <ul>
+              <li>
+                A <strong>sede do campus</strong> que está localizada no Alto
+                Universitário, no município de <strong> Alegre, ES</strong>.
+              </li>
+              <li>
+                As instalações do
+                <strong>
+                  Departamento de Ciências Florestais e da Madeira (DCFM)
+                </strong>
+                localizadas no município de
+                <strong> Jerônimo Monteiro, ES</strong>.
+              </li>
+              <li>
+                A <strong> Área Experimental</strong> na localidade de
+                <strong>Rive</strong>, no município de Alegre. Onde estão
+                localizados o <strong>Hospital Veterinário (HOVET)</strong>,
+                o <strong>Laboratório de Solos</strong> e o <strong>Viveiro</strong>.
+              </li>
+            </ul>
+            </p>
+          </v-card-text>
+          <hr />
+          <v-card-actions>
+            <v-spacer />
+            <v-btn :color="btnColor" @click="showMapAlegreSede">Alegre</v-btn>
+            <v-btn :color="btnColor" @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
+            <v-btn :color="btnColor" @click="showMapRive">Rive</v-btn>
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
 
       <!-- EXIBIÇÃO DO MAPA -->
       <v-row>
@@ -64,7 +71,9 @@ export default {
   components: { ActionsList },
 
   data() {
-    return {}
+    return {
+      btnColor: '#d2dce8',
+    }
   },
 
   methods: {

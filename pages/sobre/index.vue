@@ -48,7 +48,7 @@
       <v-col cols="8">
         <v-img
           id="ufes-banner"
-          src="/img/logos/ods-ufes-banner.png"
+          :src="{ src: require('~/assets/logos/ods-ufes-banner.png') }"
           max-width="550px"
           alt="Banner com logotipo da UFES e o texto 'objetivos de desenvolvimento sustentável'"
         ></v-img>

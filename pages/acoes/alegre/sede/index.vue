@@ -39,9 +39,9 @@ export default {
         coord: resumo.localizacao.coord,
         content:
           '<div class="popup">' +
-          '<img class="popup_img" src="/img/ods_icons/' +
-          resumo.id_ods_principal +
-          '.png"><br>' +
+          '<img class="popup_img" src="' +
+          require('~/assets/ods_icons/' + resumo.id_ods_principal + '.png') +
+          '"><br>' +
           '<div class="popup_text">' +
           '<strong> ' +
           resumo.localizacao.nome +
