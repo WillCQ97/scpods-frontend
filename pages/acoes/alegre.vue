@@ -45,9 +45,8 @@
     </v-row>
 
     <!-- EXIBIÇÃO DO MAPA -->
-    <!-- TODO: focar automaticamente no mapa -->
     <v-row>
-      <v-col>
+      <v-col id="child-container" ref="childContainer">
         <nuxt-child />
       </v-col>
     </v-row>
@@ -73,14 +72,25 @@ export default {
   },
 
   methods: {
+    scrollToIntoChild() {
+      setTimeout(() => {
+        this.$refs.childContainer.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+      }, 250)
+    },
     showMapAlegreSede() {
       this.$router.push('/acoes/alegre/sede/')
+      this.scrollToIntoChild()
     },
     showMapJeronimo() {
       this.$router.push('/acoes/alegre/jeronimo/')
+      this.scrollToIntoChild()
     },
     showMapRive() {
       this.$router.push('/acoes/alegre/rive/')
+      this.scrollToIntoChild()
     },
   },
 }

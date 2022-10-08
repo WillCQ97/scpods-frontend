@@ -20,6 +20,8 @@
 
 - [**UfesSans**](https://prodesign.ufes.br/ufessans/): Família tipográfica _open-source_ criada pela equipe de **Prodesing**.
 
+- Foi utilizado o mapa para o [campus de Alegre](https://www.google.com/maps/d/u/0/viewer?mid=1MidKiIv_2cGcV17Hkva5TOaBCRI&ll=-20.761540683896165%2C-41.53662093947712&z=18).
+
 ## Objetivos deste trabalho
 
 - Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.

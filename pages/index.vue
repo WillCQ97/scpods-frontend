@@ -75,7 +75,7 @@
           <v-card-actions>
             <v-spacer />
             <nuxt-link to="/sugerir-acao">
-              <v-btn color="primary" small text> Saiba como </v-btn>
+              <v-btn color="primary" small text> Sugerir ação </v-btn>
             </nuxt-link>
             <v-spacer />
           </v-card-actions>

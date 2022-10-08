@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <VisualMap
-      title="Alegre - Sede"
-      :bounds="alegreBounds"
-      :center="alegreCenter"
-      :feature="alegreFeature"
-      :markers="createMarkersResumed"
-    />
-  </div>
+  <VisualMap
+    title="Alegre - Sede"
+    :bounds="alegreBounds"
+    :center="alegreCenter"
+    :feature="alegreFeature"
+    :markers="createMarkersResumed"
+  />
 </template>
 
 <script>
