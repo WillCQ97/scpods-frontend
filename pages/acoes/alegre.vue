@@ -1,6 +1,7 @@
 <!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
 <template>
-  <div>
+  <v-row>
+    <v-col>
     <!-- INFO SOBRE AS ÁREAS DO CAMPUS E MENU DE SELEÇÃO -->
     <v-row>
       <v-col>
