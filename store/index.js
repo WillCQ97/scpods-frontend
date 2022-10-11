@@ -1,8 +1,9 @@
 import { Store } from 'vuex'
-// TODO: TROCAR IMPORTAÇÃO DO ARQUIVO PELA SOLICITAÇÃO DOS DADOS AO SERVIDOR
+
 import odsGoals from '~/assets/data/ods_goals.json'
+
 import actionsAlegre from '~/assets/data/alegre_actions'
-import odsInfoAlegre from '~/assets/data/alegre_info'
+import alegreInfo from '~/assets/data/alegre_info'
 
 const createStore = () => {
   return new Store({
@@ -11,7 +12,7 @@ const createStore = () => {
       loadedTargets: [],
 
       alegreActions: [],
-      odsInfoAlegre: [],
+      alegreInfo: {},
     },
 
     mutations: {
@@ -25,8 +26,8 @@ const createStore = () => {
       setAlegreActions(state, actions) {
         state.alegreActions = actions
       },
-      setInfoAlegre(state, info) {
-        state.odsInfoAlegre = info
+      setAlegreInfo(state, info) {
+        state.alegreInfo = info
       },
     },
 
@@ -37,7 +38,7 @@ const createStore = () => {
           vuexContext.commit('setTargets', odsGoals.targets)
 
           vuexContext.commit('setAlegreActions', actionsAlegre)
-          vuexContext.commit('setInfoAlegre', odsInfoAlegre)
+          vuexContext.commit('setAlegreInfo', alegreInfo)
           resolve()
         })
       },
@@ -66,7 +67,7 @@ const createStore = () => {
         return state.alegreActions
       },
       loadedAlegreInfo(state) {
-        return state.odsInfoAlegre
+        return state.alegreInfo
       },
     },
   })

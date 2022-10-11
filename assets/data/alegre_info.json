@@ -1,58 +1,92 @@
-[
-  {
-    "id": 1,
-    "local": {
-      "nome": "Agronomia",
-      "coord": [
-        -20.761913,
-        -41.536721
-      ]
+{
+  "sede": [
+    {
+      "id": 1,
+      "local": {
+        "nome": "Exemplo Departamento Agronomia",
+        "coord": [
+          -20.761913,
+          -41.536721
+        ]
+      },
+      "qtd_projetos_totais": 10,
+      "qtd_projetos_ativos": 7,
+      "qtd_ods": 3,
+      "id_ods_principal": 7
     },
-    "qtd_projetos_totais": 10,
-    "qtd_projetos_ativos": 7,
-    "qtd_ods": 3,
-    "id_ods_principal": 7
-  },
-  {
-    "id": 2,
-    "local": {
-      "nome": "Farmácia",
-      "coord": [
-        -20.762294,
-        -41.535509
-      ]
+    {
+      "id": 2,
+      "local": {
+        "nome": "Exemplo Departamento Farmácia",
+        "coord": [
+          -20.762294,
+          -41.535509
+        ]
+      },
+      "qtd_projetos_totais": 20,
+      "qtd_projetos_ativos": 10,
+      "qtd_ods": 5,
+      "id_ods_principal": 3
     },
-    "qtd_projetos_totais": 20,
-    "qtd_projetos_ativos": 10,
-    "qtd_ods": 5,
-    "id_ods_principal": 3
-  },
-  {
-    "id": 3,
-    "local": {
-      "nome": "Geologia",
-      "coord": [
-        -20.76050,
-        -41.53655
-      ]
+    {
+      "id": 3,
+      "local": {
+        "nome": "Exemplo Departamento Geologia",
+        "coord": [
+          -20.76050,
+          -41.53655
+        ]
+      },
+      "qtd_projetos_totais": 10,
+      "qtd_projetos_ativos": 7,
+      "qtd_ods": 3,
+      "id_ods_principal": 10
     },
-    "qtd_projetos_totais": 10,
-    "qtd_projetos_ativos": 7,
-    "qtd_ods": 3,
-    "id_ods_principal": 10
-  },
-  {
-    "id": 4,
-    "local": {
-      "nome": "Engenharia de Alimentos",
-      "coord": [
-        -20.76208,
-        -41.53523
-      ]
-    },
-    "qtd_projetos_totais": 10,
-    "qtd_projetos_ativos": 7,
-    "qtd_ods": 3,
-    "id_ods_principal": 1
-  }
-]
+    {
+      "id": 4,
+      "local": {
+        "nome": "Exemplo Departamento Engenharia de Alimentos",
+        "coord": [
+          -20.76208,
+          -41.53523
+        ]
+      },
+      "qtd_projetos_totais": 10,
+      "qtd_projetos_ativos": 7,
+      "qtd_ods": 3,
+      "id_ods_principal": 1
+    }
+  ],
+  "jeronimo": [
+    {
+      "id": 1,
+      "local": {
+        "nome": "Exemplo Departamento de Ciências Florestais",
+        "coord": [
+          -20.78982,
+          -41.38853
+        ]
+      },
+      "qtd_projetos_totais": 10,
+      "qtd_projetos_ativos": 7,
+      "qtd_ods": 3,
+      "id_ods_principal": 7
+    }
+  ],
+  "rive": [
+    {
+      "id": 1,
+      "local": {
+        "nome": "Exemplo Hospital Veterinário",
+        "coord": [
+          -20.75153,
+          -41.48865
+        ]
+      },
+      "qtd_projetos_totais": 10,
+      "qtd_projetos_ativos": 7,
+      "qtd_ods": 3,
+      "id_ods_principal": 7
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-<!--TODO: COLOCAR ALGUNS CARDS INFORMATIVOS SOBRE OS PROJETOS DE FORMA GERAL O QUE SERIA OUTRO COMPONENTE (DASHBOARD?) -->
 <template>
   <v-row>
     <v-col>
@@ -54,10 +53,9 @@
     </v-row>
 
       <!-- LISTA DE PROJETOS -->
-      <v-row>
+      <v-row v-if="flagShowActionsList">
         <v-col>
-          <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
-          <actions-list title="Lista de projetos para Alegre" />
+          <actions-list title="Lista de ações em Alegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -74,6 +72,7 @@ export default {
   data() {
     return {
       btnColor: '#d2dce8',
+      flagShowActionsList: false,
     }
   },
 

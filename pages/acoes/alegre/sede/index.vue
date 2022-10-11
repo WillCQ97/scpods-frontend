@@ -27,7 +27,7 @@ export default {
 
   computed: {
     createMarkersResumed() {
-      const markers = this.$store.getters.loadedAlegreInfo.map((resumo) => ({
+      const markers = this.$store.getters.loadedAlegreInfo.sede.map((resumo) => ({
         id: resumo.id,
         coord: resumo.local.coord,
         content:
