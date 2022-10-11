@@ -57,7 +57,7 @@ const createStore = () => {
       getTargetById: (state) => (id) => {
         return state.loadedTargets.find((target) => target.id === id)
       },
-      getTargetByGoalId: (state) => (id) => {
+      getTargetsByGoalId: (state) => (id) => {
         return state.loadedTargets.filter(
           (target) => target.id.split('.')[0] === id
         )

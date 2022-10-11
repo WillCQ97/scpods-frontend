@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Esta página será o formulário propriamente dito</h1>
-  </div>
+  <project-form></project-form>
 </template>
 
 <script>
