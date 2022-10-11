@@ -2,7 +2,7 @@ import { Store } from 'vuex'
 
 import odsGoals from '~/assets/data/ods_goals.json'
 
-import actionsAlegre from '~/assets/data/alegre_actions'
+import alegreActions from '~/assets/data/alegre_actions'
 import alegreInfo from '~/assets/data/alegre_info'
 
 const createStore = () => {
@@ -11,7 +11,7 @@ const createStore = () => {
       loadedGoals: [],
       loadedTargets: [],
 
-      alegreActions: [],
+      alegreActions: {},
       alegreInfo: {},
     },
 
@@ -37,7 +37,7 @@ const createStore = () => {
           vuexContext.commit('setGoals', odsGoals.goals)
           vuexContext.commit('setTargets', odsGoals.targets)
 
-          vuexContext.commit('setAlegreActions', actionsAlegre)
+          vuexContext.commit('setAlegreActions', alegreActions)
           vuexContext.commit('setAlegreInfo', alegreInfo)
           resolve()
         })
