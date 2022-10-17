@@ -1,0 +1,83 @@
+/* UFES SANS THIN */
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-Thin.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-ThinItalic.ttf') format('truetype');
+}
+/* --- */
+
+/* UFES SANS LIGHT */
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-LightItalic.ttf') format('truetype');
+}
+/* --- */
+
+/* UFES SANS REGULAR */
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ufes Sans';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('~assets/fonts/UfesSans-ExtraBold.ttf') format('truetype');
+}
+/** **/
