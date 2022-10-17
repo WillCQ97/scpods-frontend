@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-row>
+    <v-col>
     <!-- INFO SOBRE AS ÁREAS DO CAMPUS E MENU DE SELEÇÃO -->
     <v-row>
       <v-col>
@@ -45,41 +46,56 @@
     </v-row>
 
     <!-- EXIBIÇÃO DO MAPA -->
-    <!-- TODO: focar automaticamente no mapa -->
     <v-row>
-      <v-col>
+      <v-col id="child-container" ref="childContainer">
         <nuxt-child />
       </v-col>
     </v-row>
 
-    <!-- EXIBIÇÃO DOS PROJETOS -->
-    <v-row>
-      <v-col>
-        <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
-      </v-col>
-    </v-row>
-  </div>
+      <!-- LISTA DE PROJETOS -->
+      <v-row v-if="flagShowActionsList">
+        <v-col>
+          <actions-list title="Lista de ações em Alegre" />
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+import ActionsList from '~/components/ActionsList.vue'
+
 export default {
   name: 'AlegreActionsWrapperPage',
+  components: { ActionsList },
 
   data() {
     return {
       btnColor: '#d2dce8',
+      flagShowActionsList: false,
     }
   },
 
   methods: {
+    scrollToIntoChild() {
+      setTimeout(() => {
+        this.$refs.childContainer.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        })
+      }, 250)
+    },
     showMapAlegreSede() {
       this.$router.push('/acoes/alegre/sede/')
+      this.scrollToIntoChild()
     },
     showMapJeronimo() {
       this.$router.push('/acoes/alegre/jeronimo/')
+      this.scrollToIntoChild()
     },
     showMapRive() {
       this.$router.push('/acoes/alegre/rive/')
+      this.scrollToIntoChild()
     },
   },
 }

@@ -13,7 +13,7 @@
           <li>Local onde é ou foi executado (deverá ser selecionado no mapa)</li>
           <li>Vinculação do projeto: Local ou estrutura administrativa a que está submetido, por exemplo, ao departamento da farmácia, à administração central, etc.</li>
           <li>Coordenador do projeto: Seu nome e vinculação com a UFES.</li>
-          <li>Datas de início e de fim da ação</li>
+          <li>Datas de início e de finalização da ação.</li>
         </ul>
       </p>
     </v-card-text>
