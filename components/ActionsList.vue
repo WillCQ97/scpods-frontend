@@ -21,8 +21,8 @@
 
             <v-list-item-subtitle>
               <strong>ODS: </strong>
-              {{ project.meta.id.split('.')[0] }}.
-              {{ getGoalName(project.meta.id.split('.')[0]) }} <br />
+              {{ project.meta.id }}. {{ getTituloObjetivo(project.meta.id) }}
+              <br />
               <strong>Descrição: </strong>{{ project.descricao }}
               <br />
               <strong>Coordenador: </strong>
@@ -48,7 +48,7 @@
           <br />
           <strong>ODS:</strong>
           {{ selectedProject.meta.id.split('.')[0] }} -
-          {{ getGoalName(selectedProject.meta.id.split('.')[0]) }}
+          {{ getTituloObjetivo(selectedProject.meta.id.split('.')[0]) }}
           <br />
           <strong>Meta ODS: </strong>
           {{ selectedProject.meta.id }}
@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       dialogSuccess: false,
-      projects: this.$store.getters.loadedActions,
+      projects: this.$store.getters.getAcoesAlegre,
       selectedItem: undefined,
       selectedProject: {
         id: '1',
@@ -134,11 +134,12 @@ export default {
       this.dialogSuccess = true
       this.selectedProject = this.projects[index]
     },
-    getGoalName(id) {
-      return this.$store.getters.getGoalById(id).name
+    getTituloObjetivo(idMeta) {
+      const idObjetivo = parseInt(idMeta)
+      return this.$store.getters.getObjetivoById(idObjetivo).titulo
     },
-    getTargetDescription(id) {
-      return this.$store.getters.getTargetById(id).description
+    getDescricaoMeta(idMeta) {
+      return this.$store.getters.getMetaById(idMeta)
     },
   },
 }
