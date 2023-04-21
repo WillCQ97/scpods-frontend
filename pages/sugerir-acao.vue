@@ -22,14 +22,15 @@
           <v-card-actions>
             <v-spacer />
             <!-- TODO: em vez de um botão será realizada a validação via sso -->
-            <v-btn :color="btnColor" @click="onLoadForm"
-              >Exibir Formulário</v-btn
-            >
+            <v-btn :color="btnColor" @click="onLoadForm">
+              Exibir Formulário
+            </v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <nuxt-child />
@@ -51,7 +52,3 @@ export default {
   },
 }
 </script>
-
-
-<style>
-</style>

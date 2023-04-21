@@ -81,6 +81,11 @@ export default {
       type: String,
       required: true,
     },
+    zoom: {
+      type: Number,
+      default: 18,
+      required: false,
+    }
   },
   data() {
     /*
@@ -102,7 +107,6 @@ export default {
       showCampusFeature: true,
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
       url_hot: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-      zoom: 18,
     }
   },
   computed: {
