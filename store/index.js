@@ -1,6 +1,6 @@
 import { Store } from 'vuex'
 
-import listaObjetivos from '~/assets/data/ods_goals.json'
+import listaObjetivos from '~/assets/data/ods_goals'
 
 import listaAcoesAlegre from '~/assets/data/alegre_actions'
 import listaInfoAlegre from '~/assets/data/alegre_info'
@@ -10,7 +10,7 @@ const createStore = () => {
     state: {
       objetivos: [],
       acoesAlegre: {},
-      infoAlegre: {},
+      infosAlegre: {},
     },
 
     mutations: {
@@ -21,8 +21,8 @@ const createStore = () => {
       setAcoesAlegre(state, acoes) {
         state.acoesAlegre = acoes
       },
-      setInfoAlegre(state, info) {
-        state.infoAlegre = info
+      setInfoAlegre(state, infos) {
+        state.infosAlegre = infos
       },
     },
 
@@ -33,6 +33,7 @@ const createStore = () => {
 
           vuexContext.commit('setAcoesAlegre', listaAcoesAlegre)
           vuexContext.commit('setInfoAlegre', listaInfoAlegre)
+
           resolve()
         })
       },
@@ -55,10 +56,10 @@ const createStore = () => {
         return state.acoesAlegre
       },
       getInfoAlegre(state) {
-        return state.alegreInfo
+        return state.infosAlegre
       },
       createMarkersInfoAlegre: (state) => (local) => {
-        const markers = state.alegreInfo[local].map((resumo) => ({
+        const markers = state.infosAlegre[local].map((resumo) => ({
           id: resumo.id,
           coord: resumo.local.coord,
           content:
