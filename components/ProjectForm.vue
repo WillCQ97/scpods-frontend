@@ -1,3 +1,4 @@
+<!-- FIXME: corrigir nomenclaturas em inglês nessa página -->
 <template>
   <div>
     <v-card>
@@ -23,12 +24,12 @@
 
           <v-btn-toggle id="ods-btn-toggle" v-model="goalSelectedIndex" group>
             <v-btn
-              v-for="goal in odsGoals"
-              :key="goal.id"
+              v-for="objetivo in odsGoals"
+              :key="objetivo.id"
               height="100px"
               width="100px"
             >
-              <v-img :src="getGoalImage(goal.id)"></v-img>
+              <v-img :src="getGoalImage(objetivo.id)"></v-img>
             </v-btn>
           </v-btn-toggle>
         </p>
@@ -41,7 +42,7 @@
         </p>
 
         <div v-if="isGoalSelected()" id="ods-selected">
-          <div>
+          <div id="ods-selected-image">
             <v-img
               :src="getGoalImage(goalSelectedIndex + 1)"
               width="50px"
@@ -59,8 +60,8 @@
           v-model="targetSelectedIndex"
         >
           <v-list-item
-            v-for="target in getTargetsODS(goalSelectedIndex + 1)"
-            :key="target.id"
+            v-for="meta in getTargetsODS(goalSelectedIndex + 1)"
+            :key="meta.id"
             two-line
           >
             <template #default="{ active }">
@@ -70,10 +71,10 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                  <strong>Meta {{ target.id }} </strong>
+                  <strong>Meta {{ meta.id }} </strong>
                 </v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ target.description }}
+                  {{ meta.descricao }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </template>
@@ -219,7 +220,7 @@ export default {
         (value) => !!value || 'Este campo é obrigatório.',
       ],
 
-      odsGoals: this.$store.getters.loadedGoals,
+      odsGoals: this.$store.getters.getObjetivos,
       targetsSelected: [],
       goalSelectedIndex: undefined,
       targetSelectedIndex: undefined,
@@ -260,13 +261,15 @@ export default {
       return require('~/assets/ods_icons/' + odsNumber + '.png')
     },
     getGoalDescription(odsNumber) {
-      return this.$store.getters.getGoalById(odsNumber.toString()).description
+      return this.$store.getters.getObjetivoById(odsNumber).titulo
     },
     getTargetsODS(odsNumber) {
       if (odsNumber == null) {
         return
       }
-      return this.$store.getters.getTargetsByGoalId(odsNumber.toString())
+
+      const objetivo = this.$store.getters.getObjetivoById(odsNumber)
+      return objetivo.metas
     },
     isGoalSelected() {
       return this.goalSelectedIndex !== undefined
@@ -335,7 +338,9 @@ export default {
   display: flex;
 }
 #ods-selected-text {
-  padding-left: 5px;
+  margin: auto;
   align-self: center;
+  font-size: xx-large;
+  padding-left: 5px;
 }
 </style>
