@@ -169,6 +169,7 @@ export default {
 </script>
 <style scoped>
 #title-bar {
+  font-family: 'Ufes Sans', sans-serif !important;
   text-shadow: 2px 2px 3px #94aaea;
 }
 .mn-li-action {
