@@ -9,6 +9,7 @@ const siteImage = ''
 const siteUrl = ''
 
 export default defineNuxtConfig({
+  bridge: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s',
