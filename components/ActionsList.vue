@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       dialogSuccess: false,
-      projects: this.$store.getters.getAcoesAlegre,
+      projects: this.$store.getters.getAcoesAlegre.sede,
       selectedItem: undefined,
       selectedProject: {
         id: '1',
@@ -138,8 +138,9 @@ export default {
       const idObjetivo = parseInt(idMeta)
       return this.$store.getters.getObjetivoById(idObjetivo).titulo
     },
-    getDescricaoMeta(idMeta) {
-      return this.$store.getters.getMetaById(idMeta)
+    getTargetDescription(idMeta) {
+      // return this.$store.getters.getMetaById(idMeta)
+      return "vazio"
     },
   },
 }

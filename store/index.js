@@ -46,9 +46,11 @@ const createStore = () => {
       getObjetivoById: (state) => (id) => {
         return state.objetivos.find((objetivo) => objetivo.id === id)
       },
-      getMetaById: (id) => {
-        const idObjetivo = parseInt(id)
-        const metas = this.getters.getObjetivoById(idObjetivo).metas
+      getMetaById: (state) => (id) => {
+        // const idObjetivo = parseInt(id)
+        // const metas = this.getters.getObjetivoById(idObjetivo).metas
+        const objetivo = state.objetivos.find((objetivo) => objetivo.id === id)
+        const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
 
