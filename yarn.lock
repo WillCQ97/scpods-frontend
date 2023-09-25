@@ -7938,7 +7938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:~2.3.2":
+"fsevents@npm:~2.3.2, fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
@@ -7958,7 +7958,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.3#~builtin<compat/fsevents>":
   version: 2.3.3
   resolution: "fsevents@patch:fsevents@npm%3A2.3.3#~builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
@@ -11130,6 +11130,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nuxi@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "nuxi@npm:3.9.0"
+  dependencies:
+    fsevents: ~2.3.3
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    nuxi: bin/nuxi.mjs
+    nuxi-ng: bin/nuxi.mjs
+    nuxt: bin/nuxi.mjs
+    nuxt-cli: bin/nuxi.mjs
+  checksum: 12e36bd4ecca7198d4b7104078697917b7c326bb66e8e99f0ca549c2c96fb19ba08b225b197392d37bca09387f25a80f94a861be0307b5dd9c579f762591e081
+  languageName: node
+  linkType: hard
+
 "nuxt-leaflet@npm:^0.0.27":
   version: 0.0.27
   resolution: "nuxt-leaflet@npm:0.0.27"
@@ -14027,6 +14044,7 @@ __metadata:
     eslint-config-prettier: ^8.3.0
     eslint-plugin-nuxt: ^3.1.0
     eslint-plugin-vue: ^8.2.0
+    nuxi: ^3.9.0
     nuxt: ^2.17.0
     nuxt-leaflet: ^0.0.27
     prettier: ^2.5.1

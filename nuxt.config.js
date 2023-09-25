@@ -1,3 +1,4 @@
+import { defineNuxtConfig } from '@nuxt/bridge'
 import colors from 'vuetify/es5/util/colors'
 
 // TODO: adicionar imagem e url para o site
