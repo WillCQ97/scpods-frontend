@@ -27,12 +27,12 @@
     <VisualMap
       v-if="showMapAlegre"
       title="Alegre - Sede"
-      :bounds="alegreBounds"
-      :center="alegreCenter"
-      :feature="alegreFeature"
+      :bounds="bounds"
+      :center="center"
+      :feature="feature"
       :markers="createMarkersResumed"
     />
-
+    <!--
     <VisualMap
       v-else-if="showMapJeronimo"
       title="Jerônimo Monteiro"
@@ -50,6 +50,7 @@
       :feature="riveFeature"
       :markers="createMarkersResumed"
     />
+    -->
 
     <!-- TODO: adicionar a lista de projetos a serem exibidos (componente próprio) -->
     <p>CARREGAR UMA LISTA COM OS PROJETOS A PARTIR DA INTERAÇÃO COM O MAPA</p>
@@ -70,12 +71,12 @@ export default {
 
   data() {
     return {
-      alegreBounds: [
+      bounds: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],
       ],
-      alegreCenter: [-20.76161, -41.536],
-      alegreFeature,
+      center: [-20.76161, -41.536],
+      feature: alegreFeature,
       jeronimoBounds: [
         [-20.78885, -41.3898],
         [-20.79236, -41.38772],
@@ -88,7 +89,7 @@ export default {
       ],
       riveCenter: [-20.7515466, -41.4883097],
       riveFeature,
-      showMapAlegre: false,
+      showMapAlegre: true,
       showMapJeronimo: false,
       showMapRive: false,
 
@@ -148,19 +149,29 @@ export default {
 
   methods: {
     btnShowOnlyAlegre() {
+      this.bounds = this.mapAlegre.bounds
+      this.center = this.mapAlegre.center
+      this.feature = this.mapAlegre.feature
+      /*
       this.showMapAlegre = true;
       this.showMapJeronimo = false;
       this.showMapRive = false;
+      */
     },
     btnShowOnlyJeronimo() {
+      /*
       this.showMapAlegre = false;
       this.showMapJeronimo = true;
       this.showMapRive = false;
+      */
+      this.bounds = this.mapJeronimo.bounds
+      this.center = this.mapJeronimo.center
+      this.feature = this.mapJeronimo.feature
     },
     btnShowOnlyRive() {
-      this.showMapAlegre = false;
-      this.showMapJeronimo = false;
-      this.showMapRive = true;
+      this.showMapAlegre = false
+      this.showMapJeronimo = false
+      this.showMapRive = true
     },
   },
 }
