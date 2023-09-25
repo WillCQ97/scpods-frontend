@@ -2473,7 +2473,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/bridge-edge@npm:^3.0.0-28244705.131ac01":
+"@nuxt/bridge-edge@npm:^3.0.0-28244705.131ac01, @nuxt/bridge-edge@npm:latest":
   version: 3.0.0-28244705.131ac01
   resolution: "@nuxt/bridge-edge@npm:3.0.0-28244705.131ac01"
   dependencies:
@@ -2555,6 +2555,15 @@ __metadata:
     unimport: ^3.3.0
     untyped: ^1.4.0
   checksum: 3b7138e12a5d77941e63fff1f354b485aa0f6337f2b37e83c00a25d83b39199842e47cf4a0173cc27a2ef0b4693ba794fc7b8ba2e2317ea351a83778ae78ef9f
+  languageName: node
+  linkType: hard
+
+"@nuxt/bridge@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "@nuxt/bridge@npm:0.10.1"
+  dependencies:
+    "@nuxt/bridge-edge": latest
+  checksum: f621e0571266b4ff687a8b5bfce3027cf68eee00d9d93aff72a7da7bbcd75582c896e894008b966fac9fa9034b5e128c2f294ead7e5bac1cd7f428316c1da28f
   languageName: node
   linkType: hard
 
@@ -7929,7 +7938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:~2.3.2":
+"fsevents@npm:~2.3.2, fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
@@ -7949,7 +7958,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.3#~builtin<compat/fsevents>":
   version: 2.3.3
   resolution: "fsevents@patch:fsevents@npm%3A2.3.3#~builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
@@ -11121,6 +11130,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nuxi@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "nuxi@npm:3.9.0"
+  dependencies:
+    fsevents: ~2.3.3
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    nuxi: bin/nuxi.mjs
+    nuxi-ng: bin/nuxi.mjs
+    nuxt: bin/nuxi.mjs
+    nuxt-cli: bin/nuxi.mjs
+  checksum: 12e36bd4ecca7198d4b7104078697917b7c326bb66e8e99f0ca549c2c96fb19ba08b225b197392d37bca09387f25a80f94a861be0307b5dd9c579f762591e081
+  languageName: node
+  linkType: hard
+
 "nuxt-leaflet@npm:^0.0.27":
   version: 0.0.27
   resolution: "nuxt-leaflet@npm:0.0.27"
@@ -14009,6 +14035,7 @@ __metadata:
   resolution: "scpods-frontend@workspace:."
   dependencies:
     "@babel/eslint-parser": ^7.16.3
+    "@nuxt/bridge": ^0.10.1
     "@nuxt/bridge-edge": ^3.0.0-28244705.131ac01
     "@nuxtjs/eslint-config": ^8.0.0
     "@nuxtjs/eslint-module": ^3.0.2
@@ -14018,6 +14045,7 @@ __metadata:
     eslint-config-prettier: ^8.3.0
     eslint-plugin-nuxt: ^3.1.0
     eslint-plugin-vue: ^8.2.0
+    nuxi: ^3.9.0
     nuxt: ^2.17.0
     nuxt-leaflet: ^0.0.27
     prettier: ^2.5.1
