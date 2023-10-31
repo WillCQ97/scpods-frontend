@@ -14,8 +14,8 @@ import riveFeature from '~/assets/features/rive_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  components: { AppMapComponent },
   name: 'AlegreRiveMapPage',
+  components: { AppMapComponent },
   data() {
     return {
       riveBounds: [

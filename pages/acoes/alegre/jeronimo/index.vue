@@ -13,8 +13,8 @@ import jeronimoFeature from '~/assets/features/jeronimo_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  components: { AppMapComponent },
   name: 'AlegreJeronimoMapPage',
+  components: { AppMapComponent },
 
   data() {
     return {
