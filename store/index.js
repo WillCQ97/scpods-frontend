@@ -2,8 +2,8 @@ import { Store } from 'vuex'
 
 import listaObjetivos from '~/assets/data/ods_goals'
 
-import listaAcoesAlegre from '~/assets/data/alegre_actions'
-import listaInfoAlegre from '~/assets/data/alegre_info'
+import listaAcoesAlegre from '~/assets/data/alegre/acoes'
+import listaInfoAlegre from '~/assets/data/alegre/info'
 
 const createStore = () => {
   return new Store({

@@ -10,7 +10,7 @@
 
 <script>
 import alegreFeature from '~/assets/features/alegre_min.json'
-import alegreInfo from '~/assets/data/alegre_info.json'
+import alegreInfo from '~/assets/data/alegre/info.json'
 
 export default {
   name: 'AlegreSedeMapPage',
