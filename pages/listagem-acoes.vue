@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import ActionsList from '~/components/ActionsList.vue'
+import ActionsList from '~/components/ListaAcoesComponent.vue'
 export default {
   name: 'TempPage',
   components: { ActionsList },

@@ -1,5 +1,5 @@
 <template>
-  <VisualMap
+  <mapa-component
     title="Jerônimo Monteiro"
     :bounds="jeronimoBounds"
     :center="jeronimoCenter"
@@ -10,8 +10,10 @@
 
 <script>
 import jeronimoFeature from '~/assets/features/jeronimo_min.json'
+import MapaComponent from '~/components/MapaComponent.vue'
 
 export default {
+  components: { MapaComponent },
   name: 'AlegreJeronimoMapPage',
 
   data() {

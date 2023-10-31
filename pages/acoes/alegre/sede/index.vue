@@ -1,5 +1,5 @@
 <template>
-  <VisualMap
+  <mapa-component
     title="Alegre - Sede"
     :bounds="alegreBounds"
     :center="alegreCenter"
@@ -11,8 +11,10 @@
 <script>
 import alegreFeature from '~/assets/features/alegre_min.json'
 import alegreInfo from '~/assets/data/alegre/info.json'
+import MapaComponent from '~/components/MapaComponent.vue'
 
 export default {
+  components: { MapaComponent },
   name: 'AlegreSedeMapPage',
 
   // this method is executed in the server, before returns the page for the client

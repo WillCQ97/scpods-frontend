@@ -1,5 +1,5 @@
 <template>
-  <project-form></project-form>
+  <formulario-component></formulario-component>
 </template>
 
 <script>
