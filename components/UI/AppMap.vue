@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name: 'VisualMapComponent',
+  name: 'AppMapComponent',
   props: {
     bounds: {
       type: Array,

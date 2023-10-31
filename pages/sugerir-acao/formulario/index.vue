@@ -1,5 +1,5 @@
 <template>
-  <formulario-component></formulario-component>
+  <formulario-nova-acao></formulario-nova-acao>
 </template>
 
 <script>

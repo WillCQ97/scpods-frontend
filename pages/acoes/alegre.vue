@@ -55,7 +55,7 @@
       <!-- LISTA DE PROJETOS -->
       <v-row v-if="flagShowActionsList">
         <v-col>
-          <actions-list title="Lista de ações em Alegre" />
+          <lista-acoes-component title="Lista de ações em Alegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -63,11 +63,11 @@
 </template>
 
 <script>
-import ActionsList from '~/components/ListaAcoesComponent.vue'
+import ListaAcoesComponent from '~/components/Acoes/ListaAcoes.vue'
 
 export default {
   name: 'AlegreActionsWrapperPage',
-  components: { ActionsList },
+  components: { ListaAcoesComponent },
 
   data() {
     return {

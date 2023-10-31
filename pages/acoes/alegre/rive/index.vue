@@ -1,5 +1,5 @@
 <template>
-  <mapa-component
+  <app-map-component
     title="Área Experimental em Rive"
     :bounds="riveBounds"
     :center="riveCenter"
@@ -11,10 +11,10 @@
 
 <script>
 import riveFeature from '~/assets/features/rive_min.json'
-import MapaComponent from '~/components/MapaComponent.vue'
+import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  components: { MapaComponent },
+  components: { AppMapComponent },
   name: 'AlegreRiveMapPage',
   data() {
     return {

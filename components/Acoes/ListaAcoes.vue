@@ -90,13 +90,14 @@
 
 <script>
 export default {
-  name: 'ActionsListComponent',
+  name: 'ListaAcoesComponent',
 
   props: {
     title: {
       type: String,
       required: true,
     },
+    
   },
 
   data() {
