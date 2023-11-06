@@ -10,7 +10,6 @@
 
 <script>
 import alegreFeature from '~/assets/features/alegre_min.json'
-import alegreInfo from '~/assets/data/alegre/info.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
@@ -46,29 +45,7 @@ export default {
 
   computed: {
     createMarkersResumed() {
-      const markers = alegreInfo.sede.map((resumo) => ({
-        id: resumo.id,
-        coord: resumo.local.coord,
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          require('~/assets/ods_icons/' + resumo.id_ods_principal + '.png') +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          resumo.local.nome +
-          '</strong>' +
-          '<br/>Total de Projetos: ' +
-          resumo.qtd_projetos_totais +
-          '<br/>Total de Projetos Ativos: ' +
-          resumo.qtd_projetos_ativos +
-          '<br/>Total de ODS atendidos: ' +
-          resumo.qtd_ods +
-          '<br/>ODS Principal Atendido: ' +
-          resumo.id_ods_principal +
-          '</div></div>',
-      }))
-      return markers
+      return this.$store.getters.createMarkersInfoAlegre('sede');
     },
   },
 }

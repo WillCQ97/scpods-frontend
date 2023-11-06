@@ -1,6 +1,6 @@
 import { Store } from 'vuex'
 
-import listaObjetivos from '~/assets/data/ods_goals'
+import listaObjetivos from '~/assets/data/objetivosODS'
 
 import listaAcoesAlegre from '~/assets/data/alegre/acoes'
 import listaInfoAlegre from '~/assets/data/alegre/info'
@@ -67,20 +67,20 @@ const createStore = () => {
           content:
             '<div class="popup">' +
             '<img class="popup_img" src="' +
-            require('~/assets/ods_icons/' + resumo.id_ods_principal + '.png') +
+            require('~/assets/ods_icons/' + resumo.odsMaisAtendido + '.png') +
             '"><br>' +
             '<div class="popup_text">' +
             '<strong>' +
             resumo.local.nome +
             '</strong>' +
             '<br/>Total de Projetos: ' +
-            resumo.qtd_projetos_totais +
+            resumo.quantidadeProjetos +
             '<br/>Total de Projetos Ativos: ' +
-            resumo.qtd_projetos_ativos +
+            resumo.projetosAtivos +
             '<br/>Total de ODS atendidos: ' +
-            resumo.qtd_ods +
+            resumo.quantidadeOdsAtendidos +
             '<br/>ODS Principal Atendido: ' +
-            resumo.id_ods_principal +
+            resumo.odsMaisAtendido +
             '</div></div>',
         }))
         return markers
