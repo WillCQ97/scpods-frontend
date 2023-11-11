@@ -36,9 +36,9 @@
           <hr />
           <v-card-actions>
             <v-spacer />
-            <v-btn :color="btnColor" @click="showMapAlegreSede">Alegre</v-btn>
-            <v-btn :color="btnColor" @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
-            <v-btn :color="btnColor" @click="showMapRive">Rive</v-btn>
+            <v-btn :color="btnColor" @click="exibirMapa('sede')">Sede em Alegre</v-btn>
+            <v-btn :color="btnColor" @click="exibirMapa('jeronimo')">Unidade Jerônimo Monteiro</v-btn>
+            <v-btn :color="btnColor" @click="exibirMapa('rive')">Área Experimental Rive</v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -85,17 +85,19 @@ export default {
         })
       }, 250)
     },
-    showMapAlegreSede() {
-      this.$router.push('/acoes/alegre/sede/')
+    exibirMapa(campus) {
+      this.carregarInfoAlegre()
+      this.$router.push('/acoes/alegre/' + campus)
       this.scrollToIntoChild()
     },
-    showMapJeronimo() {
-      this.$router.push('/acoes/alegre/jeronimo/')
-      this.scrollToIntoChild()
-    },
-    showMapRive() {
-      this.$router.push('/acoes/alegre/rive/')
-      this.scrollToIntoChild()
+    carregarInfoAlegre() {
+      // TODO: trocar a forma como são carregadas essas informações
+      console.log('Cargando info de Alegre')
+      // FIXME: A CRIAÇÃO DOS MARCADORES É CHAMADA ANTES DO BACKEND RETORNAR ESSES DADOS
+      this.$axios.$get('/info/alegre').then((infoAlegre) => {
+        console.log(infoAlegre)
+        this.$store.dispatch('setInfo', infoAlegre.campus, infoAlegre.unidades)
+      })
     },
   },
 }

@@ -3,14 +3,15 @@ import { Store } from 'vuex'
 import listaObjetivos from '~/assets/data/objetivosODS'
 
 import listaAcoesAlegre from '~/assets/data/alegre/acoes'
-import listaInfoAlegre from '~/assets/data/alegre/info'
+// import listaInfoAlegre from '~/assets/data/alegre/info'
 
 const createStore = () => {
   return new Store({
     state: {
       objetivos: [],
       acoesAlegre: {},
-      infosAlegre: {},
+
+      infos: {},
     },
 
     mutations: {
@@ -21,8 +22,8 @@ const createStore = () => {
       setAcoesAlegre(state, acoes) {
         state.acoesAlegre = acoes
       },
-      setInfoAlegre(state, infos) {
-        state.infosAlegre = infos
+      setInfo(state, campus, infos) {
+        state.infos[campus] = infos
       },
     },
 
@@ -32,10 +33,14 @@ const createStore = () => {
           vuexContext.commit('setObjetivos', listaObjetivos)
 
           vuexContext.commit('setAcoesAlegre', listaAcoesAlegre)
-          vuexContext.commit('setInfoAlegre', listaInfoAlegre)
+          // vuexContext.commit('setInfoAlegre', listaInfoAlegre)
 
           resolve()
         })
+      },
+
+      setInfo(vuexContext, campus, infos) {
+        vuexContext.commit('setInfo', campus, infos)
       },
     },
 
@@ -57,34 +62,45 @@ const createStore = () => {
       getAcoesAlegre(state) {
         return state.acoesAlegre
       },
-      getInfoAlegre(state) {
-        return state.infosAlegre
+      obterInfoPorCampusEUnidade: (state) => (campus) => (nomeUnidade) => {
+        return state.infos[campus].unidades.find(
+          (unid) => unid.nome === nomeUnidade
+        )
       },
-      createMarkersInfoAlegre: (state) => (local) => {
-        const markers = state.infosAlegre[local].map((resumo) => ({
-          id: resumo.id,
-          coord: resumo.local.coord,
-          content:
-            '<div class="popup">' +
-            '<img class="popup_img" src="' +
-            require('~/assets/ods_icons/' + resumo.odsMaisAtendido + '.png') +
-            '"><br>' +
-            '<div class="popup_text">' +
-            '<strong>' +
-            resumo.local.nome +
-            '</strong>' +
-            '<br/>Total de Projetos: ' +
-            resumo.quantidadeProjetos +
-            '<br/>Total de Projetos Ativos: ' +
-            resumo.projetosAtivos +
-            '<br/>Total de ODS atendidos: ' +
-            resumo.quantidadeOdsAtendidos +
-            '<br/>ODS Principal Atendido: ' +
-            resumo.odsMaisAtendido +
-            '</div></div>',
-        }))
-        return markers
-      },
+      obterMarcadoresInfoPorCampusEUnidade:
+        (state) =>
+        ({ nomeCampus, nomeUnidade }) => {
+          const campus = state.infos[nomeCampus]
+          const unidade = campus.unidades.find((u) => u.nome === nomeUnidade)
+
+          // TODO: filtrar as lotações com projetos ativos
+
+          const marcadores = unidade.lotacoes.map((lotacao) => ({
+            id: lotacao.id,
+            coordenadas: lotacao.localizacao.coordinates,
+            conteudo:
+              '<div class="popup">' +
+              '<img class="popup_img" src="' +
+              require('~/assets/ods_icons/' +
+                lotacao.idObjetivoMaisAtendido +
+                '.png') +
+              '"><br>' +
+              '<div class="popup_text">' +
+              '<strong>' +
+              lotacao.nome +
+              '</strong>' +
+              '<br/>Total de Projetos: ' +
+              lotacao.quantidadeProjetosTotais +
+              '<br/>Total de Projetos Ativos: ' +
+              lotacao.quantidadeProjetosAtivos +
+              '<br/>Total de ODS atendidos: ' +
+              lotacao.quantidadeOdsAtendidos +
+              '<br/>ODS Principal Atendido: ' +
+              lotacao.idObjetivoMaisAtendido +
+              '</div></div>',
+          }))
+          return marcadores
+        },
     },
   })
 }
