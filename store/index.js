@@ -1,10 +1,5 @@
 import { Store } from 'vuex'
 
-import listaObjetivos from '~/assets/data/objetivosODS'
-
-import listaAcoesAlegre from '~/assets/data/alegre/acoes'
-// import listaInfoAlegre from '~/assets/data/alegre/info'
-
 const createStore = () => {
   return new Store({
     state: {
@@ -22,6 +17,7 @@ const createStore = () => {
       setAcoesAlegre(state, acoes) {
         state.acoesAlegre = acoes
       },
+
       setInfo(state, campus, infos) {
         state.infos[campus] = infos
       },
@@ -29,14 +25,12 @@ const createStore = () => {
 
     actions: {
       nuxtServerInit(vuexContext, context) {
-        return new Promise((resolve, reject) => {
-          vuexContext.commit('setObjetivos', listaObjetivos)
-
-          vuexContext.commit('setAcoesAlegre', listaAcoesAlegre)
-          // vuexContext.commit('setInfoAlegre', listaInfoAlegre)
-
-          resolve()
-        })
+        return context.app.$axios
+          .$get('/objetivos')
+          .then((objetivosData) => {
+            vuexContext.commit('setObjetivos', objetivosData)
+          })
+          .catch((e) => context.error(e))
       },
 
       setInfo(vuexContext, campus, infos) {
