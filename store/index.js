@@ -35,6 +35,18 @@ const createStore = () => {
       setInfo(vuexContext, campusInfo) {
         vuexContext.commit('setInfo', campusInfo)
       },
+      /*  FIXME
+      loadInfo(vuexContext, nomeCampus) {
+        return this.$axios
+          .$get('/info/' + nomeCampus)
+          .then((infoAlegre) => {
+            vuexContext.commit('setInfo', infoAlegre)
+          })
+          .catch((e) => {
+            vuexContext.error(e)
+          })
+      },
+      */
     },
 
     getters: {
@@ -51,10 +63,20 @@ const createStore = () => {
         const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
+      /* FIXME
+      isInfoLoaded: (state) => (campus) => {
+        return state.infos[campus] !== undefined
+      },
+      */
       obterMarcadoresInfoPorCampusEUnidade:
         (state) =>
         ({ nomeCampus, nomeUnidade }) => {
           const unidades = state.infos[nomeCampus]
+
+          if (!unidades) {
+            return [] // FIXME: Apenas para não quebrar o mapa
+          }
+
           const unidade = unidades.find((u) => u.nome === nomeUnidade)
 
           const lotacoes = unidade.lotacoes.filter(

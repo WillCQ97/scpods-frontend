@@ -1,16 +1,16 @@
 <template>
   <app-map-component
-    title="Área Experimental em Rive"
-    :bounds="riveBounds"
-    :center="riveCenter"
-    :feature="riveFeature"
-    :markers="createMarkersResumed"
+    :title="nomeUnidade"
+    :bounds="limitesRive"
+    :center="centroRive"
+    :feature="featureUnidadeRive"
+    :markers="obterMarcadoresParaRive"
     :zoom="zoom"
   />
 </template>
 
 <script>
-import riveFeature from '~/assets/features/rive_min.json'
+import featureUnidadeRive from '~/assets/features/rive_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
@@ -18,19 +18,24 @@ export default {
   components: { AppMapComponent },
   data() {
     return {
-      riveBounds: [
+      nomeCampus: 'ALEGRE',
+      nomeUnidade: 'Área Experimental em Rive, Alegre',
+      centroRive: [-20.7494, -41.4875],
+      limitesRive: [
         [-20.7422, -41.4932],
         [-20.7562, -41.4815],
       ],
-      riveCenter: [-20.7494, -41.4875],
-      riveFeature,
+      featureUnidadeRive,
       zoom: 16,
     }
   },
 
   computed: {
-    createMarkersResumed() {
-      return this.$store.getters.createMarkersInfoAlegre('rive')
+    obterMarcadoresParaRive() {
+      return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
+        nomeCampus: this.nomeCampus,
+        nomeUnidade: this.nomeUnidade,
+      })
     },
   },
 }

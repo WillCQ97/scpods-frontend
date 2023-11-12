@@ -1,7 +1,7 @@
 <template>
   <app-map-component
-    title="Alegre - Sede"
-    :bounds="limiteAlegre"
+    :title="nomeUnidade"
+    :bounds="limitesAlegre"
     :center="centroAlegre"
     :feature="featureCampusAlegre"
     :markers="obterMarcadoresParaAlegre"
@@ -18,22 +18,29 @@ export default {
 
   data() {
     return {
-      limiteAlegre: [
+      nomeCampus: 'ALEGRE',
+      nomeUnidade: 'Campus Sede em Alegre',
+      centroAlegre: [-20.76161, -41.536],
+      limitesAlegre: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],
       ],
-      centroAlegre: [-20.76161, -41.536],
       featureCampusAlegre,
     }
   },
 
   computed: {
     obterMarcadoresParaAlegre() {
+      /*  FIXME
+      if (!this.$store.getters.isInfoLoaded(this.nomeCampus)) {
+        this.$store.dispatch('loadInfo', this.nomeCampus)
+      }
+      */
       const marcadores =
         this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
-          nomeCampus: 'ALEGRE',
+          nomeCampus: this.nomeCampus,
           // TODO: Considerar o carregamento das unidades sem ser pelo nome
-          nomeUnidade: 'Unidade Sede em Alegre',
+          nomeUnidade: this.nomeUnidade,
         })
       return marcadores
     },

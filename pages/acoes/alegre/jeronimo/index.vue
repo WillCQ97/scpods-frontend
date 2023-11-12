@@ -1,15 +1,15 @@
 <template>
   <app-map-component
-    title="Jerônimo Monteiro"
-    :bounds="jeronimoBounds"
-    :center="jeronimoCenter"
-    :feature="jeronimoFeature"
-    :markers="createMarkersResumed"
+    :title="nomeUnidade"
+    :bounds="limitesJeronimo"
+    :center="centroJeronimo"
+    :feature="featureUnidadeJeronimo"
+    :markers="obterMarcadoresParaJeronimo"
   />
 </template>
 
 <script>
-import jeronimoFeature from '~/assets/features/jeronimo_min.json'
+import featureUnidadeJeronimo from '~/assets/features/jeronimo_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
@@ -18,18 +18,23 @@ export default {
 
   data() {
     return {
-      jeronimoCenter: [-20.79071, -41.38887],
-      jeronimoFeature,
-      jeronimoBounds: [
+      nomeCampus: 'ALEGRE',
+      nomeUnidade: 'Unidade em Jerônimo Monteiro',
+      centroJeronimo: [-20.79071, -41.38887],
+      limitesJeronimo: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
       ],
+      featureUnidadeJeronimo,
     }
   },
 
   computed: {
-    createMarkersResumed() {
-      return this.$store.getters.createMarkersInfoAlegre('jeronimo')
+    obterMarcadoresParaJeronimo() {
+      return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
+        nomeCampus: this.nomeCampus,
+        nomeUnidade: this.nomeUnidade,
+      })
     },
   },
 }
