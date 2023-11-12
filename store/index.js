@@ -3,10 +3,9 @@ import { Store } from 'vuex'
 const createStore = () => {
   return new Store({
     state: {
-      objetivos: [],
-      acoesAlegre: {},
-
+      acoes: {},
       infos: {},
+      objetivos: [],
     },
 
     mutations: {
@@ -14,12 +13,12 @@ const createStore = () => {
         state.objetivos = objetivos
       },
 
-      setAcoesAlegre(state, acoes) {
-        state.acoesAlegre = acoes
+      setAcoes(state, campus, acoes) {
+        state.acoes[campus] = acoes
       },
 
-      setInfo(state, campus, infos) {
-        state.infos[campus] = infos
+      setInfo(state, campusInfo) {
+        state.infos[campusInfo.campus] = campusInfo.unidades
       },
     },
 
@@ -33,8 +32,8 @@ const createStore = () => {
           .catch((e) => context.error(e))
       },
 
-      setInfo(vuexContext, campus, infos) {
-        vuexContext.commit('setInfo', campus, infos)
+      setInfo(vuexContext, campusInfo) {
+        vuexContext.commit('setInfo', campusInfo)
       },
     },
 
@@ -52,27 +51,20 @@ const createStore = () => {
         const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
-
-      getAcoesAlegre(state) {
-        return state.acoesAlegre
-      },
-      obterInfoPorCampusEUnidade: (state) => (campus) => (nomeUnidade) => {
-        return state.infos[campus].unidades.find(
-          (unid) => unid.nome === nomeUnidade
-        )
-      },
       obterMarcadoresInfoPorCampusEUnidade:
         (state) =>
         ({ nomeCampus, nomeUnidade }) => {
-          const campus = state.infos[nomeCampus]
-          const unidade = campus.unidades.find((u) => u.nome === nomeUnidade)
+          const unidades = state.infos[nomeCampus]
+          const unidade = unidades.find((u) => u.nome === nomeUnidade)
 
-          // TODO: filtrar as lotações com projetos ativos
+          const lotacoes = unidade.lotacoes.filter(
+            (lotacao) => lotacao.quantidadeProjetosTotais > 0
+          )
 
-          const marcadores = unidade.lotacoes.map((lotacao) => ({
+          const marcadores = lotacoes.map((lotacao) => ({
             id: lotacao.id,
-            coordenadas: lotacao.localizacao.coordinates,
-            conteudo:
+            coordinates: lotacao.localizacao.coordinates.reverse(),
+            content:
               '<div class="popup">' +
               '<img class="popup_img" src="' +
               require('~/assets/ods_icons/' +
@@ -88,7 +80,7 @@ const createStore = () => {
               '<br/>Total de Projetos Ativos: ' +
               lotacao.quantidadeProjetosAtivos +
               '<br/>Total de ODS atendidos: ' +
-              lotacao.quantidadeOdsAtendidos +
+              lotacao.quantidadeObjetivosAtendidos +
               '<br/>ODS Principal Atendido: ' +
               lotacao.idObjetivoMaisAtendido +
               '</div></div>',

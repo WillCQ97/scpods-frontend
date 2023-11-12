@@ -30,7 +30,7 @@
             <l-marker
               v-for="marker in markers"
               :key="marker.id"
-              :lat-lng="marker.coord"
+              :lat-lng="marker.coordinates"
               @click="enableBtnProjectList()"
             >
               <l-icon
@@ -59,6 +59,7 @@
 
 <script>
 export default {
+  // A ordem esperada das coordenadas é latitude, longitude
   name: 'AppMapComponent',
   props: {
     bounds: {
@@ -85,7 +86,7 @@ export default {
       type: Number,
       default: 18,
       required: false,
-    }
+    },
   },
   data() {
     /*

@@ -75,6 +75,17 @@ export default {
       flagShowActionsList: false,
     }
   },
+  fetch(context) {
+    // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
+    context.$axios
+      .$get('/info/alegre')
+      .then((infoAlegre) => {
+        context.store.dispatch('setInfo', infoAlegre)
+      })
+      .catch((e) => {
+        context.error(e)
+      })
+  },
 
   methods: {
     scrollToIntoChild() {
@@ -86,18 +97,8 @@ export default {
       }, 250)
     },
     exibirMapa(campus) {
-      this.carregarInfoAlegre()
       this.$router.push('/acoes/alegre/' + campus)
       this.scrollToIntoChild()
-    },
-    carregarInfoAlegre() {
-      // TODO: trocar a forma como são carregadas essas informações
-      console.log('Cargando info de Alegre')
-      // FIXME: A CRIAÇÃO DOS MARCADORES É CHAMADA ANTES DO BACKEND RETORNAR ESSES DADOS
-      this.$axios.$get('/info/alegre').then((infoAlegre) => {
-        console.log(infoAlegre)
-        this.$store.dispatch('setInfo', infoAlegre.campus, infoAlegre.unidades)
-      })
     },
   },
 }

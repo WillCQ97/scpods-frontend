@@ -29,13 +29,12 @@ export default {
 
   computed: {
     obterMarcadoresParaAlegre() {
-      console.log('Obtendo marcadores')
       const marcadores =
         this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
           nomeCampus: 'ALEGRE',
+          // TODO: Considerar o carregamento das unidades sem ser pelo nome
           nomeUnidade: 'Unidade Sede em Alegre',
         })
-      console.log(marcadores)
       return marcadores
     },
   },
