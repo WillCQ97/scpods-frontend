@@ -36,9 +36,9 @@
           <hr />
           <v-card-actions>
             <v-spacer />
-            <v-btn :color="btnColor" @click="showMapAlegreSede">Alegre</v-btn>
-            <v-btn :color="btnColor" @click="showMapJeronimo">Jerônimo Monteiro</v-btn>
-            <v-btn :color="btnColor" @click="showMapRive">Rive</v-btn>
+            <v-btn :color="btnColor" @click="exibirMapa('sede')">Sede em Alegre</v-btn>
+            <v-btn :color="btnColor" @click="exibirMapa('jeronimo')">Unidade Jerônimo Monteiro</v-btn>
+            <v-btn :color="btnColor" @click="exibirMapa('rive')">Área Experimental Rive</v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -55,7 +55,7 @@
       <!-- LISTA DE PROJETOS -->
       <v-row v-if="flagShowActionsList">
         <v-col>
-          <actions-list title="Lista de ações em Alegre" />
+          <lista-acoes-component title="Lista de ações em Alegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -63,17 +63,28 @@
 </template>
 
 <script>
-import ActionsList from '~/components/ActionsList.vue'
+import ListaAcoesComponent from '~/components/Acoes/ListaAcoes.vue'
 
 export default {
   name: 'AlegreActionsWrapperPage',
-  components: { ActionsList },
+  components: { ListaAcoesComponent },
 
   data() {
     return {
       btnColor: '#d2dce8',
       flagShowActionsList: false,
     }
+  },
+  fetch(context) {
+    // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
+    context.$axios
+      .$get('/info/alegre')
+      .then((infoAlegre) => {
+        context.store.dispatch('setInfo', infoAlegre)
+      })
+      .catch((e) => {
+        context.error(e)
+      })
   },
 
   methods: {
@@ -85,16 +96,8 @@ export default {
         })
       }, 250)
     },
-    showMapAlegreSede() {
-      this.$router.push('/acoes/alegre/sede/')
-      this.scrollToIntoChild()
-    },
-    showMapJeronimo() {
-      this.$router.push('/acoes/alegre/jeronimo/')
-      this.scrollToIntoChild()
-    },
-    showMapRive() {
-      this.$router.push('/acoes/alegre/rive/')
+    exibirMapa(campus) {
+      this.$router.push('/acoes/alegre/' + campus)
       this.scrollToIntoChild()
     },
   },

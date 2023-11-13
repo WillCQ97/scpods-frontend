@@ -1,18 +1,19 @@
 <!-- TODO: DELETAR ESTA PÁGINA TEMPORÁRIA -->
 <template>
   <div>
-    <actions-list-component
+    <lista-acoes-component
       titulo="Lista de Projetos Alegre TESTE"
       :projetos="projetos"
     />
   </div>
 </template>
+
 <script>
-import ActionsListComponent from '~/components/ActionsList.vue'
+import ListaAcoesComponent from '~/components/Acoes/ListaAcoes.vue'
 
 export default {
   name: 'TempPage',
-  components: { ActionsListComponent },
+  components: { ListaAcoesComponent },
 
   data() {
     return {

@@ -148,6 +148,7 @@ export default {
           title: 'Alegre',
           to: '/acoes/alegre',
         },
+        /* TODO: ADICIONAR OS MAPAS PARA OS OUTROS CAMPI
         {
           icon: 'mdi-map',
           title: 'Goiabeiras',
@@ -158,6 +159,7 @@ export default {
           title: 'São Mateus',
           to: '/acoes/sao-mateus',
         },
+        */
       ],
       miniVariant: false,
       right: true,
