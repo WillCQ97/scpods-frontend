@@ -31,7 +31,7 @@ export default {
 
   computed: {
     obterMarcadoresParaAlegre() {
-      /*  FIXME
+      /*  TODO
       if (!this.$store.getters.isInfoLoaded(this.nomeCampus)) {
         this.$store.dispatch('loadInfo', this.nomeCampus)
       }

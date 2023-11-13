@@ -35,7 +35,7 @@ const createStore = () => {
       setInfo(vuexContext, campusInfo) {
         vuexContext.commit('setInfo', campusInfo)
       },
-      /*  FIXME
+      /*  TODO
       loadInfo(vuexContext, nomeCampus) {
         return this.$axios
           .$get('/info/' + nomeCampus)
@@ -63,7 +63,7 @@ const createStore = () => {
         const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
-      /* FIXME
+      /* TODO
       isInfoLoaded: (state) => (campus) => {
         return state.infos[campus] !== undefined
       },
@@ -74,7 +74,7 @@ const createStore = () => {
           const unidades = state.infos[nomeCampus]
 
           if (!unidades) {
-            return [] // FIXME: Apenas para não quebrar o mapa
+            return [] // TODO: Apenas para não quebrar o mapa
           }
 
           const unidade = unidades.find((u) => u.nome === nomeUnidade)
