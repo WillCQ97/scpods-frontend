@@ -2,10 +2,10 @@
   <v-card class="mx-auto" max-width="800" tile>
     <!-- LISTA COM OS PROJETOS-->
     <v-list>
-      <v-subheader>{{ title }}</v-subheader>
+      <v-subheader>{{ titulo }}</v-subheader>
 
       <v-list-item-group v-model="selectedItem" color="primary">
-        <v-list-item v-if="projects.length === 0">
+        <v-list-item v-if="projetos.length === 0">
           <v-list-item-content>
             <v-list-item-title>
               Não foi possível carregar a lista com os projetos.
@@ -13,20 +13,22 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-for="(project, index) in projects" :key="index" two-line>
+        <v-list-item v-for="(projeto, index) in projetos" :key="index" two-line>
+          <!-- Separar em outro componente -->
           <v-list-item-content>
             <v-list-item-title>
-              <strong>Ação: </strong>{{ project.titulo }}
+              <strong>Ação: </strong>{{ projeto.titulo }}
             </v-list-item-title>
 
             <v-list-item-subtitle>
               <strong>ODS: </strong>
-              {{ project.meta.id }}. {{ getTituloObjetivo(project.meta.id) }}
+              {{ projeto.meta.objetivo.id }}.
+              {{ projeto.meta.objetivo.titulo }}
               <br />
-              <strong>Descrição: </strong>{{ project.descricao }}
+              <strong>Descrição: </strong>{{ projeto.descricao }}
               <br />
               <strong>Coordenador: </strong>
-              {{ project.coordenador.nome }}<br />
+              {{ projeto.coordenador.nome }}<br />
               <br />
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -38,42 +40,43 @@
       </v-list-item-group>
     </v-list>
 
-    <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
-    <v-dialog v-model="dialogSuccess" width="80vh">
+    <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES, SEPARAR EM OUTRO COMPONENTE -->
+
+    <v-dialog v-model="dialogSuccess" width="125vh">
       <v-card>
         <v-card-title> Informações detalhadas sobre o projeto </v-card-title>
 
         <v-card-text>
-          <strong>Ação:</strong> {{ selectedProject.titulo }}
+          <strong>Ação:</strong> {{ projetoSelecionado.titulo }}
           <br />
           <strong>ODS:</strong>
-          {{ selectedProject.meta.id.split('.')[0] }} -
-          {{ getTituloObjetivo(selectedProject.meta.id.split('.')[0]) }}
+          {{ projetoSelecionado.meta.objetivo.id }} -
+          {{ projetoSelecionado.meta.objetivo.titulo }}
           <br />
           <strong>Meta ODS: </strong>
-          {{ selectedProject.meta.id }}
+          {{ projetoSelecionado.meta.id }}
           -
-          {{ getTargetDescription(selectedProject.meta.id) }}
+          {{ projetoSelecionado.meta.descricao }}
           <br />
-          <strong>Descrição: </strong>{{ selectedProject.descricao }}
+          <strong>Descrição: </strong>{{ projetoSelecionado.descricao }}
           <br />
           <strong>Centro: </strong>
-          {{ selectedProject.departamento.centro.nome }}
+          {{ projetoSelecionado.lotacao.centro.nome }}
           <br />
-          <strong>Departamento: </strong>
-          {{ selectedProject.departamento.nome }}
+          <strong>Lotação: </strong>
+          {{ projetoSelecionado.lotacao.nome }}
           <br />
           <strong>Coordenador: </strong>
-          {{ selectedProject.coordenador.nome }}
+          {{ projetoSelecionado.coordenador.nome }}
           <br />
           <strong>Vínculo com a UFES: </strong>
-          {{ selectedProject.coordenador.vinculo.tipo }}
+          {{ projetoSelecionado.coordenador.descricaoVinculo }}
           <br />
           <strong>Data de Início: </strong>
-          {{ selectedProject.data_inicio }}
-          <div v-if="selectedProject.data_fim">
+          {{ projetoSelecionado.dataInicio }}
+          <div v-if="projetoSelecionado.dataEncerramento">
             <strong>Data Fim: </strong>
-            {{ selectedProject.data_fim }} <br />
+            {{ projetoSelecionado.dataEncerramento }} <br />
           </div>
         </v-card-text>
 
@@ -90,42 +93,48 @@
 
 <script>
 export default {
-  name: 'ListaAcoesComponent',
+  name: 'ActionsListComponent',
 
   props: {
-    title: {
+    titulo: {
       type: String,
       required: true,
     },
-    
+    projetos: {
+      type: Array,
+      required: true,
+    },
   },
 
   data() {
     return {
       dialogSuccess: false,
-      projects: this.$store.getters.getAcoesAlegre.sede,
       selectedItem: undefined,
-      selectedProject: {
-        id: '1',
+      projetoSelecionado: {
+        id: 1,
         titulo: '',
         meta: {
           id: '1.1',
+          descricao: '',
+          objetivo: {
+            id: '',
+            descricao: '',
+          },
         },
-        departamento: {
+        lotacao: {
           nome: '',
           centro: {
             nome: '',
           },
-          local: '',
         },
         coordenador: {
+          id: 4,
           nome: '',
-          vinculo: {
-            tipo: '',
-          },
+          tipoVinculo: '',
+          descricaoVinculo: '',
         },
-        data_inicio: '',
-        data_fim: undefined,
+        dataInicio: '',
+        dataEncerramento: undefined,
       },
     }
   },
@@ -133,15 +142,9 @@ export default {
   methods: {
     showActionInfo(index) {
       this.dialogSuccess = true
-      this.selectedProject = this.projects[index]
-    },
-    getTituloObjetivo(idMeta) {
-      const idObjetivo = parseInt(idMeta)
-      return this.$store.getters.getObjetivoById(idObjetivo).titulo
-    },
-    getTargetDescription(idMeta) {
-      // return this.$store.getters.getMetaById(idMeta)
-      return "vazio"
+      // console.log(index)
+      // console.log(this.projetos[index])
+      this.projetoSelecionado = this.projetos[index]
     },
   },
 }
