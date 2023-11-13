@@ -50,26 +50,6 @@ const createStore = () => {
     },
 
     getters: {
-      getObjetivos(state) {
-        return state.objetivos
-      },
-      getObjetivoById: (state) => (id) => {
-        return state.objetivos.find((objetivo) => objetivo.id === id)
-      },
-      getMetaById: (state) => (id) => {
-        // const idObjetivo = parseInt(id)
-        // const metas = this.getters.getObjetivoById(idObjetivo).metas
-        const objetivo = state.objetivos.find((objetivo) => objetivo.id === id)
-        const metas = objetivo.metas
-        return metas.find((meta) => meta.id === id)
-      },
-
-      getAcoesAlegre(state) {
-        return state.acoesAlegre.sede
-      },
-      getInfoAlegre(state) {
-        return state.infosAlegre
-      },
       createMarkersInfoAlegre: (state) => (local) => {
         const markers = state.infosAlegre[local].map((resumo) => ({
           id: resumo.id,

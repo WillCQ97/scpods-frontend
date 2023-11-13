@@ -9,6 +9,8 @@
 </template>
 
 <script>
+/* TODO: Corrigir erro inesperado ao acessar essa página */
+// import acoesAlegre from '~/assets/data/alegre_actions.json'
 import ListaAcoesComponent from '~/components/Acoes/ListaAcoes.vue'
 
 export default {
@@ -17,7 +19,7 @@ export default {
 
   data() {
     return {
-      projetos: this.$store.getters.getAcoesAlegre,
+      projetos: [],
     }
   },
 }
