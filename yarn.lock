@@ -1281,6 +1281,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.15.4":
+  version: 7.23.2
+  resolution: "@babel/runtime@npm:7.23.2"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: abdcbdd590c7e31762e1bdab94dd466823c8bcedd3ff2fde85eeb94dac7cccaef151ac37c428bda7018ededd27c9a82b4dfeb621f978ad934232475a902f8e3a
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.8.4":
   version: 7.21.0
   resolution: "@babel/runtime@npm:7.21.0"
@@ -2242,6 +2251,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nuxtjs/axios@npm:^5.13.6":
+  version: 5.13.6
+  resolution: "@nuxtjs/axios@npm:5.13.6"
+  dependencies:
+    "@nuxtjs/proxy": "npm:^2.1.0"
+    axios: "npm:^0.21.1"
+    axios-retry: "npm:^3.1.9"
+    consola: "npm:^2.15.3"
+    defu: "npm:^5.0.0"
+  checksum: e928d3fa9e31a0a296bf439e6b33d0c3efdea8b4994e76bd4ebab1130faae005cd7313562d5b1f470124ff15523f92228f632e93fb0b54c969696f4929a9ac70
+  languageName: node
+  linkType: hard
+
 "@nuxtjs/eslint-config@npm:^8.0.0":
   version: 8.0.0
   resolution: "@nuxtjs/eslint-config@npm:8.0.0"
@@ -2269,6 +2291,15 @@ __metadata:
   peerDependencies:
     eslint: ">=7"
   checksum: e0cd1c3c9e538587ad969ee5ac73142bc4e1947322c5d75f36c96839c420d05a624352ebc551d285237258546f92ce4a07c5f166d5d70bcaa2a6d38071f3d429
+  languageName: node
+  linkType: hard
+
+"@nuxtjs/proxy@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@nuxtjs/proxy@npm:2.1.0"
+  dependencies:
+    http-proxy-middleware: "npm:^1.0.6"
+  checksum: 6b538277b48fbf4511f90917ccc2ca8e368fe4658509b4c7991a37afa205310d1dad66d93d8901e8f8360f83e0861d94d30ac84c1a870f58c29015770fb4b598
   languageName: node
   linkType: hard
 
@@ -2345,6 +2376,15 @@ __metadata:
   version: 5.1.2
   resolution: "@types/html-minifier-terser@npm:5.1.2"
   checksum: fac05cb276d517aabb199b27a5333abed4c62c52c013481a66fbfa2c48b85475a6782b721d14184d0a7f9d6a7f3cabb7e183e14a3394835fb9f3c46962c4a8de
+  languageName: node
+  linkType: hard
+
+"@types/http-proxy@npm:^1.17.5":
+  version: 1.17.14
+  resolution: "@types/http-proxy@npm:1.17.14"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: aa1a3e66cd43cbf06ea5901bf761d2031200a0ab42ba7e462a15c752e70f8669f21fb3be7c2f18fefcb83b95132dfa15740282e7421b856745598fbaea8e3a42
   languageName: node
   linkType: hard
 
@@ -3313,6 +3353,25 @@ __metadata:
   version: 1.0.5
   resolution: "available-typed-arrays@npm:1.0.5"
   checksum: 4d4d5e86ea0425696f40717882f66a570647b94ac8d273ddc7549a9b61e5da099e149bf431530ccbd776bd74e02039eb8b5edf426e3e2211ee61af16698a9064
+  languageName: node
+  linkType: hard
+
+"axios-retry@npm:^3.1.9":
+  version: 3.8.1
+  resolution: "axios-retry@npm:3.8.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.15.4"
+    is-retry-allowed: "npm:^2.2.0"
+  checksum: db572321748d14428602f7d5c89ef6a62e26f94863a5b11193362ab787c28bd67221e274408217155746f9dc90b1df2b678ddc98e7bff9bd087cd8d73c0084d8
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.21.1":
+  version: 0.21.4
+  resolution: "axios@npm:0.21.4"
+  dependencies:
+    follow-redirects: "npm:^1.14.0"
+  checksum: da644592cb6f8f9f8c64fdabd7e1396d6769d7a4c1ea5f8ae8beb5c2eb90a823e3a574352b0b934ac62edc762c0f52647753dc54f7d07279127a7e5c4cd20272
   languageName: node
   linkType: hard
 
@@ -5613,6 +5672,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:^4.0.0":
+  version: 4.0.7
+  resolution: "eventemitter3@npm:4.0.7"
+  checksum: 8030029382404942c01d0037079f1b1bc8fed524b5849c237b80549b01e2fc49709e1d0c557fa65ca4498fc9e24cff1475ef7b855121fcc15f9d61f93e282346
+  languageName: node
+  linkType: hard
+
 "events@npm:^3.0.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
@@ -5963,6 +6029,16 @@ __metadata:
     inherits: "npm:^2.0.3"
     readable-stream: "npm:^2.3.6"
   checksum: 649dae597c1ab6292eae1ce103cfe5a2d46317b21c9a14a1900d285227869a6181b32aca51b78660191884059732849db41694807e28bf07f61233fd2d5309f5
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0":
+  version: 1.15.3
+  resolution: "follow-redirects@npm:1.15.3"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 60d98693f4976892f8c654b16ef6d1803887a951898857ab0cdc009570b1c06314ad499505b7a040ac5b98144939f8597766e5e6a6859c0945d157b473aa6f5f
   languageName: node
   linkType: hard
 
@@ -6712,6 +6788,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"http-proxy-middleware@npm:^1.0.6":
+  version: 1.3.1
+  resolution: "http-proxy-middleware@npm:1.3.1"
+  dependencies:
+    "@types/http-proxy": "npm:^1.17.5"
+    http-proxy: "npm:^1.18.1"
+    is-glob: "npm:^4.0.1"
+    is-plain-obj: "npm:^3.0.0"
+    micromatch: "npm:^4.0.2"
+  checksum: 322a166996972804877fd3786b7259c52679660b4231c3c3358d71b7deea8560dd41271ea99d0100faf93bc2018890ba78d67ced56442aa49a160a9d09ead617
+  languageName: node
+  linkType: hard
+
+"http-proxy@npm:^1.18.1":
+  version: 1.18.1
+  resolution: "http-proxy@npm:1.18.1"
+  dependencies:
+    eventemitter3: "npm:^4.0.0"
+    follow-redirects: "npm:^1.0.0"
+    requires-port: "npm:^1.0.0"
+  checksum: 2489e98aba70adbfd8b9d41ed1ff43528be4598c88616c558b109a09eaffe4bb35e551b6c75ac42ed7d948bb7530a22a2be6ef4f0cecacb5927be139f4274594
+  languageName: node
+  linkType: hard
+
 "https-browserify@npm:^1.0.0":
   version: 1.0.0
   resolution: "https-browserify@npm:1.0.0"
@@ -7193,6 +7293,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-plain-obj@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "is-plain-obj@npm:3.0.0"
+  checksum: a6ebdf8e12ab73f33530641972a72a4b8aed6df04f762070d823808303e4f76d87d5ea5bd76f96a7bbe83d93f04ac7764429c29413bd9049853a69cb630fb21c
+  languageName: node
+  linkType: hard
+
 "is-plain-object@npm:^2.0.3, is-plain-object@npm:^2.0.4":
   version: 2.0.4
   resolution: "is-plain-object@npm:2.0.4"
@@ -7209,6 +7316,13 @@ __metadata:
     call-bind: "npm:^1.0.2"
     has-tostringtag: "npm:^1.0.0"
   checksum: 36d9174d16d520b489a5e9001d7d8d8624103b387be300c50f860d9414556d0485d74a612fdafc6ebbd5c89213d947dcc6b6bff6b2312093f71ea03cbb19e564
+  languageName: node
+  linkType: hard
+
+"is-retry-allowed@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "is-retry-allowed@npm:2.2.0"
+  checksum: 6d8685530871f0b040346cc72322d90122473e921149affa16de363d6c2a6e46bc76abdfaac3259b93994ec8e7f70fbe67bbb080190e440533ff728e6a64494d
   languageName: node
   linkType: hard
 
@@ -8036,7 +8150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.4, micromatch@npm:^4.0.5":
+"micromatch@npm:^4.0.2, micromatch@npm:^4.0.4, micromatch@npm:^4.0.5":
   version: 4.0.5
   resolution: "micromatch@npm:4.0.5"
   dependencies:
@@ -10565,6 +10679,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"regenerator-runtime@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "regenerator-runtime@npm:0.14.0"
+  checksum: 6c19495baefcf5fbb18a281b56a97f0197b5f219f42e571e80877f095320afac0bdb31dab8f8186858e6126950068c3f17a1226437881e3e70446ea66751897c
+  languageName: node
+  linkType: hard
+
 "regenerator-transform@npm:^0.15.1":
   version: 0.15.1
   resolution: "regenerator-transform@npm:0.15.1"
@@ -10699,6 +10820,13 @@ __metadata:
   version: 2.0.2
   resolution: "require-from-string@npm:2.0.2"
   checksum: 839a3a890102a658f4cb3e7b2aa13a1f80a3a976b512020c3d1efc418491c48a886b6e481ea56afc6c4cb5eef678f23b2a4e70575e7534eccadf5e30ed2e56eb
+  languageName: node
+  linkType: hard
+
+"requires-port@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "requires-port@npm:1.0.0"
+  checksum: 878880ee78ccdce372784f62f52a272048e2d0827c29ae31e7f99da18b62a2b9463ea03a75f277352f4697c100183debb0532371ad515a2d49d4bfe596dd4c20
   languageName: node
   linkType: hard
 
@@ -10982,6 +11110,7 @@ __metadata:
   resolution: "scpods-frontend@workspace:."
   dependencies:
     "@babel/eslint-parser": "npm:^7.16.3"
+    "@nuxtjs/axios": "npm:^5.13.6"
     "@nuxtjs/eslint-config": "npm:^8.0.0"
     "@nuxtjs/eslint-module": "npm:^3.0.2"
     "@nuxtjs/vuetify": "npm:^1.12.3"
