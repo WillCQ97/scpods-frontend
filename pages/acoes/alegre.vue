@@ -73,6 +73,7 @@ export default {
     return {
       btnColor: '#d2dce8',
       flagShowActionsList: false,
+      flagErroAoCarregarInfos: false,
     }
   },
   fetch(context) {
@@ -83,7 +84,9 @@ export default {
         context.store.dispatch('setInfo', infoAlegre)
       })
       .catch((e) => {
-        context.error(e)
+        // FIXME: Caso esse cara não esteja disponível então é mostrada uma página de erro inesperado
+        // Utilizar a flag para mostrar um warning quando o usuário clicar no botão para exibir um mapa
+        this.flagErroAoCarregarInfos = true
       })
   },
 
@@ -97,6 +100,9 @@ export default {
       }, 250)
     },
     exibirMapa(campus) {
+      if (this.flagErroAoCarregarInfos) {
+        // TODO: mostrar um diálogo informando que não foi possível carregar as infos
+      }
       this.$router.push('/acoes/alegre/' + campus)
       this.scrollToIntoChild()
     },
