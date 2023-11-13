@@ -55,7 +55,7 @@ const createStore = () => {
       },
 
       getAcoesAlegre(state) {
-        return state.acoesAlegre
+        return state.acoesAlegre.sede
       },
       getInfoAlegre(state) {
         return state.infosAlegre
