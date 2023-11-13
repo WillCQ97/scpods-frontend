@@ -42,7 +42,7 @@
 
     <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES, SEPARAR EM OUTRO COMPONENTE -->
 
-    <v-dialog v-model="dialogSuccess" width="80vh">
+    <v-dialog v-model="dialogSuccess" width="125vh">
       <v-card>
         <v-card-title> Informações detalhadas sobre o projeto </v-card-title>
 
@@ -93,7 +93,7 @@
 
 <script>
 export default {
-  name: 'ListaAcoesComponent',
+  name: 'ActionsListComponent',
 
   props: {
     titulo: {
