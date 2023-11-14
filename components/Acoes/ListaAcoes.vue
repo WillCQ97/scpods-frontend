@@ -42,58 +42,22 @@
 
     <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES, SEPARAR EM OUTRO COMPONENTE -->
 
-    <v-dialog v-model="dialogSuccess" width="125vh">
-      <v-card>
-        <v-card-title> Informações detalhadas sobre o projeto </v-card-title>
-
-        <v-card-text>
-          <strong>Ação:</strong> {{ projetoSelecionado.titulo }}
-          <br />
-          <strong>ODS:</strong>
-          {{ projetoSelecionado.meta.objetivo.id }} -
-          {{ projetoSelecionado.meta.objetivo.titulo }}
-          <br />
-          <strong>Meta ODS: </strong>
-          {{ projetoSelecionado.meta.id }}
-          -
-          {{ projetoSelecionado.meta.descricao }}
-          <br />
-          <strong>Descrição: </strong>{{ projetoSelecionado.descricao }}
-          <br />
-          <strong>Centro: </strong>
-          {{ projetoSelecionado.lotacao.centro.nome }}
-          <br />
-          <strong>Lotação: </strong>
-          {{ projetoSelecionado.lotacao.nome }}
-          <br />
-          <strong>Coordenador: </strong>
-          {{ projetoSelecionado.coordenador.nome }}
-          <br />
-          <strong>Vínculo com a UFES: </strong>
-          {{ projetoSelecionado.coordenador.descricaoVinculo }}
-          <br />
-          <strong>Data de Início: </strong>
-          {{ projetoSelecionado.dataInicio }}
-          <div v-if="projetoSelecionado.dataEncerramento">
-            <strong>Data Fim: </strong>
-            {{ projetoSelecionado.dataEncerramento }} <br />
-          </div>
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click="dialogSuccess = false"> OK </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <detalhes-acao-dialog
+      titulo="Informações detalhadas sobre a ação"
+      :acao="projetoSelecionado"
+      :is-visualizar="false"
+      :exibir-dialogo="exibirDialogoAcaoSelecionada"
+    ></detalhes-acao-dialog>
   </v-card>
 </template>
 
 <script>
+import DetalhesAcaoDialog from './DetalhesAcaoDialog.vue'
+
 export default {
   name: 'ActionsListComponent',
+
+  components: { DetalhesAcaoDialog },
 
   props: {
     titulo: {
@@ -108,7 +72,7 @@ export default {
 
   data() {
     return {
-      dialogSuccess: false,
+      exibirDialogoAcaoSelecionada: false,
       selectedItem: undefined,
       projetoSelecionado: {
         id: 1,
@@ -141,9 +105,7 @@ export default {
 
   methods: {
     showActionInfo(index) {
-      this.dialogSuccess = true
-      // console.log(index)
-      // console.log(this.projetos[index])
+      this.exibirDialogoAcaoSelecionada = true
       this.projetoSelecionado = this.projetos[index]
     },
   },

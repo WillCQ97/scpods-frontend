@@ -10,7 +10,7 @@
 
 <script>
 /* TODO: Corrigir erro inesperado ao acessar essa página */
-// import acoesAlegre from '~/assets/data/alegre_actions.json'
+import acoesAlegre from '~/assets/data/alegre_actions.json'
 import ListaAcoesComponent from '~/components/Acoes/ListaAcoes.vue'
 
 export default {
@@ -19,7 +19,8 @@ export default {
 
   data() {
     return {
-      projetos: [],
+      // projetos: [],
+      projetos: acoesAlegre.sede,
     }
   },
 }
