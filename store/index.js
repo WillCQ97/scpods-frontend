@@ -30,7 +30,11 @@ const createStore = () => {
           .then((objetivosData) => {
             vuexContext.commit('setObjetivos', objetivosData)
           })
-          .catch((e) => context.error(e))
+          .catch((e) => {
+            console.log('Não foi possível obter os objetivos do backend')
+            context.error(e)
+          })
+        // (e) => context.error(e)
       },
 
       setInfo(vuexContext, campusInfo) {
