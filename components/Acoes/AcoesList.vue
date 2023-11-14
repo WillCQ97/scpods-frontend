@@ -13,8 +13,8 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!-- TODO: tentar separar este v-list-item em um componente próprio -->
         <v-list-item v-for="(projeto, index) in projetos" :key="index" two-line>
-          <!-- Separar em outro componente -->
           <v-list-item-content>
             <v-list-item-title>
               <strong>Ação: </strong>{{ projeto.titulo }}
@@ -40,9 +40,9 @@
       </v-list-item-group>
     </v-list>
 
-    <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES, SEPARAR EM OUTRO COMPONENTE -->
-
-    <v-dialog v-model="dialogSuccess" width="125vh">
+    <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
+    <!-- TODO: Separar esse v-dialog para um componente próprio que apenas recebe o projeto -->
+    <v-dialog v-model="exibirDialogoDetalhesAcao" width="125vh">
       <v-card>
         <v-card-title> Informações detalhadas sobre o projeto </v-card-title>
 
@@ -74,6 +74,7 @@
           <br />
           <strong>Data de Início: </strong>
           {{ projetoSelecionado.dataInicio }}
+
           <div v-if="projetoSelecionado.dataEncerramento">
             <strong>Data Fim: </strong>
             {{ projetoSelecionado.dataEncerramento }} <br />
@@ -84,7 +85,9 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="dialogSuccess = false"> OK </v-btn>
+          <v-btn color="primary" @click="exibirDialogoDetalhesAcao = false">
+            OK
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -93,7 +96,7 @@
 
 <script>
 export default {
-  name: 'ActionsListComponent',
+  name: 'AcoesListComponent',
 
   props: {
     titulo: {
@@ -108,7 +111,7 @@ export default {
 
   data() {
     return {
-      dialogSuccess: false,
+      exibirDialogoDetalhesAcao: false,
       selectedItem: undefined,
       projetoSelecionado: {
         id: 1,
@@ -141,9 +144,7 @@ export default {
 
   methods: {
     showActionInfo(index) {
-      this.dialogSuccess = true
-      // console.log(index)
-      // console.log(this.projetos[index])
+      this.exibirDialogoDetalhesAcao = true
       this.projetoSelecionado = this.projetos[index]
     },
   },

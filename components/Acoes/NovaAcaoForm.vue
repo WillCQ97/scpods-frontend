@@ -167,7 +167,7 @@
 
 <script>
 export default {
-  name: 'FormularioNovaAcaoComponent',
+  name: 'NovaAcaoFormComponent',
   props: {
     /*
     submissionLocation: {

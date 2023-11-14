@@ -1,25 +1,21 @@
 <!-- TODO: DELETAR ESTA PÁGINA TEMPORÁRIA -->
 <template>
   <div>
-    <lista-acoes-component
-      titulo="Lista de Projetos Alegre TESTE"
-      :projetos="projetos"
-    />
+    <acoes-list titulo="Lista de Projetos Alegre TESTE" :projetos="projetos" />
   </div>
 </template>
 
 <script>
-/* TODO: Corrigir erro inesperado ao acessar essa página */
-// import acoesAlegre from '~/assets/data/alegre_actions.json'
-import ListaAcoesComponent from '~/components/Acoes/ListaAcoes.vue'
+import acoesAlegre from '~/assets/data/alegre_actions.json'
+import AcoesList from '~/components/Acoes/AcoesList.vue'
 
 export default {
   name: 'TempPage',
-  components: { ListaAcoesComponent },
+  components: { AcoesList },
 
   data() {
     return {
-      projetos: [],
+      projetos: acoesAlegre.sede,
     }
   },
 }
