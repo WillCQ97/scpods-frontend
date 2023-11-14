@@ -56,6 +56,23 @@ const createStore = () => {
         return state.infos[campus] !== undefined
       },
       */
+      /* Métodos ainda usados no formulário */
+      getObjetivos(state) {
+        return state.objetivos
+      },
+      getObjetivoById: (state) => (id) => {
+        return state.objetivos.find((objetivo) => objetivo.id === id)
+      },
+      getMetaById: (state) => (id) => {
+        // const idObjetivo = parseInt(id)
+        // const metas = this.getters.getObjetivoById(idObjetivo).metas
+        const objetivo = state.objetivos.find((objetivo) => objetivo.id === id)
+        const metas = objetivo.metas
+        return metas.find((meta) => meta.id === id)
+      },
+
+      /* Métodos ainda usados no formulário */
+
       obterMarcadoresInfoPorCampusEUnidade:
         (state) =>
         ({ nomeCampus, nomeUnidade }) => {
