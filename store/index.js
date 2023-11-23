@@ -1,4 +1,5 @@
 import { Store } from 'vuex'
+import localObjetivosODS from '~/assets/data/objetivosODS'
 
 const createStore = () => {
   return new Store({
@@ -31,10 +32,12 @@ const createStore = () => {
             vuexContext.commit('setObjetivos', objetivosData)
           })
           .catch((e) => {
-            console.log('Não foi possível obter os objetivos do backend')
-            context.error(e)
+            console.error(
+              'ERRO: Não foi possível obter os objetivos do backend.'
+            )
+            vuexContext.commit('setObjetivos', localObjetivosODS)
+            // TODO: context.error(e)
           })
-        // (e) => context.error(e)
       },
 
       setInfo(vuexContext, campusInfo) {

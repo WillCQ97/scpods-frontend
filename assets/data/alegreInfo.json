@@ -1,0 +1,45 @@
+{
+    "campus": "ALEGRE",
+    "unidades": [
+        {
+            "id": 1,
+            "nome": "Campus Sede em Alegre",
+            "locais": [
+                {
+                    "id": 8,
+                    "idd": 9,
+                    "nomePrincipal": "Farmácia e Nutrição",
+                    "nomeSecundario": null,
+                    "nomeTerciario": null,
+                    "localizacao": {
+                        "type": "Point",
+                        "coordinates": [
+                            -41.53545144634766,
+                            -20.762359762478336
+                        ]
+                    },
+                    "quantidadeProjetos": 2,
+                    "quantidadeObjetivosAtendidos": 1,
+                    "idObjetivoMaisAtendido": 3
+                },
+                {
+                    "id": 22,
+                    "idd": 22,
+                    "nomePrincipal": "Produção Vegetal",
+                    "nomeSecundario": "Tijolinho",
+                    "nomeTerciario": null,
+                    "localizacao": {
+                        "type": "Point",
+                        "coordinates": [
+                            -41.536792308594784,
+                            -20.761751584571737
+                        ]
+                    },
+                    "quantidadeProjetos": 2,
+                    "quantidadeObjetivosAtendidos": 2,
+                    "idObjetivoMaisAtendido": 2
+                }
+            ]
+        }
+    ]
+}
