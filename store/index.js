@@ -21,6 +21,7 @@ const createStore = () => {
 
       setInfo(state, campusInfo) {
         state.infos[campusInfo.campus] = campusInfo.unidades
+        // { "ALEGRE": [{UNIDADE 1}, {UNIDADE 2}] }
       },
     },
 
@@ -30,6 +31,7 @@ const createStore = () => {
           .$get('/objetivos')
           .then((objetivosData) => {
             vuexContext.commit('setObjetivos', objetivosData)
+            console.log('INFO: Foram obtidos os objetivos no backend')
           })
           .catch((e) => {
             console.error(
@@ -77,8 +79,24 @@ const createStore = () => {
         const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
-
       /* Métodos ainda usados no formulário */
+
+      obterLocaisComProjetosAtivos:
+        (state) =>
+        ({ nomeCampus, nomeUnidade }) => {
+          const unidades = state.infos[nomeCampus]
+
+          if (!unidades) {
+            return [] // TODO: Apenas para não quebrar o mapa
+          }
+
+          const unidade = unidades.find((u) => u.nome === nomeUnidade)
+
+          const locais = unidade.locais.filter(
+            (local) => local.quantidadeProjetosAtivos > 0
+          )
+          return locais
+        },
 
       obterMarcadoresInfoPorCampusEUnidade:
         (state) =>
@@ -91,9 +109,8 @@ const createStore = () => {
 
           const unidade = unidades.find((u) => u.nome === nomeUnidade)
 
-          // TODO: filtragem já aplicada no backend (pode ser removido de lá ou daqui)
           const locais = unidade.locais.filter(
-            (local) => local.quantidadeProjetos > 0
+            (local) => local.quantidadeProjetosAtivos > 0
           )
 
           const marcadores = locais.map((local) => ({
@@ -111,7 +128,7 @@ const createStore = () => {
               local.nomePrincipal +
               '</strong>' +
               '<br/>Total de Projetos: ' +
-              local.quantidadeProjetos +
+              local.quantidadeProjetosAtivos +
               '<br/>Total de ODS atendidos: ' +
               local.quantidadeObjetivosAtendidos +
               '<br/>ODS Principal Atendido: ' +
