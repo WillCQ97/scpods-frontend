@@ -91,32 +91,31 @@ const createStore = () => {
 
           const unidade = unidades.find((u) => u.nome === nomeUnidade)
 
-          const lotacoes = unidade.lotacoes.filter(
-            (lotacao) => lotacao.quantidadeProjetosTotais > 0
+          // TODO: filtragem já aplicada no backend (pode ser removido de lá ou daqui)
+          const locais = unidade.locais.filter(
+            (local) => local.quantidadeProjetos > 0
           )
 
-          const marcadores = lotacoes.map((lotacao) => ({
-            id: lotacao.id,
-            coordinates: lotacao.localizacao.coordinates.reverse(),
+          const marcadores = locais.map((local) => ({
+            id: local.id,
+            coordinates: local.localizacao.coordinates.reverse(),
             content:
               '<div class="popup">' +
               '<img class="popup_img" src="' +
               require('~/assets/ods_icons/' +
-                lotacao.idObjetivoMaisAtendido +
+                local.idObjetivoMaisAtendido +
                 '.png') +
               '"><br>' +
               '<div class="popup_text">' +
               '<strong>' +
-              lotacao.nome +
+              local.nomePrincipal +
               '</strong>' +
               '<br/>Total de Projetos: ' +
-              lotacao.quantidadeProjetosTotais +
-              '<br/>Total de Projetos Ativos: ' +
-              lotacao.quantidadeProjetosAtivos +
+              local.quantidadeProjetos +
               '<br/>Total de ODS atendidos: ' +
-              lotacao.quantidadeObjetivosAtendidos +
+              local.quantidadeObjetivosAtendidos +
               '<br/>ODS Principal Atendido: ' +
-              lotacao.idObjetivoMaisAtendido +
+              local.idObjetivoMaisAtendido +
               '</div></div>',
           }))
           return marcadores

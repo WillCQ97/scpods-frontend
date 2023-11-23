@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       nomeCampus: 'ALEGRE',
-      nomeUnidade: 'Campus Sede em Alegre',
+      nomeUnidade: 'Campus Alegre',
       centroAlegre: [-20.76161, -41.536],
       limitesAlegre: [
         [-20.75885, -41.53911],
