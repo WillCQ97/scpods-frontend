@@ -1076,7 +1076,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:3.8.2, @nuxt/kit@npm:^3.8.1, @nuxt/kit@npm:^3.8.2":
+"@nuxt/kit@npm:3.8.2, @nuxt/kit@npm:^3.5.2, @nuxt/kit@npm:^3.8.1, @nuxt/kit@npm:^3.8.2":
   version: 3.8.2
   resolution: "@nuxt/kit@npm:3.8.2"
   dependencies:
@@ -1669,12 +1669,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/geojson@npm:*":
+  version: 7946.0.13
+  resolution: "@types/geojson@npm:7946.0.13"
+  checksum: b3b68457c89bc3f0445dc9eb54d07e6f89658672867c54989bc7f71f87d54e562195b291d43e1b84476493351271d7ccb9f5c6ab2012b29fbafbb0e8e43c4bca
+  languageName: node
+  linkType: hard
+
 "@types/http-proxy@npm:^1.17.14":
   version: 1.17.14
   resolution: "@types/http-proxy@npm:1.17.14"
   dependencies:
     "@types/node": "*"
   checksum: 491320bce3565bbb6c7d39d25b54bce626237cfb6b09e60ee7f77b56ae7c6cbad76f08d47fe01eaa706781124ee3dfad9bb737049254491efd98ed1f014c4e83
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:^1.9.3":
+  version: 1.9.8
+  resolution: "@types/leaflet@npm:1.9.8"
+  dependencies:
+    "@types/geojson": "*"
+  checksum: d6a33d5db0bdf608957cd52701b17ee89e936034a8f0ab619b8e7ef70312a0da177837dd125756e83af036276a8b299cc724c9ffb3caa7d22893fea2791e1e13
   languageName: node
   linkType: hard
 
@@ -1789,6 +1805,21 @@ __metadata:
     vite: ^4.0.0 || ^5.0.0
     vue: ^3.2.25
   checksum: 50b8300537804fdc78c5b2448f608f9a09ce55230ca7988ada19ad8583a8185edf800f3e9ad9322bd74b89dbbe02d330e99fecee6918efcb92eb58ef34cf2863
+  languageName: node
+  linkType: hard
+
+"@vue-leaflet/vue-leaflet@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "@vue-leaflet/vue-leaflet@npm:0.10.1"
+  dependencies:
+    vue: ^3.2.25
+  peerDependencies:
+    "@types/leaflet": ^1.5.7
+    leaflet: ^1.6.0
+  peerDependenciesMeta:
+    "@types/leaflet":
+      optional: true
+  checksum: 5e1cf9f34f5729ddf688399a400fc6edc10464bb41364e76a467eee326a887086df8999788ffd0965215a4359b90eda565628668904eeaa3204a57605e5cec9f
   languageName: node
   linkType: hard
 
@@ -4365,6 +4396,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"leaflet@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "leaflet@npm:1.9.4"
+  checksum: bfc79f17a247b37b92d84b3c78702501603392d6589fde606de4a825d11f1609d90225388834f2e0709dac327e52dcd4b4b9cc9fd3d590060c5b1e53b84fa6c6
+  languageName: node
+  linkType: hard
+
 "lilconfig@npm:^2.1.0":
   version: 2.1.0
   resolution: "lilconfig@npm:2.1.0"
@@ -5174,12 +5212,25 @@ __metadata:
     "@mdi/font": ^7.3.67
     "@nuxt/devtools": latest
     nuxt: ^3.8.2
+    nuxt3-leaflet: ^1.0.12
     vite-plugin-vuetify: ^1.0.2
     vue: ^3.3.8
     vue-router: ^4.2.5
     vuetify: ^3.4.3
   languageName: unknown
   linkType: soft
+
+"nuxt3-leaflet@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "nuxt3-leaflet@npm:1.0.12"
+  dependencies:
+    "@nuxt/kit": ^3.5.2
+    "@types/leaflet": ^1.9.3
+    "@vue-leaflet/vue-leaflet": ^0.10.1
+    leaflet: ^1.9.4
+  checksum: d827bce50da4bc76be1786ea7c991d692b4e5774709f310162c325559defbaf390918dbd69f80a28687bcf8e8c30b110b8e013244fc3eb3377ed83b39e2c88c2
+  languageName: node
+  linkType: hard
 
 "nuxt@npm:^3.8.2":
   version: 3.8.2
@@ -7432,7 +7483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.3.8":
+"vue@npm:^3.2.25, vue@npm:^3.3.8":
   version: 3.3.9
   resolution: "vue@npm:3.3.9"
   dependencies:

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
-    //...
+    'nuxt3-leaflet'
   ],
   vite: {
     vue: {
