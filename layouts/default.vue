@@ -126,7 +126,7 @@ export default {
       colorBar: ufesTheme.default.mono6,
       colorFooter: ufesTheme.default.mono5,
       colorMenu: ufesTheme.default.mono7,
-      iconSrc: require('~/assets/logos/ods-na-ufes.png'),
+      iconSrc: '~/assets/logos/ods-na-ufes.png',
       iconHeight: 40,
       iconWidth: 40,
       items: [
