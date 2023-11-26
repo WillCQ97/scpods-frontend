@@ -12,13 +12,13 @@ const siteUrl = ''
 export default defineNuxtConfig({
   app: {
     head: {
+      titleTemplate: '%s',
+      title: siteTitle,
       charset: 'utf-8',
       htmlAttrs: {
         lang: 'pt-br',
       },
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'format-detection', content: 'telephone=no' },
 
         // Open Graph attributes
@@ -34,8 +34,6 @@ export default defineNuxtConfig({
         { hid: 'og-locale', name: 'og:locale', content: 'pt_BR' },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
-      titleTemplate: '%s',
-      title: siteTitle,
       viewport: 'width=device-width, initial-scale=1',
     },
   },
