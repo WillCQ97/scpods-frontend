@@ -88,7 +88,7 @@
 
       <v-btn icon left disabled>
         <v-img
-          src="~/assets/logos/ods-na-ufes.png"
+          src="img/logo-ods-na-ufes.png"
           :height="iconHeight"
           :width="iconWidth"
           contain

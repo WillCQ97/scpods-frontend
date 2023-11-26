@@ -48,7 +48,7 @@
       <v-col cols="8">
         <v-img
           id="ufes-banner"
-          src="~/assets/logos/ods-ufes-banner.png"
+          src="img/banner-ods-ufes.png"
           max-width="550px"
           alt="Banner com logotipo da UFES e o texto 'objetivos de desenvolvimento sustentável'"
         ></v-img>
