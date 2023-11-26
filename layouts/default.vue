@@ -2,21 +2,13 @@
 <template>
   <v-app>
     <!-- MENU -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      :color="colorMenu"
-      app
-    >
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" :color="colorMenu" app>
       <v-list>
         <!-- HOME -->
         <v-list-item to="/" append-icon="mdi-home">
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>Início</strong>
-            </v-list-item-title>
-          </v-list-item-content>
+          <v-list-item-title>
+            <strong>Início</strong>
+          </v-list-item-title>
         </v-list-item>
 
         <!-- MAPAS -->
@@ -28,37 +20,23 @@
               </v-list-item-title>
             </v-list-item>
           </template>
-          
-          <v-list-item
-            v-for="(item, i) in mapItems"
-            :key="i"
-            :to="item.to"
-            router
-            exact
-            class="mn-lg-li-action"
-          >
-            <v-list-item-content>
-              <v-list-item-title>
-                <strong>{{ item.title }}</strong>
-              </v-list-item-title>
-            </v-list-item-content>
+
+          <v-list-item v-for="(item, i) in mapItems" :key="i" :to="item.to" router exact class="mn-lg-li-action">
+
+            <v-list-item-title>
+              <strong>{{ item.title }}</strong>
+            </v-list-item-title>
+
           </v-list-item>
         </v-list-group>
 
         <!-- RESTANTE DOS ITEMS DO MENU -->
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-          :append-icon="item.icon"
-        >
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>{{ item.title }}</strong>
-            </v-list-item-title>
-          </v-list-item-content>
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact :append-icon="item.icon">
+
+          <v-list-item-title>
+            <strong>{{ item.title }}</strong>
+          </v-list-item-title>
+
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -70,24 +48,19 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      
+
 
       <v-app-title id="title-bar" class="text-h5">
         <strong>{{ title }}</strong>
       </v-app-title>
-      
+
       <v-spacer />
       <!-- FIX: o disabled esmaece a imagem -->
       <v-btn icon left disabled>
-        <v-img
-          src="img/logo-ods-na-ufes.png"
-          :height="iconHeight"
-          :width="iconWidth"
-          contain
-        ></v-img>
+        <v-img src="img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
       </v-btn>
 
-      
+
     </v-app-bar>
 
     <!-- MAIN SECTION -->
@@ -123,7 +96,9 @@ export default {
       iconHeight: 40,
       iconWidth: 40,
       items: [
-        // TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
+        /* TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, 
+         * provavelmente deverá ser adicionado em outro leiaute
+         */
         {
           icon: 'mdi-message-outline',
           title: 'Sugerir Ação',
@@ -170,9 +145,11 @@ export default {
   font-family: 'Ufes Sans', sans-serif !important;
   text-shadow: 2px 2px 3px #94aaea;
 }
+
 .mn-li-action {
   margin-right: 12px !important;
 }
+
 .mn-lg-li-action {
   padding-left: 52px !important;
 }
