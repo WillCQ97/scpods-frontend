@@ -87,6 +87,8 @@ export default {
   },
   fetch(context) {
     // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
+    /*
+    // Usar a api específica para tal https://nuxt.com/docs/getting-started/data-fetching
     context.$axios
       .$get('/info/alegre')
       .then((infoAlegre) => {
@@ -97,6 +99,7 @@ export default {
         // Utilizar a flag para mostrar um warning quando o usuário clicar no botão para exibir um mapa
         this.flagErroAoCarregarInfos = true
       })
+      */
   },
 
   methods: {
