@@ -44,7 +44,7 @@
     <v-main>
       <v-subheader>Submissions Section</v-subheader>
       <v-container>
-        <Nuxt />
+        <slot />
       </v-container>
     </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
@@ -65,6 +65,7 @@
 
 <script>
 export default {
+  /* TODO: REMOVER ESTE LAYOUT, SE O MESMO NÃO FOR UTILIZADO */
   name: 'SubmissionsLayout',
   data() {
     return {

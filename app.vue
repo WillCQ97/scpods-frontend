@@ -6,6 +6,8 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
+/* https://nuxt.com/docs/migration/pages-and-layouts#appvue */
+
 // TODO: adicionar imagem e url para o site
 const siteTitle = 'Mapa Colaborativo: ODS na UFES'
 const siteDescription =

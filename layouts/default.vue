@@ -99,7 +99,7 @@
     <!-- MAIN SECTION -->
     <v-main>
       <v-container>
-        <nuxt />
+        <slot />
       </v-container>
     </v-main>
 
