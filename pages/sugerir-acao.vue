@@ -33,7 +33,7 @@
 
     <v-row>
       <v-col>
-        <nuxt-child />
+        <nuxt-page />
       </v-col>
     </v-row>
   </div>

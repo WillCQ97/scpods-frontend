@@ -48,7 +48,7 @@
     <!-- EXIBIÇÃO DO MAPA -->
     <v-row>
       <v-col id="child-container" ref="childContainer">
-        <nuxt-child />
+        <nuxt-page />
       </v-col>
     </v-row>
 
