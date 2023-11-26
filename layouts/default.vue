@@ -11,10 +11,7 @@
     >
       <v-list>
         <!-- HOME -->
-        <v-list-item to="/">
-          <v-list-item-action class="mn-li-action">
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
+        <v-list-item to="/" append-icon="mdi-home">
           <v-list-item-content>
             <v-list-item-title>
               <strong>Início</strong>
@@ -23,27 +20,23 @@
         </v-list-item>
 
         <!-- MAPAS -->
-        <v-list-group :value="true" no-action>
-          <template #activator>
-            <v-list-item-action class="mn-li-action">
-              <v-icon>mdi-map</v-icon>
-            </v-list-item-action>
-            <v-list-item-title>
-              <strong>Mapas</strong>
-            </v-list-item-title>
+        <v-list-group :value="true" no-action append-icon="mdi-map">
+          <template v-slot:activator="{ props }">
+            <v-list-item v-bind="props">
+              <v-list-item-title>
+                <strong>Mapas</strong>
+              </v-list-item-title>
+            </v-list-item>
           </template>
-
+          
           <v-list-item
-            v-for="(item, i) in itemsActions"
+            v-for="(item, i) in mapItems"
             :key="i"
             :to="item.to"
             router
             exact
             class="mn-lg-li-action"
           >
-            <v-list-item-action class="mn-li-action">
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
                 <strong>{{ item.title }}</strong>
@@ -59,10 +52,8 @@
           :to="item.to"
           router
           exact
+          :append-icon="item.icon"
         >
-          <v-list-item-action class="mn-li-action">
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>
               <strong>{{ item.title }}</strong>
@@ -79,13 +70,14 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
+      
 
-      <v-spacer />
-      <v-toolbar-title id="title-bar" class="text-h5">
+      <v-app-title id="title-bar" class="text-h5">
         <strong>{{ title }}</strong>
-      </v-toolbar-title>
+      </v-app-title>
+      
       <v-spacer />
-
+      <!-- FIX: o disabled esmaece a imagem -->
       <v-btn icon left disabled>
         <v-img
           src="img/logo-ods-na-ufes.png"
@@ -94,6 +86,8 @@
           contain
         ></v-img>
       </v-btn>
+
+      
     </v-app-bar>
 
     <!-- MAIN SECTION -->
@@ -141,13 +135,12 @@ export default {
           to: '/sobre',
         },
       ],
-      itemsActions: [
+      mapItems: [
         {
           icon: 'mdi-map',
           title: 'Alegre',
           to: '/acoes/alegre',
         },
-        /* TODO: ADICIONAR OS MAPAS PARA OS OUTROS CAMPI
         {
           icon: 'mdi-map',
           title: 'Goiabeiras',
@@ -155,10 +148,14 @@ export default {
         },
         {
           icon: 'mdi-map',
+          title: 'Maruípe',
+          to: '/acoes/maruipe',
+        },
+        {
+          icon: 'mdi-map',
           title: 'São Mateus',
           to: '/acoes/sao-mateus',
         },
-        */
       ],
       miniVariant: false,
       right: true,
