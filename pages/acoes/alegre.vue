@@ -103,7 +103,7 @@ export default {
       if (this.flagErroAoCarregarInfos) {
         // TODO: mostrar um diálogo informando que não foi possível carregar as infos
       }
-      this.$router.push('/acoes/alegre/' + campus)
+      navigateTo('/acoes/alegre/' + campus)
       this.scrollToIntoChild()
     },
   },

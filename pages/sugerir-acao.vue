@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     onLoadForm() {
-      this.$router.push('/sugerir-acao/formulario')
+      navigateTo('/sugerir-acao/formulario')
     },
   },
 }

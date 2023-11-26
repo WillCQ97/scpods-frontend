@@ -241,7 +241,7 @@ export default {
       return number
     },
     btnVoltar() {
-      this.$router.push('/sugerir-acao/')
+      navigateTo('/sugerir-acao/')
     },
     cleanFormFields() {
       this.fieldAction = ''
