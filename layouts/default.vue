@@ -50,9 +50,9 @@
       </v-btn>
 
 
-      <v-app-title id="title-bar" class="text-h5">
+      <v-app-bar-title id="title-bar" class="text-h5">
         <strong>{{ title }}</strong>
-      </v-app-title>
+      </v-app-bar-title>
 
       <v-spacer />
       <!-- FIX: o disabled esmaece a imagem -->
