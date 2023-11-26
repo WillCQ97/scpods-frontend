@@ -10,33 +10,7 @@ const siteImage = ''
 const siteUrl = ''
 
 export default defineNuxtConfig({
-  app: {
-    head: {
-      titleTemplate: '%s',
-      title: siteTitle,
-      charset: 'utf-8',
-      htmlAttrs: {
-        lang: 'pt-br',
-      },
-      meta: [
-        { name: 'format-detection', content: 'telephone=no' },
-
-        // Open Graph attributes
-        { hid: 'og-type', name: 'og:type', content: 'website' },
-        { hid: 'og-title', name: 'og:title', content: siteTitle },
-        {
-          hid: 'og-description',
-          name: 'og:description',
-          content: siteDescription,
-        },
-        { hid: 'og-image', name: 'og:image', content: siteImage },
-        { hid: 'og-url', name: 'og:url', content: siteUrl },
-        { hid: 'og-locale', name: 'og:locale', content: 'pt_BR' },
-      ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
-      viewport: 'width=device-width, initial-scale=1',
-    },
-  },
+  app: {},
 
   build: {
     transpile: ['vuetify'],
