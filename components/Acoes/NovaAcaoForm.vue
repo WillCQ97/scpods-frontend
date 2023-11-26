@@ -241,7 +241,7 @@ export default {
       return number
     },
     btnVoltar() {
-      navigateTo('/sugerir-acao/')
+      return navigateTo('/sugerir-acao/')
     },
     cleanFormFields() {
       this.fieldAction = ''

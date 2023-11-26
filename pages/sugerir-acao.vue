@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     onLoadForm() {
-      navigateTo('/sugerir-acao/formulario')
+      return navigateTo('/sugerir-acao/formulario')
     },
   },
 }

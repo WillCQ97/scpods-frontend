@@ -65,6 +65,15 @@
 <script>
 import AcoesList from '~/components/Acoes/AcoesList.vue'
 
+/*
+async function irParaPaginaCampus() {
+  await navigateTo('/acoes/alegre/' + campus)
+}
+*/
+function irParaPaginaCampus() {
+  return navigateTo('/acoes/alegre/' + campus)
+}
+
 export default {
   name: 'AlegreActionsWrapperPage',
   components: { AcoesList },
@@ -103,7 +112,7 @@ export default {
       if (this.flagErroAoCarregarInfos) {
         // TODO: mostrar um diálogo informando que não foi possível carregar as infos
       }
-      navigateTo('/acoes/alegre/' + campus)
+      irParaPaginaCampus()
       this.scrollToIntoChild()
     },
   },
