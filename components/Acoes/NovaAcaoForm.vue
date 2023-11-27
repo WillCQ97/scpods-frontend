@@ -22,14 +22,20 @@
         <p>
           <strong>ODS relacionado*: </strong>
 
-          <v-btn-toggle id="ods-btn-toggle" v-model="goalSelectedIndex" group>
+          <!-- 
+            
+            TODO: Este toggle considera que os objetivos recebidos estarão ordenados
+            para obter o objetivo a partir do indice dos botões criados
+            Talvez criar um componente que receba o objetivo.id
+           -->
+          <v-btn-toggle id="ods-btn-toggle" v-model="indiceBtnObjetivo" group>
             <v-btn
-              v-for="objetivo in odsGoals"
+              v-for="objetivo in objetivosOds"
               :key="objetivo.id"
               height="100px"
               width="100px"
             >
-              <v-img :src="getGoalImage(objetivo.id)"></v-img>
+              <v-img :src="carregarImagemObjetivo(objetivo.id)"></v-img>
             </v-btn>
           </v-btn-toggle>
         </p>
@@ -37,30 +43,31 @@
         <!-- METAS -->
         <p><strong>Metas Nacionais por ODS*: </strong></p>
 
-        <p v-if="!isGoalSelected()" style="color: #60646a">
-          Clique em uma ODS para exibição das metas relacionadas.
+        <p v-if="!isObjetivoSelecionado()" style="color: #60646a">
+          Clique em um Objetivo de Desenvolvimento Sustentável para que sejam
+          exibidas as metas relacionadas.
         </p>
 
-        <div v-if="isGoalSelected()" id="ods-selected">
+        <div v-if="isObjetivoSelecionado()" id="ods-selected">
           <div id="ods-selected-image">
             <v-img
-              :src="getGoalImage(goalSelectedIndex + 1)"
+              :src="carregarImagemObjetivo(indiceBtnObjetivo + 1)"
               width="50px"
               height="50px"
               contain
             ></v-img>
           </div>
           <p id="ods-selected-text">
-            <strong>{{ getGoalDescription(goalSelectedIndex + 1) }}</strong>
+            <strong>{{ getGoalDescription(indiceBtnObjetivo + 1) }}</strong>
           </p>
         </div>
 
         <v-list-item-group
-          v-if="isGoalSelected()"
+          v-if="isObjetivoSelecionado()"
           v-model="targetSelectedIndex"
         >
           <v-list-item
-            v-for="meta in getTargetsODS(goalSelectedIndex + 1)"
+            v-for="meta in getTargetsODS(indiceBtnObjetivo + 1)"
             :key="meta.id"
             two-line
           >
@@ -167,7 +174,7 @@
 
 <script>
 export default {
-  name: 'ProjectFormComponent',
+  name: 'NovaAcaoFormComponent',
   props: {
     /*
     submissionLocation: {
@@ -220,9 +227,9 @@ export default {
         (value) => !!value || 'Este campo é obrigatório.',
       ],
 
-      odsGoals: this.$store.getters.getObjetivos,
+      objetivosOds: this.$store.getters.getObjetivos,
       targetsSelected: [],
-      goalSelectedIndex: undefined,
+      indiceBtnObjetivo: undefined,
       targetSelectedIndex: undefined,
     }
   },
@@ -244,7 +251,7 @@ export default {
       this.fieldDescription = ''
       this.fieldEmail = ''
       this.fieldRoleValue = ''
-      this.goalSelectedIndex = undefined
+      this.indiceBtnObjetivo = undefined
       this.targetSelectedIndex = undefined
     },
     dateFormatted() {
@@ -257,8 +264,11 @@ export default {
         this.addZeroToDate(date.getDate())
       )
     },
-    getGoalImage(odsNumber) {
-      return require('~/assets/ods_icons/' + odsNumber + '.png')
+    carregarImagemObjetivo(idObjetivo) {
+      return require('~/assets/ods_icons/' + idObjetivo + '.png')
+    },
+    obterObjetivoSelecionado() {
+      return this.indiceBtnObjetivo + 1
     },
     getGoalDescription(odsNumber) {
       return this.$store.getters.getObjetivoById(odsNumber).titulo
@@ -271,8 +281,8 @@ export default {
       const objetivo = this.$store.getters.getObjetivoById(odsNumber)
       return objetivo.metas
     },
-    isGoalSelected() {
-      return this.goalSelectedIndex !== undefined
+    isObjetivoSelecionado() {
+      return this.indiceBtnObjetivo !== undefined
     },
     isTargetSelected() {
       return this.targetSelectedIndex !== undefined
@@ -296,7 +306,7 @@ export default {
       }
 
       if (
-        this.goalSelectedIndex === undefined ||
+        this.indiceBtnObjetivo === undefined ||
         this.targetSelectedIndex === undefined
       ) {
         this.dialogError = true
