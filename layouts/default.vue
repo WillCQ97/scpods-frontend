@@ -1,77 +1,6 @@
 <!-- TODO: Verificar questão do menu lateral e footer em relação ao fixed, para que o footer seja ocultado automaticamente -->
 <template>
   <v-app>
-    <!-- MENU -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      :color="colorMenu"
-      app
-    >
-      <v-list>
-        <!-- HOME -->
-        <v-list-item to="/">
-          <v-list-item-action class="mn-li-action">
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>Início</strong>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- MAPAS -->
-        <v-list-group :value="true" no-action>
-          <template #activator>
-            <v-list-item-action class="mn-li-action">
-              <v-icon>mdi-map</v-icon>
-            </v-list-item-action>
-            <v-list-item-title>
-              <strong>Mapas</strong>
-            </v-list-item-title>
-          </template>
-
-          <v-list-item
-            v-for="(item, i) in itemsActions"
-            :key="i"
-            :to="item.to"
-            router
-            exact
-            class="mn-lg-li-action"
-          >
-            <v-list-item-action class="mn-li-action">
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>
-                <strong>{{ item.title }}</strong>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-
-        <!-- RESTANTE DOS ITEMS DO MENU -->
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action class="mn-li-action">
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>{{ item.title }}</strong>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
     <!-- TOP BAR -->
     <v-app-bar :clipped-left="clipped" :color="colorBar" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -80,26 +9,51 @@
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
 
-      <v-spacer />
-      <v-toolbar-title id="title-bar" class="text-h5">
-        <strong>{{ title }}</strong>
-      </v-toolbar-title>
-      <v-spacer />
+      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">{{ title }} </v-app-bar-title>
 
+      <v-spacer />
+      <!-- FIX: o disabled esmaece a imagem -->
       <v-btn icon left disabled>
-        <v-img
-          :src="iconSrc"
-          :height="iconHeight"
-          :width="iconWidth"
-          contain
-        ></v-img>
+        <v-img src="/img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
       </v-btn>
     </v-app-bar>
+
+    <!-- MENU -->
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" :color="colorMenu" app>
+      <v-list>
+        <!-- HOME -->
+        <v-list-item to="/" append-icon="mdi-home">
+          <v-list-item-title class="font-weight-bold"> Início </v-list-item-title>
+        </v-list-item>
+
+        <!-- MAPAS -->
+        <v-list-group :value="true" no-action append-icon="mdi-map">
+          <template v-slot:activator="{ props }">
+            <v-list-item v-bind="props">
+              <v-list-item-title class="font-weight-bold"> Mapas </v-list-item-title>
+            </v-list-item>
+          </template>
+
+          <v-list-item v-for="(item, i) in mapItems" :key="i" :to="item.to" router exact class="mn-lg-li-action">
+
+            <v-list-item-title class="font-weight-bold"> {{ item.title }} </v-list-item-title>
+
+          </v-list-item>
+        </v-list-group>
+
+        <!-- RESTANTE DOS ITEMS DO MENU -->
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact :append-icon="item.icon">
+
+          <v-list-item-title class="font-weight-bold"> {{ item.title }} </v-list-item-title>
+
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <!-- MAIN SECTION -->
     <v-main>
       <v-container>
-        <nuxt />
+        <slot />
       </v-container>
     </v-main>
 
@@ -126,11 +80,12 @@ export default {
       colorBar: ufesTheme.default.mono6,
       colorFooter: ufesTheme.default.mono5,
       colorMenu: ufesTheme.default.mono7,
-      iconSrc: require('~/assets/logos/ods-na-ufes.png'),
       iconHeight: 40,
       iconWidth: 40,
       items: [
-        // TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
+        /* TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, 
+         * provavelmente deverá ser adicionado em outro leiaute
+         */
         {
           icon: 'mdi-message-outline',
           title: 'Sugerir Ação',
@@ -142,13 +97,12 @@ export default {
           to: '/sobre',
         },
       ],
-      itemsActions: [
+      mapItems: [
         {
           icon: 'mdi-map',
           title: 'Alegre',
           to: '/acoes/alegre',
         },
-        /* TODO: ADICIONAR OS MAPAS PARA OS OUTROS CAMPI
         {
           icon: 'mdi-map',
           title: 'Goiabeiras',
@@ -156,10 +110,14 @@ export default {
         },
         {
           icon: 'mdi-map',
+          title: 'Maruípe',
+          to: '/acoes/maruipe',
+        },
+        {
+          icon: 'mdi-map',
           title: 'São Mateus',
           to: '/acoes/sao-mateus',
         },
-        */
       ],
       miniVariant: false,
       right: true,
@@ -174,9 +132,11 @@ export default {
   font-family: 'Ufes Sans', sans-serif !important;
   text-shadow: 2px 2px 3px #94aaea;
 }
+
 .mn-li-action {
   margin-right: 12px !important;
 }
+
 .mn-lg-li-action {
   padding-left: 52px !important;
 }
