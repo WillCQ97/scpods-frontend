@@ -64,6 +64,7 @@
 
 <script>
 import AcoesList from '~/components/Acoes/AcoesList.vue'
+// import localAlegreInfo from '~/assets/data/alegreInfo'
 
 export default {
   name: 'AlegreActionsWrapperPage',
@@ -78,15 +79,22 @@ export default {
   },
   fetch(context) {
     // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
+    // console.log('=== EXECUTEI NO FETCH DAS INFOS ===')
     context.$axios
-      .$get('/info/alegre')
+      .$get('/campus/info?nome=alegre')
       .then((infoAlegre) => {
+        console.log(infoAlegre)
         context.store.dispatch('setInfo', infoAlegre)
+        // console.log('=== EXECUTEI NO THEN DO AXIOS.GET ===')
       })
       .catch((e) => {
         // FIXME: Caso esse cara não esteja disponível então é mostrada uma página de erro inesperado
         // Utilizar a flag para mostrar um warning quando o usuário clicar no botão para exibir um mapa
         this.flagErroAoCarregarInfos = true
+        // console.log('=== EXECUTEI NO CATCH DA EXCEÇÃO ===')
+        // console.log(localAlegreInfo)
+        // context.store.dispatch('setInfo', localAlegreInfo)
+        console.error(e)
       })
   },
 

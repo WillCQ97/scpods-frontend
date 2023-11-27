@@ -1,4 +1,5 @@
 import { Store } from 'vuex'
+import localObjetivosODS from '~/assets/data/objetivosODS'
 
 const createStore = () => {
   return new Store({
@@ -20,6 +21,7 @@ const createStore = () => {
 
       setInfo(state, campusInfo) {
         state.infos[campusInfo.campus] = campusInfo.unidades
+        // { "ALEGRE": [{UNIDADE 1}, {UNIDADE 2}] }
       },
     },
 
@@ -29,12 +31,15 @@ const createStore = () => {
           .$get('/objetivos')
           .then((objetivosData) => {
             vuexContext.commit('setObjetivos', objetivosData)
+            console.log('INFO: Foram obtidos os objetivos no backend')
           })
           .catch((e) => {
-            console.log('Não foi possível obter os objetivos do backend')
-            context.error(e)
+            console.error(
+              'ERRO: Não foi possível obter os objetivos do backend.'
+            )
+            vuexContext.commit('setObjetivos', localObjetivosODS)
+            // TODO: context.error(e)
           })
-        // (e) => context.error(e)
       },
 
       setInfo(vuexContext, campusInfo) {
@@ -74,8 +79,24 @@ const createStore = () => {
         const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
-
       /* Métodos ainda usados no formulário */
+
+      obterLocaisComProjetosAtivos:
+        (state) =>
+        ({ nomeCampus, nomeUnidade }) => {
+          const unidades = state.infos[nomeCampus]
+
+          if (!unidades) {
+            return [] // TODO: Apenas para não quebrar o mapa
+          }
+
+          const unidade = unidades.find((u) => u.nome === nomeUnidade)
+
+          const locais = unidade.locais.filter(
+            (local) => local.quantidadeProjetosAtivos > 0
+          )
+          return locais
+        },
 
       obterMarcadoresInfoPorCampusEUnidade:
         (state) =>
@@ -88,32 +109,30 @@ const createStore = () => {
 
           const unidade = unidades.find((u) => u.nome === nomeUnidade)
 
-          const lotacoes = unidade.lotacoes.filter(
-            (lotacao) => lotacao.quantidadeProjetosTotais > 0
+          const locais = unidade.locais.filter(
+            (local) => local.quantidadeProjetosAtivos > 0
           )
 
-          const marcadores = lotacoes.map((lotacao) => ({
-            id: lotacao.id,
-            coordinates: lotacao.localizacao.coordinates.reverse(),
+          const marcadores = locais.map((local) => ({
+            id: local.id,
+            coordinates: local.localizacao.coordinates.reverse(),
             content:
               '<div class="popup">' +
               '<img class="popup_img" src="' +
               require('~/assets/ods_icons/' +
-                lotacao.idObjetivoMaisAtendido +
+                local.idObjetivoMaisAtendido +
                 '.png') +
               '"><br>' +
               '<div class="popup_text">' +
               '<strong>' +
-              lotacao.nome +
+              local.nomePrincipal +
               '</strong>' +
               '<br/>Total de Projetos: ' +
-              lotacao.quantidadeProjetosTotais +
-              '<br/>Total de Projetos Ativos: ' +
-              lotacao.quantidadeProjetosAtivos +
+              local.quantidadeProjetosAtivos +
               '<br/>Total de ODS atendidos: ' +
-              lotacao.quantidadeObjetivosAtendidos +
+              local.quantidadeObjetivosAtendidos +
               '<br/>ODS Principal Atendido: ' +
-              lotacao.idObjetivoMaisAtendido +
+              local.idObjetivoMaisAtendido +
               '</div></div>',
           }))
           return marcadores
