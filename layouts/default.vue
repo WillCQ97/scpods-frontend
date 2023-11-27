@@ -14,7 +14,7 @@
       <v-spacer />
       <!-- FIX: o disabled esmaece a imagem -->
       <v-btn icon left disabled>
-        <v-img src="img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
+        <v-img src="/img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
       </v-btn>
     </v-app-bar>
 
