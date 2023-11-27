@@ -55,14 +55,14 @@
                 <v-checkbox :input-value="active"></v-checkbox>
               </v-list-item-action>
 
-              <v-list-item-content>
-                <v-list-item-title>
-                  <strong>Meta {{ meta.id }} </strong>
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ meta.descricao }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
+
+              <v-list-item-title>
+                <strong>Meta {{ meta.id }} </strong>
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                {{ meta.descricao }}
+              </v-list-item-subtitle>
+
             </template>
           </v-list-item>
         </v-list-item-group>
@@ -197,7 +197,7 @@ export default {
       return number
     },
     btnVoltar() {
-      this.$router.push('/sugerir-acao/')
+      return navigateTo('/sugerir-acao/')
     },
     cleanFormFields() {
       this.fieldAction = ''

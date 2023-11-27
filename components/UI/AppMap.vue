@@ -103,7 +103,7 @@ export default {
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
       hideBtnProjectList: true,
       enableTooltip: true,
-      markerIconUrl: require('~/assets/logos/ods-small.png'),
+      markerIconUrl: 'img/logo-ods-small.png',
       markerIconSize: [20, 20],
       showCampusFeature: true,
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',

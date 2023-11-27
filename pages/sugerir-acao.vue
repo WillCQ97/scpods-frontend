@@ -33,7 +33,7 @@
 
     <v-row>
       <v-col>
-        <nuxt-child />
+        <nuxt-page />
       </v-col>
     </v-row>
   </div>
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     onLoadForm() {
-      this.$router.push('/sugerir-acao/formulario')
+      return navigateTo('/sugerir-acao/formulario')
     },
   },
 }

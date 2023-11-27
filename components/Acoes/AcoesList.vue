@@ -6,32 +6,32 @@
 
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-if="projetos.length === 0">
-          <v-list-item-content>
-            <v-list-item-title>
-              Não foi possível carregar a lista com os projetos.
-            </v-list-item-title>
-          </v-list-item-content>
+
+          <v-list-item-title>
+            Não foi possível carregar a lista com os projetos.
+          </v-list-item-title>
+
         </v-list-item>
 
         <!-- TODO: tentar separar este v-list-item em um componente próprio -->
         <v-list-item v-for="(projeto, index) in projetos" :key="index" two-line>
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>Ação: </strong>{{ projeto.titulo }}
-            </v-list-item-title>
 
-            <v-list-item-subtitle>
-              <strong>ODS: </strong>
-              {{ projeto.meta.objetivo.id }}.
-              {{ projeto.meta.objetivo.titulo }}
-              <br />
-              <strong>Descrição: </strong>{{ projeto.descricao }}
-              <br />
-              <strong>Coordenador: </strong>
-              {{ projeto.coordenador.nome }}<br />
-              <br />
-            </v-list-item-subtitle>
-          </v-list-item-content>
+          <v-list-item-title>
+            <strong>Ação: </strong>{{ projeto.titulo }}
+          </v-list-item-title>
+
+          <v-list-item-subtitle>
+            <strong>ODS: </strong>
+            {{ projeto.meta.objetivo.id }}.
+            {{ projeto.meta.objetivo.titulo }}
+            <br />
+            <strong>Descrição: </strong>{{ projeto.descricao }}
+            <br />
+            <strong>Coordenador: </strong>
+            {{ projeto.coordenador.nome }}<br />
+            <br />
+          </v-list-item-subtitle>
+
 
           <v-list-item-action>
             <v-btn @click="showActionInfo(index)"> info </v-btn>
@@ -96,6 +96,7 @@
 
 <script>
 export default {
+  // TODO: Utilizar isso aqui https://vuetifyjs.com/en/components/data-tables/basics/#usage
   name: 'AcoesListComponent',
 
   props: {
