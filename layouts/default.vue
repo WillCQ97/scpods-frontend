@@ -1,6 +1,23 @@
 <!-- TODO: Verificar questão do menu lateral e footer em relação ao fixed, para que o footer seja ocultado automaticamente -->
 <template>
   <v-app>
+    <!-- TOP BAR -->
+    <v-app-bar :clipped-left="clipped" :color="colorBar" fixed app>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
+        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
+      </v-btn>
+
+      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">{{ title }} </v-app-bar-title>
+
+      <v-spacer />
+      <!-- FIX: o disabled esmaece a imagem -->
+      <v-btn icon left disabled>
+        <v-img src="img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
+      </v-btn>
+    </v-app-bar>
+
     <!-- MENU -->
     <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" :color="colorMenu" app>
       <v-list>
@@ -32,25 +49,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
-    <!-- TOP BAR -->
-    <v-app-bar :clipped-left="clipped" :color="colorBar" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-
-      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">{{ title }} </v-app-bar-title>
-
-      <v-spacer />
-      <!-- FIX: o disabled esmaece a imagem -->
-      <v-btn icon left disabled>
-        <v-img src="img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
-      </v-btn>
-
-
-    </v-app-bar>
 
     <!-- MAIN SECTION -->
     <v-main>

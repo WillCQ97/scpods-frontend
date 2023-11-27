@@ -96,6 +96,7 @@
 
 <script>
 export default {
+  // TODO: Utilizar isso https://vuetifyjs.com/en/components/data-tables/basics/#usage
   name: 'AcoesListComponent',
 
   props: {

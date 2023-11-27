@@ -1,8 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/styles/main.css', '~/assets/styles/font.css'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['nuxt-leaflet', '@nuxtjs/axios'],
