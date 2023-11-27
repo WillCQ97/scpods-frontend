@@ -2,7 +2,7 @@
   <v-card class="mx-auto" max-width="800" tile>
     <!-- LISTA COM OS PROJETOS-->
     <v-list>
-      <v-subheader>{{ titulo }}</v-subheader>
+      <v-list-subheader>{{ titulo }}</v-list-subheader>
 
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-if="projetos.length === 0">
@@ -14,7 +14,7 @@
         </v-list-item>
 
         <!-- TODO: tentar separar este v-list-item em um componente próprio -->
-        <v-list-item v-for="(projeto, index) in projetos" :key="index" two-line>
+        <v-list-item v-for="(projeto, index) in projetos" :key="index" line="two">
 
           <v-list-item-title>
             <strong>Ação: </strong>{{ projeto.titulo }}

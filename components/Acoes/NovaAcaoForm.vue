@@ -48,8 +48,9 @@
           </p>
         </div>
 
-        <v-list-item-group v-if="isObjetivoSelecionado()" v-model="targetSelectedIndex">
-          <v-list-item v-for="meta in getTargetsODS(indiceBtnObjetivo + 1)" :key="meta.id" two-line>
+        <v-list v-model:selected="targetSelectedIndex" v-if="isObjetivoSelecionado()">
+          <v-list-item v-for="meta in getTargetsODS(indiceBtnObjetivo + 1)" :key="meta.id" :value="targetSelectedIndex"
+            line="two">
             <template #default="{ active }">
               <v-list-item-action>
                 <v-checkbox :input-value="active"></v-checkbox>
@@ -65,7 +66,7 @@
 
             </template>
           </v-list-item>
-        </v-list-item-group>
+        </v-list>
 
         <!-- DEMAIS CAMPOS -->
 
