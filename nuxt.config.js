@@ -1,3 +1,4 @@
+import {defineNuxtConfig} from '@nuxt/bridge-edge'
 import colors from 'vuetify/es5/util/colors'
 
 // TODO: adicionar imagem e url para o site
@@ -7,7 +8,7 @@ const siteDescription =
 const siteImage = ''
 const siteUrl = ''
 
-export default {
+export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s',
@@ -76,4 +77,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-}
+})
