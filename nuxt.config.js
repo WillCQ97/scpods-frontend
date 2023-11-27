@@ -2,9 +2,9 @@ import { defineNuxtConfig } from '@nuxt/bridge'
 import colors from 'vuetify/es5/util/colors'
 
 // TODO: adicionar imagem e url para o site
-const siteTitle = 'Mapa Colaborativo: ODS na UFES';
+const siteTitle = 'Mapa Colaborativo: ODS na UFES'
 const siteDescription =
-'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) na UFES'
+  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) na UFES'
 const siteImage = ''
 const siteUrl = ''
 
@@ -48,12 +48,13 @@ export default defineNuxtConfig({
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
+  // Modules: https://go.nuxtjs.dev/config-modules
+  modules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    'nuxt-leaflet',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
