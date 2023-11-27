@@ -1,16 +1,12 @@
 import { Store } from 'vuex'
-
-import listaObjetivos from '~/assets/data/ods_goals'
-
-import listaAcoesAlegre from '~/assets/data/alegre_actions'
-import listaInfoAlegre from '~/assets/data/alegre_info'
+import localObjetivosODS from '~/assets/data/objetivosODS'
 
 const createStore = () => {
   return new Store({
     state: {
+      acoes: {},
+      infos: {},
       objetivos: [],
-      acoesAlegre: {},
-      infosAlegre: {},
     },
 
     mutations: {
@@ -18,28 +14,58 @@ const createStore = () => {
         state.objetivos = objetivos
       },
 
-      setAcoesAlegre(state, acoes) {
-        state.acoesAlegre = acoes
+      // TODO: para ficar semelhante ao setInfo talvez
+      setAcoes(state, campus, acoes) {
+        state.acoes[campus] = acoes
       },
-      setInfoAlegre(state, infos) {
-        state.infosAlegre = infos
+
+      setInfo(state, campusInfo) {
+        state.infos[campusInfo.campus] = campusInfo.unidades
+        // { "ALEGRE": [{UNIDADE 1}, {UNIDADE 2}] }
       },
     },
 
     actions: {
       nuxtServerInit(vuexContext, context) {
-        return new Promise((resolve, reject) => {
-          vuexContext.commit('setObjetivos', listaObjetivos)
-
-          vuexContext.commit('setAcoesAlegre', listaAcoesAlegre)
-          vuexContext.commit('setInfoAlegre', listaInfoAlegre)
-
-          resolve()
-        })
+        return context.app.$axios
+          .$get('/objetivos')
+          .then((objetivosData) => {
+            vuexContext.commit('setObjetivos', objetivosData)
+            console.log('INFO: Foram obtidos os objetivos no backend')
+          })
+          .catch((e) => {
+            console.error(
+              'ERRO: Não foi possível obter os objetivos do backend.'
+            )
+            vuexContext.commit('setObjetivos', localObjetivosODS)
+            // TODO: context.error(e)
+          })
       },
+
+      setInfo(vuexContext, campusInfo) {
+        vuexContext.commit('setInfo', campusInfo)
+      },
+      /*  TODO
+      loadInfo(vuexContext, nomeCampus) {
+        return this.$axios
+          .$get('/info/' + nomeCampus)
+          .then((infoAlegre) => {
+            vuexContext.commit('setInfo', infoAlegre)
+          })
+          .catch((e) => {
+            vuexContext.error(e)
+          })
+      },
+      */
     },
 
     getters: {
+      /* TODO
+      isInfoLoaded: (state) => (campus) => {
+        return state.infos[campus] !== undefined
+      },
+      */
+      /* Métodos ainda usados no formulário */
       getObjetivos(state) {
         return state.objetivos
       },
@@ -53,38 +79,64 @@ const createStore = () => {
         const metas = objetivo.metas
         return metas.find((meta) => meta.id === id)
       },
+      /* Métodos ainda usados no formulário */
 
-      getAcoesAlegre(state) {
-        return state.acoesAlegre
-      },
-      getInfoAlegre(state) {
-        return state.infosAlegre
-      },
-      createMarkersInfoAlegre: (state) => (local) => {
-        const markers = state.infosAlegre[local].map((resumo) => ({
-          id: resumo.id,
-          coord: resumo.local.coord,
-          content:
-            '<div class="popup">' +
-            '<img class="popup_img" src="' +
-            require('~/assets/ods_icons/' + resumo.id_ods_principal + '.png') +
-            '"><br>' +
-            '<div class="popup_text">' +
-            '<strong>' +
-            resumo.local.nome +
-            '</strong>' +
-            '<br/>Total de Projetos: ' +
-            resumo.qtd_projetos_totais +
-            '<br/>Total de Projetos Ativos: ' +
-            resumo.qtd_projetos_ativos +
-            '<br/>Total de ODS atendidos: ' +
-            resumo.qtd_ods +
-            '<br/>ODS Principal Atendido: ' +
-            resumo.id_ods_principal +
-            '</div></div>',
-        }))
-        return markers
-      },
+      obterLocaisComProjetosAtivos:
+        (state) =>
+        ({ nomeCampus, nomeUnidade }) => {
+          const unidades = state.infos[nomeCampus]
+
+          if (!unidades) {
+            return [] // TODO: Apenas para não quebrar o mapa
+          }
+
+          const unidade = unidades.find((u) => u.nome === nomeUnidade)
+
+          const locais = unidade.locais.filter(
+            (local) => local.quantidadeProjetosAtivos > 0
+          )
+          return locais
+        },
+
+      obterMarcadoresInfoPorCampusEUnidade:
+        (state) =>
+        ({ nomeCampus, nomeUnidade }) => {
+          const unidades = state.infos[nomeCampus]
+
+          if (!unidades) {
+            return [] // TODO: Apenas para não quebrar o mapa
+          }
+
+          const unidade = unidades.find((u) => u.nome === nomeUnidade)
+
+          const locais = unidade.locais.filter(
+            (local) => local.quantidadeProjetosAtivos > 0
+          )
+
+          const marcadores = locais.map((local) => ({
+            id: local.id,
+            coordinates: local.localizacao.coordinates.reverse(),
+            content:
+              '<div class="popup">' +
+              '<img class="popup_img" src="' +
+              require('~/assets/ods_icons/' +
+                local.idObjetivoMaisAtendido +
+                '.png') +
+              '"><br>' +
+              '<div class="popup_text">' +
+              '<strong>' +
+              local.nomePrincipal +
+              '</strong>' +
+              '<br/>Total de Projetos: ' +
+              local.quantidadeProjetosAtivos +
+              '<br/>Total de ODS atendidos: ' +
+              local.quantidadeObjetivosAtendidos +
+              '<br/>ODS Principal Atendido: ' +
+              local.idObjetivoMaisAtendido +
+              '</div></div>',
+          }))
+          return marcadores
+        },
     },
   })
 }
