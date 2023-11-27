@@ -53,7 +53,12 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['nuxt-leaflet'],
+  modules: ['nuxt-leaflet', '@nuxtjs/axios'],
+
+  axios: {
+    baseURL: process.env.BASE_URL || 'http://localhost:8080/api',
+    credentials: false,
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

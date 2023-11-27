@@ -13,6 +13,7 @@
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.19.3",
     "nuxt": "^2.15.8",
     "nuxt-leaflet": "^0.0.27",
@@ -33,5 +34,5 @@
     "eslint-plugin-vue": "^8.2.0",
     "prettier": "^2.5.1"
   },
-  "packageManager": "yarn@3.6.3"
+  "packageManager": "yarn@4.0.1"
 }
