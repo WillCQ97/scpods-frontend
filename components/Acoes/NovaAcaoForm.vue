@@ -12,11 +12,7 @@
         </p>
 
         <!-- AÇÃO -->
-        <v-text-field
-          v-model="fieldAction"
-          label="Título ou nome da ação"
-          :rules="rules"
-        ></v-text-field>
+        <v-text-field v-model="fieldAction" label="Título ou nome da ação" :rules="rules"></v-text-field>
 
         <!-- OBJETIVOS -->
         <p>
@@ -29,12 +25,7 @@
             Talvez criar um componente que receba o objetivo.id
            -->
           <v-btn-toggle id="ods-btn-toggle" v-model="indiceBtnObjetivo" group>
-            <v-btn
-              v-for="objetivo in objetivosOds"
-              :key="objetivo.id"
-              height="100px"
-              width="100px"
-            >
+            <v-btn v-for="objetivo in objetivosOds" :key="objetivo.id" height="100px" width="100px">
               <v-img :src="carregarImagemObjetivo(objetivo.id)"></v-img>
             </v-btn>
           </v-btn-toggle>
@@ -50,27 +41,15 @@
 
         <div v-if="isObjetivoSelecionado()" id="ods-selected">
           <div id="ods-selected-image">
-            <v-img
-              :src="carregarImagemObjetivo(indiceBtnObjetivo + 1)"
-              width="50px"
-              height="50px"
-              contain
-            ></v-img>
+            <v-img :src="carregarImagemObjetivo(indiceBtnObjetivo + 1)" width="50px" height="50px" contain></v-img>
           </div>
           <p id="ods-selected-text">
             <strong>{{ getGoalDescription(indiceBtnObjetivo + 1) }}</strong>
           </p>
         </div>
 
-        <v-list-item-group
-          v-if="isObjetivoSelecionado()"
-          v-model="targetSelectedIndex"
-        >
-          <v-list-item
-            v-for="meta in getTargetsODS(indiceBtnObjetivo + 1)"
-            :key="meta.id"
-            two-line
-          >
+        <v-list-item-group v-if="isObjetivoSelecionado()" v-model="targetSelectedIndex">
+          <v-list-item v-for="meta in getTargetsODS(indiceBtnObjetivo + 1)" :key="meta.id" two-line>
             <template #default="{ active }">
               <v-list-item-action>
                 <v-checkbox :input-value="active"></v-checkbox>
@@ -90,41 +69,18 @@
 
         <!-- DEMAIS CAMPOS -->
 
-        <v-textarea
-          v-model="fieldDescription"
-          label="Descrição e objetivos da sua ação"
-          :rules="rules"
-        ></v-textarea>
-        <v-combobox
-          v-model="fieldCenterValue"
-          label="Centro onde a ação é desenvolvida"
-          :items="fieldCenterItems"
-          :rules="rules"
-        ></v-combobox>
+        <v-textarea v-model="fieldDescription" label="Descrição e objetivos da sua ação" :rules="rules"></v-textarea>
+        <v-combobox v-model="fieldCenterValue" label="Centro onde a ação é desenvolvida" :items="fieldCenterItems"
+          :rules="rules"></v-combobox>
 
-        <v-text-field
-          v-model="fieldDepartament"
-          label="Departamento da UFES onde a ação é desenvolvida"
-          :rules="rules"
-        ></v-text-field>
+        <v-text-field v-model="fieldDepartament" label="Departamento da UFES onde a ação é desenvolvida"
+          :rules="rules"></v-text-field>
 
-        <v-text-field
-          v-model="fieldCoordinator"
-          label="Nome do coordenador da ação"
-          :rules="rules"
-        ></v-text-field>
-        <v-combobox
-          v-model="fieldRoleValue"
-          label="Vínculo do coordenador com a UFES, por exemplo, professor"
-          :items="fieldRoleItems"
-          :rules="rules"
-        ></v-combobox>
+        <v-text-field v-model="fieldCoordinator" label="Nome do coordenador da ação" :rules="rules"></v-text-field>
+        <v-combobox v-model="fieldRoleValue" label="Vínculo do coordenador com a UFES, por exemplo, professor"
+          :items="fieldRoleItems" :rules="rules"></v-combobox>
 
-        <v-text-field
-          v-model="fieldEmail"
-          label="E-mail do coordenador da ação"
-          :rules="rules"
-        ></v-text-field>
+        <v-text-field v-model="fieldEmail" label="E-mail do coordenador da ação" :rules="rules"></v-text-field>
       </v-card-text>
 
       <v-card-actions>
@@ -344,9 +300,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+
 #ods-selected {
   display: flex;
 }
+
 #ods-selected-text {
   margin: auto;
   align-self: center;
