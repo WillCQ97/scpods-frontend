@@ -43,7 +43,7 @@
 
         <!-- MAPAS -->
         <v-list-group :value="true" no-action append-icon="mdi-map">
-          <template v-slot:activator="{ props }">
+          <template #activator="{ props }">
             <v-list-item v-bind="props">
               <v-list-item-title class="font-weight-bold">
                 Mapas

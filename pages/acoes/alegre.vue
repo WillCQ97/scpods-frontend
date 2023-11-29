@@ -9,8 +9,11 @@
             <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
             <hr />
             <v-card-text>
-              <p>Atualmente, o campus de Alegre conta com <strong>três localidades</strong>:</p>
               <p>
+                Atualmente, o campus de Alegre conta com
+                <strong>três localidades</strong>:
+              </p>
+
               <ul>
                 <li>
                   A <strong>sede do campus</strong> que está localizada no Alto
@@ -27,18 +30,24 @@
                 <li>
                   A <strong> Área Experimental</strong> na localidade de
                   <strong>Rive</strong>, no município de Alegre. Onde estão
-                  localizados o <strong>Hospital Veterinário (HOVET)</strong>,
-                  o <strong>Laboratório de Solos</strong> e o <strong>Viveiro</strong>.
+                  localizados o <strong>Hospital Veterinário (HOVET)</strong>, o
+                  <strong>Laboratório de Solos</strong> e o
+                  <strong>Viveiro</strong>.
                 </li>
               </ul>
-              </p>
             </v-card-text>
             <hr />
             <v-card-actions>
               <v-spacer />
-              <v-btn :color="btnColor" @click="exibirMapa('sede')">Sede em Alegre</v-btn>
-              <v-btn :color="btnColor" @click="exibirMapa('jeronimo')">Unidade Jerônimo Monteiro</v-btn>
-              <v-btn :color="btnColor" @click="exibirMapa('rive')">Área Experimental Rive</v-btn>
+              <v-btn :color="btnColor" @click="exibirMapa('sede')"
+                >Sede em Alegre</v-btn
+              >
+              <v-btn :color="btnColor" @click="exibirMapa('jeronimo')"
+                >Unidade Jerônimo Monteiro</v-btn
+              >
+              <v-btn :color="btnColor" @click="exibirMapa('rive')"
+                >Área Experimental Rive</v-btn
+              >
               <v-spacer />
             </v-card-actions>
           </v-card>
@@ -86,9 +95,9 @@ export default {
       flagErroAoCarregarInfos: false,
     }
   },
-  fetch(context) {
-    // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
-    /*
+  // fetch(context) {
+  // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
+  /*
     // Usar a api específica para tal https://nuxt.com/docs/getting-started/data-fetching
     // console.log('=== EXECUTEI NO FETCH DAS INFOS ===')
     context.$axios
@@ -108,7 +117,7 @@ export default {
         console.error(e)
       })
       */
-  },
+  // },
 
   methods: {
     scrollToIntoChild() {
@@ -119,7 +128,7 @@ export default {
         })
       }, 250)
     },
-    exibirMapa(campus) {
+    exibirMapa() {
       if (this.flagErroAoCarregarInfos) {
         // TODO: mostrar um diálogo informando que não foi possível carregar as infos
       }
@@ -129,4 +138,3 @@ export default {
   },
 }
 </script>
-

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-/* TODO: REMOVER ESSA PÁGINA*/
+/* TODO: REMOVER ESSA PÁGINA */
 import { ref } from 'vue'
 const zoom = ref(6)
 </script>
