@@ -39,15 +39,19 @@
             <hr />
             <v-card-actions>
               <v-spacer />
-              <v-btn :color="btnColor" @click="exibirMapa('sede')"
-                >Sede em Alegre</v-btn
+              <v-btn
+                :color="btnColor"
+                variant="tonal"
+                @click="exibirMapa('sede')"
               >
-              <v-btn :color="btnColor" @click="exibirMapa('jeronimo')"
-                >Unidade Jerônimo Monteiro</v-btn
-              >
-              <v-btn :color="btnColor" @click="exibirMapa('rive')"
-                >Área Experimental Rive</v-btn
-              >
+                Sede em Alegre
+              </v-btn>
+              <v-btn :color="btnColor" @click="exibirMapa('jeronimo')">
+                Unidade Jerônimo Monteiro
+              </v-btn>
+              <v-btn :color="btnColor" @click="exibirMapa('rive')">
+                Área Experimental Rive
+              </v-btn>
               <v-spacer />
             </v-card-actions>
           </v-card>
@@ -79,7 +83,7 @@ async function irParaPaginaCampus() {
   await navigateTo('/acoes/alegre/' + campus)
 }
 */
-function irParaPaginaCampus() {
+function irParaPaginaCampus(campus) {
   return navigateTo('/acoes/alegre/' + campus)
 }
 // import localAlegreInfo from '~/assets/data/alegreInfo'
@@ -132,8 +136,8 @@ export default {
       if (this.flagErroAoCarregarInfos) {
         // TODO: mostrar um diálogo informando que não foi possível carregar as infos
       }
-      irParaPaginaCampus()
-      this.scrollToIntoChild()
+      irParaPaginaCampus('sede')
+      // this.scrollToIntoChild()
     },
   },
 }
