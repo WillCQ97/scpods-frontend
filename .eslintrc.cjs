@@ -4,12 +4,11 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: '@babel/eslint-parser',
-    requireConfigFile: false,
+    parser: '@typescript-eslint/parser',
   },
-  extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
-  plugins: [],
+  extends: ['@nuxtjs/eslint-config-typescript', 'plugin:prettier/recommended'],
   // add your custom rules here
   rules: {},
 }
