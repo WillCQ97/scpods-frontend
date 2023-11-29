@@ -1,7 +1,7 @@
 <template>
   <div>
     <ProjectFormInfoComponent />
-    <hr>
+    <hr />
     <NovaAcaoForm />
   </div>
 </template>

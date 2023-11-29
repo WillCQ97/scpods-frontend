@@ -9,43 +9,74 @@
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
 
-      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">{{ title }} </v-app-bar-title>
+      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold"
+        >{{ title }}
+      </v-app-bar-title>
 
       <v-spacer />
       <!-- FIX: o disabled esmaece a imagem -->
       <v-btn icon left disabled>
-        <v-img src="/img/logo-ods-na-ufes.png" :height="iconHeight" :width="iconWidth" contain></v-img>
+        <v-img
+          src="/img/logo-ods-na-ufes.png"
+          :height="iconHeight"
+          :width="iconWidth"
+          contain
+        ></v-img>
       </v-btn>
     </v-app-bar>
 
     <!-- MENU -->
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" :color="colorMenu" app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      :color="colorMenu"
+      app
+    >
       <v-list>
         <!-- HOME -->
         <v-list-item to="/" append-icon="mdi-home">
-          <v-list-item-title class="font-weight-bold"> Início </v-list-item-title>
+          <v-list-item-title class="font-weight-bold">
+            Início
+          </v-list-item-title>
         </v-list-item>
 
         <!-- MAPAS -->
         <v-list-group :value="true" no-action append-icon="mdi-map">
           <template v-slot:activator="{ props }">
             <v-list-item v-bind="props">
-              <v-list-item-title class="font-weight-bold"> Mapas </v-list-item-title>
+              <v-list-item-title class="font-weight-bold">
+                Mapas
+              </v-list-item-title>
             </v-list-item>
           </template>
 
-          <v-list-item v-for="(item, i) in mapItems" :key="i" :to="item.to" router exact class="mn-lg-li-action">
-
-            <v-list-item-title class="font-weight-bold"> {{ item.title }} </v-list-item-title>
-
+          <v-list-item
+            v-for="(item, i) in mapItems"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+            class="mn-lg-li-action"
+          >
+            <v-list-item-title class="font-weight-bold">
+              {{ item.title }}
+            </v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <!-- RESTANTE DOS ITEMS DO MENU -->
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact :append-icon="item.icon">
-
-          <v-list-item-title class="font-weight-bold"> {{ item.title }} </v-list-item-title>
-
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+          :append-icon="item.icon"
+        >
+          <v-list-item-title class="font-weight-bold">
+            {{ item.title }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -83,7 +114,7 @@ export default {
       iconHeight: 40,
       iconWidth: 40,
       items: [
-        /* TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, 
+        /* TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio,
          * provavelmente deverá ser adicionado em outro leiaute
          */
         {

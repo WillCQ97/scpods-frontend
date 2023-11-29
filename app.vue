@@ -42,6 +42,10 @@ useHead({
   ],
 
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
-  script: [{ innerHTML: 'console.log(\'Olá, executado da meta tag config no app.vue\')' }]
+  script: [
+    {
+      innerHTML: "console.log('Olá, executado da meta tag config no app.vue')",
+    },
+  ],
 })
 </script>

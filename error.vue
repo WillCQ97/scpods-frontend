@@ -12,7 +12,7 @@
               <v-card-title v-else>
                 {{ otherError }} Erro {{ error.statusCode }}
               </v-card-title>
-  
+
               <hr />
               <v-card-text v-if="error.statusCode === 404">
                 <p>
@@ -22,10 +22,11 @@
               </v-card-text>
               <v-card-text v-else>
                 <p>
-                  Ocorreu um erro inesperado, por favor retorne a página inicial.
+                  Ocorreu um erro inesperado, por favor retorne a página
+                  inicial.
                 </p>
               </v-card-text>
-  
+
               <v-card-actions>
                 <v-spacer />
                 <!--TODO: trocar para um link normal, pois caso o javascript quebre, possa ser recarregado a partir da página inicial -->
