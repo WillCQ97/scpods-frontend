@@ -127,6 +127,11 @@ export default {
           title: 'Sobre',
           to: '/sobre',
         },
+        {
+          icon: 'mdi-test-tube',
+          title: 'Teste',
+          to: '/teste',
+        },
       ],
       mapItems: [
         {
