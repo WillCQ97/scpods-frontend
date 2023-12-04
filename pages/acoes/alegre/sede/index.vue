@@ -36,6 +36,7 @@ export default {
         this.$store.dispatch('loadInfo', this.nomeCampus)
       }
       */
+      /*
       const marcadores =
         this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
           nomeCampus: this.nomeCampus,
@@ -43,6 +44,8 @@ export default {
           nomeUnidade: this.nomeUnidade,
         })
       return marcadores
+      */
+      return []
     },
   },
 }

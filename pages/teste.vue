@@ -40,6 +40,7 @@ export default {
           meta: 'Atingir níveis mais elevados de produtividade das economias, por meio da diversificação, modernização tecnológica e inovação, inclusive por meio de um foco em setores de alto valor agregado e intensivos em mão-de-obra',
           local: 'Departamento de Agronomia',
           centro: 'CCAE',
+          // deixar o titulo e o número do objetivo
           coordenador: '',
           inicio: '',
           encerramento: '',
