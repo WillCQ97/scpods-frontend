@@ -132,6 +132,11 @@ export default {
           title: 'Teste',
           to: '/teste',
         },
+        {
+          icon: 'mdi-test-tube',
+          title: 'Teste Nested Pages',
+          to: '/testes/parent',
+        },
       ],
       mapItems: [
         {

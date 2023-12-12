@@ -32,10 +32,13 @@ export default {
 
   computed: {
     obterMarcadoresParaRive() {
+      /*
       return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
         nomeCampus: this.nomeCampus,
         nomeUnidade: this.nomeUnidade,
       })
+      */
+      return []
     },
   },
 }

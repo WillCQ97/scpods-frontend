@@ -31,10 +31,13 @@ export default {
 
   computed: {
     obterMarcadoresParaJeronimo() {
+      /*
       return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
         nomeCampus: this.nomeCampus,
         nomeUnidade: this.nomeUnidade,
       })
+      */
+      return []
     },
   },
 }

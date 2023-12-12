@@ -78,13 +78,8 @@
 <script>
 import AcoesList from '~/components/Acoes/AcoesList.vue'
 
-/*
-async function irParaPaginaCampus() {
+async function irParaPaginaCampus(campus) {
   await navigateTo('/acoes/alegre/' + campus)
-}
-*/
-function irParaPaginaCampus(campus) {
-  return navigateTo('/acoes/alegre/' + campus)
 }
 // import localAlegreInfo from '~/assets/data/alegreInfo'
 
@@ -132,11 +127,11 @@ export default {
         })
       }, 250)
     },
-    exibirMapa() {
+    exibirMapa(campus) {
       if (this.flagErroAoCarregarInfos) {
         // TODO: mostrar um diálogo informando que não foi possível carregar as infos
       }
-      irParaPaginaCampus('sede')
+      irParaPaginaCampus(campus)
       // this.scrollToIntoChild()
     },
   },
