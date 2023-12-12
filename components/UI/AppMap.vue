@@ -57,7 +57,7 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
   name: 'AppMapComponent',

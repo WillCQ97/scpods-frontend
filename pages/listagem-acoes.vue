@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import acoesAlegre from '~/assets/data/alegre_actions.json'
 import AcoesList from '~/components/Acoes/AcoesList.vue'
 

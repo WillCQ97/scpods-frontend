@@ -8,7 +8,7 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import featureCampusAlegre from '~/assets/features/alegre_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 

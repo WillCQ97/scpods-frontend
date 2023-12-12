@@ -90,7 +90,7 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   // TODO: Utilizar isso aqui https://vuetifyjs.com/en/components/data-tables/basics/#usage
   name: 'AcoesListComponent',

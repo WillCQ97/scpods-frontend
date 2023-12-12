@@ -62,7 +62,7 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
 import submissions from '~/assets/data/alegre_submissions.json'
 
 export default {

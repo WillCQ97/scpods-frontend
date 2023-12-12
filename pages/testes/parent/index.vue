@@ -5,4 +5,4 @@
     <nuxt-page />
   </div>
 </template>
-<script></script>
+<script lang="ts"></script>

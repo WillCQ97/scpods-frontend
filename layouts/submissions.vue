@@ -61,7 +61,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   /* TODO: REMOVER ESTE LAYOUT, SE O MESMO NÃO FOR UTILIZADO */
   name: 'SubmissionsLayout',

@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 /* TODO: VERIFICAR UTILIZADAÇÃO DESSA PÁGINA E REMOVÊ-LA
  * JUNTAMENTE COM O COMPONENTE PROJECTINFO E O JSON DE CAMPOS
  */

@@ -6,7 +6,7 @@
     <nuxt-page />
   </div>
 </template>
-<script>
+<script lang="ts">
 function navigate() {
   return navigateTo('/testes/parent/child')
 }

@@ -8,7 +8,7 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import featureUnidadeJeronimo from '~/assets/features/jeronimo_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 

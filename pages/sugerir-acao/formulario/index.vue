@@ -2,7 +2,7 @@
   <nova-acao-form />
 </template>
 
-<script>
+<script lang="ts">
 import NovaAcaoForm from '~/components/Acoes/NovaAcaoForm.vue'
 
 export default {

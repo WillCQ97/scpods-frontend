@@ -9,7 +9,7 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import featureUnidadeRive from '~/assets/features/rive_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
