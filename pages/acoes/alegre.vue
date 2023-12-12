@@ -40,17 +40,13 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
+                v-for="(btnMap, index) in bntMaps"
+                :key="index"
                 :color="btnColor"
                 variant="tonal"
-                @click="exibirMapa('sede')"
+                @click="exibirMapa(btnMap.subpage)"
               >
-                Sede em Alegre
-              </v-btn>
-              <v-btn :color="btnColor" @click="exibirMapa('jeronimo')">
-                Unidade Jerônimo Monteiro
-              </v-btn>
-              <v-btn :color="btnColor" @click="exibirMapa('rive')">
-                Área Experimental Rive
+                {{ btnMap.title }}
               </v-btn>
               <v-spacer />
             </v-card-actions>
@@ -75,10 +71,11 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
 import AcoesList from '~/components/Acoes/AcoesList.vue'
+import colorPalleteUfes from '~/assets/colors'
 
-async function irParaPaginaCampus(campus) {
+async function carregarMapa(campus: string) {
   await navigateTo('/acoes/alegre/' + campus)
 }
 // import localAlegreInfo from '~/assets/data/alegreInfo'
@@ -89,9 +86,14 @@ export default {
 
   data() {
     return {
-      btnColor: '#d2dce8',
-      flagShowActionsList: false,
-      flagErroAoCarregarInfos: false,
+      corBotao: colorPalleteUfes.monocromatic.mono5,
+      mapas: [
+        { titulo: 'Sede em Alegre', subpagina: 'sede' },
+        { titulo: 'Unidade Jerônimo Monteiro', subpagina: 'jeronimo' },
+        { titulo: 'Área Experimental Rive', subpagina: 'rive' },
+      ],
+      // flagShowActionsList: false,
+      // flagErroAoCarregarInfos: false,
     }
   },
   // fetch(context) {
@@ -119,6 +121,7 @@ export default {
   // },
 
   methods: {
+    // TODO: FIX SCROLL INTO CHILD
     scrollToIntoChild() {
       setTimeout(() => {
         this.$refs.childContainer.scrollIntoView({
@@ -127,12 +130,12 @@ export default {
         })
       }, 250)
     },
-    exibirMapa(campus) {
-      if (this.flagErroAoCarregarInfos) {
-        // TODO: mostrar um diálogo informando que não foi possível carregar as infos
-      }
-      irParaPaginaCampus(campus)
+    exibirMapa(campus: string) {
+      // if (this.flagErroAoCarregarInfos) {
+      // TODO: mostrar um diálogo informando que não foi possível carregar as infos
+      // }
       // this.scrollToIntoChild()
+      carregarMapa(campus)
     },
   },
 }
