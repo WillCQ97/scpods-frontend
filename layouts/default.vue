@@ -5,12 +5,13 @@
     <v-app-bar :clipped-left="clipped" :color="colorBar" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
+      <!-- TODO: CORRIGIR FUNCIONAMENTO DO MINIVARIANT NA VERSÃO 3 DO VUETIFY -->
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
 
-      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold"
-        >{{ title }}
+      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">
+        {{ title }}
       </v-app-bar-title>
 
       <v-spacer />
@@ -89,7 +90,7 @@
     </v-main>
 
     <!-- FOOTER -->
-    <v-footer :color="colorFooter" app dark>
+    <v-footer :color="colorFooter" app>
       <v-spacer />
       <span> &copy; {{ new Date().getFullYear() }} - {{ author }} </span>
       <v-spacer />
@@ -97,8 +98,8 @@
   </v-app>
 </template>
 
-<script>
-import ufesTheme from 'assets/themes'
+<script lang="ts">
+import colorPalleteUfes from 'assets/colors'
 
 export default {
   name: 'DefaultLayout',
@@ -108,9 +109,9 @@ export default {
       clipped: true,
       drawer: false,
       fixed: false,
-      colorBar: ufesTheme.default.mono6,
-      colorFooter: ufesTheme.default.mono5,
-      colorMenu: ufesTheme.default.mono7,
+      colorBar: colorPalleteUfes.monocromatic.mono6,
+      colorFooter: colorPalleteUfes.monocromatic.mono5,
+      colorMenu: colorPalleteUfes.monocromatic.mono7,
       iconHeight: 40,
       iconWidth: 40,
       items: [
@@ -171,14 +172,7 @@ export default {
 <style scoped>
 #title-bar {
   font-family: 'Ufes Sans', sans-serif !important;
-  text-shadow: 2px 2px 3px #94aaea;
-}
-
-.mn-li-action {
-  margin-right: 12px !important;
-}
-
-.mn-lg-li-action {
-  padding-left: 52px !important;
+  text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
+  /*color: black; */ /* TODO: É POSSÍVEL DEFINIR A COR DA FONTE DIRETAMENTE ASSIM */
 }
 </style>
