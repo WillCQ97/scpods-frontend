@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt3-leaflet',
   ],
+
   vite: {
     vue: {
       template: {

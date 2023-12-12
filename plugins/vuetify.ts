@@ -5,7 +5,7 @@ import { createVuetify, type ThemeDefinition } from 'vuetify'
 import colors from 'vuetify/util/colors'
 import colorPalleteUfes from '~/assets/colors'
 
-// tema disponibilizado no nuxt.config criado pela adição do vuetify na versão 2 do nuxt
+// Tema adicionado ao nuxt.config criado pela adição do vuetify na versão 2
 const oldDarkTheme: ThemeDefinition = {
   dark: true,
   colors: {
@@ -19,7 +19,7 @@ const oldDarkTheme: ThemeDefinition = {
   },
 }
 
-// example from https://vuetifyjs.com/en/features/theme/#typescript
+// Exemplo disponibilizado em https://vuetifyjs.com/en/features/theme/#typescript
 const exampleTheme: ThemeDefinition = {
   dark: false,
   colors: {
