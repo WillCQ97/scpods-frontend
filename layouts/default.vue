@@ -102,10 +102,11 @@
 import colorPalleteUfes from 'assets/colors'
 
 export default {
+  /* TODO: TROCAR TODAS AS VARIÁVEIS PARA PORTUGUÊS */
   name: 'DefaultLayout',
   data() {
     return {
-      author: 'Willian',
+      author: 'Willian Conceição Queiroz',
       clipped: true,
       drawer: false,
       fixed: false,
