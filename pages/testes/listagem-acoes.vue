@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import acoesAlegre from '~/assets/data/alegre_actions.json'
+import acoesAlegre from '~/assets/data/acoesAlegre.json'
 import AcoesList from '~/components/Acoes/AcoesList.vue'
 
 export default {

@@ -37,13 +37,22 @@ export default {
           id: 1,
           titulo:
             'Desenvolvimento do Polo de Fruticultura da Região do Caparaó',
-          meta: 'Atingir níveis mais elevados de produtividade das economias, por meio da diversificação, modernização tecnológica e inovação, inclusive por meio de um foco em setores de alto valor agregado e intensivos em mão-de-obra',
+          meta: '2.1',
           local: 'Departamento de Agronomia',
           centro: 'CCAE',
-          // deixar o titulo e o número do objetivo
-          coordenador: '',
-          inicio: '',
+          coordenador: 'Mário Novo CTO',
+          inicio: '2023-02-21',
           encerramento: '',
+        },
+        {
+          id: 2,
+          titulo: 'Lorem Ipsum Dolor sit amet',
+          meta: '9.4',
+          local: 'Departamento de Computação',
+          centro: 'CCENS',
+          coordenador: 'Mário Novo CTO',
+          inicio: '2021-02-21',
+          encerramento: '2021-05-09',
         },
       ],
     }

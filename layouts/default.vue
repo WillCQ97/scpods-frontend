@@ -126,13 +126,13 @@ export default {
         },
         {
           icone: 'mdi-test-tube',
-          titulo: 'Teste',
-          pagina: '/teste',
+          titulo: 'Listagem Antiga',
+          pagina: '/testes/listagem-acoes',
         },
         {
           icone: 'mdi-test-tube',
-          titulo: 'Teste Nested Pages',
-          pagina: '/testes/parent',
+          titulo: 'Listagem Nova',
+          pagina: '/testes/data-table',
         },
       ],
       itensSubMenuMapas: [
