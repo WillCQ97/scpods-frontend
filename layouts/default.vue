@@ -1,11 +1,10 @@
-<!-- TODO: Verificar questão do menu lateral e footer em relação ao fixed, para que o footer seja ocultado automaticamente -->
 <template>
   <v-app>
     <!-- TOP BAR (CABEÇALHO) -->
-    <v-app-bar :clipped-left="clipped" :color="corCabecalho" fixed app>
+    <v-app-bar :clipped-left="clipped" :color="corCabecalho" fixed>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <!-- TODO: CORRIGIR FUNCIONAMENTO DO MINIVARIANT NA VERSÃO 3 DO VUETIFY -->
+      <!-- TODO: CORRIGIR PROBLEMA DO SUBMENU COM MINIVARIANT QUE NÃO APARECE O ICONE, POIS É ADICIONADO UM PADING AO ITEM DO SUBMENU -->
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
@@ -15,6 +14,8 @@
       </v-app-bar-title>
 
       <v-spacer />
+
+      <!-- TODO: ICONE NO BOTÃO COM DISABLE FICA COM FADE APLICADO -->
       <v-btn icon disabled>
         <v-img
           src="/img/logo-ods-na-ufes.png"
@@ -23,27 +24,20 @@
           contain
         ></v-img>
       </v-btn>
-      <v-icon icon="mdi-home"></v-icon>
     </v-app-bar>
 
     <!-- MENU -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      :color="corMenu"
-      app
-    >
+    <v-navigation-drawer v-model="drawer" :color="corMenu" :rail="miniVariant">
       <v-list>
         <!-- HOME -->
-        <v-list-item to="/" append-icon="mdi-home">
+        <v-list-item to="/" prepend-icon="mdi-home">
           <v-list-item-title class="font-weight-bold">
             Início
           </v-list-item-title>
         </v-list-item>
 
         <!-- MAPAS -->
-        <v-list-group :value="true" no-action append-icon="mdi-map">
+        <v-list-group :value="true" no-action prepend-icon="mdi-map">
           <template #activator="{ props }">
             <v-list-item v-bind="props">
               <v-list-item-title class="font-weight-bold">
@@ -52,13 +46,14 @@
             </v-list-item>
           </template>
 
+          <!-- SUBMENU DOS CAMPUS -->
           <v-list-item
             v-for="(item, i) in itensSubMenuMapas"
             :key="i"
             :to="item.pagina"
+            :prepend-icon="item.icone"
             router
             exact
-            class="mn-lg-li-action"
           >
             <v-list-item-title class="font-weight-bold">
               {{ item.titulo }}
@@ -71,9 +66,9 @@
           v-for="(item, i) in itensMenu"
           :key="i"
           :to="item.pagina"
+          :prepend-icon="item.icone"
           router
           exact
-          :append-icon="item.icone"
         >
           <v-list-item-title class="font-weight-bold">
             {{ item.titulo }}
@@ -90,7 +85,7 @@
     </v-main>
 
     <!-- FOOTER -->
-    <v-footer :color="corRodape" app>
+    <v-footer :color="corRodape">
       <v-spacer />
       <span> &copy; {{ new Date().getFullYear() }} - {{ autor }} </span>
       <v-spacer />
@@ -102,7 +97,6 @@
 import colorPalleteUfes from 'assets/colors'
 
 export default {
-  /* TODO: TROCAR TODAS AS VARIÁVEIS PARA PORTUGUÊS */
   name: 'DefaultLayout',
   data() {
     return {
@@ -143,22 +137,22 @@ export default {
       ],
       itensSubMenuMapas: [
         {
-          icone: 'mdi-map',
+          icone: 'mdi-alpha-a',
           titulo: 'Alegre',
           pagina: '/acoes/alegre',
         },
         {
-          icone: 'mdi-map',
+          icone: 'mdi-alpha-g',
           titulo: 'Goiabeiras',
           pagina: '/acoes/goiabeiras',
         },
         {
-          icone: 'mdi-map',
+          icone: 'mdi-alpha-m',
           titulo: 'Maruípe',
           pagina: '/acoes/maruipe',
         },
         {
-          icone: 'mdi-map',
+          icone: 'mdi-alpha-s',
           titulo: 'São Mateus',
           pagina: '/acoes/sao-mateus',
         },
