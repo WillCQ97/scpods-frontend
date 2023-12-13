@@ -7,6 +7,7 @@
         O formulário é composto por informações essenciais acerca da
         ação/projeto executado:
       </p>
+      <!-- TODO: Correção dos itens abaixo de acordo com o novo formato dos dados do projeto -->
       <ul>
         <li>Título da ação</li>
         <li>ODS principal relacionado</li>
@@ -30,3 +31,12 @@ export default {
   name: 'PaginaSugerirAcao',
 }
 </script>
+
+<style scoped>
+ul {
+  padding-left: 25px;
+}
+li {
+  padding-left: 10px;
+}
+</style>
