@@ -40,13 +40,13 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
-                v-for="(btnMap, index) in bntMaps"
+                v-for="(mapa, index) in mapas"
                 :key="index"
                 :color="btnColor"
                 variant="tonal"
-                @click="exibirMapa(btnMap.subpage)"
+                @click="exibirMapa(mapa.subpagina)"
               >
-                {{ btnMap.title }}
+                {{ mapa.titulo }}
               </v-btn>
               <v-spacer />
             </v-card-actions>
