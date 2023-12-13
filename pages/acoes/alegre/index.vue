@@ -4,6 +4,12 @@
     <v-col>
       <v-card>
         <v-card-title>Sobre a instituição</v-card-title>
+        <v-card-subtitle>
+          Descrição disponibilizada
+          <a href="https://www.ufes.br/campus-de-alegre" target="_blank">
+            na página da ufes
+          </a>
+        </v-card-subtitle>
         <hr />
         <v-card-text>
           <p>
@@ -11,6 +17,7 @@
             localizado na região sul do Espírito Santo e oferta atualmente 17
             cursos de graduação, 8 cursos de mestrado e 3 de doutorado.
           </p>
+          <br />
           <p>
             Com o desmembramento do extinto Centro de Ciências Agrárias,
             atualmente, abriga dois centros de ensino denominados Centro de
