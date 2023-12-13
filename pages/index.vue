@@ -17,9 +17,12 @@
           <v-card-actions>
             <v-spacer />
             <a href="https://brasil.un.org/pt-br/sdgs" target="_blank">
-              <v-btn color="primary" small text>
-                Veja mais
-                <v-icon right small>mdi-open-in-new</v-icon>
+              <v-btn
+                small
+                color="primary"
+                text="Veja mais"
+                append-icon="mdi-open-in-new"
+              >
               </v-btn>
             </a>
             <v-spacer />
@@ -45,9 +48,12 @@
           <v-card-actions>
             <v-spacer />
             <a href="https://ods.ufes.br/" target="_blank">
-              <v-btn color="primary" small text>
-                Veja mais
-                <v-icon right small>mdi-open-in-new</v-icon>
+              <v-btn
+                small
+                color="primary"
+                text="Veja mais"
+                append-icon="mdi-open-in-new"
+              >
               </v-btn>
             </a>
             <v-spacer />
@@ -75,7 +81,7 @@
           <v-card-actions>
             <v-spacer />
             <nuxt-link to="/sugerir-acao">
-              <v-btn color="primary" small text> Sugerir ação </v-btn>
+              <v-btn small color="primary" text="Sugerir ação"></v-btn>
             </nuxt-link>
             <v-spacer />
           </v-card-actions>
@@ -87,6 +93,6 @@
 
 <script lang="ts">
 export default {
-  name: 'HomePage',
+  name: 'PaginaInicial',
 }
 </script>

@@ -14,7 +14,7 @@ import featureUnidadeRive from '~/assets/features/rive_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  name: 'AlegreRiveMapPage',
+  name: 'PaginaMapaAcoesAlegreRive',
   components: { AppMapComponent },
   data() {
     return {

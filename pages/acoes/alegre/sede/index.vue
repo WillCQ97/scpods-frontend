@@ -13,7 +13,8 @@ import featureCampusAlegre from '~/assets/features/alegre_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  name: 'AlegreSedeMapPage',
+  // name: 'AlegreSedeMapPage',
+  name: 'PaginaMapaAcoesAlegreSede',
   components: { AppMapComponent },
 
   data() {

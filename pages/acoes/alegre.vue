@@ -42,7 +42,7 @@
               <v-btn
                 v-for="(mapa, index) in mapas"
                 :key="index"
-                :color="btnColor"
+                :color="corBotao"
                 variant="tonal"
                 @click="exibirMapa(mapa.subpagina)"
               >
@@ -81,7 +81,7 @@ async function carregarMapa(campus: string) {
 // import localAlegreInfo from '~/assets/data/alegreInfo'
 
 export default {
-  name: 'AlegreActionsWrapperPage',
+  name: 'PaginaAcoesAlegreWrapper',
   components: { AcoesList },
 
   data() {
@@ -92,8 +92,8 @@ export default {
         { titulo: 'Unidade Jerônimo Monteiro', subpagina: 'jeronimo' },
         { titulo: 'Área Experimental Rive', subpagina: 'rive' },
       ],
-      // flagShowActionsList: false,
-      // flagErroAoCarregarInfos: false,
+      flagShowActionsList: false,
+      flagErroAoCarregarInfos: false,
     }
   },
   // fetch(context) {

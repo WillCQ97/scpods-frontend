@@ -64,7 +64,7 @@
 
 <script lang="ts">
 export default {
-  name: 'AboutPage',
+  name: 'PaginaSobre',
 }
 </script>
 

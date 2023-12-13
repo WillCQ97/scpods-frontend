@@ -1,5 +1,5 @@
 <template>
-  <!-- INFO GERAL SOBRE O CAMPUS -->
+  <!-- INFO GERAL SOBRE O CAMPUS DE ALEGRE -->
   <v-row>
     <v-col>
       <v-card>
@@ -25,9 +25,12 @@
         <v-card-actions>
           <v-spacer />
           <a href="https://alegre.ufes.br/" target="_blank">
-            <v-btn color="primary" small text>
-              Ir para o site
-              <v-icon right small>mdi-open-in-new</v-icon>
+            <v-btn
+              small
+              color="primary"
+              text="Ir para o site"
+              append-icon="mdi-open-in-new"
+            >
             </v-btn>
           </a>
         </v-card-actions>
@@ -38,6 +41,6 @@
 
 <script lang="ts">
 export default {
-  name: 'AlegreActionsPage',
+  name: 'PaginaAcoesAlegre',
 }
 </script>

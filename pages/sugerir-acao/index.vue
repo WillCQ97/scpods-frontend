@@ -27,6 +27,6 @@
 
 <script lang="ts">
 export default {
-  name: 'SugerirAcaoPage',
+  name: 'PaginaSugerirAcao',
 }
 </script>

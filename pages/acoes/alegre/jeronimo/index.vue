@@ -13,7 +13,7 @@ import featureUnidadeJeronimo from '~/assets/features/jeronimo_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  name: 'AlegreJeronimoMapPage',
+  name: 'PaginaMapaAcoesAlegreJeronimo',
   components: { AppMapComponent },
 
   data() {
