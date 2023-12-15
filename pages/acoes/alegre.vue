@@ -140,3 +140,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+ul {
+  padding-left: 25px;
+}
+li {
+  padding-left: 10px;
+}
+</style>
