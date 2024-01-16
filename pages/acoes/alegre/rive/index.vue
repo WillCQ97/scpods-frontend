@@ -9,12 +9,12 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import featureUnidadeRive from '~/assets/features/rive_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  name: 'AlegreRiveMapPage',
+  name: 'PaginaMapaAcoesAlegreRive',
   components: { AppMapComponent },
   data() {
     return {
@@ -32,10 +32,13 @@ export default {
 
   computed: {
     obterMarcadoresParaRive() {
+      /*
       return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
         nomeCampus: this.nomeCampus,
         nomeUnidade: this.nomeUnidade,
       })
+      */
+      return []
     },
   },
 }

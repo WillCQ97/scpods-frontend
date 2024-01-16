@@ -9,7 +9,7 @@
     "aceito": true,
     "localizacao": {
       "type": "Point",
-      "coordinates": [ -41.536721, -20.761913 ]
+      "coordinates": [-41.536721, -20.761913]
     },
     "meta": {
       "id": "0",
@@ -26,7 +26,7 @@
     },
     "departamento": {
       "nome": "Nome do Departamento",
-      "local": [ -20.761913, -41.536721 ],
+      "local": [-20.761913, -41.536721],
       "centro": {
         "nome": "Nome do Centro",
         "campus": "Nome do Campus"

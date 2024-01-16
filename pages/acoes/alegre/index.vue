@@ -1,9 +1,16 @@
 <template>
-  <!-- INFO GERAL SOBRE O CAMPUS -->
+  <!-- INFO GERAL SOBRE O CAMPUS DE ALEGRE -->
   <v-row>
     <v-col>
       <v-card>
-        <v-card-title>Sobre a instituição</v-card-title>
+        <v-card-title>Sobre a o campus</v-card-title>
+        <v-card-subtitle>
+          Descrição disponibilizada
+          <a href="https://www.ufes.br/campus-de-alegre" target="_blank">
+            na página da ufes
+            <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
+          </a>
+        </v-card-subtitle>
         <hr />
         <v-card-text>
           <p>
@@ -11,6 +18,7 @@
             localizado na região sul do Espírito Santo e oferta atualmente 17
             cursos de graduação, 8 cursos de mestrado e 3 de doutorado.
           </p>
+          <br />
           <p>
             Com o desmembramento do extinto Centro de Ciências Agrárias,
             atualmente, abriga dois centros de ensino denominados Centro de
@@ -25,9 +33,12 @@
         <v-card-actions>
           <v-spacer />
           <a href="https://alegre.ufes.br/" target="_blank">
-            <v-btn color="primary" small text>
-              Ir para o site
-              <v-icon right small>mdi-open-in-new</v-icon>
+            <v-btn
+              small
+              color="primary"
+              text="Ir para o site"
+              append-icon="mdi-open-in-new"
+            >
             </v-btn>
           </a>
         </v-card-actions>
@@ -36,8 +47,8 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: 'AlegreActionsPage',
+  name: 'PaginaAcoesAlegre',
 }
 </script>

@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <h1>ADMIN PAGE</h1>
-  </div>
+  <h1>Página para São Mateus</h1>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'AdminPage',
+  name: 'PaginaAcoesSaoMateus',
 }
 </script>

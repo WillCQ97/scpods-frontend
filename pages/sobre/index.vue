@@ -13,10 +13,12 @@
               Sustentável (ODS) definidos pela ONU na Agenda 2030, sendo de
               vital importância sua identificação e valorização.
             </p>
+            <br />
             <p>
               Este <em>site</em> é uma demonstração de como é possível realizar
               o monitoramento dessas práticas de forma colaborativa.
             </p>
+            <br />
             <p>
               A ideia é que a comunidade acadêmica, constituída pelos docentes,
               discentes e servidores técnico-administrativos, utilize o
@@ -26,11 +28,13 @@
               preenchimento de um formulário, que será posteriormente validado
               por uma equipe.
             </p>
+            <br />
             <p>
               Além disso, qualquer pessoa com acesso à internet poderá escolher
               um dos
               <em>campi</em> da UFES e visualizar as iniciativas realizadas.
             </p>
+            <br />
             <p>
               O mapa representa, portanto, uma alternativa diferenciada e
               transparente de comunicação, com participação coletiva e, ao mesmo
@@ -48,7 +52,7 @@
       <v-col cols="8">
         <v-img
           id="ufes-banner"
-          :src="{ src: require('~/assets/logos/ods-ufes-banner.png') }"
+          src="/img/banner-ods-ufes.png"
           max-width="550px"
           alt="Banner com logotipo da UFES e o texto 'objetivos de desenvolvimento sustentável'"
         ></v-img>
@@ -58,9 +62,9 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: 'AboutPage',
+  name: 'PaginaSobre',
 }
 </script>
 

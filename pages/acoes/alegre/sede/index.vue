@@ -8,18 +8,18 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import featureCampusAlegre from '~/assets/features/alegre_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  name: 'AlegreSedeMapPage',
+  name: 'PaginaMapaAcoesAlegreSede',
   components: { AppMapComponent },
 
   data() {
     return {
       nomeCampus: 'ALEGRE',
-      nomeUnidade: 'Campus Alegre',
+      nomeUnidade: 'Campus Sede em Alegre',
       centroAlegre: [-20.76161, -41.536],
       limitesAlegre: [
         [-20.75885, -41.53911],
@@ -36,6 +36,7 @@ export default {
         this.$store.dispatch('loadInfo', this.nomeCampus)
       }
       */
+      /*
       const marcadores =
         this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
           nomeCampus: this.nomeCampus,
@@ -43,6 +44,8 @@ export default {
           nomeUnidade: this.nomeUnidade,
         })
       return marcadores
+      */
+      return []
     },
   },
 }

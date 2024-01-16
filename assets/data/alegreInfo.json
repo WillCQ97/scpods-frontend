@@ -1,207 +1,171 @@
 {
-    "campus": "ALEGRE",
-    "unidades": [
+  "campus": "ALEGRE",
+  "unidades": [
+    {
+      "id": 1,
+      "nome": "Unidade Sede em Alegre",
+      "lotacoes": [
         {
-            "id": 1,
-            "nome": "Unidade Sede em Alegre",
-            "lotacoes": [
-                {
-                    "id": 12,
-                    "nome": "Departamento de Zootecnia",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53593,
-                            -20.7623
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 11,
-                    "nome": "Departamento de Medicina Veterinária",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53553,
-                            -20.76244
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 10,
-                    "nome": "Departamento de Engenharia Rural",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53531,
-                            -20.76217
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 9,
-                    "nome": "Departamento de Engenharia de Alimentos",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53528,
-                            -20.76207
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 7,
-                    "nome": "Departamento de Agronomia",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.536721,
-                            -20.761913
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 2,
-                    "quantidadeProjetosAtivos": 2,
-                    "quantidadeObjetivosAtendidos": 2,
-                    "idObjetivoMaisAtendido": 2
-                },
-                {
-                    "id": 6,
-                    "nome": "Departamento de Física e Química",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53539,
-                            -20.76186
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 5,
-                    "nome": "Departamento de Matemática Pura e Aplicada",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53558,
-                            -20.7625
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 4,
-                    "nome": "Departamento de Geologia",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53656,
-                            -20.76045
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 2,
-                    "quantidadeProjetosAtivos": 2,
-                    "quantidadeObjetivosAtendidos": 1,
-                    "idObjetivoMaisAtendido": 3
-                },
-                {
-                    "id": 3,
-                    "nome": "Departamento de Farmácia e Nutrição",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53545,
-                            -20.76236
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 2,
-                    "quantidadeProjetosAtivos": 2,
-                    "quantidadeObjetivosAtendidos": 1,
-                    "idObjetivoMaisAtendido": 3
-                },
-                {
-                    "id": 2,
-                    "nome": "Departamento de Computação",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53622,
-                            -20.76228
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                },
-                {
-                    "id": 1,
-                    "nome": "Departamento de Biologia",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.53539,
-                            -20.76225
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                }
-            ]
+          "id": 12,
+          "nome": "Departamento de Zootecnia",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53593, -20.7623]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
         },
         {
-            "id": 6,
-            "nome": "Unidade em Jerônimo Monteiro",
-            "lotacoes": [
-                {
-                    "id": 8,
-                    "nome": "Departamento de Ciências Florestais e da Madeira",
-                    "localizacao": {
-                        "type": "Point",
-                        "coordinates": [
-                            -41.38848,
-                            -20.78983
-                        ]
-                    },
-                    "quantidadeProjetosTotais": 0,
-                    "quantidadeProjetosAtivos": 0,
-                    "quantidadeObjetivosAtendidos": 0,
-                    "idObjetivoMaisAtendido": null
-                }
-            ]
+          "id": 11,
+          "nome": "Departamento de Medicina Veterinária",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53553, -20.76244]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
         },
         {
-            "id": 5,
-            "nome": "Área Experimental em Rive, Alegre",
-            "lotacoes": []
+          "id": 10,
+          "nome": "Departamento de Engenharia Rural",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53531, -20.76217]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
         },
         {
-            "id": 7,
-            "nome": "Área Experimental em Jerônimo Monteiro",
-            "lotacoes": []
+          "id": 9,
+          "nome": "Departamento de Engenharia de Alimentos",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53528, -20.76207]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 7,
+          "nome": "Departamento de Agronomia",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.536721, -20.761913]
+          },
+          "quantidadeProjetosTotais": 2,
+          "quantidadeProjetosAtivos": 2,
+          "quantidadeObjetivosAtendidos": 2,
+          "idObjetivoMaisAtendido": 2
+        },
+        {
+          "id": 6,
+          "nome": "Departamento de Física e Química",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53539, -20.76186]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 5,
+          "nome": "Departamento de Matemática Pura e Aplicada",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53558, -20.7625]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 4,
+          "nome": "Departamento de Geologia",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53656, -20.76045]
+          },
+          "quantidadeProjetosTotais": 2,
+          "quantidadeProjetosAtivos": 2,
+          "quantidadeObjetivosAtendidos": 1,
+          "idObjetivoMaisAtendido": 3
+        },
+        {
+          "id": 3,
+          "nome": "Departamento de Farmácia e Nutrição",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53545, -20.76236]
+          },
+          "quantidadeProjetosTotais": 2,
+          "quantidadeProjetosAtivos": 2,
+          "quantidadeObjetivosAtendidos": 1,
+          "idObjetivoMaisAtendido": 3
+        },
+        {
+          "id": 2,
+          "nome": "Departamento de Computação",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53622, -20.76228]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 1,
+          "nome": "Departamento de Biologia",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.53539, -20.76225]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
         }
-    ]
+      ]
+    },
+    {
+      "id": 6,
+      "nome": "Unidade em Jerônimo Monteiro",
+      "lotacoes": [
+        {
+          "id": 8,
+          "nome": "Departamento de Ciências Florestais e da Madeira",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [-41.38848, -20.78983]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nome": "Área Experimental em Rive, Alegre",
+      "lotacoes": []
+    },
+    {
+      "id": 7,
+      "nome": "Área Experimental em Jerônimo Monteiro",
+      "lotacoes": []
+    }
+  ]
 }

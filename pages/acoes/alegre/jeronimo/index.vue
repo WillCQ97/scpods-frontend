@@ -8,12 +8,12 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import featureUnidadeJeronimo from '~/assets/features/jeronimo_min.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
-  name: 'AlegreJeronimoMapPage',
+  name: 'PaginaMapaAcoesAlegreJeronimo',
   components: { AppMapComponent },
 
   data() {
@@ -31,10 +31,13 @@ export default {
 
   computed: {
     obterMarcadoresParaJeronimo() {
+      /*
       return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
         nomeCampus: this.nomeCampus,
         nomeUnidade: this.nomeUnidade,
       })
+      */
+      return []
     },
   },
 }

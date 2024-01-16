@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <h1>ADMIN PAGE</h1>
-  </div>
+  <h1>Página para Maruípe</h1>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'AdminPage',
+  name: 'PaginaAcoesMaruipe',
 }
 </script>

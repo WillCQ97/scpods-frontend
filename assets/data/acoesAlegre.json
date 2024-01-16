@@ -28,10 +28,7 @@
         "nome": "Departamento de Agronomia",
         "localizacao": {
           "type": "Point",
-          "coordinates": [
-            -41.536721,
-            -20.761913
-          ]
+          "coordinates": [-41.536721, -20.761913]
         },
         "centro": {
           "id": 1,
@@ -74,10 +71,7 @@
         "nome": "Departamento de Agronomia",
         "localizacao": {
           "type": "Point",
-          "coordinates": [
-            -41.536721,
-            -20.761913
-          ]
+          "coordinates": [-41.536721, -20.761913]
         },
         "centro": {
           "id": 1,

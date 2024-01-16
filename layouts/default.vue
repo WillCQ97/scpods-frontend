@@ -1,170 +1,163 @@
-<!-- TODO: Verificar questão do menu lateral e footer em relação ao fixed, para que o footer seja ocultado automaticamente -->
 <template>
   <v-app>
-    <!-- MENU -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      :color="colorMenu"
-      app
-    >
-      <v-list>
-        <!-- HOME -->
-        <v-list-item to="/">
-          <v-list-item-action class="mn-li-action">
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>Início</strong>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- MAPAS -->
-        <v-list-group :value="true" no-action>
-          <template #activator>
-            <v-list-item-action class="mn-li-action">
-              <v-icon>mdi-map</v-icon>
-            </v-list-item-action>
-            <v-list-item-title>
-              <strong>Mapas</strong>
-            </v-list-item-title>
-          </template>
-
-          <v-list-item
-            v-for="(item, i) in itemsActions"
-            :key="i"
-            :to="item.to"
-            router
-            exact
-            class="mn-lg-li-action"
-          >
-            <v-list-item-action class="mn-li-action">
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>
-                <strong>{{ item.title }}</strong>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-
-        <!-- RESTANTE DOS ITEMS DO MENU -->
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action class="mn-li-action">
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>{{ item.title }}</strong>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <!-- TOP BAR -->
-    <v-app-bar :clipped-left="clipped" :color="colorBar" fixed app>
+    <!-- TOP BAR (CABEÇALHO) -->
+    <v-app-bar :clipped-left="clipped" :color="corCabecalho" fixed>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
+      <!-- TODO: CORRIGIR PROBLEMA DO SUBMENU COM MINIVARIANT QUE NÃO APARECE O ICONE, POIS É ADICIONADO UM PADING AO ITEM DO SUBMENU -->
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
 
-      <v-spacer />
-      <v-toolbar-title id="title-bar" class="text-h5">
-        <strong>{{ title }}</strong>
-      </v-toolbar-title>
+      <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">
+        {{ tituloCabecalho }}
+      </v-app-bar-title>
+
       <v-spacer />
 
-      <v-btn icon left disabled>
+      <!-- TODO: ICONE NO BOTÃO COM DISABLE FICA COM FADE APLICADO -->
+      <v-btn icon disabled>
         <v-img
-          :src="iconSrc"
-          :height="iconHeight"
-          :width="iconWidth"
+          src="/img/logo-ods-na-ufes.png"
+          height="40"
+          width="40"
           contain
         ></v-img>
       </v-btn>
     </v-app-bar>
 
+    <!-- MENU -->
+    <v-navigation-drawer v-model="drawer" :color="corMenu" :rail="miniVariant">
+      <v-list>
+        <!-- HOME -->
+        <v-list-item to="/" prepend-icon="mdi-home">
+          <v-list-item-title class="font-weight-bold">
+            Início
+          </v-list-item-title>
+        </v-list-item>
+
+        <!-- MAPAS -->
+        <v-list-group :value="true" no-action prepend-icon="mdi-map">
+          <template #activator="{ props }">
+            <v-list-item v-bind="props">
+              <v-list-item-title class="font-weight-bold">
+                Mapas
+              </v-list-item-title>
+            </v-list-item>
+          </template>
+
+          <!-- SUBMENU DOS CAMPUS -->
+          <v-list-item
+            v-for="(item, i) in itensSubMenuMapas"
+            :key="i"
+            :to="item.pagina"
+            :prepend-icon="item.icone"
+            router
+            exact
+          >
+            <v-list-item-title class="font-weight-bold">
+              {{ item.titulo }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-group>
+
+        <!-- RESTANTE DOS ITEMS DO MENU -->
+        <v-list-item
+          v-for="(item, i) in itensMenu"
+          :key="i"
+          :to="item.pagina"
+          :prepend-icon="item.icone"
+          router
+          exact
+        >
+          <v-list-item-title class="font-weight-bold">
+            {{ item.titulo }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
     <!-- MAIN SECTION -->
     <v-main>
       <v-container>
-        <nuxt />
+        <slot />
       </v-container>
     </v-main>
 
     <!-- FOOTER -->
-    <v-footer :color="colorFooter" app dark>
+    <v-footer :color="corRodape">
       <v-spacer />
-      <span> &copy; {{ new Date().getFullYear() }} - {{ author }} </span>
+      <span> &copy; {{ new Date().getFullYear() }} - {{ autor }} </span>
       <v-spacer />
     </v-footer>
   </v-app>
 </template>
 
-<script>
-import ufesTheme from 'assets/themes'
+<script lang="ts">
+import colorPalleteUfes from 'assets/colors'
 
 export default {
   name: 'DefaultLayout',
   data() {
     return {
-      author: 'Willian',
       clipped: true,
       drawer: false,
       fixed: false,
-      colorBar: ufesTheme.default.mono6,
-      colorFooter: ufesTheme.default.mono5,
-      colorMenu: ufesTheme.default.mono7,
-      iconSrc: require('~/assets/logos/ods-na-ufes.png'),
-      iconHeight: 40,
-      iconWidth: 40,
-      items: [
-        // TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio, provavelmente deverá ser adicionado em outro leiaute
-        {
-          icon: 'mdi-message-outline',
-          title: 'Sugerir Ação',
-          to: '/sugerir-acao',
-        },
-        {
-          icon: 'mdi-text',
-          title: 'Sobre',
-          to: '/sobre',
-        },
-      ],
-      itemsActions: [
-        {
-          icon: 'mdi-map',
-          title: 'Alegre',
-          to: '/acoes/alegre',
-        },
-        /* TODO: ADICIONAR OS MAPAS PARA OS OUTROS CAMPI
-        {
-          icon: 'mdi-map',
-          title: 'Goiabeiras',
-          to: '/acoes/goiabeiras',
-        },
-        {
-          icon: 'mdi-map',
-          title: 'São Mateus',
-          to: '/acoes/sao-mateus',
-        },
-        */
-      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Mapa Colaborativo: Sustentabilidade na UFES',
+      autor: 'Willian Conceição Queiroz',
+      corCabecalho: colorPalleteUfes.monocromatic.mono6,
+      corRodape: colorPalleteUfes.monocromatic.mono5,
+      corMenu: colorPalleteUfes.monocromatic.mono7,
+      itensMenu: [
+        /* TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio,
+         * provavelmente deverá ser adicionado em outro leiaute
+         */
+        {
+          icone: 'mdi-message-outline',
+          titulo: 'Sugerir Ação',
+          pagina: '/sugerir-acao',
+        },
+        {
+          icone: 'mdi-text',
+          titulo: 'Sobre',
+          pagina: '/sobre',
+        },
+        {
+          icone: 'mdi-test-tube',
+          titulo: 'Listagem Antiga',
+          pagina: '/testes/listagem-acoes',
+        },
+        {
+          icone: 'mdi-test-tube',
+          titulo: 'Listagem Nova',
+          pagina: '/testes/data-table',
+        },
+      ],
+      itensSubMenuMapas: [
+        {
+          icone: 'mdi-alpha-a',
+          titulo: 'Alegre',
+          pagina: '/acoes/alegre',
+        },
+        {
+          icone: 'mdi-alpha-g',
+          titulo: 'Goiabeiras',
+          pagina: '/acoes/goiabeiras',
+        },
+        {
+          icone: 'mdi-alpha-m',
+          titulo: 'Maruípe',
+          pagina: '/acoes/maruipe',
+        },
+        {
+          icone: 'mdi-alpha-s',
+          titulo: 'São Mateus',
+          pagina: '/acoes/sao-mateus',
+        },
+      ],
+      tituloCabecalho: 'Mapa Colaborativo: Sustentabilidade na UFES',
     }
   },
 }
@@ -172,12 +165,7 @@ export default {
 <style scoped>
 #title-bar {
   font-family: 'Ufes Sans', sans-serif !important;
-  text-shadow: 2px 2px 3px #94aaea;
-}
-.mn-li-action {
-  margin-right: 12px !important;
-}
-.mn-lg-li-action {
-  padding-left: 52px !important;
+  text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
+  /*color: black; */ /* TODO: É POSSÍVEL DEFINIR A COR DA FONTE DIRETAMENTE ASSIM */
 }
 </style>
