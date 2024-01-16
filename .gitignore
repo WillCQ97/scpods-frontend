@@ -93,3 +93,8 @@ $RECYCLE.BIN/
 .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn,nuxtjs,visualstudiocode,linux,windows
+
+
+# Ajustado manualmente
+# Optional eslint cache
+.eslintcache
