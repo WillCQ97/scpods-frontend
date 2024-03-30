@@ -18,7 +18,7 @@
         "id": "8.2",
         "descricao": "Atingir níveis mais elevados de produtividade das economias, por meio da diversificação, modernização tecnológica e inovação, inclusive por meio de um foco em setores de alto valor agregado e intensivos em mão-de-obra",
         "objetivo": {
-          "id": "8",
+          "id": 8,
           "titulo": "Trabalho decente e crescimento econômico",
           "descricao": "Promover o crescimento econômico sustentado, inclusivo e sustentável, emprego pleno e produtivo, e trabalho decente para todos"
         }
@@ -28,7 +28,10 @@
         "nome": "Departamento de Agronomia",
         "localizacao": {
           "type": "Point",
-          "coordinates": [-41.536721, -20.761913]
+          "coordinates": [
+            -41.536721,
+            -20.761913
+          ]
         },
         "centro": {
           "id": 1,
@@ -61,7 +64,7 @@
         "id": "8.2",
         "descricao": "Atingir níveis mais elevados de produtividade das economias, por meio da diversificação, modernização tecnológica e inovação, inclusive por meio de um foco em setores de alto valor agregado e intensivos em mão-de-obra",
         "objetivo": {
-          "id": "8",
+          "id": 3,
           "titulo": "Trabalho decente e crescimento econômico",
           "descricao": "Promover o crescimento econômico sustentado, inclusivo e sustentável, emprego pleno e produtivo, e trabalho decente para todos"
         }
@@ -71,7 +74,10 @@
         "nome": "Departamento de Agronomia",
         "localizacao": {
           "type": "Point",
-          "coordinates": [-41.536721, -20.761913]
+          "coordinates": [
+            -41.536721,
+            -20.761913
+          ]
         },
         "centro": {
           "id": 1,
