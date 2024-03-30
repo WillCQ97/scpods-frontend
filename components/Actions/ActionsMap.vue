@@ -12,6 +12,8 @@
           :feature="feature"
           :markers="markers"
           :tile-url="urlHOT"
+          :show-feature="true"
+          :zoom="zoom"
         />
         <hr />
         <v-card-actions>
