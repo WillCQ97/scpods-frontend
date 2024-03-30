@@ -35,11 +35,11 @@
                   <br />
 
                   <strong>Centro: </strong>
-                  {{ item.lotacao.centro.nome }}
+                  {{ item.lotacao.descricao }}
                   <br />
 
-                  <strong>Lotação: </strong>
-                  {{ item.lotacao.nome }}
+                  <strong>Local: </strong>
+                  {{ item.local.nomePrincipal }}
                   <br />
 
                   <strong>Coordenador: </strong>
@@ -103,8 +103,7 @@ export default {
           key: 'titulo',
         },
         { title: 'Meta', key: 'meta.id' },
-        { title: 'Lotação', key: 'lotacao.nome' },
-        { title: 'Centro', key: 'lotacao.centro.sigla' },
+        { title: 'Centro', key: 'lotacao.sigla' },
         { title: 'Coordenador', key: 'coordenador.nome' },
         { title: 'Opções', key: 'actions', sortable: false, align: 'center' },
       ],
