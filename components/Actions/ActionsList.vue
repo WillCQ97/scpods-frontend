@@ -7,7 +7,7 @@
           <template #item.image="{ item }">
             <v-img :src="loadGoalImage(item.meta.objetivo.id)"></v-img>
           </template>
-          <template #item.actions="{ item }">
+          <template #item.options="{ item }">
             <v-dialog v-model="showDialog" width="125vh">
               <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
               <!-- TODO: Separar esse v-dialog para um componente próprio que apenas recebe o projeto -->
@@ -104,8 +104,9 @@ export default {
         },
         { title: 'Meta', key: 'meta.id' },
         { title: 'Centro', key: 'lotacao.sigla' },
+        { title: 'Local', key: 'local.nomePrincipal' },
         { title: 'Coordenador', key: 'coordenador.nome' },
-        { title: 'Opções', key: 'actions', sortable: false, align: 'center' },
+        { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
       showDialog: false,
     }

@@ -17,7 +17,9 @@
         />
         <hr />
         <v-card-actions>
-          <v-btn class="btn" @click="emitShowActionsList"> Listar Ações </v-btn>
+          <v-btn class="btn" @click="emitShowActionsList">
+            {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
