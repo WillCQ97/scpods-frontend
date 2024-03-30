@@ -2,6 +2,9 @@
   <div>
     <hr />
     <v-data-table :headers="cabecalho" :items="projetos">
+      <template v-slot:item.logo="{ item }">
+        <v-img :src="carregarLogoObjetivo(item.meta.objetivo.id)"></v-img>
+      </template>
       <template v-slot:item.actions="{ item }">
         <v-dialog v-model="exibirDialogo" width="125vh">
           <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
@@ -79,6 +82,11 @@ export default {
     return {
       cabecalho: [
         {
+          title: 'Objetivo',
+          align: 'start',
+          key: 'logo',
+        },
+        {
           title: 'Nome da Ação',
           align: 'start',
           sortable: false,
@@ -93,6 +101,11 @@ export default {
       exibirDialogo: false,
       projetos: acoesAlegre.sede,
     }
+  },
+  methods: {
+    carregarLogoObjetivo(idObjetivo: number): string {
+      return '/img/ods_icons/' + idObjetivo + '.png'
+    },
   },
 }
 </script>
