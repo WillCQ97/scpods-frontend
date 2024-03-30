@@ -2,7 +2,7 @@
   <v-row>
     <v-spacer />
     <v-col cols="10">
-      <v-card elevation="8" min-width="80vh">
+      <v-card min-width="80vh">
         <v-card-title>{{ title }}</v-card-title>
         <hr />
         <client-only>
@@ -31,7 +31,7 @@
               v-for="marker in markers"
               :key="marker.id"
               :lat-lng="marker.coordinates"
-              @click="enableBtnProjectList()"
+              @click="emitShowActionsList()"
             >
               <l-icon
                 :icon-size="markerIconSize"
@@ -46,10 +46,7 @@
         </client-only>
         <hr />
         <v-card-actions>
-          <!-- TODO: ADICIONAR O ON CLICK PARA UM MÉTODO EMIT QUE AVISARÁ AO COMPONENTE PAI QUAL AÇÃO EXECUTAR -->
-          <v-btn class="btn" :disabled="hideBtnProjectList">
-            Exibir Ações
-          </v-btn>
+          <v-btn class="btn" @click="emitShowActionsList"> Exibir Ações </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -88,6 +85,7 @@ export default {
       required: false,
     },
   },
+  emits: ['showActions'],
   data() {
     /*
     const attr_prodesign = { link: 'https://mapa.ufes.br', text: 'Prodesing UFES' };
@@ -101,8 +99,9 @@ export default {
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       attribution_hot:
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
-      hideBtnProjectList: true,
       enableTooltip: true,
+      hideBtnProjectList: true,
+      isActionListVisible: false,
       markerIconUrl: '/img/logo-ods-small.png',
       markerIconSize: [20, 20],
       showCampusFeature: true,
@@ -155,10 +154,9 @@ export default {
     },
   },
   methods: {
-    enableBtnProjectList() {
-      if (this.hideBtnProjectList) {
-        this.hideBtnProjectList = false
-      }
+    emitShowActionsList() {
+      this.isActionListVisible = !this.isActionListVisible
+      this.$emit('showActions', this.isActionListVisible)
     },
   },
 }
