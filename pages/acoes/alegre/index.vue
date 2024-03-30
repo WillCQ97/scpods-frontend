@@ -3,9 +3,9 @@
   <v-row>
     <v-col>
       <v-card>
-        <v-card-title>Sobre a o campus</v-card-title>
+        <v-card-title>Sobre o campus</v-card-title>
         <v-card-subtitle>
-          Descrição disponibilizada
+          Mais informações
           <a href="https://www.ufes.br/campus-de-alegre" target="_blank">
             na página da ufes
             <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>

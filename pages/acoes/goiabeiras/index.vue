@@ -6,7 +6,7 @@
         <v-card>
           <v-card-title>Sobre o campus</v-card-title>
           <v-card-subtitle>
-            Descrição disponibilizada
+            Mais informações
             <a href="https://www.ufes.br/campus-de-goiabeiras" target="_blank">
               na página da ufes
               <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
@@ -64,6 +64,7 @@
 </template>
 
 <script lang="ts">
+import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
@@ -79,13 +80,12 @@ export default {
         [-20.2696, -40.308],
         [-20.284, -40.3009],
       ],
-      featureCampusGoiabeiras: [], // TODO: ADICIONAR O JSON DO CAMPUS
+      featureCampusGoiabeiras: featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
     }
   },
 
   computed: {
     obterMarcadores() {
-      // TODO: IMPLEMENTAR CORRETAMENTE ESTE ITEM
       return []
     },
   },

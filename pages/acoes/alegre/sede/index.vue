@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import featureCampusAlegre from '~/assets/features/alegre_min.json'
+import featureCampusAlegre from '~/assets/features/alegre.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {

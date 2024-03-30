@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import featureUnidadeRive from '~/assets/features/rive_min.json'
+import featureUnidadeRive from '~/assets/features/rive.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {

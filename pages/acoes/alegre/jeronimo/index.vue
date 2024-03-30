@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import featureUnidadeJeronimo from '~/assets/features/jeronimo_min.json'
+import featureUnidadeJeronimo from '~/assets/features/jeronimo.json'
 import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
