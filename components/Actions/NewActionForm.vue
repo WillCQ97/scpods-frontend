@@ -171,16 +171,11 @@
 </template>
 
 <script lang="ts">
+import objetivos from '~/assets/data/objetivosODS.json'
+
 export default {
-  name: 'NovaAcaoFormComponent',
-  props: {
-    /*
-    submissionLocation: {
-      type: Object,
-      required: true,
-    },
-    */
-  },
+  name: 'NewActionFormComponent',
+  props: {},
   data() {
     return {
       submission: {
@@ -225,7 +220,7 @@ export default {
         (value) => !!value || 'Este campo é obrigatório.',
       ],
 
-      objetivosOds: this.$store.getters.getObjetivos,
+      objetivosOds: objetivos,
       targetsSelected: [],
       indiceBtnObjetivo: undefined,
       targetSelectedIndex: undefined,
@@ -263,20 +258,23 @@ export default {
       )
     },
     carregarImagemObjetivo(idObjetivo) {
-      return require('~/assets/ods_icons/' + idObjetivo + '.png')
+      return '/img/ods_icons/' + idObjetivo + '.png'
     },
     obterObjetivoSelecionado() {
       return this.indiceBtnObjetivo + 1
     },
+    getObjetivo(objetivoId: number) {
+      return this.objetivosOds.filter((objetivo) => objetivo.id === objetivoId)
+    },
     getGoalDescription(odsNumber) {
-      return this.$store.getters.getObjetivoById(odsNumber).titulo
+      return this.getObjetivo(odsNumber).titulo
     },
     getTargetsODS(odsNumber) {
       if (odsNumber == null) {
         return
       }
 
-      const objetivo = this.$store.getters.getObjetivoById(odsNumber)
+      const objetivo = this.getObjetivo(odsNumber)
       return objetivo.metas
     },
     isObjetivoSelecionado() {
