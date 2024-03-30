@@ -1,20 +1,20 @@
 <template>
-  <app-map-component
+  <ActionsMapComponent
     :title="nomeUnidade"
     :bounds="limitesJeronimo"
     :center="centroJeronimo"
-    :feature="featureUnidadeJeronimo"
+    :feature="featureJeronimo"
     :markers="obterMarcadoresParaJeronimo"
   />
 </template>
 
 <script lang="ts">
-import featureUnidadeJeronimo from '~/assets/features/jeronimo.json'
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import featureJeronimo from '~/assets/features/jeronimo.json'
 
 export default {
-  name: 'PaginaMapaAcoesAlegreJeronimo',
-  components: { AppMapComponent },
+  name: 'PaginaAcoesJeronimo',
+  components: { ActionsMapComponent },
 
   data() {
     return {
@@ -25,18 +25,12 @@ export default {
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
       ],
-      featureUnidadeJeronimo,
+      featureJeronimo,
     }
   },
 
   computed: {
     obterMarcadoresParaJeronimo() {
-      /*
-      return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
-        nomeCampus: this.nomeCampus,
-        nomeUnidade: this.nomeUnidade,
-      })
-      */
       return []
     },
   },

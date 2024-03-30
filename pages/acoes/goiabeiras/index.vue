@@ -51,25 +51,25 @@
     <!-- MAPA PARA O CAMPUS -->
     <v-row>
       <v-col>
-        <app-map-component
+        <actions-map-component
           :title="nomeUnidade"
           :bounds="limitesGoiabeiras"
           :center="centroGoiabeiras"
           :feature="featureCampusGoiabeiras"
           :markers="obterMarcadores"
-        ></app-map-component>
+        />
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script lang="ts">
+import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
-import AppMapComponent from '~/components/UI/AppMap.vue'
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
-  components: { AppMapComponent },
+  components: { ActionsMapComponent },
 
   data() {
     return {

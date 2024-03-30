@@ -60,19 +60,11 @@
           <nuxt-page />
         </v-col>
       </v-row>
-
-      <!-- LISTA DE PROJETOS -->
-      <v-row v-if="flagShowActionsList">
-        <v-col>
-          <acoes-list titulo="Lista de ações em Alegre" />
-        </v-col>
-      </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
-import AcoesList from '~/components/Acoes/AcoesList.vue'
 import colorPalleteUfes from '~/assets/colors'
 
 async function carregarMapa(campus: string) {
@@ -82,7 +74,7 @@ async function carregarMapa(campus: string) {
 
 export default {
   name: 'PaginaAcoesAlegreWrapper',
-  components: { AcoesList },
+  components: {},
 
   data() {
     return {
@@ -92,49 +84,12 @@ export default {
         { titulo: 'Unidade Jerônimo Monteiro', subpagina: 'jeronimo' },
         { titulo: 'Área Experimental Rive', subpagina: 'rive' },
       ],
-      flagShowActionsList: false,
       flagErroAoCarregarInfos: false,
     }
   },
-  // fetch(context) {
-  // TODO: MOVER ESSE CARREGAMENTO PARA UMA AÇÃO NA STORE, POIS SE O /acoes/alegre/sede for carregado diretamente, esse código não terá sido executado
-  /*
-    // Usar a api específica para tal https://nuxt.com/docs/getting-started/data-fetching
-    // console.log('=== EXECUTEI NO FETCH DAS INFOS ===')
-    context.$axios
-      .$get('/campus/info?nome=alegre')
-      .then((infoAlegre) => {
-        console.log(infoAlegre)
-        context.store.dispatch('setInfo', infoAlegre)
-        // console.log('=== EXECUTEI NO THEN DO AXIOS.GET ===')
-      })
-      .catch((e) => {
-        // FIXME: Caso esse cara não esteja disponível então é mostrada uma página de erro inesperado
-        // Utilizar a flag para mostrar um warning quando o usuário clicar no botão para exibir um mapa
-        this.flagErroAoCarregarInfos = true
-        // console.log('=== EXECUTEI NO CATCH DA EXCEÇÃO ===')
-        // console.log(localAlegreInfo)
-        // context.store.dispatch('setInfo', localAlegreInfo)
-        console.error(e)
-      })
-      */
-  // },
 
   methods: {
-    // TODO: FIX SCROLL INTO CHILD
-    scrollToIntoChild() {
-      setTimeout(() => {
-        this.$refs.childContainer.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-        })
-      }, 250)
-    },
     exibirMapa(campus: string) {
-      // if (this.flagErroAoCarregarInfos) {
-      // TODO: mostrar um diálogo informando que não foi possível carregar as infos
-      // }
-      // this.scrollToIntoChild()
       carregarMapa(campus)
     },
   },

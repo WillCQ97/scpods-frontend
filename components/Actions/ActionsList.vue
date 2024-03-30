@@ -3,12 +3,12 @@
     <v-spacer />
     <v-col cols="10">
       <v-card min-width="80vh">
-        <v-data-table :headers="cabecalho" :items="projetos">
-          <template #item.logo="{ item }">
-            <v-img :src="carregarLogoObjetivo(item.meta.objetivo.id)"></v-img>
+        <v-data-table :headers="header" :items="actions">
+          <template #item.image="{ item }">
+            <v-img :src="loadGoalImage(item.meta.objetivo.id)"></v-img>
           </template>
           <template #item.actions="{ item }">
-            <v-dialog v-model="exibirDialogo" width="125vh">
+            <v-dialog v-model="showDialog" width="125vh">
               <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
               <!-- TODO: Separar esse v-dialog para um componente próprio que apenas recebe o projeto -->
               <v-card>
@@ -62,13 +62,13 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" @click="exibirDialogo = false">
+                  <v-btn color="primary" @click="showDialog = false">
                     OK
                   </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-icon class="me-2" size="small" @click="exibirDialogo = true">
+            <v-icon class="me-2" size="small" @click="showDialog = true">
               mdi-eye
             </v-icon>
           </template>
@@ -81,20 +81,20 @@
 
 <script lang="ts">
 export default {
-  name: 'AcoesListComponent',
+  name: 'ActionsListComponent',
   props: {
-    projetos: {
-      type: Object,
+    actions: {
+      type: Array,
       required: true,
     },
   },
   data() {
     return {
-      cabecalho: [
+      header: [
         {
           title: 'Objetivo',
           align: 'start',
-          key: 'logo',
+          key: 'image',
         },
         {
           title: 'Nome da Ação',
@@ -108,12 +108,12 @@ export default {
         { title: 'Coordenador', key: 'coordenador.nome' },
         { title: 'Opções', key: 'actions', sortable: false, align: 'center' },
       ],
-      exibirDialogo: false,
+      showDialog: false,
     }
   },
   methods: {
-    carregarLogoObjetivo(idObjetivo: number): string {
-      return '/img/ods_icons/' + idObjetivo + '.png'
+    loadGoalImage(goalId: number): string {
+      return '/img/ods_icons/' + goalId + '.png'
     },
   },
 }

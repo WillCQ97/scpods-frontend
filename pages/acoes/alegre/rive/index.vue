@@ -1,5 +1,5 @@
 <template>
-  <app-map-component
+  <actions-map-component
     :title="nomeUnidade"
     :bounds="limitesRive"
     :center="centroRive"
@@ -11,11 +11,11 @@
 
 <script lang="ts">
 import featureUnidadeRive from '~/assets/features/rive.json'
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 
 export default {
   name: 'PaginaMapaAcoesAlegreRive',
-  components: { AppMapComponent },
+  components: { ActionsMapComponent },
   data() {
     return {
       nomeCampus: 'ALEGRE',
@@ -32,12 +32,6 @@ export default {
 
   computed: {
     obterMarcadoresParaRive() {
-      /*
-      return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
-        nomeCampus: this.nomeCampus,
-        nomeUnidade: this.nomeUnidade,
-      })
-      */
       return []
     },
   },

@@ -51,25 +51,25 @@
     <!-- MAPA PARA O CAMPUS -->
     <v-row>
       <v-col>
-        <app-map-component
+        <actions-map-component
           :title="nomeUnidade"
           :bounds="limitesMapa"
           :center="centroMapa"
           :feature="featureCampus"
           :markers="obterMarcadores"
-        ></app-map-component>
+        />
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script lang="ts">
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import feature from '~/assets/features/maruipe.json'
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { AppMapComponent },
+  components: { ActionsMapComponent },
 
   data() {
     return {
