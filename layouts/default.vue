@@ -126,11 +126,6 @@ export default {
         },
         {
           icone: 'mdi-test-tube',
-          titulo: 'Listagem Antiga',
-          pagina: '/testes/listagem-acoes',
-        },
-        {
-          icone: 'mdi-test-tube',
           titulo: 'Listagem Nova',
           pagina: '/testes/data-table',
         },

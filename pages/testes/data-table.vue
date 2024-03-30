@@ -1,60 +1,97 @@
 <template>
   <div>
-    <h1>Aqui jaz um título</h1>
     <hr />
-    <v-data-table :items="projetoSelecionado"> </v-data-table>
-    <!--
-    <AcoesList
-      titulo="Ações em Alegre Sede"
-      :projetos="projetosSede"
-    ></AcoesList>
-    -->
-    <!--
-    <ProjectFormInfoComponent />
-    <hr />
-    <NovaAcaoForm />
-    -->
+    <v-data-table :headers="cabecalho" :items="projetos">
+      <template v-slot:item.actions="{ item }">
+        <v-dialog v-model="exibirDialogo" width="125vh">
+          <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
+          <!-- TODO: Separar esse v-dialog para um componente próprio que apenas recebe o projeto -->
+          <v-card>
+            <v-card-title>
+              Informações detalhadas sobre o projeto
+            </v-card-title>
+
+            <v-card-text>
+              <strong>Ação:</strong> {{ item.titulo }}
+              <br />
+
+              <strong>ODS:</strong>
+              {{ item.meta.objetivo.id }} -
+              {{ item.meta.objetivo.titulo }}
+              <br />
+
+              <strong>Meta ODS: </strong>
+              {{ item.meta.id }}
+              -
+              {{ item.meta.descricao }}
+              <br />
+
+              <strong>Descrição: </strong>{{ item.descricao }}
+              <br />
+
+              <strong>Centro: </strong>
+              {{ item.lotacao.centro.nome }}
+              <br />
+
+              <strong>Lotação: </strong>
+              {{ item.lotacao.nome }}
+              <br />
+
+              <strong>Coordenador: </strong>
+              {{ item.coordenador.nome }}
+              <br />
+
+              <strong>Vínculo com a UFES: </strong>
+              {{ item.coordenador.descricaoVinculo }}
+              <br />
+
+              <strong>Data de Início: </strong>
+              {{ item.dataInicio }}
+
+              <div>
+                <strong>Data Fim: </strong>
+                {{ item.dataEncerramento }} <br />
+              </div>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="exibirDialogo = false"> OK </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-icon class="me-2" size="small" @click="exibirDialogo = true">
+          mdi-eye
+        </v-icon>
+      </template>
+    </v-data-table>
     <hr />
   </div>
 </template>
 
 <script lang="ts">
-/* TODO: VERIFICAR UTILIZADAÇÃO DESSA PÁGINA E REMOVÊ-LA
- * JUNTAMENTE COM O COMPONENTE PROJECTINFO E O JSON DE CAMPOS
- */
-
-// import ProjectFormInfoComponent from '~/components/ProjectInfo.vue'
-// import NovaAcaoForm from '~/components/Acoes/NovaAcaoForm.vue'
 import acoesAlegre from '~/assets/data/acoesAlegre.json'
 
 export default {
-  // components: { ProjectFormInfoComponent, NovaAcaoForm },
   data() {
     return {
-      projetosSede: acoesAlegre.sede,
-      projetoSelecionado: [
+      cabecalho: [
         {
-          id: 1,
-          titulo:
-            'Desenvolvimento do Polo de Fruticultura da Região do Caparaó',
-          meta: '2.1',
-          local: 'Departamento de Agronomia',
-          centro: 'CCAE',
-          coordenador: 'Mário Novo CTO',
-          inicio: '2023-02-21',
-          encerramento: '',
+          title: 'Nome da Ação',
+          align: 'start',
+          sortable: false,
+          key: 'titulo',
         },
-        {
-          id: 2,
-          titulo: 'Lorem Ipsum Dolor sit amet',
-          meta: '9.4',
-          local: 'Departamento de Computação',
-          centro: 'CCENS',
-          coordenador: 'Mário Novo CTO',
-          inicio: '2021-02-21',
-          encerramento: '2021-05-09',
-        },
+        { title: 'Meta', key: 'meta.id' },
+        { title: 'Lotação', key: 'lotacao.nome' },
+        { title: 'Centro', key: 'lotacao.centro.sigla' },
+        { title: 'Coordenador', key: 'coordenador.nome' },
+        { title: 'Opções', key: 'actions', sortable: false },
       ],
+      exibirDialogo: false,
+      projetos: acoesAlegre.sede,
     }
   },
 }
