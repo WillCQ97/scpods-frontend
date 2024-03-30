@@ -124,11 +124,6 @@ export default {
           titulo: 'Sobre',
           pagina: '/sobre',
         },
-        {
-          icone: 'mdi-test-tube',
-          titulo: 'Listagem Nova',
-          pagina: '/testes/data-table',
-        },
       ],
       itensSubMenuMapas: [
         {
