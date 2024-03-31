@@ -1,0 +1,2387 @@
+{
+  "campus": "GOIABEIRAS",
+  "unidades": [
+    {
+      "id": 2,
+      "nome": "Campus de Goiabeiras",
+      "locais": [
+        {
+          "id": 38,
+          "idd": 1,
+          "nomePrincipal": "Cemuni 1",
+          "nomeSecundario": "Laboratórios",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3037651311149,
+              -20.27941453486804
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 39,
+          "idd": 2,
+          "nomePrincipal": "Cemuni 2",
+          "nomeSecundario": "Artes Plásticas / Artes Visuais",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30319339488952,
+              -20.279972845858122
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 40,
+          "idd": 3,
+          "nomePrincipal": "Cemuni 3",
+          "nomeSecundario": "Arquitetura e Urbanismo",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303088570506574,
+              -20.278991968485386
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 41,
+          "idd": 4,
+          "nomePrincipal": "Cemuni 4",
+          "nomeSecundario": "Design",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30251629647266,
+              -20.279548611388748
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 42,
+          "idd": 5,
+          "nomePrincipal": "Cemuni 5",
+          "nomeSecundario": "Teoria da Arte, Música, Comunicação Social, Audiovisual",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30241310198251,
+              -20.278568166457774
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 43,
+          "idd": 6,
+          "nomePrincipal": "Cemuni 6",
+          "nomeSecundario": "Psicologia",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30275959488952,
+              -20.277868510213167
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 44,
+          "idd": 7,
+          "nomePrincipal": "Futuro Auditório CAR",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30220732241329,
+              -20.279580783358302
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 45,
+          "idd": 8,
+          "nomePrincipal": "Pós-Graduação em Psicologia",
+          "nomeSecundario": "Ed. Lidio de Souza",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30298298844777,
+              -20.278257534793852
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 46,
+          "idd": 9,
+          "nomePrincipal": "Administração do car",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30300145883253,
+              -20.280107185098583
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 47,
+          "idd": 10,
+          "nomePrincipal": "Galpão Vix",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30305034202758,
+              -20.280398095046536
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 48,
+          "idd": 11,
+          "nomePrincipal": "Cantina CAR",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30283431923479,
+              -20.27916886636091
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 49,
+          "idd": 12,
+          "nomePrincipal": "Bob",
+          "nomeSecundario": "Prédio Multimeios",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30241331884694,
+              -20.279855215634697
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 50,
+          "idd": 13,
+          "nomePrincipal": "Biblioteca Setorial CAR",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303595294181214,
+              -20.27909484078276
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 51,
+          "idd": 20,
+          "nomePrincipal": "Quadras Abertas",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30385322809532,
+              -20.28274610364783
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 52,
+          "idd": 21,
+          "nomePrincipal": "Tiro com arco",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30541667459569,
+              -20.28204900941466
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 53,
+          "idd": 22,
+          "nomePrincipal": "Quadras Poliesportivas",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30471424248312,
+              -20.28123663911133
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 54,
+          "idd": 23,
+          "nomePrincipal": "Pista de Atletismo e Campo de Futebol",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304343733633125,
+              -20.282651437585574
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 55,
+          "idd": 24,
+          "nomePrincipal": "Ginásio",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305304800490795,
+              -20.280901202111163
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 56,
+          "idd": 25,
+          "nomePrincipal": "Alas 1 e 2",
+          "nomeSecundario": "Módulo 2",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.302918072214396,
+              -20.281284929755852
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 57,
+          "idd": 26,
+          "nomePrincipal": "Alas 3 e 4",
+          "nomeSecundario": "Módulo 1",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303588403628,
+              -20.281706697519024
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 58,
+          "idd": 27,
+          "nomePrincipal": "Biblioteca Setorial / Vestiários",
+          "nomeSecundario": "Módulo 3",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30369056509399,
+              -20.281028981213336
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 59,
+          "idd": 28,
+          "nomePrincipal": "Prédio Administrativo CEFD / Auditório CEFD",
+          "nomeSecundario": "Módulo 4",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303645309960594,
+              -20.280954735515138
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 60,
+          "idd": 29,
+          "nomePrincipal": "Anexo CEFD",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30325437940305,
+              -20.280918839679
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 61,
+          "idd": 30,
+          "nomePrincipal": "Nupem",
+          "nomeSecundario": "Núcleo de Pesquisa e Extensão em Ciências do Movimento Corporal",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30459376258092,
+              -20.28093622489962
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 62,
+          "idd": 31,
+          "nomePrincipal": "Parque Aquático",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30428280290508,
+              -20.283370357352396
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 63,
+          "idd": 32,
+          "nomePrincipal": "Pista de Baja",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305862470952015,
+              -20.281070411662615
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 64,
+          "idd": 40,
+          "nomePrincipal": "Sala de Prof. da Adm.",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30598198529384,
+              -20.276510939687974
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 65,
+          "idd": 41,
+          "nomePrincipal": "Anexo 1",
+          "nomeSecundario": "Secretaria Unificada de Pós-Graduação",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305436634692235,
+              -20.276212820869166
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 66,
+          "idd": 42,
+          "nomePrincipal": "Anexo 2",
+          "nomeSecundario": "Secretaria Unificada de Colegiados de Curso",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30494311337056,
+              -20.27566907371531
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 67,
+          "idd": 43,
+          "nomePrincipal": "Auditório CCJE",
+          "nomeSecundario": "Manoel Vereza de Oliveira",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30703968000596,
+              -20.277052149658285
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 68,
+          "idd": 44,
+          "nomePrincipal": "Prédio Administrativo",
+          "nomeSecundario": "Secretaria Unificada de Departamentos / Sala de Professores",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30535421627844,
+              -20.276469052997207
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 69,
+          "idd": 45,
+          "nomePrincipal": "Diretoria CCJE",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30575059351068,
+              -20.276335655349587
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 70,
+          "idd": 46,
+          "nomePrincipal": "Prédio de Economia",
+          "nomeSecundario": "Prof. Luiz Flores Alves",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30588505626403,
+              -20.276871497946313
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 71,
+          "idd": 47,
+          "nomePrincipal": "ED 1",
+          "nomeSecundario": "Arquivologia e Serviço Social",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30510144857766,
+              -20.27608735219214
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 72,
+          "idd": 48,
+          "nomePrincipal": "ED 2",
+          "nomeSecundario": "Biblioteconomia / Salão Rosa",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30528202484012,
+              -20.27587606793067
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 73,
+          "idd": 49,
+          "nomePrincipal": "ED 3",
+          "nomeSecundario": "Administração / Ciências Contábeis",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30643952599554,
+              -20.277053388998283
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 74,
+          "idd": 50,
+          "nomePrincipal": "ED 4",
+          "nomeSecundario": "Ciências Econômicas",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30661868692293,
+              -20.27684233002974
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 75,
+          "idd": 51,
+          "nomePrincipal": "ED 5",
+          "nomeSecundario": "Direito - Graduação e Pós-Graduação",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30514856334012,
+              -20.276701737475037
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 76,
+          "idd": 52,
+          "nomePrincipal": "ED 6 e ED 8",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30542502222999,
+              -20.27572864028536
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 77,
+          "idd": 53,
+          "nomePrincipal": "ED 7",
+          "nomeSecundario": "Salas de Aulas e Laboratórios",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.306781969132984,
+              -20.276658911323487
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 78,
+          "idd": 54,
+          "nomePrincipal": "Prédio de Gemologia",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30618513969104,
+              -20.276776953753085
+            ]
+          },
+          "quantidadeProjetosTotais": 1,
+          "quantidadeProjetosAtivos": 1,
+          "quantidadeObjetivosAtendidos": 1,
+          "idObjetivoMaisAtendido": 8
+        },
+        {
+          "id": 79,
+          "idd": 55,
+          "nomePrincipal": "NPJ",
+          "nomeSecundario": "Núcleo de Práticas Júridicas",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30524273265531,
+              -20.27660058901623
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 80,
+          "idd": 56,
+          "nomePrincipal": "Sala de Professores CCJE",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305550789703695,
+              -20.276770588815523
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 81,
+          "idd": 57,
+          "nomePrincipal": "Cantina / Copiadora",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3059358655643,
+              -20.276333527790168
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 82,
+          "idd": 58,
+          "nomePrincipal": "Prédio da Oceanografia",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30680524887113,
+              -20.278039937870325
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 83,
+          "idd": 61,
+          "nomePrincipal": "Oceanografia - Prédio da Mata",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30604021656705,
+              -20.279836642751636
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 84,
+          "idd": 70,
+          "nomePrincipal": "CT 1",
+          "nomeSecundario": "Engenharia Civil",
+          "nomeTerciario": "Ed. Prof. Sebastião Magalhães Carneiro",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30576862685171,
+              -20.27303868312181
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 85,
+          "idd": 71,
+          "nomePrincipal": "CT 2",
+          "nomeSecundario": "Engenharia Elétrica",
+          "nomeTerciario": "Ed. Prof. Dante José de Araújo",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.306085677308204,
+              -20.272653868478066
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 86,
+          "idd": 72,
+          "nomePrincipal": "CT 3",
+          "nomeSecundario": "Engenharia Mecânica",
+          "nomeTerciario": "Ed. Prof. José Antônio Saadi Abi-Zaid",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305094423112145,
+              -20.273474608336457
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 87,
+          "idd": 73,
+          "nomePrincipal": "CT 4",
+          "nomeSecundario": "Administração CT",
+          "nomeTerciario": "Ed. Prof. Élio de Almeida Vianna",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30459096279892,
+              -20.27296916066072
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 88,
+          "idd": 74,
+          "nomePrincipal": "CT 5",
+          "nomeSecundario": "Laboratórios",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30517464862953,
+              -20.272547318840886
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 89,
+          "idd": 75,
+          "nomePrincipal": "CT 6",
+          "nomeSecundario": "Pós-Graduação em Engenharia",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30635676081593,
+              -20.27249090016069
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 90,
+          "idd": 76,
+          "nomePrincipal": "CT 7",
+          "nomeSecundario": "Informática",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305926800329644,
+              -20.27338767069456
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 91,
+          "idd": 77,
+          "nomePrincipal": "CT 8",
+          "nomeSecundario": "Sala de Professores da Engenharia Elétrica",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30665633495383,
+              -20.272839109839076
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 92,
+          "idd": 78,
+          "nomePrincipal": "CT 9",
+          "nomeSecundario": "Engenharia da Computação e Ciências da Computação",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30589377094376,
+              -20.273638174996798
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 93,
+          "idd": 79,
+          "nomePrincipal": "CT 10",
+          "nomeSecundario": "Engenharia de Produção",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305741456093585,
+              -20.27379917452632
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 94,
+          "idd": 80,
+          "nomePrincipal": "CT 11",
+          "nomeSecundario": "Engenharia Ambiental",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30581021226647,
+              -20.27186083092089
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 95,
+          "idd": 81,
+          "nomePrincipal": "CT 12",
+          "nomeSecundario": "Salas de Aula / Biblioteca Setorial",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305404311187,
+              -20.273959009364663
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 96,
+          "idd": 82,
+          "nomePrincipal": "ETE - Ufes",
+          "nomeSecundario": "Estação de Tratamento de Esgoto da Ufes",
+          "nomeTerciario": "Núcleo de Bioengenharia Aplicada ao Saneamento da Ufes",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30689578205564,
+              -20.271944612591888
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 97,
+          "idd": 83,
+          "nomePrincipal": "Labprec",
+          "nomeSecundario": "Laboratório de Precipitação Eletroestática",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30655076559693,
+              -20.27116375659751
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 98,
+          "idd": 84,
+          "nomePrincipal": "Carpintaria",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3051199320264,
+              -20.27212840750968
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 99,
+          "idd": 85,
+          "nomePrincipal": "Restaurante / Cantina / Copiadora",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305924766417526,
+              -20.272210867417876
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 100,
+          "idd": 86,
+          "nomePrincipal": "Itufes",
+          "nomeSecundario": "Instituto de Tecnologia da Ufes",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30532384797518,
+              -20.271882573757146
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 101,
+          "idd": 87,
+          "nomePrincipal": "Labeves",
+          "nomeSecundario": "Laboratório de Análise de Bebidas de Origem Vegetal do ES",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30496138204388,
+              -20.272115093696268
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 102,
+          "idd": 88,
+          "nomePrincipal": "Lames",
+          "nomeSecundario": "Laboratório de Mecânica dos Solos",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30616857622083,
+              -20.273050046659232
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 103,
+          "idd": 89,
+          "nomePrincipal": "Labor",
+          "nomeSecundario": "Laboratório de Orçamento 1 e 2",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30517117503133,
+              -20.272045150021416
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 104,
+          "idd": 90,
+          "nomePrincipal": "DADF",
+          "nomeSecundario": "Diretório Acadêmico Dido Fontes / Empresa Júnior",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30542897579274,
+              -20.27177077994129
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 105,
+          "idd": 91,
+          "nomePrincipal": "Lest",
+          "nomeSecundario": "Laboratório de Estruturas",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30480128980194,
+              -20.272315460592775
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 106,
+          "idd": 92,
+          "nomePrincipal": "Nexem",
+          "nomeSecundario": "Núcleo de Estudo de Estruturas Metálicas e Mistas",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304558697581776,
+              -20.272433117018878
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 107,
+          "idd": 93,
+          "nomePrincipal": "NTI",
+          "nomeSecundario": "Núcleo de Tecnologia da Informação",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3041702225551,
+              -20.27331793346876
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 108,
+          "idd": 94,
+          "nomePrincipal": "Nemog",
+          "nomeSecundario": "Núcleo de Estudos em Escoamento e Medição de Óleo e Gás",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30685034382198,
+              -20.273082530592834
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 109,
+          "idd": 100,
+          "nomePrincipal": "Adufes",
+          "nomeSecundario": "Associação dos Docentes da Ufes",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.302675540950155,
+              -20.274097921224996
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 110,
+          "idd": 101,
+          "nomePrincipal": "Biblioteca Central",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304721617986665,
+              -20.276516230448767
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 111,
+          "idd": 102,
+          "nomePrincipal": "Castelinho",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303031678571664,
+              -20.282134417256103
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 112,
+          "idd": 103,
+          "nomePrincipal": "Centro de Vivência",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.302662071623644,
+              -20.277367228392734
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 113,
+          "idd": 104,
+          "nomePrincipal": "Criarte",
+          "nomeSecundario": "Centro de Educação Infantil Criarte",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30479692529463,
+              -20.279964316421815
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 114,
+          "idd": 105,
+          "nomePrincipal": "Prograd / Proex / DAS / Edufes / EU",
+          "nomeSecundario": "Pro-Reitoria de Graduação / Pro-Reitoria de Extensão / Departamento de Atenção a Saúde / Editora da Ufes / Galeria de Arte - Espaço Universitário",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.302197888228584,
+              -20.277028078562815
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 115,
+          "idd": 106,
+          "nomePrincipal": "DDP",
+          "nomeSecundario": "Departamento de Desenvolvimento de Pessoas",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30560648055073,
+              -20.279761166240785
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 116,
+          "idd": 107,
+          "nomePrincipal": "EMEF",
+          "nomeSecundario": "Escola Municipal de Ensino Fundamental Experimental da Ufes Vitória",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30476043194122,
+              -20.278986016992476
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 117,
+          "idd": 108,
+          "nomePrincipal": "RU",
+          "nomeSecundario": "Restaurante Universitário",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304035338008326,
+              -20.27802396258365
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 118,
+          "idd": 109,
+          "nomePrincipal": "Serprog",
+          "nomeSecundario": "Serviço de Protocolo Geral",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30456271763931,
+              -20.27733756942374
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 119,
+          "idd": 110,
+          "nomePrincipal": "Sintufes",
+          "nomeSecundario": "Sindicato dos Trabalhadores da Ufes",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30391007336825,
+              -20.28058895213317
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 120,
+          "idd": 111,
+          "nomePrincipal": "Quadra Coberta",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305181052804926,
+              -20.28001327682251
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 121,
+          "idd": 112,
+          "nomePrincipal": "Teatro Universitário",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.301884284243854,
+              -20.277593849287996
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 122,
+          "idd": 113,
+          "nomePrincipal": "GAP",
+          "nomeSecundario": "Galeria de Arte e Pesquisa",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30241949405993,
+              -20.277306383162216
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 123,
+          "idd": 115,
+          "nomePrincipal": "Administração Central",
+          "nomeSecundario": "Reitoria",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30261883003046,
+              -20.276628567751963
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 124,
+          "idd": 116,
+          "nomePrincipal": "Rádio Universitária",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30229472269213,
+              -20.2743148452722
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 125,
+          "idd": 118,
+          "nomePrincipal": "CLC",
+          "nomeSecundario": "Centro de Línguas",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303721153821485,
+              -20.27291287520753
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 126,
+          "idd": 119,
+          "nomePrincipal": "Clube dos Servidores",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304860787557736,
+              -20.27119687150357
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 127,
+          "idd": 120,
+          "nomePrincipal": "Área de Lazer dos Servidores",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30463492002339,
+              -20.26996312798499
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 128,
+          "idd": 121,
+          "nomePrincipal": "Prefeitura Universitária (Departamento Administrativo-DA)",
+          "nomeSecundario": "Materiais e patrimônio",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30533162805202,
+              -20.270735873460975
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 129,
+          "idd": 122,
+          "nomePrincipal": "Prefeitura Universitária (Sede)",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30494477728788,
+              -20.27054208593588
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 130,
+          "idd": 123,
+          "nomePrincipal": "Campo de Futebol Gramado",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3051923567446,
+              -20.280488528987227
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 131,
+          "idd": 124,
+          "nomePrincipal": "Campo de Futebol de Areia / Palco",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30411646307093,
+              -20.280459440346725
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 132,
+          "idd": 125,
+          "nomePrincipal": "Prefeitura Universitária (Divisão de Transporte / Oficina)",
+          "nomeSecundario": "Manutenção",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3055129192168,
+              -20.270169711024945
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 133,
+          "idd": 126,
+          "nomePrincipal": "Prefeitura Universitária (Galpão / Abrigo para veículos)",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305740307504685,
+              -20.27072948156552
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 134,
+          "idd": 127,
+          "nomePrincipal": "Prefeitura Universitária (Vigilância)",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30513623914499,
+              -20.270123102423753
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 135,
+          "idd": 128,
+          "nomePrincipal": "Gráfica Universitária",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.306295262585884,
+              -20.271192400900844
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 136,
+          "idd": 129,
+          "nomePrincipal": "Observatório Astronômico",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.307511730276836,
+              -20.27812385016696
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 137,
+          "idd": 130,
+          "nomePrincipal": "Planetário",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30716353629269,
+              -20.27747198691279
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 138,
+          "idd": 132,
+          "nomePrincipal": "Quadra",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30458467127449,
+              -20.27906917580202
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 139,
+          "idd": 134,
+          "nomePrincipal": "DCE",
+          "nomeSecundario": "Diretório Central dos Estudantes",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30413422686205,
+              -20.27798653241201
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 140,
+          "idd": 140,
+          "nomePrincipal": "IC 1",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30366717274329,
+              -20.27566560176012
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 141,
+          "idd": 141,
+          "nomePrincipal": "IC 2",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30398021200154,
+              -20.27528312705305
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 142,
+          "idd": 142,
+          "nomePrincipal": "IC 3",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304292760632066,
+              -20.27488985179858
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 143,
+          "idd": 143,
+          "nomePrincipal": "IC 4",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30459891839242,
+              -20.27450211139143
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 144,
+          "idd": 144,
+          "nomePrincipal": "Viveiro",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305743830303754,
+              -20.27509610336857
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 145,
+          "idd": 145,
+          "nomePrincipal": "Prof. Cidinho",
+          "nomeSecundario": "Edifício Professor Alcides Gomes de Vasconcelos",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30528367427093,
+              -20.274389229098215
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 146,
+          "idd": 146,
+          "nomePrincipal": "PPGE",
+          "nomeSecundario": "Programa de Pós-Graduação em Educação",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30455914500153,
+              -20.273984946117093
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 147,
+          "idd": 147,
+          "nomePrincipal": "Diretoria do Centro de Educação",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304013027291035,
+              -20.273979643759457
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 148,
+          "idd": 148,
+          "nomePrincipal": "Administração CCE",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30297411652088,
+              -20.27535668940979
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 149,
+          "idd": 149,
+          "nomePrincipal": "Auditório CCE",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30283634890405,
+              -20.275165843906816
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 150,
+          "idd": 150,
+          "nomePrincipal": "Administração CCHN",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303182678770526,
+              -20.274721933488983
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 151,
+          "idd": 151,
+          "nomePrincipal": "Administração dos Departamentos do Centro de Educação",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.304118795393464,
+              -20.2745281800182
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 152,
+          "idd": 152,
+          "nomePrincipal": "Sala de professores CCE",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30408213319702,
+              -20.27559714798477
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 153,
+          "idd": 153,
+          "nomePrincipal": "Ed. Bernadette Lyra",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30439883502298,
+              -20.275236356050815
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 154,
+          "idd": 154,
+          "nomePrincipal": "Edifício Didático",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30344721340081,
+              -20.27500607810435
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 155,
+          "idd": 155,
+          "nomePrincipal": "Sala de Professores CCHN / CCE",
+          "nomeSecundario": null,
+          "nomeTerciario": "Bloco C / Módulo 2",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303774939753374,
+              -20.274897988664623
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 156,
+          "idd": 156,
+          "nomePrincipal": "Pós-Graduação CCHN",
+          "nomeSecundario": "Prédio Bárbara Weinberg",
+          "nomeTerciario": "Módulo 1",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30329124613597,
+              -20.274649837273234
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 157,
+          "idd": 157,
+          "nomePrincipal": "Pós-Graduação CCHN",
+          "nomeSecundario": null,
+          "nomeTerciario": "Módulo 2",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303596389873945,
+              -20.274332758077584
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 158,
+          "idd": 158,
+          "nomePrincipal": "MAJE",
+          "nomeSecundario": "Prédio Maria de Jesus Oliveira Borgo",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30433287902037,
+              -20.27466890103522
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 159,
+          "idd": 159,
+          "nomePrincipal": "Departamento de Ciências Biológicas",
+          "nomeSecundario": "Bloco B - Botânica",
+          "nomeTerciario": "Ed. Lidia Behar",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30466553636405,
+              -20.274824120733022
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 160,
+          "idd": 160,
+          "nomePrincipal": "Departamento de Ciências Biológicas",
+          "nomeSecundario": "Bloco A - Biologa Animal",
+          "nomeTerciario": "Ed. Lidia Behar",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.305066344232024,
+              -20.27483139805112
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 161,
+          "idd": 161,
+          "nomePrincipal": "Laboratório de Física e Química 1",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30423761481106,
+              -20.275848859937053
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 162,
+          "idd": 162,
+          "nomePrincipal": "PPGFis",
+          "nomeSecundario": "Pós-Graduação em Física",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30415354793356,
+              -20.276113247120737
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 163,
+          "idd": 163,
+          "nomePrincipal": "LabPetro / NCPQ",
+          "nomeSecundario": "Núcleo de Competências em Química do Petróleo",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.306124381853024,
+              -20.274335964616803
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 164,
+          "idd": 164,
+          "nomePrincipal": "Pós-graduação Matemática e Química",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.303035199787935,
+              -20.27504046176448
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 165,
+          "idd": 165,
+          "nomePrincipal": "Empresa Júnior",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.302699670345675,
+              -20.274666916693715
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 166,
+          "idd": 166,
+          "nomePrincipal": "Laboratório de Física e Química 2",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30514643949168,
+              -20.27472354964383
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 167,
+          "idd": 167,
+          "nomePrincipal": "Centros Acadêmicos do CCE / Sala de Professores CCHN",
+          "nomeSecundario": null,
+          "nomeTerciario": "Bloco A / Modulo 1",
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.3034620818003,
+              -20.275317984846623
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 168,
+          "idd": 168,
+          "nomePrincipal": "LABSERV / LPT",
+          "nomeSecundario": "Laboratório de Serviço e Análise de Petróleo / Laboratório de Plasma Térmico",
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30460679245252,
+              -20.275452681484158
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        },
+        {
+          "id": 169,
+          "idd": 180,
+          "nomePrincipal": "Lagoa da Ufes",
+          "nomeSecundario": null,
+          "nomeTerciario": null,
+          "localizacao": {
+            "type": "Point",
+            "coordinates": [
+              -40.30554740311761,
+              -20.278025693053266
+            ]
+          },
+          "quantidadeProjetosTotais": 0,
+          "quantidadeProjetosAtivos": 0,
+          "quantidadeObjetivosAtendidos": 0,
+          "idObjetivoMaisAtendido": null
+        }
+      ]
+    }
+  ]
+}

@@ -57,7 +57,13 @@
           :bounds="limitesMapa"
           :center="centroMapa"
           :feature="featureCampus"
-          :markers="obterMarcadores"
+          :markers="createMarkers"
+          @show-actions="showActions"
+        />
+
+        <actions-list-component
+          v-if="isActionsListVisible"
+          :actions="saoMateusActions"
         />
       </v-col>
     </v-row>
@@ -65,16 +71,25 @@
 </template>
 
 <script lang="ts">
+import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+
+import saoMateusActions from '~/assets/data/saoMateusActions.json'
+import saoMateusInfo from '~/assets/data/saoMateusInfo.json'
+import odsGoals from '~/assets/data/odsGoals.json'
 
 import feature from '~/assets/features/sao_mateus.json'
 
 export default {
   name: 'PaginaAcoesSaoMateus',
-  components: { ActionsMapComponent },
+  components: { ActionsListComponent, ActionsMapComponent },
 
   data() {
     return {
+      saoMateusActions,
+      saoMateusInfo,
+      odsGoals,
+      isActionsListVisible: false,
       nomeCampus: 'SAO_MATEUS',
       nomeUnidade: 'Unidade de São Mateus',
       centroMapa: [-18.675738334093378, -39.86240690464644],
@@ -86,8 +101,43 @@ export default {
     }
   },
   computed: {
-    obterMarcadores() {
-      return []
+    createMarkers() {
+      const locais = saoMateusInfo.unidades[0].locais.filter(
+        (local) => local.quantidadeProjetosAtivos > 0,
+      )
+
+      const markers = locais.map((local) => ({
+        ...local,
+        id: local.id,
+        coordinates: local.localizacao.coordinates.reverse(),
+        content:
+          '<div class="popup">' +
+          '<img class="popup_img" src="' +
+          '/img/ods_icons/' +
+          local.idObjetivoMaisAtendido +
+          '.png' +
+          '"><br>' +
+          '<div class="popup_text">' +
+          '<strong>' +
+          local.nomePrincipal +
+          '</strong>' +
+          '<br/>Número de Projetos Ativos: ' +
+          local.quantidadeProjetosAtivos +
+          '<br/>Objetivos atendidos: ' +
+          local.quantidadeObjetivosAtendidos +
+          '<br/>Objetivo mais atendido: ' +
+          '<br/>' +
+          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
+            .titulo +
+          '</div></div>',
+      }))
+
+      return markers
+    },
+  },
+  methods: {
+    showActions(flag: boolean) {
+      this.isActionsListVisible = flag
     },
   },
 }
