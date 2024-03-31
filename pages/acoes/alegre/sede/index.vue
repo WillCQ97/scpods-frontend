@@ -22,6 +22,7 @@ import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 
 import alegreActions from '~/assets/data/alegreActions.json'
 import alegreInfo from '~/assets/data/alegreInfo.json'
+import odsGoals from '~/assets/data/odsGoals.json'
 
 import featureAlegre from '~/assets/features/alegre.json'
 
@@ -42,6 +43,7 @@ export default {
         [-20.76464, -41.53211],
       ],
       mapTitle: 'Campus Sede em Alegre',
+      odsGoals: [],
     }
   },
 
@@ -70,12 +72,14 @@ export default {
           '<strong>' +
           local.nomePrincipal +
           '</strong>' +
-          '<br/>Total de Projetos: ' +
+          '<br/>Número de Projetos Ativos: ' +
           local.quantidadeProjetosAtivos +
-          '<br/>Total de ODS atendidos: ' +
+          '<br/>Objetivos atendidos: ' +
           local.quantidadeObjetivosAtendidos +
-          '<br/>ODS com maior número de Projetos: ' +
-          local.idObjetivoMaisAtendido +
+          '<br/>Objetivo mais atendido: ' +
+          '<br/>' +
+          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
+            .titulo +
           '</div></div>',
       }))
 
