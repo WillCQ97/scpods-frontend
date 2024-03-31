@@ -1,4 +1,3 @@
-<!-- FIXME: corrigir nomenclaturas em inglês nessa página -->
 <template>
   <div>
     <v-card>
@@ -13,78 +12,68 @@
 
         <!-- AÇÃO -->
         <v-text-field
-          v-model="fieldAction"
+          v-model="fieldTitle"
           label="Título ou nome da ação"
           :rules="rules"
         ></v-text-field>
 
         <!-- OBJETIVOS -->
+
         <p>
           <strong>ODS relacionado*: </strong>
-
-          <!-- 
-            
+          <!--
             TODO: Este toggle considera que os objetivos recebidos estarão ordenados
             para obter o objetivo a partir do indice dos botões criados
             Talvez criar um componente que receba o objetivo.id
            -->
-          <v-btn-toggle id="ods-btn-toggle" v-model="indiceBtnObjetivo" group>
-            <v-btn
-              v-for="objetivo in objetivosOds"
-              :key="objetivo.id"
-              height="100px"
-              width="100px"
-            >
-              <v-img :src="carregarImagemObjetivo(objetivo.id)"></v-img>
-            </v-btn>
-          </v-btn-toggle>
         </p>
+
+        <v-btn-toggle id="ods-btn-toggle" v-model="btnGoalIndex">
+          <v-btn v-for="goal in goals" :key="goal.id" height="120" width="120">
+            <v-img :src="loadGoalIcon(goal.id)" height="100" width="100" cover>
+            </v-img>
+          </v-btn>
+        </v-btn-toggle>
 
         <!-- METAS -->
         <p><strong>Metas Nacionais por ODS*: </strong></p>
 
-        <p v-if="!isObjetivoSelecionado()" style="color: #60646a">
+        <p v-if="!isGoalSelected()" style="color: #60646a">
           Clique em um Objetivo de Desenvolvimento Sustentável para que sejam
           exibidas as metas relacionadas.
         </p>
 
-        <div v-if="isObjetivoSelecionado()" id="ods-selected">
+        <div v-if="isGoalSelected()" id="ods-selected">
           <div id="ods-selected-image">
             <v-img
-              :src="carregarImagemObjetivo(indiceBtnObjetivo + 1)"
+              :src="loadGoalIcon(btnGoalIndex + 1)"
               width="50px"
               height="50px"
               contain
             ></v-img>
           </div>
           <p id="ods-selected-text">
-            <strong>{{ getGoalDescription(indiceBtnObjetivo + 1) }}</strong>
+            <strong>{{ getGoalDescription(btnGoalIndex + 1) }}</strong>
           </p>
         </div>
-
-        <v-list-item-group
-          v-if="isObjetivoSelecionado()"
-          v-model="targetSelectedIndex"
-        >
-          <v-list-item
-            v-for="meta in getTargetsODS(indiceBtnObjetivo + 1)"
-            :key="meta.id"
-            two-line
-          >
-            <template #default="{ active }">
-              <v-list-item-action>
-                <v-checkbox :input-value="active"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-title>
-                <strong>Meta {{ meta.id }} </strong>
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ meta.descricao }}
-              </v-list-item-subtitle>
-            </template>
-          </v-list-item>
-        </v-list-item-group>
+        <v-item-group selected-class="bg-primary">
+          <v-row>
+            <v-col>
+              <v-item v-slot="{ isSelected, selectedClass, toggle }">
+                <v-card
+                  :class="['d-flex align-center', selectedClass]"
+                  height="200"
+                  dark
+                  @click="toggle"
+                >
+                  <div class="text-h3 flex-grow-1 text-center">
+                    {{ isSelected ? 'Selected' : 'Click Me!' }}
+                  </div>
+                </v-card>
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-item-group>
 
         <!-- DEMAIS CAMPOS -->
 
@@ -107,19 +96,19 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="fieldCoordinator"
+          v-model="fieldCoordinatorName"
           label="Nome do coordenador da ação"
           :rules="rules"
         ></v-text-field>
         <v-combobox
-          v-model="fieldRoleValue"
+          v-model="fieldCoordinatorRole"
           label="Vínculo do coordenador com a UFES, por exemplo, professor"
           :items="fieldRoleItems"
           :rules="rules"
         ></v-combobox>
 
         <v-text-field
-          v-model="fieldEmail"
+          v-model="fieldCoordinatorEmail"
           label="E-mail do coordenador da ação"
           :rules="rules"
         ></v-text-field>
@@ -171,23 +160,43 @@
 </template>
 
 <script lang="ts">
-import objetivos from '~/assets/data/objetivosODS.json'
+import goals from '~/assets/data/odsGoals.json'
 
 export default {
   name: 'NewActionFormComponent',
   props: {},
   data() {
     return {
-      submission: {
-        acao: '',
-        centro: '',
-        coordenador: '',
-        departamento: '',
+      submissao: {
+        titulo: '',
         descricao: '',
-        email: '',
-        vinculo: '',
+        dataInicio: '',
+        dataEncerramento: null,
+        meta: {
+          id: '',
+        },
+        coordenador: {
+          nome: '',
+          email: '',
+          tipoVinculo: '',
+        },
+        local: {
+          id: '',
+        },
+        lotacao: {
+          id: '',
+        },
       },
-      fieldAction: '',
+
+      fieldTitle: '',
+      fieldDescription: '',
+      fieldInitialDate: '',
+      fieldEndDate: '',
+      fieldCoordinatorName: '',
+      fieldCoordinatorEmail: '',
+      fieldCoordinatorRole: '',
+
+      // lotação
       fieldCenterItems: [
         'Centro de Artes (CAr)',
         'Centro de Ciências Agrárias e Engenharias (CCAE)',
@@ -201,29 +210,24 @@ export default {
         'Centro Tecnológico (CT)',
         'Centro Universitário Norte do Espírito Santo (Ceunes)',
       ],
-      fieldCenterValue: '',
-      fieldCoordinator: '',
-      fieldDepartament: '',
-      fieldDescription: '',
-      fieldEmail: '',
       fieldRoleItems: [
         'Professor',
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
         'Aluno de graduação',
       ],
-      fieldRoleValue: '',
+
+      fieldCenterValue: '',
+      fieldDepartament: '',
+
       dialogSuccess: false,
       dialogError: false,
-      rules: [
-        // fixme: validar as entradas informadas
-        (value) => !!value || 'Este campo é obrigatório.',
-      ],
+      rules: [(value) => !!value || 'Este campo é obrigatório.'],
 
-      objetivosOds: objetivos,
+      goals,
       targetsSelected: [],
-      indiceBtnObjetivo: undefined,
-      targetSelectedIndex: undefined,
+      btnGoalIndex: null,
+      targetSelectedIndex: null,
     }
   },
   methods: {
@@ -237,15 +241,15 @@ export default {
       return navigateTo('/sugerir-acao/')
     },
     cleanFormFields() {
-      this.fieldAction = ''
+      this.fieldTitle = ''
       this.fieldCenter = ''
-      this.fieldCoordinator = ''
+      this.fieldCoordinatorName = ''
       this.fieldDepartament = ''
       this.fieldDescription = ''
-      this.fieldEmail = ''
-      this.fieldRoleValue = ''
-      this.indiceBtnObjetivo = undefined
-      this.targetSelectedIndex = undefined
+      this.fieldCoordinatorEmail = ''
+      this.fieldCoordinatorRole = ''
+      this.btnGoalIndex = null
+      this.targetSelectedIndex = null
     },
     dateFormatted() {
       const date = new Date()
@@ -257,41 +261,44 @@ export default {
         this.addZeroToDate(date.getDate())
       )
     },
-    carregarImagemObjetivo(idObjetivo) {
-      return '/img/ods_icons/' + idObjetivo + '.png'
+    loadGoalIcon(goalId) {
+      return '/img/ods_icons/' + goalId + '.png'
     },
-    obterObjetivoSelecionado() {
-      return this.indiceBtnObjetivo + 1
+    getSelectedGoal() {
+      return this.btnGoalIndex + 1
     },
-    getObjetivo(objetivoId: number) {
-      return this.objetivosOds.filter((objetivo) => objetivo.id === objetivoId)
+    getGoal(id: number) {
+      return this.goals.filter((goal) => goal.id === id)
     },
     getGoalDescription(odsNumber) {
-      return this.getObjetivo(odsNumber).titulo
+      return this.getGoal(odsNumber).titulo
     },
     getTargetsODS(odsNumber) {
       if (odsNumber == null) {
         return
       }
 
-      const objetivo = this.getObjetivo(odsNumber)
+      const objetivo = this.getGoal(odsNumber)
       return objetivo.metas
     },
-    isObjetivoSelecionado() {
-      return this.indiceBtnObjetivo !== undefined
+    isGoalSelected() {
+      return this.btnGoalIndex !== null && this.btnGoalIndex !== undefined
     },
     isTargetSelected() {
-      return this.targetSelectedIndex !== undefined
+      return (
+        this.targetSelectedIndex !== null &&
+        this.targetSelectedIndex !== undefined
+      )
     },
     sendForm() {
       const campos = [
-        this.fieldAction,
+        this.fieldTitle,
         this.fieldCenterValue,
-        this.fieldCoordinator,
+        this.fieldCoordinatorName,
         this.fieldDepartament,
         this.fieldDescription,
-        this.fieldEmail,
-        this.fieldRoleValue,
+        this.fieldCoordinatorEmail,
+        this.fieldCoordinatorRole,
       ]
 
       for (const campo of campos) {
@@ -301,10 +308,7 @@ export default {
         }
       }
 
-      if (
-        this.indiceBtnObjetivo === undefined ||
-        this.targetSelectedIndex === undefined
-      ) {
+      if (this.btnGoalIndex === null || this.targetSelectedIndex === null) {
         this.dialogError = true
         return
       }
@@ -313,7 +317,7 @@ export default {
         date: this.dateFormatted(),
         project: {
           id: this.$store.state.submissions.nextIndex,
-          action: this.fieldAction,
+          action: this.fieldTitle,
           target_id: this.targetsSelected[this.targetSelectedIndex].id,
           description: this.fieldDescription,
           location: {
@@ -322,9 +326,9 @@ export default {
             coord: [this.submissionLocation.lat, this.submissionLocation.lng],
           },
           coordinator: {
-            name: this.fieldCoordinator,
-            role: this.fieldRoleValue,
-            email: this.fieldEmail,
+            name: this.fieldCoordinatorName,
+            role: this.fieldCoordinatorRole,
+            email: this.fieldCoordinatorEmail,
           },
         },
       })
@@ -339,6 +343,7 @@ export default {
 #ods-btn-toggle {
   display: flex;
   flex-wrap: wrap;
+  min-height: 240px;
 }
 
 #ods-selected {
