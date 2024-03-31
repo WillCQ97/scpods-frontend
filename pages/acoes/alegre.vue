@@ -70,7 +70,6 @@ import colorPalleteUfes from '~/assets/colors'
 async function carregarMapa(campus: string) {
   await navigateTo('/acoes/alegre/' + campus)
 }
-// import localAlegreInfo from '~/assets/data/alegreInfo'
 
 export default {
   name: 'PaginaAcoesAlegreWrapper',
