@@ -59,6 +59,10 @@
         <v-item-group selected-class="bg-primary">
           <v-row>
             <v-col>
+              <v-combobox
+                :items="getMetaFieldItems(btnGoalIndex + 1)"
+              ></v-combobox>
+              <!--
               <v-item v-slot="{ isSelected, selectedClass, toggle }">
                 <v-card
                   :class="['d-flex align-center', selectedClass]"
@@ -71,30 +75,30 @@
                   </div>
                 </v-card>
               </v-item>
+              -->
             </v-col>
           </v-row>
         </v-item-group>
 
         <!-- DEMAIS CAMPOS -->
-
+        <v-row>
+          <v-col>
+            <v-text-field label="Data de Início" :rules="rules"></v-text-field>
+          </v-col>
+          <v-col>
+            <v-text-field
+              label="Data de Encerramento, se houver"
+              :rules="rules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
         <v-textarea
           v-model="fieldDescription"
           label="Descrição e objetivos da sua ação"
           :rules="rules"
         ></v-textarea>
-        <v-combobox
-          v-model="fieldCenterValue"
-          label="Centro onde a ação é desenvolvida"
-          :items="fieldCenterItems"
-          :rules="rules"
-        ></v-combobox>
 
-        <v-text-field
-          v-model="fieldDepartament"
-          label="Departamento da UFES onde a ação é desenvolvida"
-          :rules="rules"
-        ></v-text-field>
-
+        <!--  CAMPOS DO COORDENADOR -->
         <v-text-field
           v-model="fieldCoordinatorName"
           label="Nome do coordenador da ação"
@@ -112,6 +116,29 @@
           label="E-mail do coordenador da ação"
           :rules="rules"
         ></v-text-field>
+
+        <!--  CAMPOS DE LOCALIZAÇÃO E LOTAÇÃO -->
+        <v-row>
+          <v-col>
+            <v-combobox
+              label="Unidade onde a ação é realizada"
+              :items="fieldUnidadeItems"
+              :rules="rules"
+            ></v-combobox>
+          </v-col>
+          <v-col>
+            <v-combobox
+              label="Local onde a ação é desenvolvida"
+              :items="fieldLocalItems"
+              :rules="rules"
+            ></v-combobox>
+          </v-col>
+        </v-row>
+        <v-combobox
+          label="Lotação da ação"
+          :items="fieldLotacaoItems"
+          :rules="rules"
+        ></v-combobox>
       </v-card-text>
 
       <v-card-actions>
@@ -197,18 +224,44 @@ export default {
       fieldCoordinatorRole: '',
 
       // lotação
-      fieldCenterItems: [
-        'Centro de Artes (CAr)',
-        'Centro de Ciências Agrárias e Engenharias (CCAE)',
-        'Centro de Ciências Exatas (CCE)',
-        'Centro de Ciências Exatas, Naturais e da Saúde (CCENS)',
-        'Centro de Ciências Humanas e Naturais (CCHN)',
-        'Centro de Ciências Jurídicas e Econômicas (CCJE)',
-        'Centro de Ciências da Saúde (CCS)',
-        'Centro de Educação (CE)',
-        'Centro de Educação Física e Desportos (CEFD)',
-        'Centro Tecnológico (CT)',
-        'Centro Universitário Norte do Espírito Santo (Ceunes)',
+      fieldUnidadeItems: [
+        'Campus Alegre',
+        'Campus de Goiabeiras',
+        'Campus Maruípe',
+        'Campus São Mateus',
+        'Área Experimental em Rive, Alegre',
+        'Unidade em Jerônimo Monteiro',
+        'Área Experimental em Jerônimo Monteiro',
+        'Área Experimental em São José do Calçado',
+      ],
+      fieldLocalItems: [
+        'Anatomia Animal',
+        'Biologia',
+        'Biotecnologia',
+        'SUGRAD',
+        'Cemuni 1',
+        'Cemuni 2',
+        'Cemuni 3',
+        'Cantina / Copiadora',
+        'Prédio da Oceanografia',
+        'Oceanografia - Prédio da Mata',
+        'CT 1',
+        'CT 2',
+      ],
+      fieldLotacaoItems: [
+        'Centro de Ciências Agrárias e Engenharias',
+        'Centro de Ciências Exatas, Naturais e da Saúde',
+        'Centro Universitário Norte do Espírito Santo',
+        'Centro de Ciências da Saúde',
+        'Centro de Artes',
+        'Centro de Ciências Exatas',
+        'Centro de Ciências Humanas e Naturais',
+        'Centro de Ciências Jurídicas e Econômicas',
+        'Centro de Educação',
+        'Centro de Educação Física e Desportos',
+        'Centro Tecnológico',
+        'Hospital Universitário Cassiano Antônio Moraes',
+        'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)',
       ],
       fieldRoleItems: [
         'Professor',
@@ -271,7 +324,7 @@ export default {
       return this.goals.filter((goal) => goal.id === id)
     },
     getGoalDescription(odsNumber) {
-      return this.getGoal(odsNumber).titulo
+      return this.getGoal(odsNumber)[0].titulo
     },
     getTargetsODS(odsNumber) {
       if (odsNumber == null) {
@@ -279,7 +332,19 @@ export default {
       }
 
       const objetivo = this.getGoal(odsNumber)
-      return objetivo.metas
+      return objetivo[0].metas
+    },
+    getMetaFieldItems(odsNumber) {
+      if (this.btnGoalIndex === null || this.btnGoalIndex === undefined) {
+        return []
+      }
+
+      const objetivo = this.getGoal(odsNumber)
+      return objetivo[0].metas.map(
+        (meta) =>
+          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 117) +
+          ' ...',
+      )
     },
     isGoalSelected() {
       return this.btnGoalIndex !== null && this.btnGoalIndex !== undefined
