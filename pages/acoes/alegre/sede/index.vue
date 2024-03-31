@@ -22,6 +22,7 @@ import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 
 import alegreActions from '~/assets/data/alegreActions.json'
 import alegreInfo from '~/assets/data/alegreInfo.json'
+
 import featureAlegre from '~/assets/features/alegre.json'
 
 export default {

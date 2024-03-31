@@ -4,58 +4,54 @@
     <v-col cols="10">
       <v-card min-width="80vh">
         <v-data-table :headers="header" :items="actions">
-          <template #item.image="{ item }">
-            <v-img :src="loadGoalImage(item.meta.objetivo.id)"></v-img>
-          </template>
-          <template #item.options="{ item }">
+          <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
+          <template #top>
             <v-dialog v-model="showDialog" width="125vh">
-              <!-- CAIXA DE DIÁLOGO QUE EXIBE AS INFORMAÇÕES -->
-              <!-- TODO: Separar esse v-dialog para um componente próprio que apenas recebe o projeto -->
               <v-card>
                 <v-card-title>
                   Informações detalhadas sobre o projeto
                 </v-card-title>
                 <hr />
                 <v-card-text>
-                  <strong>Ação:</strong> {{ item.titulo }}
+                  <strong>Ação:</strong> {{ selectedItem.titulo }}
                   <br />
 
                   <strong>ODS:</strong>
-                  {{ item.meta.objetivo.id }} -
-                  {{ item.meta.objetivo.titulo }}
+                  {{ selectedItem.meta.objetivo.id }} -
+                  {{ selectedItem.meta.objetivo.titulo }}
                   <br />
 
                   <strong>Meta ODS: </strong>
-                  {{ item.meta.id }}
+                  {{ selectedItem.meta.id }}
                   -
-                  {{ item.meta.descricao }}
+                  {{ selectedItem.meta.descricao }}
                   <br />
 
-                  <strong>Descrição: </strong>{{ item.descricao }}
+                  <strong>Descrição: </strong>{{ selectedItem.descricao }}
                   <br />
 
                   <strong>Centro: </strong>
-                  {{ item.lotacao.descricao }}
+                  {{ selectedItem.lotacao.descricao }}
                   <br />
 
                   <strong>Local: </strong>
-                  {{ item.local.nomePrincipal }}
+                  {{ selectedItem.local.nomePrincipal }}
                   <br />
 
                   <strong>Coordenador: </strong>
-                  {{ item.coordenador.nome }}
+                  {{ selectedItem.coordenador.nome }}
                   <br />
 
                   <strong>Vínculo com a UFES: </strong>
-                  {{ item.coordenador.descricaoVinculo }}
+                  {{ selectedItem.coordenador.descricaoVinculo }}
                   <br />
 
                   <strong>Data de Início: </strong>
-                  {{ item.dataInicio }}
+                  {{ selectedItem.dataInicio }}
                   <br />
 
                   <strong>Data Fim: </strong>
-                  {{ item.dataEncerramento }}
+                  {{ selectedItem.dataEncerramento }}
                 </v-card-text>
 
                 <v-divider></v-divider>
@@ -68,7 +64,16 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-icon class="me-2" size="small" @click="showDialog = true">
+          </template>
+
+          <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
+          <template #item.image="{ item }">
+            <v-img :src="loadGoalImage(item.meta.objetivo.id)"></v-img>
+          </template>
+
+          <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
+          <template #item.options="{ item }">
+            <v-icon class="me-2" size="small" @click="showItem(item)">
               mdi-eye
             </v-icon>
           </template>
@@ -108,12 +113,48 @@ export default {
         { title: 'Coordenador', key: 'coordenador.nome' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
+      selectedItem: {
+        titulo: '',
+        descricao: '',
+        dataCadastro: '',
+        dataInicio: '',
+        dataEncerramento: null,
+        coordenador: {
+          nome: '',
+          descricaoVinculo: '',
+        },
+        meta: {
+          id: '',
+          descricao: '',
+          objetivo: {
+            id: '',
+            titulo: '',
+            descricao: '',
+          },
+        },
+        local: {
+          nomePrincipal: '',
+          nomeSecundario: null,
+          nomeTerciario: null,
+          unidade: {
+            nome: '',
+          },
+        },
+        lotacao: {
+          descricao: '',
+          sigla: '',
+        },
+      },
       showDialog: false,
     }
   },
   methods: {
     loadGoalImage(goalId: number): string {
       return '/img/ods_icons/' + goalId + '.png'
+    },
+    showItem(item) {
+      this.selectedItem = item
+      this.showDialog = true
     },
   },
 }
