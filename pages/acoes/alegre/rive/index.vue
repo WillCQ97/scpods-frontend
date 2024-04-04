@@ -1,25 +1,46 @@
 <template>
-  <app-map-component
-    :title="nomeUnidade"
-    :bounds="limitesRive"
-    :center="centroRive"
-    :feature="featureUnidadeRive"
-    :markers="obterMarcadoresParaRive"
-    :zoom="zoom"
-  />
+  <div>
+    <actions-map-component
+      :title="mapName"
+      :bounds="limitesRive"
+      :center="centroRive"
+      :feature="featureUnidadeRive"
+      :markers="createMarkers"
+      :zoom="zoom"
+      @show-actions="showActions"
+    />
+    <actions-list-component
+      v-if="isActionsListVisible"
+      :actions="riveActions"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import featureUnidadeRive from '~/assets/features/rive_min.json'
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import ActionsListComponent from '~/components/Actions/ActionsList.vue'
+import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+
+import alegreActions from '~/assets/data/alegreActions.json'
+import alegreInfo from '~/assets/data/alegreInfo.json'
+import odsGoals from '~/assets/data/odsGoals.json'
+
+import featureUnidadeRive from '~/assets/features/rive.json'
 
 export default {
   name: 'PaginaMapaAcoesAlegreRive',
-  components: { AppMapComponent },
+
+  components: { ActionsListComponent, ActionsMapComponent },
+
   data() {
     return {
+      alegreActions,
+      alegreInfo,
+      odsGoals,
+      isActionsListVisible: false,
+      riveActions: [],
       nomeCampus: 'ALEGRE',
-      nomeUnidade: 'Área Experimental em Rive, Alegre',
+      unidadeId: 5,
+      mapName: 'Área Experimental em Rive, Alegre',
       centroRive: [-20.7494, -41.4875],
       limitesRive: [
         [-20.7422, -41.4932],
@@ -31,14 +52,51 @@ export default {
   },
 
   computed: {
-    obterMarcadoresParaRive() {
-      /*
-      return this.$store.getters.obterMarcadoresInfoPorCampusEUnidade({
-        nomeCampus: this.nomeCampus,
-        nomeUnidade: this.nomeUnidade,
-      })
-      */
-      return []
+    createMarkers() {
+      const sede = this.alegreInfo.unidades.filter(
+        (un) => un.id === this.unidadeId,
+      )[0]
+
+      const locais = sede.locais.filter(
+        (local) => local.quantidadeProjetosAtivos > 0,
+      )
+
+      const markers = locais.map((local) => ({
+        ...local,
+        id: local.id,
+        coordinates: local.localizacao.coordinates.reverse(),
+        content:
+          '<div class="popup">' +
+          '<img class="popup_img" src="' +
+          '/img/ods_icons/' +
+          local.idObjetivoMaisAtendido +
+          '.png' +
+          '"><br>' +
+          '<div class="popup_text">' +
+          '<strong>' +
+          local.nomePrincipal +
+          '</strong>' +
+          '<br/>Número de Projetos Ativos: ' +
+          local.quantidadeProjetosAtivos +
+          '<br/>Objetivos atendidos: ' +
+          local.quantidadeObjetivosAtendidos +
+          '<br/>Objetivo mais atendido: ' +
+          '<br/>' +
+          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
+            .titulo +
+          '</div></div>',
+      }))
+
+      return markers
+    },
+  },
+
+  methods: {
+    showActions(flag: boolean) {
+      this.isActionsListVisible = flag
+      this.riveActions = alegreActions.filter(
+        (action) => action.local.unidade.id === this.unidadeId,
+      )
     },
   },
 }

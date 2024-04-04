@@ -27,7 +27,7 @@
           <v-card-actions>
             <v-spacer />
             <!-- TODO: em vez de um botão será realizada a validação via sso -->
-            <v-btn :color="btnColor" @click="onLoadForm">
+            <v-btn :color="btnColor" variant="tonal" @click="onLoadForm">
               Exibir Formulário
             </v-btn>
             <v-spacer />
@@ -45,10 +45,12 @@
 </template>
 
 <script lang="ts">
+import colorPalleteUfes from '~/assets/colors'
+
 export default {
   name: 'PaginaWraperSugerirNovaAcao',
   data() {
-    return { btnColor: '#d2dce8' }
+    return { btnColor: colorPalleteUfes.monocromatic.mono5 }
   },
   methods: {
     onLoadForm() {

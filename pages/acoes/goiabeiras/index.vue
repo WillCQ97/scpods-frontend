@@ -6,7 +6,7 @@
         <v-card>
           <v-card-title>Sobre o campus</v-card-title>
           <v-card-subtitle>
-            Descrição disponibilizada
+            Mais informações
             <a href="https://www.ufes.br/campus-de-goiabeiras" target="_blank">
               na página da ufes
               <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
@@ -51,27 +51,44 @@
     <!-- MAPA PARA O CAMPUS -->
     <v-row>
       <v-col>
-        <app-map-component
+        <actions-map-component
           :title="nomeUnidade"
           :bounds="limitesGoiabeiras"
           :center="centroGoiabeiras"
-          :feature="featureCampusGoiabeiras"
-          :markers="obterMarcadores"
-        ></app-map-component>
+          :feature="featureGoiabeiras"
+          :markers="createMarkers"
+          @show-actions="showActions"
+        />
+
+        <actions-list-component
+          v-if="isActionsListVisible"
+          :actions="goiabeirasActions"
+        />
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script lang="ts">
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import ActionsListComponent from '~/components/Actions/ActionsList.vue'
+import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+
+import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
+import goiabeirasInfo from '~/assets/data/goiabeirasInfo.json'
+import odsGoals from '~/assets/data/odsGoals.json'
+
+import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
-  components: { AppMapComponent },
+  components: { ActionsListComponent, ActionsMapComponent },
 
   data() {
     return {
+      goiabeirasInfo,
+      goiabeirasActions,
+      unidadeId: 2,
+      isActionsListVisible: false,
       nomeCampus: 'GOIABEIRAS',
       nomeUnidade: 'Campus em Goiabeiras',
       centroGoiabeiras: [-20.2764, -40.3037],
@@ -79,14 +96,48 @@ export default {
         [-20.2696, -40.308],
         [-20.284, -40.3009],
       ],
-      featureCampusGoiabeiras: [], // TODO: ADICIONAR O JSON DO CAMPUS
+      featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
     }
   },
 
   computed: {
-    obterMarcadores() {
-      // TODO: IMPLEMENTAR CORRETAMENTE ESTE ITEM
-      return []
+    createMarkers() {
+      const locais = goiabeirasInfo.unidades[0].locais.filter(
+        (local) => local.quantidadeProjetosAtivos > 0,
+      )
+
+      const markers = locais.map((local) => ({
+        ...local,
+        id: local.id,
+        coordinates: local.localizacao.coordinates.reverse(),
+        content:
+          '<div class="popup">' +
+          '<img class="popup_img" src="' +
+          '/img/ods_icons/' +
+          local.idObjetivoMaisAtendido +
+          '.png' +
+          '"><br>' +
+          '<div class="popup_text">' +
+          '<strong>' +
+          local.nomePrincipal +
+          '</strong>' +
+          '<br/>Número de Projetos Ativos: ' +
+          local.quantidadeProjetosAtivos +
+          '<br/>Objetivos atendidos: ' +
+          local.quantidadeObjetivosAtendidos +
+          '<br/>Objetivo mais atendido: ' +
+          '<br/>' +
+          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
+            .titulo +
+          '</div></div>',
+      }))
+
+      return markers
+    },
+  },
+  methods: {
+    showActions(flag: boolean) {
+      this.isActionsListVisible = flag
     },
   },
 }
