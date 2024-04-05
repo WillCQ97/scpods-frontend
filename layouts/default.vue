@@ -17,6 +17,9 @@
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
+      <!-- mdi-account-key mdi-badge-account mdi-security mdi-shield-account -->
+      <v-btn prepend-icon="mdi-shield-account">Admin</v-btn>
+
       <!-- ODS ICON-->
       <v-btn id="btn-icon-ods" icon disabled>
         <v-img
