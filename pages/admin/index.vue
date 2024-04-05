@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>ADMIN PAGE</h1>
-  </div>
+  <v-card>
+    <v-card-title>Página de Submissões</v-card-title>
+  </v-card>
 </template>
 
 <script lang="ts">
