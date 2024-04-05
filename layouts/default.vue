@@ -11,10 +11,10 @@
 
       <!-- LOGIN/LOGOUT BUTTON -->
       <v-btn
-        :prepend-icon="!isUserLoggedIn ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="isUserLoggedIn = !isUserLoggedIn"
+        :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
+        @click.stop="changeFlag()"
       >
-        {{ !isUserLoggedIn ? 'Entrar' : 'Sair' }}
+        {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
       <!-- ODS ICON-->
@@ -134,6 +134,8 @@
 <script lang="ts">
 import colorPalleteUfes from 'assets/colors'
 
+const user = useUser()
+
 export default {
   name: 'DefaultLayout',
   data() {
@@ -144,7 +146,6 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      isUserLoggedIn: false,
 
       author: 'Willian Conceição Queiroz',
       headerColor: colorPalleteUfes.monocromatic.mono6,
@@ -154,7 +155,14 @@ export default {
     }
   },
 
-  methods: {},
+  methods: {
+    isUserLoggedIn() {
+      return user.isLoggedIn
+    },
+    changeFlag() {
+      user.isLoggedIn = !user.isLoggedIn
+    },
+  },
 }
 </script>
 <style scoped>
