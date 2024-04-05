@@ -9,6 +9,14 @@
         {{ headerTitle }}
       </v-app-bar-title>
 
+      <!-- LOGIN/LOGOUT BUTTON -->
+      <v-btn
+        :prepend-icon="!isUserLoggedIn ? 'mdi-login' : 'mdi-logout'"
+        @click.stop="isUserLoggedIn = !isUserLoggedIn"
+      >
+        {{ !isUserLoggedIn ? 'Entrar' : 'Sair' }}
+      </v-btn>
+
       <!-- ODS ICON-->
       <v-btn id="btn-icon-ods" icon disabled>
         <v-img
@@ -136,6 +144,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
+      isUserLoggedIn: false,
 
       author: 'Willian Conceição Queiroz',
       headerColor: colorPalleteUfes.monocromatic.mono6,
@@ -144,6 +153,8 @@ export default {
       headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
     }
   },
+
+  methods: {},
 }
 </script>
 <style scoped>
