@@ -41,20 +41,48 @@
         <nuxt-page />
       </v-col>
     </v-row>
+
+    <!-- DIÁLOGO DE LOGIN -->
+    <v-dialog v-model="showDialog" width="125vh">
+      <v-card>
+        <v-card-title> Validação Necessária </v-card-title>
+        <hr />
+        <v-card-text>
+          <p>
+            Apenas membros da comunidade acadêmica podem realizar a submissão de
+            projetos.
+          </p>
+          <p>Por favor, utilize o botão de entrar no menu superior.</p>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click="showDialog = false"> OK </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import colorPalleteUfes from '~/assets/colors'
 
+const user = useUser()
+
 export default {
   name: 'PaginaWraperSugerirNovaAcao',
   data() {
-    return { btnColor: colorPalleteUfes.monocromatic.mono5 }
+    return { btnColor: colorPalleteUfes.monocromatic.mono5, showDialog: false }
   },
   methods: {
     onLoadForm() {
-      return navigateTo('/sugerir-acao/formulario')
+      if (user.isLoggedIn) {
+        return navigateTo('/sugerir-acao/formulario')
+      } else {
+        this.showDialog = true
+      }
     },
   },
 }
