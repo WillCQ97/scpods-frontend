@@ -1,49 +1,45 @@
 <template>
-  <div>
-    <v-app>
-      <v-row id="card-row">
-        <v-col id="card-col">
-          <v-card width="80vh">
-            <v-card-title v-if="error.statusCode === 404">
-              {{ pageNotFound }}
-            </v-card-title>
-            <v-card-title v-else>
-              {{ otherError }} Erro {{ error.statusCode }}
-            </v-card-title>
+  <v-app>
+    <v-row align="center">
+      <v-col id="card-col">
+        <v-card align="start" width="80vh">
+          <v-card-title v-if="error.statusCode === 404">
+            {{ pageNotFound }}
+          </v-card-title>
+          <v-card-title v-else>
+            {{ otherError }}
+          </v-card-title>
 
-            <hr />
-            <v-card-text v-if="error.statusCode === 404">
-              <p>
-                Lamentamos, mas a página que você está tentando acessar não
-                existe!
-              </p>
-            </v-card-text>
-            <v-card-text v-else>
-              <p>
-                Ocorreu um erro inesperado, por favor retorne a página inicial.
-              </p>
-            </v-card-text>
+          <hr />
+          <v-card-text v-if="error.statusCode === 404">
+            <p>
+              Lamentamos, mas a página que você está tentando acessar não
+              existe!
+            </p>
+          </v-card-text>
+          <v-card-text v-else>
+            <p>Ocorreu um erro inesperado de código {{ error.statusCode }}.</p>
+            <p>Por favor retorne a página inicial.</p>
+          </v-card-text>
 
-            <v-card-actions>
-              <v-spacer />
-              <a href="/">
-                <v-btn color="primary" small text>
-                  <v-icon small>mdi-home</v-icon> Página Inicial
-                </v-btn>
-              </a>
-              <v-spacer />
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-app>
-  </div>
+          <v-card-actions>
+            <v-spacer />
+            <a href="/">
+              <v-btn color="primary" small text>
+                <v-icon small>mdi-home</v-icon> Página Inicial
+              </v-btn>
+            </a>
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-app>
 </template>
 
 <script>
 export default {
-  name: 'EmptyLayout',
-  layout: 'empty',
+  name: 'ErrorPage',
   props: {
     error: {
       type: Object,
@@ -53,7 +49,7 @@ export default {
   data() {
     return {
       pageNotFound: 'Erro 404: Conteúdo não encontrado',
-      otherError: 'Ocorreu um problema!',
+      otherError: 'Ops... Algo de errado não está certo!',
     }
   },
   head() {
@@ -69,9 +65,6 @@ export default {
 <style scoped>
 h1 {
   font-size: 20px;
-}
-#card-row {
-  align-items: center;
 }
 #card-col {
   display: flex;
