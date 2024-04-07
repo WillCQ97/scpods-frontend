@@ -9,16 +9,19 @@
         {{ headerTitle }}
       </v-app-bar-title>
 
-      <!-- LOGIN/LOGOUT BUTTON -->
+      <!-- LOGIN/LOGOUT BUTTONS -->
+      <!-- USER -->
       <v-btn
         :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="changeFlag()"
+        @click.stop="changeUserFlag()"
       >
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
-      <!-- mdi-account-key mdi-badge-account mdi-security mdi-shield-account -->
-      <v-btn prepend-icon="mdi-shield-account">Admin</v-btn>
+      <!-- ADMIN -->
+      <v-btn prepend-icon="mdi-shield-account" @click.stop="changeUserAdmin()">
+        Admin
+      </v-btn>
 
       <!-- ODS ICON-->
       <v-btn id="btn-icon-ods" icon disabled>
@@ -109,6 +112,18 @@
           </v-list-item-title>
         </v-list-item>
 
+        <v-list-item
+          v-if="isUserAdmin()"
+          to="/admin/avaliar-submissoes"
+          prepend-icon="mdi-order-bool-ascending-variant"
+          router
+          exact
+        >
+          <v-list-item-title class="font-weight-bold">
+            Avaliar Submissões
+          </v-list-item-title>
+        </v-list-item>
+
         <!-- SOBRE -->
         <v-list-item to="/sobre" prepend-icon="mdi-text" router exact>
           <v-list-item-title class="font-weight-bold">
@@ -162,8 +177,14 @@ export default {
     isUserLoggedIn() {
       return user.isLoggedIn
     },
-    changeFlag() {
+    isUserAdmin() {
+      return user.isAdmin
+    },
+    changeUserFlag() {
       user.isLoggedIn = !user.isLoggedIn
+    },
+    changeUserAdmin() {
+      user.isAdmin = !user.isAdmin
     },
   },
 }
