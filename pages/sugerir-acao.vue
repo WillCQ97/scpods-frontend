@@ -69,6 +69,10 @@
 <script lang="ts">
 import colorPalleteUfes from '~/assets/colors'
 
+// FIXME: isso resulta em erro relacionado ao carregamento do pinia se a página for acessada primeiramente
+// USO DO COMPOSITION API RESOLVE?!
+// USO DO PLUGIN, CRIANDO A STORE GLOBALMENTE RESOLVE?!
+// WORKAROUND: criar um middleware onde se o to e from são iguais e não são /, redireciona para a home?!
 const user = useUser()
 
 export default {
