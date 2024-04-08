@@ -62,12 +62,6 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'PaginaSobre',
-}
-</script>
-
 <style scoped>
 #ufes-banner {
   margin-left: auto;

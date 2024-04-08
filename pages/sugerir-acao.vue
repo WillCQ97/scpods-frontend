@@ -18,8 +18,8 @@
                 sugestão será disponibilizado para preenchimento.
               </li>
               <li>
-                <strong>Submeter o formulário preenchido:</strong> Sua
-                requisição será apreciada, para posterior publicação no mapa.
+                <strong>Submeter o formulário preenchido:</strong> Sua submissão
+                será avaliada, para posterior adição ao mapa.
               </li>
             </ol>
           </v-card-text>

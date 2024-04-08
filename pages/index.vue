@@ -14,6 +14,7 @@
             objetivos e 169 metas para o fomento de um desenvolvimento mais
             sustentável das atividades humanas nos próximos anos.
           </v-card-text>
+
           <v-card-actions>
             <v-spacer />
             <a href="https://brasil.un.org/pt-br/sdgs" target="_blank">
@@ -45,6 +46,7 @@
             da Agenda 2030 na Ufes, visando dar transparência às ações de
             sustentabilidade realizadas pela instituição.
           </v-card-text>
+
           <v-card-actions>
             <v-spacer />
             <a href="https://ods.ufes.br/" target="_blank">
@@ -61,6 +63,7 @@
         </v-card>
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <v-card>
@@ -78,6 +81,7 @@
               importante missão.
             </strong>
           </v-card-text>
+
           <v-card-actions>
             <v-spacer />
             <nuxt-link to="/sugerir-acao">
@@ -90,9 +94,3 @@
     </v-row>
   </div>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'PaginaInicial',
-}
-</script>

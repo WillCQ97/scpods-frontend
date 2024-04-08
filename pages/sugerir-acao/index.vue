@@ -7,31 +7,26 @@
         O formulário é composto por informações essenciais acerca da
         ação/projeto executado:
       </p>
-      <!-- TODO: Correção dos itens abaixo de acordo com o novo formato dos dados do projeto -->
       <ul>
         <li>Título da ação</li>
-        <li>ODS principal relacionado</li>
-        <li>Meta da ODS atendida (só é possível escolher uma)</li>
-        <li>Descrição/Objetivo da ação</li>
-        <li>Local onde é ou foi executado (deverá ser selecionado no mapa)</li>
+        <li>Principal ODS relacionado</li>
+        <li>Principal Meta atendida</li>
+        <li>Data de ínicio</li>
+        <li>Data de encerramento, se houver</li>
+        <li>Descrição contendo o objetivo da ação</li>
         <li>
-          Vinculação do projeto: Local ou estrutura administrativa a que está
-          submetido, por exemplo, ao departamento da farmácia, à administração
-          central, etc.
+          Informações sobre a coordenação do projeto: nome, email e vínculo do
+          coordenador com a UFES
         </li>
-        <li>Coordenador do projeto: Seu nome e vinculação com a UFES.</li>
-        <li>Datas de início e de finalização da ação.</li>
+        <li>
+          Local onde a ação é/foi executada: selecione a unidade e, em seguida,
+          o local em questão
+        </li>
+        <li>Lotação da ação: a qual centro o projeto está vinculado</li>
       </ul>
     </v-card-text>
   </v-card>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'PaginaSugerirAcao',
-}
-</script>
-
 <style scoped>
 ul {
   padding-left: 25px;
