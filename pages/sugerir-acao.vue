@@ -82,11 +82,11 @@ export default {
   },
   methods: {
     onLoadForm() {
-      if (user.isLoggedIn) {
-        return navigateTo('/sugerir-acao/formulario')
-      } else {
+      if (!user.isLoggedIn) {
         this.showDialog = true
       }
+      // the middleware auth should prevent this page to load the form
+      return navigateTo('/sugerir-acao/formulario')
     },
   },
 }

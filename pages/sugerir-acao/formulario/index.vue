@@ -5,6 +5,10 @@
 <script lang="ts">
 import NewActionFormComponent from '~/components/Actions/NewActionForm.vue'
 
+definePageMeta({
+  middleware: ['auth'],
+})
+
 export default {
   name: 'PaginaFormularioSugerirNovaAcao',
   components: { NewActionFormComponent },
