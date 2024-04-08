@@ -4,37 +4,37 @@
     <v-col cols="10">
       <v-card min-width="80vh">
         <v-data-table :headers="header" :items="actions">
-          <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
+          <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO, pode ser um componente a parte -->
           <template #top>
             <v-dialog v-model="showDialog" width="125vh">
               <v-card>
                 <v-card-title>
-                  Informações detalhadas sobre o projeto
+                  Informações detalhadas sobre a ação
                 </v-card-title>
                 <hr />
                 <v-card-text>
-                  <strong>Ação:</strong> {{ selectedItem.titulo }}
+                  <strong> Título: </strong> {{ selectedItem.titulo }}
                   <br />
 
-                  <strong>ODS:</strong>
+                  <strong> Objetivo: </strong>
                   {{ selectedItem.meta.objetivo.id }} -
                   {{ selectedItem.meta.objetivo.titulo }}
                   <br />
 
-                  <strong>Meta ODS: </strong>
+                  <strong> Meta: </strong>
                   {{ selectedItem.meta.id }}
                   -
                   {{ selectedItem.meta.descricao }}
                   <br />
 
-                  <strong>Descrição: </strong>{{ selectedItem.descricao }}
+                  <strong> Descrição: </strong>{{ selectedItem.descricao }}
                   <br />
 
-                  <strong>Centro: </strong>
+                  <strong> Lotação: </strong>
                   {{ selectedItem.lotacao.descricao }}
                   <br />
 
-                  <strong>Local: </strong>
+                  <strong> Local: </strong>
                   {{ selectedItem.local.nomePrincipal }}
                   <br />
 
@@ -42,15 +42,15 @@
                   {{ selectedItem.coordenador.nome }}
                   <br />
 
-                  <strong>Vínculo com a UFES: </strong>
+                  <strong> Vínculo com a UFES: </strong>
                   {{ selectedItem.coordenador.descricaoVinculo }}
                   <br />
 
-                  <strong>Data de Início: </strong>
+                  <strong> Data de Início: </strong>
                   {{ selectedItem.dataInicio }}
                   <br />
 
-                  <strong>Data Fim: </strong>
+                  <strong> Data Fim: </strong>
                   {{ selectedItem.dataEncerramento }}
                 </v-card-text>
 
