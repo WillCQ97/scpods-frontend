@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Página de Submissões</v-card-title>
+    <v-card-title>Página do Admin</v-card-title>
   </v-card>
 </template>
 
@@ -8,8 +8,4 @@
 definePageMeta({
   middleware: ['auth'],
 })
-
-export default {
-  name: 'AdminPage',
-}
 </script>
