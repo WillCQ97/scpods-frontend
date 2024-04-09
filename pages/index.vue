@@ -7,7 +7,7 @@
           <v-card-subtitle>
             Saiba mais sobre os Objetivos de Desenvolvimento Sustentável
           </v-card-subtitle>
-          <hr />
+          <v-divider :color="dividerColor" thickness="2"></v-divider>
           <v-card-text>
             A Agenda 2030 consiste em um plano de ação global para governos,
             sociedade, empresas, academias e pessoas, no qual foram definidos 17
@@ -35,7 +35,7 @@
         <v-card>
           <v-card-title> A Ufes faz parte dessa iniciativa </v-card-title>
           <v-card-subtitle> e conta com você! </v-card-subtitle>
-          <hr />
+          <v-divider :color="dividerColor" thickness="2"></v-divider>
           <v-card-text>
             A Agenda 2030 é uma oportunidade de a Ufes incorporar os princípios
             dos ODS nas suas diferentes frentes de atuação (ensino, pesquisa,
@@ -68,7 +68,7 @@
       <v-col>
         <v-card>
           <v-card-title> Cadastre sua contribuição </v-card-title>
-          <hr />
+          <v-divider :color="dividerColor" thickness="2"></v-divider>
           <v-card-text>
             O mapeamento permitirá o planejamento de ações futuras, o
             monitoramento dos <em>campi</em> e facilitará a divulgação das boas
@@ -94,3 +94,7 @@
     </v-row>
   </div>
 </template>
+<script setup lang="ts">
+import colorPalleteUfes from '~/assets/colors'
+const dividerColor = colorPalleteUfes.monocromatic.primary
+</script>

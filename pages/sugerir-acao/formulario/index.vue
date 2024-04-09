@@ -303,7 +303,6 @@ export default {
           id: '',
         },
       },
-
       fieldTitle: '',
       fieldDescription: '',
       fieldInitialDate: '',

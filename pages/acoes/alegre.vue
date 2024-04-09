@@ -1,13 +1,14 @@
 <template>
   <v-row>
     <v-col>
-      <!-- INFO SOBRE AS ÁREAS DO CAMPUS E MENU DE SELEÇÃO -->
+      <!-- INFO SOBRE AS ÁREAS DO CAMPUS -->
       <v-row>
         <v-col>
           <v-card>
             <v-card-title>Campus de Alegre</v-card-title>
             <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
-            <hr />
+            <v-divider :color="dividerColor" thickness="3"></v-divider>
+
             <v-card-text>
               <p>
                 Atualmente, o campus de Alegre conta com
@@ -36,14 +37,14 @@
                 </li>
               </ul>
             </v-card-text>
-            <hr />
+
             <v-card-actions>
               <v-spacer />
               <v-btn
                 v-for="(mapa, index) in mapas"
                 :key="index"
                 :color="corBotao"
-                variant="tonal"
+                variant="elevated"
                 @click="exibirMapa(mapa.subpagina)"
               >
                 {{ mapa.titulo }}
@@ -72,12 +73,10 @@ async function carregarMapa(campus: string) {
 }
 
 export default {
-  name: 'PaginaAcoesAlegreWrapper',
-  components: {},
-
   data() {
     return {
-      corBotao: colorPalleteUfes.monocromatic.mono5,
+      corBotao: colorPalleteUfes.monocromatic.secondary,
+      dividerColor: colorPalleteUfes.monocromatic.primary,
       mapas: [
         { titulo: 'Sede em Alegre', subpagina: 'sede' },
         { titulo: 'Unidade Jerônimo Monteiro', subpagina: 'jeronimo' },
