@@ -1,66 +1,103 @@
 <template>
   <div>
+    <!--TODO: testar a utilização de um card para cada tipo de informação: ação, coordenador e local-->
     <v-card>
       <v-card-title>Cadastro de ação</v-card-title>
       <hr />
 
       <v-card-text>
-        <p>
-          Informe os campos a seguir para submeter uma ação e, após apreciação
-          da comissão, ela poderá ser incluída no mapa.
-        </p>
+        <!--TODO: ESTE SERÁ O TEXTO?!-->
+        <v-row>
+          <v-col>
+            <p>
+              Informe os campos a seguir para submeter uma ação e, após
+              apreciação da comissão, ela poderá ser incluída no mapa.
+            </p>
+          </v-col>
+        </v-row>
 
-        <!-- AÇÃO -->
-        <v-text-field
-          v-model="fieldTitle"
-          label="Título ou nome da ação"
-          :rules="rules"
-        ></v-text-field>
+        <!-- TÍTULO -->
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="fieldTitle"
+              label="Título ou nome da ação"
+              :rules="rules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
         <!-- OBJETIVOS -->
+        <v-row>
+          <v-col>
+            <h2>
+              <strong>ODS relacionado*: </strong>
+            </h2>
+          </v-col>
+        </v-row>
 
-        <p>
-          <strong>ODS relacionado*: </strong>
-          <!--
-            TODO: Este toggle considera que os objetivos recebidos estarão ordenados
-            para obter o objetivo a partir do indice dos botões criados
-            Talvez criar um componente que receba o objetivo.id
-           -->
-        </p>
-
-        <v-btn-toggle id="ods-btn-toggle" v-model="btnGoalIndex">
-          <v-btn v-for="goal in goals" :key="goal.id" height="120" width="120">
-            <v-img :src="loadGoalIcon(goal.id)" height="100" width="100" cover>
-            </v-img>
-          </v-btn>
-        </v-btn-toggle>
+        <v-row>
+          <v-col>
+            <!--
+              TODO: Este toggle considera que os objetivos recebidos estarão ordenados
+              para obter o objetivo a partir do indice dos botões criados
+              Talvez criar um componente que receba o objetivo.id
+            -->
+            <v-btn-toggle id="ods-btn-toggle" v-model="btnGoalIndex">
+              <v-btn
+                v-for="goal in goals"
+                :key="goal.id"
+                height="120"
+                width="120"
+              >
+                <v-img
+                  :src="loadGoalIcon(goal.id)"
+                  height="100"
+                  width="100"
+                  cover
+                >
+                </v-img>
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+        </v-row>
 
         <!-- METAS -->
-        <p><strong>Metas Nacionais por ODS*: </strong></p>
+        <v-row>
+          <v-col>
+            <h2><strong>Metas Nacionais por ODS*: </strong></h2>
+          </v-col>
+        </v-row>
 
-        <p v-if="!isGoalSelected()" style="color: #60646a">
-          Clique em um Objetivo de Desenvolvimento Sustentável para que sejam
-          exibidas as metas relacionadas.
-        </p>
+        <v-row>
+          <v-col>
+            <p v-if="!isGoalSelected()" style="color: #60646a">
+              Clique em um Objetivo de Desenvolvimento Sustentável para que
+              sejam exibidas as metas relacionadas.
+            </p>
+            <div v-if="isGoalSelected()" id="ods-selected">
+              <div id="ods-selected-image">
+                <v-img
+                  :src="loadGoalIcon(btnGoalIndex + 1)"
+                  width="50px"
+                  height="50px"
+                  contain
+                ></v-img>
+              </div>
+              <p id="ods-selected-text">
+                <strong>{{ getGoalDescription(btnGoalIndex + 1) }}</strong>
+              </p>
+            </div>
+          </v-col>
+        </v-row>
 
-        <div v-if="isGoalSelected()" id="ods-selected">
-          <div id="ods-selected-image">
-            <v-img
-              :src="loadGoalIcon(btnGoalIndex + 1)"
-              width="50px"
-              height="50px"
-              contain
-            ></v-img>
-          </div>
-          <p id="ods-selected-text">
-            <strong>{{ getGoalDescription(btnGoalIndex + 1) }}</strong>
-          </p>
-        </div>
-        <v-item-group selected-class="bg-primary">
-          <v-row>
-            <v-col>
+        <v-row>
+          <v-col>
+            <v-item-group selected-class="bg-primary">
               <v-combobox
+                label="Escolha a meta mais relevante para o projeto"
                 :items="getMetaFieldItems(btnGoalIndex + 1)"
+                :disabled="targetDisabled"
               ></v-combobox>
               <!--
               <v-item v-slot="{ isSelected, selectedClass, toggle }">
@@ -76,9 +113,9 @@
                 </v-card>
               </v-item>
               -->
-            </v-col>
-          </v-row>
-        </v-item-group>
+            </v-item-group>
+          </v-col>
+        </v-row>
 
         <!-- DEMAIS CAMPOS -->
         <v-row>
@@ -88,36 +125,61 @@
           <v-col>
             <v-text-field
               label="Data de Encerramento, se houver"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-textarea
+              v-model="fieldDescription"
+              label="Descrição e objetivos da sua ação"
+              :rules="rules"
+            ></v-textarea>
+          </v-col>
+        </v-row>
+
+        <!--  CAMPOS DO COORDENADOR -->
+        <v-row>
+          <v-col>
+            <h2>Dados do coordenador</h2>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="fieldCoordinatorName"
+              label="Nome e sobrenome"
               :rules="rules"
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-textarea
-          v-model="fieldDescription"
-          label="Descrição e objetivos da sua ação"
-          :rules="rules"
-        ></v-textarea>
 
-        <!--  CAMPOS DO COORDENADOR -->
-        <v-text-field
-          v-model="fieldCoordinatorName"
-          label="Nome do coordenador da ação"
-          :rules="rules"
-        ></v-text-field>
-        <v-combobox
-          v-model="fieldCoordinatorRole"
-          label="Vínculo do coordenador com a UFES, por exemplo, professor"
-          :items="fieldRoleItems"
-          :rules="rules"
-        ></v-combobox>
-
-        <v-text-field
-          v-model="fieldCoordinatorEmail"
-          label="E-mail do coordenador da ação"
-          :rules="rules"
-        ></v-text-field>
+        <v-row>
+          <v-col>
+            <v-combobox
+              v-model="fieldCoordinatorRole"
+              label="Vínculo com a UFES"
+              :items="fieldRoleItems"
+              :rules="rules"
+            ></v-combobox>
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="fieldCoordinatorEmail"
+              label="E-mail do coordenador da ação"
+              :rules="rules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
         <!--  CAMPOS DE LOCALIZAÇÃO E LOTAÇÃO -->
+        <v-row>
+          <v-col>
+            <h2>Local e Lotação associados</h2>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col>
             <v-combobox
@@ -134,16 +196,21 @@
             ></v-combobox>
           </v-col>
         </v-row>
-        <v-combobox
-          label="Lotação da ação"
-          :items="fieldLotacaoItems"
-          :rules="rules"
-        ></v-combobox>
+
+        <v-row>
+          <v-col>
+            <v-combobox
+              label="Lotação da ação"
+              :items="fieldLotacaoItems"
+              :rules="rules"
+            ></v-combobox>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="sendForm"> Enviar proposta de ação </v-btn>
+        <v-btn @click="sendForm"> Enviar submissão </v-btn>
         <v-btn @click="cleanFormFields"> Limpar campos </v-btn>
         <v-btn @click="btnVoltar"> Voltar </v-btn>
         <v-spacer />
@@ -151,6 +218,7 @@
     </v-card>
 
     <!-- DIÁLOGOS DE MENSAGENS -->
+    <!-- TODO: pode ser utilizado um diálogo apenas -->
     <v-dialog v-model="dialogSuccess" width="500">
       <v-card>
         <v-card-title>Sucesso!</v-card-title>
@@ -279,6 +347,7 @@ export default {
 
       goals,
       targetsSelected: [],
+      targetDisabled: true,
       btnGoalIndex: null,
       targetSelectedIndex: null,
     }
@@ -336,9 +405,11 @@ export default {
     },
     getMetaFieldItems(odsNumber) {
       if (this.btnGoalIndex === null || this.btnGoalIndex === undefined) {
+        this.targetDisabled = true
         return []
       }
 
+      this.targetDisabled = false
       const objetivo = this.getGoal(odsNumber)
       return objetivo[0].metas.map(
         (meta) =>
@@ -377,26 +448,6 @@ export default {
         this.dialogError = true
         return
       }
-
-      this.$store.commit('submissions/add', {
-        date: this.dateFormatted(),
-        project: {
-          id: this.$store.state.submissions.nextIndex,
-          action: this.fieldTitle,
-          target_id: this.targetsSelected[this.targetSelectedIndex].id,
-          description: this.fieldDescription,
-          location: {
-            center: this.fieldCenterValue,
-            departament: this.fieldDepartament,
-            coord: [this.submissionLocation.lat, this.submissionLocation.lng],
-          },
-          coordinator: {
-            name: this.fieldCoordinatorName,
-            role: this.fieldCoordinatorRole,
-            email: this.fieldCoordinatorEmail,
-          },
-        },
-      })
 
       this.dialogSuccess = true
     },
