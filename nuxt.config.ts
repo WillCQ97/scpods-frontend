@@ -2,13 +2,6 @@
 
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
-// TODO: adicionar imagem e url para o site
-const siteTitle = 'Mapa Colaborativo: ODS na UFES'
-const siteDescription =
-  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) na UFES'
-const siteImage = ''
-const siteUrl = ''
-
 export default defineNuxtConfig({
   app: {},
 
@@ -28,8 +21,9 @@ export default defineNuxtConfig({
       })
     },
     '@pinia/nuxt',
-    'nuxt3-leaflet'
+    'nuxt3-leaflet',
   ],
+
   vite: {
     vue: {
       template: {

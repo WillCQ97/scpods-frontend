@@ -94,3 +94,9 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Yarn folder
+.yarn
+
+# Features in geojson files
+assets/features

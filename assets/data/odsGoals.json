@@ -2,7 +2,6 @@
   {
     "id": 1,
     "titulo": "Erradicação da pobreza",
-    "codigoCor": "#e5233d",
     "metas": [
       {
         "id": "1.1",
@@ -37,7 +36,6 @@
   {
     "id": 2,
     "titulo": "Fome zero e agricultura sustentável",
-    "codigoCor": "#dda73a",
     "metas": [
       {
         "id": "2.1",
@@ -76,7 +74,6 @@
   {
     "id": 3,
     "titulo": "Saúde e bem-estar",
-    "codigoCor": "#4ca146",
     "metas": [
       {
         "id": "3.1",
@@ -135,7 +132,6 @@
   {
     "id": 4,
     "titulo": "Educação de Qualidade",
-    "codigoCor": "#c7212f",
     "metas": [
       {
         "id": "4.1",
@@ -182,7 +178,6 @@
   {
     "id": 5,
     "titulo": "Igualdade de gênero",
-    "codigoCor": "#ef402d",
     "metas": [
       {
         "id": "5.1",
@@ -225,7 +220,6 @@
   {
     "id": 6,
     "titulo": "Água potável e saneamento",
-    "codigoCor": "#27bfe6",
     "metas": [
       {
         "id": "6.a",
@@ -264,7 +258,6 @@
   {
     "id": 7,
     "titulo": "Energia limpa e acessível",
-    "codigoCor": "#fbc412",
     "metas": [
       {
         "id": "7.1",
@@ -291,7 +284,6 @@
   {
     "id": 8,
     "titulo": "Trabalho decente e crescimento econômico",
-    "codigoCor": "#a31c44",
     "metas": [
       {
         "id": "8.1",
@@ -346,7 +338,6 @@
   {
     "id": 9,
     "titulo": "Indústria, inovação e infraestrutura",
-    "codigoCor": "#f26a2e",
     "metas": [
       {
         "id": "9.1",
@@ -385,7 +376,6 @@
   {
     "id": 10,
     "titulo": "Redução das desigualdades",
-    "codigoCor": "#de1768",
     "metas": [
       {
         "id": "10.1",
@@ -432,7 +422,6 @@
   {
     "id": 11,
     "titulo": "Cidades e comunidades sustentáveis",
-    "codigoCor": "#f89d2a",
     "metas": [
       {
         "id": "11.1",
@@ -479,7 +468,6 @@
   {
     "id": 12,
     "titulo": "Consumo e produção responsáveis",
-    "codigoCor": "#bf8d2c",
     "metas": [
       {
         "id": "12.1",
@@ -530,7 +518,6 @@
   {
     "id": 13,
     "titulo": "Ação contra a ação global do clima",
-    "codigoCor": "#407f46",
     "metas": [
       {
         "id": "13.1",
@@ -557,7 +544,6 @@
   {
     "id": 14,
     "titulo": "Vida na água",
-    "codigoCor": "#1f97d4",
     "metas": [
       {
         "id": "14.1",
@@ -604,7 +590,6 @@
   {
     "id": 15,
     "titulo": "Vida terrestre",
-    "codigoCor": "#59ba47",
     "metas": [
       {
         "id": "15.1",
@@ -659,7 +644,6 @@
   {
     "id": 16,
     "titulo": "Paz, justiça e instituições eficazes",
-    "codigoCor": "#136a9f",
     "metas": [
       {
         "id": "16.5",
@@ -714,7 +698,6 @@
   {
     "id": 17,
     "titulo": "Parcerias e meios de implementação",
-    "codigoCor": "#14496b",
     "metas": [
       {
         "id": "17.1",
