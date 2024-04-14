@@ -27,3 +27,7 @@
 - Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.
 - Mapear as diferentes ações de ODS realizadas em diferentes locais na universidade.
 - A ideia de ser colaborativo é justamente permitir que os diferentes atores informem seus projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
+
+## Assets
+
+- Imagens das logos para representar cada ODS foram obtidas em https://brasil.un.org/pt-br/sdgs.

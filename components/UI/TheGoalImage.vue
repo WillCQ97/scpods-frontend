@@ -1,5 +1,5 @@
 <template>
-  <v-img :src="loadGoalIcon" height="100" width="100" cover></v-img>
+  <v-img :src="loadGoalIcon" cover></v-img>
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default {
   },
   computed: {
     loadGoalIcon() {
-      return '/img/ods_icons/' + this.goalId + '.png'
+      return '/img/ods-icons/pt-br/SDG-' + this.goalId + '.svg'
     },
   },
 }
