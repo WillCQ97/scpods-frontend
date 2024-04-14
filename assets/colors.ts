@@ -1,6 +1,6 @@
-const themeUfes = {
+const colorPalleteUfes = {
   // Monocromatic pallete from primary color #234379 made on https://pt.paletadecolores.online/cor-monocromatica/
-  default: {
+  monocromatic: {
     primary: '#234379',
     mono1: '#000011',
     mono2: '#11182c',
@@ -13,4 +13,4 @@ const themeUfes = {
   },
 }
 
-export default themeUfes
+export default colorPalleteUfes

@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app theme="dark">
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -14,13 +14,11 @@
           :to="item.to"
           router
           exact
+          :title="item.title"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -35,7 +33,7 @@
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title :text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
@@ -44,12 +42,12 @@
     <v-main>
       <v-subheader>Submissions Section</v-subheader>
       <v-container>
-        <Nuxt />
+        <slot />
       </v-container>
     </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
-        <v-list-item @click.native="right = !right">
+        <v-list-item @click="right = !right">
           <v-list-item-action>
             <v-icon light> mdi-repeat </v-icon>
           </v-list-item-action>
@@ -63,8 +61,9 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 export default {
+  /* TODO: REMOVER ESTE LAYOUT, SE O MESMO NÃO FOR UTILIZADO */
   name: 'SubmissionsLayout',
   data() {
     return {

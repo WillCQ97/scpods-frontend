@@ -1,3 +1,4 @@
+<!-- TODO: testar a utilização desse componente -->
 <template>
   <v-dialog
     v-model="showDialogModel"

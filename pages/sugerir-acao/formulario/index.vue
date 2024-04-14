@@ -1,11 +1,12 @@
 <template>
-  <formulario-nova-acao-component />
+  <new-action-form-component />
 </template>
 
-<script>
-import FormularioNovaAcaoComponent from '~/components/Acoes/FormularioNovaAcao.vue'
+<script lang="ts">
+import NewActionFormComponent from '~/components/Actions/NewActionForm.vue'
+
 export default {
-  name: 'SugerirAcaoFormPage',
-  components: { FormularioNovaAcaoComponent },
+  name: 'PaginaFormularioSugerirNovaAcao',
+  components: { NewActionFormComponent },
 }
 </script>

@@ -1,67 +1,45 @@
 <template>
-  <v-row>
-    <v-spacer />
-    <v-col cols="10">
-      <v-card elevation="8" min-width="80vh">
-        <v-card-title>{{ title }}</v-card-title>
-        <hr />
-        <client-only>
-          <!-- PROPRIEDADES DO MAPA -->
-          <l-map
-            :center="center"
-            :options="mapOptions"
-            style="height: 600px; z-index: 1"
-            :zoom="zoom"
-          >
-            <!-- LAYER DO OPENSTREETMAP -->
-            <l-tile-layer
-              :attribution="attribution_hot"
-              :url="url_hot"
-            ></l-tile-layer>
+  <client-only>
+    <!-- PROPRIEDADES DO MAPA -->
+    <l-map
+      :center="center"
+      :options="mapOptions"
+      :zoom="zoom"
+      style="height: 600px; z-index: 1"
+    >
+      <!-- LAYER DO OPENSTREETMAP -->
+      <l-tile-layer :attribution="attribution" :url="tileUrl"></l-tile-layer>
 
-            <!-- FEATURES DO CAMPUS NO GEOJSON -->
-            <l-geo-json
-              v-if="showCampusFeature"
-              :geojson="feature"
-              :options="featureOptions"
-            />
+      <!-- FEATURES DO CAMPUS NO GEOJSON -->
+      <l-geo-json
+        v-if="showFeatureOnMap"
+        :geojson="feature"
+        :options="featureOptions"
+      />
 
-            <!-- MARCADORES RECEBIDOS -->
-            <l-marker
-              v-for="marker in markers"
-              :key="marker.id"
-              :lat-lng="marker.coordinates"
-              @click="enableBtnProjectList()"
-            >
-              <l-icon
-                :icon-size="markerIconSize"
-                :icon-url="markerIconUrl"
-              ></l-icon>
-              <l-popup
-                :content="marker.content"
-                :options="popupOptions"
-              ></l-popup>
-            </l-marker>
-          </l-map>
-        </client-only>
-        <hr />
-        <v-card-actions>
-          <!-- TODO: ADICIONAR O ON CLICK PARA UM MÉTODO EMIT QUE AVISARÁ AO COMPONENTE PAI QUAL AÇÃO EXECUTAR -->
-          <v-btn class="btn" :disabled="hideBtnProjectList">
-            Exibir Ações
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-spacer />
-  </v-row>
+      <!-- MARCADORES RECEBIDOS -->
+      <l-marker
+        v-for="marker in markers"
+        :key="marker.id"
+        :lat-lng="marker.coordinates"
+      >
+        <l-icon :icon-size="markerIconSize" :icon-url="markerIconUrl"></l-icon>
+        <l-popup :content="marker.content" :options="popupOptions"></l-popup>
+      </l-marker>
+    </l-map>
+  </client-only>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
   name: 'AppMapComponent',
   props: {
+    attribution: {
+      type: String,
+      required: false,
+      default: '',
+    },
     bounds: {
       type: Array,
       required: true,
@@ -72,15 +50,22 @@ export default {
     },
     feature: {
       type: Object,
-      required: true,
+      required: false,
+      default: null,
     },
     markers: {
       type: Array,
       required: true,
     },
-    title: {
+    tileUrl: {
       type: String,
-      required: true,
+      required: false,
+      default: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+    },
+    showFeature: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     zoom: {
       type: Number,
@@ -89,25 +74,10 @@ export default {
     },
   },
   data() {
-    /*
-    const attr_prodesign = { link: 'https://mapa.ufes.br', text: 'Prodesing UFES' };
-    const attr_osm = {link: 'http://osm.org/copyright', text: 'OpenStreetMap Contributors'};
-    const attr_hotosm = {link: 'https://www.hotosm.org/', text: 'Humanitarian OpenStreetMap Team'}
-    const attr_osm_fr = {link: 'https://openstreetmap.fr/', text: 'OpenStreetMap France'};
-    */
     return {
-      // TODO: CRIAR OBJETOS PuRA CADA LINK E O TEXTO QUE O REFERENCIA
-      attribution:
-        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      attribution_hot:
-        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
-      hideBtnProjectList: true,
       enableTooltip: true,
-      markerIconUrl: require('~/assets/logos/ods-small.png'),
+      markerIconUrl: '/img/logo-ods-small.png',
       markerIconSize: [20, 20],
-      showCampusFeature: true,
-      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      url_hot: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
     }
   },
   computed: {
@@ -148,16 +118,15 @@ export default {
         maxBounds: this.bounds,
       }
     },
+    showFeatureOnMap(): boolean {
+      if (this.feature === null) {
+        return false
+      }
+      return this.showFeature
+    },
     popupOptions() {
       return {
         maxWidth: 315,
-      }
-    },
-  },
-  methods: {
-    enableBtnProjectList() {
-      if (this.hideBtnProjectList) {
-        this.hideBtnProjectList = false
       }
     },
   },
