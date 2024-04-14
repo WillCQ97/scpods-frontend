@@ -1,4 +1,3 @@
-<!-- TODO: testar a utilização desse componente -->
 <template>
   <v-card>
     <v-card-title> Informações detalhadas sobre a ação </v-card-title>
@@ -34,7 +33,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="selectedItem.titulo"
+              v-model="showedItem.titulo"
               label="Título ou nome da ação"
             ></v-text-field>
           </v-col>
@@ -43,7 +42,7 @@
         <v-row>
           <v-col>
             <v-textarea
-              v-model="selectedItem.descricao"
+              v-model="showedItem.descricao"
               label="Descrição da ação"
               auto-grow
               rows="2"
@@ -55,13 +54,13 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="selectedItem.dataInicio"
+              v-model="showedItem.dataInicio"
               label="Data de Início"
             ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field
-              v-model="selectedItem.dataEncerramento"
+              v-model="showedItem.dataEncerramento"
               label="Data de Encerramento"
             ></v-text-field>
           </v-col>
@@ -71,19 +70,19 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="selectedItem.lotacao.descricao"
+              v-model="showedItem.lotacao.descricao"
               label="Lotação da ação (sua vinculação)"
             ></v-text-field>
           </v-col>
           <v-col cols="2">
             <v-text-field
-              v-model="selectedItem.lotacao.sigla"
+              v-model="showedItem.lotacao.sigla"
               label="Sigla"
             ></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="selectedItem.lotacao.campus"
+              v-model="showedItem.lotacao.campus"
               label="Campus"
             ></v-text-field>
           </v-col>
@@ -93,43 +92,44 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="selectedItem.local.nomePrincipal"
+              v-model="showedItem.local.nomePrincipal"
               label="Localização na unidade"
             >
             </v-text-field>
           </v-col>
           <v-col>
             <v-text-field
-              v-model="selectedItem.local.unidade.nome"
+              v-model="showedItem.local.unidade.nome"
               label="Unidade"
             >
             </v-text-field>
           </v-col>
           <v-col>
             <v-text-field
-              v-model="selectedItem.local.unidade.campus"
+              v-model="showedItem.local.unidade.campus"
               label="Campus"
             >
             </v-text-field>
           </v-col>
         </v-row>
 
+        <!-- COORDENADOR -->
         <v-row>
           <v-col>
             <v-text-field
-              v-model="selectedItem.coordenador.nome"
-              label="Nome completo"
+              v-model="showedItem.coordenador.nome"
+              label="Nome completo do coordenador"
             ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field
-              v-model="selectedItem.coordenador.descricaoVinculo"
+              v-model="showedItem.coordenador.descricaoVinculo"
               label="Vínculo com a UFES"
             ></v-text-field>
           </v-col>
           <v-col v-if="!isVisualizar">
             <v-text-field
-              v-model="selectedItem.coordenador.email"
+              v-model="showedItem.coordenador.email"
               label="Endereço de e-mail"
             ></v-text-field>
           </v-col>
@@ -141,18 +141,24 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="showDialogModel = false"> OK </v-btn>
-      <v-btn v-if="!isVisualizar" color="primary"> Aceitar Submissão </v-btn>
+      <v-btn color="primary" @click="emitClose()"> Fechar </v-btn>
+
+      <v-btn v-if="!isVisualizar" color="primary" @click="emitAcceptance(true)">
+        Aceitar Submissão
+      </v-btn>
+
+      <v-btn v-if="!isVisualizar" color="red" @click="emitAcceptance(false)">
+        Recusar Submissão
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
-import actions from '~/assets/data/alegreActions.json'
 
 export default {
-  name: 'DetalhesAcaoDialog',
+  name: 'ActionCardComponent',
   components: { TheGoalImageComponent },
 
   props: {
@@ -162,36 +168,36 @@ export default {
     },
     isVisualizar: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: true,
     },
   },
 
-  data() {
-    return {
-      selectedItem: actions[0],
-    }
-  },
+  emits: ['accept', 'close'],
 
   computed: {
     goalId() {
-      return this.selectedItem.meta.objetivo.id
+      return this.action.meta.objetivo.id
     },
     goalText() {
-      const objetivo = this.selectedItem.meta.objetivo
+      const objetivo = this.action.meta.objetivo
       return objetivo.id + ' - ' + objetivo.descricao
     },
     targetText() {
-      const target = this.selectedItem.meta
+      const target = this.action.meta
       return target.id + ' - ' + target.descricao
+    },
+    showedItem() {
+      return this.action
     },
   },
 
   methods: {
-    getGoal(target) {
-      return target.objetivo.id + ' - ' + target.objetivo.titulo
+    emitAccept(accept: boolean) {
+      this.$emit('accept', accept)
     },
-    getMetaDescription(meta) {
-      return meta.id + ' - ' + meta.descricao
+    emitClose() {
+      this.$emit('close', true)
     },
   },
 }
