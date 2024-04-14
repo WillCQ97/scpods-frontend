@@ -113,9 +113,9 @@ export default {
         content:
           '<div class="popup">' +
           '<img class="popup_img" src="' +
-          '/img/ods_icons/' +
+          '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoMaisAtendido +
-          '.png' +
+          '.svg' +
           '"><br>' +
           '<div class="popup_text">' +
           '<strong>' +

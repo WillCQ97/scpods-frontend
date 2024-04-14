@@ -51,9 +51,10 @@
                     width="120"
                   >
                     <the-goal-image-component
+                      :cover="true"
+                      :goal-id="goal.id"
                       :height="100"
                       :width="100"
-                      :goal-id="goal.id"
                     />
                   </v-btn>
                 </v-btn-toggle>
@@ -76,9 +77,10 @@
                 <div v-if="isGoalSelected()" id="ods-selected">
                   <div id="ods-selected-image">
                     <the-goal-image-component
+                      :cover="true"
+                      :goal-id="btnGoalIndex + 1"
                       :height="50"
                       :width="50"
-                      :goal-id="btnGoalIndex + 1"
                     />
                   </div>
                   <p id="ods-selected-text">

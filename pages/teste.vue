@@ -1,5 +1,5 @@
 <template>
-  <action-card-component :is-visualizar="false" :action="actions[0]" />
+  <action-card-component :is-submission="false" :action="actions[0]" />
 </template>
 
 <script setup lang="ts">

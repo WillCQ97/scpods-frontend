@@ -1,5 +1,5 @@
 <template>
-  <v-img :src="loadGoalIcon" :height="height" :width="width" cover>
+  <v-img :src="loadGoalIcon" :height="height" :width="width" :cover="cover">
     <template #placeholder>
       <div class="d-flex align-center justify-center fill-height">
         <v-progress-circular
@@ -18,6 +18,11 @@ export default {
     goalId: {
       type: Number,
       required: true,
+    },
+    cover: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     height: {
       type: Number,

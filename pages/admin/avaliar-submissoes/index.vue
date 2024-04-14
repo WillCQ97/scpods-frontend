@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Página de Avaliação de Submissões</v-card-title>
+    <v-card-title>Avaliação de Submissões</v-card-title>
     <v-card>user.isAdmin</v-card>
   </v-card>
 </template>
@@ -14,7 +14,7 @@
  *
  * AO TROCAR PARA SCRIPT SETUP, O PROBLEMA NÃO OCORRE
  */
-const user = useUser()
+// const user = useUser()
 
 definePageMeta({
   middleware: 'auth',

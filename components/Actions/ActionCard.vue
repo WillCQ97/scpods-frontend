@@ -10,7 +10,7 @@
         <!-- OBJETIVO -->
         <v-row>
           <v-col cols="2">
-            <the-goal-image-component :goal-id="goalId" />
+            <the-goal-image-component :goal-id="goalId" :cover="true" />
           </v-col>
           <v-col>
             <v-textarea
@@ -127,7 +127,7 @@
               label="Vínculo com a UFES"
             ></v-text-field>
           </v-col>
-          <v-col v-if="!isVisualizar">
+          <v-col v-if="isSubmission">
             <v-text-field
               v-model="showedItem.coordenador.email"
               label="Endereço de e-mail"
@@ -143,11 +143,11 @@
       <v-spacer></v-spacer>
       <v-btn color="primary" @click="emitClose()"> Fechar </v-btn>
 
-      <v-btn v-if="!isVisualizar" color="primary" @click="emitAcceptance(true)">
+      <v-btn v-if="isSubmission" color="primary" @click="emitAccept(true)">
         Aceitar Submissão
       </v-btn>
 
-      <v-btn v-if="!isVisualizar" color="red" @click="emitAcceptance(false)">
+      <v-btn v-if="isSubmission" color="red" @click="emitAccept(false)">
         Recusar Submissão
       </v-btn>
     </v-card-actions>
@@ -166,7 +166,7 @@ export default {
       type: Object,
       required: true,
     },
-    isVisualizar: {
+    isSubmission: {
       type: Boolean,
       required: false,
       default: true,
