@@ -50,13 +50,11 @@
                     height="120"
                     width="120"
                   >
-                    <v-img
-                      :src="loadGoalIcon(goal.id)"
-                      height="100"
-                      width="100"
-                      cover
-                    >
-                    </v-img>
+                    <the-goal-image-component
+                      :height="100"
+                      :width="100"
+                      :goal-id="goal.id"
+                    />
                   </v-btn>
                 </v-btn-toggle>
               </v-col>
@@ -77,12 +75,11 @@
                 </p>
                 <div v-if="isGoalSelected()" id="ods-selected">
                   <div id="ods-selected-image">
-                    <v-img
-                      :src="loadGoalIcon(btnGoalIndex + 1)"
-                      width="50px"
-                      height="50px"
-                      contain
-                    ></v-img>
+                    <the-goal-image-component
+                      :height="50"
+                      :width="50"
+                      :goal-id="btnGoalIndex + 1"
+                    />
                   </div>
                   <p id="ods-selected-text">
                     <strong>{{ getGoalDescription(btnGoalIndex + 1) }}</strong>
@@ -272,6 +269,7 @@
 </template>
 
 <script lang="ts">
+import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
 import goals from '~/assets/data/odsGoals.json'
 
 definePageMeta({
@@ -280,7 +278,7 @@ definePageMeta({
 
 export default {
   name: 'PaginaFormularioSugerirNovaAcao',
-
+  components: { TheGoalImageComponent },
   data() {
     return {
       submissao: {
@@ -402,9 +400,6 @@ export default {
         '-' +
         this.addZeroToDate(date.getDate())
       )
-    },
-    loadGoalIcon(goalId) {
-      return '/img/ods_icons/' + goalId + '.png'
     },
     getSelectedGoal() {
       return this.btnGoalIndex + 1
