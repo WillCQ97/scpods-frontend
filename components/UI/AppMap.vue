@@ -1,5 +1,11 @@
 <template>
   <client-only>
+    <template #fallback>
+      <br />
+      <p style="text-align: center">Preparando exibição do mapa ...</p>
+      <br />
+    </template>
+
     <!-- PROPRIEDADES DO MAPA -->
     <l-map
       :center="center"
