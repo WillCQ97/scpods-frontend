@@ -204,6 +204,13 @@
           <hr />
           <v-card-text>
             <v-row>
+              <v-col cols="3">
+                <v-combobox
+                  label="Campus"
+                  :items="fieldCampusItems"
+                  :rules="rules"
+                ></v-combobox>
+              </v-col>
               <v-col>
                 <v-combobox
                   label="Unidade"
@@ -312,6 +319,7 @@ export default {
       fieldCoordinatorRole: '',
 
       // lotação
+      fieldCampusItems: ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus'],
       fieldUnidadeItems: [
         'Campus Alegre',
         'Campus de Goiabeiras',

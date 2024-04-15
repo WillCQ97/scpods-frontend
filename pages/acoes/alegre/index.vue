@@ -1,16 +1,19 @@
 <template>
-  <!-- INFO GERAL SOBRE O CAMPUS DE ALEGRE -->
+  <!-- SOBRE O CAMPUS -->
   <v-row>
     <v-col>
       <v-card>
-        <v-card-title>Sobre o campus</v-card-title>
-        <v-card-subtitle>
-          Mais informações
-          <a href="https://www.ufes.br/campus-de-alegre" target="_blank">
-            na página da ufes
-            <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
-          </a>
-        </v-card-subtitle>
+        <v-card-item>
+          <v-card-title>Sobre o campus</v-card-title>
+          <v-card-subtitle>
+            Mais informações
+            <a href="https://www.ufes.br/campus-de-alegre" target="_blank">
+              na página da ufes
+              <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
+            </a>
+          </v-card-subtitle>
+        </v-card-item>
+        <!-- TODO: TROCAR PARA O V-DIVIDER -->
         <hr />
         <v-card-text>
           <p>

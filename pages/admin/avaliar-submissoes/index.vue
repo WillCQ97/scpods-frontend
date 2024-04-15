@@ -1,15 +1,21 @@
 <template>
   <v-row>
     <v-col>
-      <v-spacer />
-      <v-card>
-        <v-card-title>Avaliação das submissões enviadas</v-card-title>
-        <actions-list-component
-          :actions="alegreActions"
-          :is-submission="true"
-        />
-      </v-card>
-      <v-spacer />
+      <v-row>
+        <v-col>
+          <v-card>
+            <v-card-title>Avaliação das submissões enviadas</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <actions-list-component
+            :actions="alegreActions"
+            :is-submission="true"
+          />
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>

@@ -5,8 +5,10 @@
       <v-row>
         <v-col>
           <v-card>
-            <v-card-title>Campus de Alegre</v-card-title>
-            <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
+            <v-card-item>
+              <v-card-title>Campus de Alegre</v-card-title>
+              <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
+            </v-card-item>
             <v-divider :color="dividerColor" thickness="3"></v-divider>
 
             <v-card-text>

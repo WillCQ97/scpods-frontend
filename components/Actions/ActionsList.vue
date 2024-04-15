@@ -1,6 +1,7 @@
 <template>
   <v-card min-width="80vh">
-    <v-card-title> Lista de Ações </v-card-title>
+    <v-card-title> Listagem das Ações </v-card-title>
+    <the-card-divider />
     <v-data-table :headers="header" :items="actions">
       <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
       <template #top>
@@ -30,11 +31,12 @@
 
 <script lang="ts">
 import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 
 export default {
   name: 'ActionsListComponent',
-  components: { ActionCardDetailComponent, TheGoalImage },
+  components: { ActionCardDetailComponent, TheCardDivider, TheGoalImage },
   props: {
     actions: {
       type: Array,
