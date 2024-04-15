@@ -1,10 +1,12 @@
 <!-- TODO: Teste para criação de um card base -->
 <template>
   <v-card>
-    <v-card-title> {{ card.titulo }} </v-card-title>
-    <v-card-subtitle>
-      {{ card.subtitulo }}
-    </v-card-subtitle>
+    <v-card-item>
+      <v-card-title> {{ card.titulo }} </v-card-title>
+      <v-card-subtitle>
+        {{ card.subtitulo }}
+      </v-card-subtitle>
+    </v-card-item>
     <hr />
     <v-card-text>
       {{ card.text }}

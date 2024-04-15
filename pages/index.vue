@@ -3,10 +3,12 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title> A agenda 2030 e os ODS </v-card-title>
-          <v-card-subtitle>
-            Saiba mais sobre os Objetivos de Desenvolvimento Sustentável
-          </v-card-subtitle>
+          <v-card-item>
+            <v-card-title> A agenda 2030 e os ODS </v-card-title>
+            <v-card-subtitle>
+              Saiba mais sobre os Objetivos de Desenvolvimento Sustentável
+            </v-card-subtitle>
+          </v-card-item>
           <v-divider :color="dividerColor" thickness="2"></v-divider>
           <v-card-text>
             A Agenda 2030 consiste em um plano de ação global para governos,
@@ -33,8 +35,10 @@
 
       <v-col>
         <v-card>
-          <v-card-title> A Ufes faz parte dessa iniciativa </v-card-title>
-          <v-card-subtitle> e conta com você! </v-card-subtitle>
+          <v-card-item>
+            <v-card-title> A Ufes faz parte dessa iniciativa </v-card-title>
+            <v-card-subtitle> e conta com você! </v-card-subtitle>
+          </v-card-item>
           <v-divider :color="dividerColor" thickness="2"></v-divider>
           <v-card-text>
             A Agenda 2030 é uma oportunidade de a Ufes incorporar os princípios
@@ -67,7 +71,9 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title> Cadastre sua contribuição </v-card-title>
+          <v-card-item>
+            <v-card-title> Cadastre sua contribuição </v-card-title>
+          </v-card-item>
           <v-divider :color="dividerColor" thickness="2"></v-divider>
           <v-card-text>
             O mapeamento permitirá o planejamento de ações futuras, o
