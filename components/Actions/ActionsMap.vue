@@ -1,7 +1,7 @@
 <template>
   <v-card min-width="80vh">
     <v-card-title>{{ title }}</v-card-title>
-    <v-divider :color="dividerColor" thickness="3"></v-divider>
+    <the-card-divider />
     <AppMapComponent
       :attribution="attributionHOT"
       :bounds="bounds"
@@ -12,8 +12,9 @@
       :show-feature="true"
       :zoom="zoom"
     />
-    <v-divider :color="dividerColor" thickness="3"></v-divider>
+    <the-card-divider />
     <v-card-actions>
+      <v-spacer />
       <v-btn class="btn" @click="emitShowActionsList">
         {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
       </v-btn>
@@ -23,12 +24,12 @@
 
 <script lang="ts">
 import AppMapComponent from '~/components/UI/AppMap.vue'
-import colorPalleteUfes from '~/assets/colors'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
   name: 'ActionsMapComponent',
-  components: { AppMapComponent },
+  components: { AppMapComponent, TheCardDivider },
   props: {
     bounds: {
       type: Array,
@@ -63,7 +64,6 @@ export default {
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       attributionHOT:
         '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
-      dividerColor: colorPalleteUfes.monocromatic.primary,
       enableTooltip: true,
       isActionListVisible: false,
       showCampusFeature: true,
