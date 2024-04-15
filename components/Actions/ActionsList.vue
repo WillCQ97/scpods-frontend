@@ -1,49 +1,49 @@
 <template>
-  <v-row>
-    <v-spacer />
-    <v-col cols="10">
-      <v-card min-width="80vh">
-        <v-data-table :headers="header" :items="actions">
-          <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
-          <template #top>
-            <v-dialog v-model="showDialog" width="150vh">
-              <action-card-component
-                :is-submission="false"
-                :action="selectedItem"
-                @close="showDialog = false"
-              ></action-card-component>
-            </v-dialog>
-          </template>
+  <v-card min-width="80vh">
+    <v-card-title> Lista de Ações </v-card-title>
+    <v-data-table :headers="header" :items="actions">
+      <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
+      <template #top>
+        <v-dialog v-model="showDialog" width="150vh">
+          <action-card-detail-component
+            :is-submission="isSubmission"
+            :action="selectedItem"
+            @close="showDialog = false"
+          />
+        </v-dialog>
+      </template>
 
-          <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
-          <template #item.image="{ item }">
-            <the-goal-image :goal-id="item.meta.objetivo.id" />
-          </template>
+      <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
+      <template #item.image="{ item }">
+        <the-goal-image :goal-id="item.meta.objetivo.id" />
+      </template>
 
-          <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
-          <template #item.options="{ item }">
-            <v-icon class="me-2" size="small" @click="showItem(item)">
-              mdi-eye
-            </v-icon>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-col>
-    <v-spacer />
-  </v-row>
+      <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
+      <template #item.options="{ item }">
+        <v-icon class="me-2" size="small" @click="showItem(item)">
+          mdi-eye
+        </v-icon>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script lang="ts">
-import ActionCardComponent from '~/components/Actions/ActionCard.vue'
+import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 
 export default {
   name: 'ActionsListComponent',
-  components: { ActionCardComponent, TheGoalImage },
+  components: { ActionCardDetailComponent, TheGoalImage },
   props: {
     actions: {
       type: Array,
       required: true,
+    },
+    isSubmission: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {

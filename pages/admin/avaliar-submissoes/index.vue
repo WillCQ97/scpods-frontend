@@ -1,11 +1,22 @@
 <template>
-  <v-card>
-    <v-card-title>Avaliação de Submissões</v-card-title>
-    <v-card>user.isAdmin</v-card>
-  </v-card>
+  <v-row>
+    <v-col>
+      <v-spacer />
+      <v-card>
+        <v-card-title>Avaliação das submissões enviadas</v-card-title>
+        <actions-list-component
+          :actions="alegreActions"
+          :is-submission="true"
+        />
+      </v-card>
+      <v-spacer />
+    </v-col>
+  </v-row>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import ActionsListComponent from '~/components/Actions/ActionsList.vue'
+import alegreActions from '~/assets/data/alegreActions.json'
 /* <script setup lang="ts"> */
 /*
  * ESSA DECLARAÇÃO RESULTA EM ERRO SE A PÁGINA ATUAL FOR A PRIMEIRA A SER ACESSADA

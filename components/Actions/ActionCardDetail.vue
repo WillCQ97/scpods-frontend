@@ -158,7 +158,7 @@
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
 
 export default {
-  name: 'ActionCardComponent',
+  name: 'ActionCardDetailComponent',
   components: { TheGoalImageComponent },
 
   props: {
