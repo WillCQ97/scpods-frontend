@@ -118,17 +118,29 @@
 
             <!-- DEMAIS CAMPOS -->
             <v-row>
-              <v-col>
-                <v-text-field
-                  label="Data de Início"
-                  :rules="rules"
-                ></v-text-field>
+              <v-col cols="1">
+                <!--https://vuetifyjs.com/en/components/menus/#usage-->
+                <v-btn prepend-icon="mdi-calendar">
+                  <v-menu
+                    activator="parent"
+                    :close-on-content-click="false"
+                    v-model="menu"
+                  >
+                    <v-date-picker locale="pt-br"></v-date-picker>
+                    <v-btn @click="menu = false">OK</v-btn>
+                  </v-menu>
+                </v-btn>
               </v-col>
+              <v-col cols="3">
+                <v-text-field label="Data de Início"> </v-text-field>
+              </v-col>
+              <!--
               <v-col>
                 <v-text-field
                   label="Data de Encerramento, se houver"
                 ></v-text-field>
               </v-col>
+              -->
             </v-row>
 
             <v-row>
@@ -290,6 +302,7 @@ export default {
   components: { TheGoalImageComponent },
   data() {
     return {
+      menu: false,
       submissao: {
         titulo: '',
         descricao: '',
@@ -373,12 +386,23 @@ export default {
       dialogError: false,
       rules: [(value) => !!value || 'Este campo é obrigatório.'],
 
+      fromDateMenu: false,
+      fromDateVal: '2022-01-03',
+      minDate: '2020-01-05',
+      maxDate: '2019-08-30',
+
       goals,
       targetsSelected: [],
       targetDisabled: true,
       btnGoalIndex: null,
       targetSelectedIndex: null,
     }
+  },
+  computed: {
+    fromDateDisp() {
+      return this.fromDateVal
+      // format/do something with date
+    },
   },
   methods: {
     addZeroToDate(number) {
