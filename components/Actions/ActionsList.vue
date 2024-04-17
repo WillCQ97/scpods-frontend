@@ -10,6 +10,7 @@
             :is-submission="isSubmission"
             :action="selectedItem"
             @close="showDialog = false"
+            @accept="acceptHandler"
           />
         </v-dialog>
       </template>
@@ -26,6 +27,26 @@
         </v-icon>
       </template>
     </v-data-table>
+    <v-dialog v-model="showSuccess" width="50vh">
+      <v-card>
+        <v-card-title>Sucesso</v-card-title>
+        <v-card-text>
+          A submissão foi {{ aceito ? 'aceita' : 'recusada' }}!
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="showSuccess = false">Fechar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="showError" width="50vh">
+      <v-card>
+        <v-card-title>Erro</v-card-title>
+        <v-card-text> A ação não pode ser concluída! </v-card-text>
+        <v-card-actions>
+          <v-btn @click="showError = false">Fechar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -100,13 +121,32 @@ export default {
           sigla: '',
         },
       },
+      aceito: undefined,
       showDialog: false,
+      showError: false,
+      showSuccess: false,
     }
   },
   methods: {
     showItem(item) {
       this.selectedItem = item
       this.showDialog = true
+    },
+    acceptHandler(accept: boolean) {
+      console.log('Aceito: ', accept)
+      if (accept) {
+        // aceitar submissão
+        this.aceito = true
+      } else {
+        //recusar submissão
+        this.aceito = false
+      }
+
+      if (Math.floor(Math.random() * 10) % 2 === 0) {
+        this.showSuccess = true
+      } else {
+        this.showError = true
+      }
     },
   },
 }

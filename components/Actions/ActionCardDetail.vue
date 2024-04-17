@@ -8,10 +8,11 @@
       <!-- FORMULÁRIO -->
       <v-form :readonly="true">
         <!-- OBJETIVO -->
-        <v-row>
-          <v-col cols="2">
+        <v-row dense>
+          <v-col cols="3" align-self="center">
             <the-goal-image-component :goal-id="goalId" :cover="true" />
           </v-col>
+
           <v-col>
             <v-textarea
               v-model="goalText"
@@ -30,7 +31,7 @@
         </v-row>
 
         <!-- TÍTULO DA AÇÃO -->
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-text-field
               v-model="showedItem.titulo"
@@ -39,7 +40,7 @@
           </v-col>
         </v-row>
 
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-textarea
               v-model="showedItem.descricao"
@@ -51,7 +52,7 @@
         </v-row>
 
         <!-- DATAS DE INÍCIO E TÉRMINO -->
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-text-field
               v-model="showedItem.dataInicio"
@@ -67,7 +68,7 @@
         </v-row>
 
         <!-- LOTAÇÃO DA AÇÃO -->
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-text-field
               v-model="showedItem.lotacao.descricao"
@@ -89,7 +90,7 @@
         </v-row>
 
         <!-- LOCALIZAÇÃO DA AÇÃO -->
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-text-field
               v-model="showedItem.local.nomePrincipal"
@@ -114,7 +115,7 @@
         </v-row>
 
         <!-- COORDENADOR -->
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-text-field
               v-model="showedItem.coordenador.nome"
