@@ -1,19 +1,30 @@
 <template>
-  <div>
-    <actions-map-component
-      :title="mapName"
-      :bounds="limitesRive"
-      :center="centroRive"
-      :feature="featureUnidadeRive"
-      :markers="createMarkers"
-      :zoom="zoom"
-      @show-actions="showActions"
-    />
-    <actions-list-component
-      v-if="isActionsListVisible"
-      :actions="riveActions"
-    />
-  </div>
+  <v-row>
+    <v-col>
+      <v-row>
+        <v-col>
+          <actions-map-component
+            :title="mapName"
+            :bounds="limitesRive"
+            :center="centroRive"
+            :feature="featureUnidadeRive"
+            :markers="createMarkers"
+            :zoom="zoom"
+            @show-actions="showActions"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <actions-list-component
+            v-if="isActionsListVisible"
+            :actions="riveActions"
+          />
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

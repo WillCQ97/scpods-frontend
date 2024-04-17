@@ -3,18 +3,20 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>Sobre o campus</v-card-title>
-          <v-card-subtitle>
-            Mais informações
-            <a
-              href="https://www.ufes.br/campi/campus-de-maruipe"
-              target="_blank"
-            >
-              na página da ufes
-              <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
-            </a>
-          </v-card-subtitle>
-          <hr />
+          <v-card-item>
+            <v-card-title>Sobre o campus</v-card-title>
+            <v-card-subtitle>
+              Mais informações
+              <a
+                href="https://www.ufes.br/campi/campus-de-maruipe"
+                target="_blank"
+              >
+                na página da ufes
+                <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
+              </a>
+            </v-card-subtitle>
+          </v-card-item>
+          <the-card-divider />
           <v-card-text>
             <p>
               Localizado no bairro de Maruípe, em Vitória, capital do Espírito
@@ -59,7 +61,10 @@
           :markers="createMarkers"
           @show-actions="showActions"
         />
-
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <actions-list-component
           v-if="isActionsListVisible"
           :actions="maruipeActions"
@@ -72,6 +77,7 @@
 <script lang="ts">
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 import maruipeActions from '~/assets/data/maruipeActions.json'
 import maruipeInfo from '~/assets/data/maruipeInfo.json'
@@ -81,7 +87,7 @@ import feature from '~/assets/features/maruipe.json'
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { ActionsListComponent, ActionsMapComponent },
+  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   data() {
     return {

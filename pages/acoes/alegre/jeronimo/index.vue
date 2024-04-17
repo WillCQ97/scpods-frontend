@@ -1,18 +1,28 @@
 <template>
-  <div>
-    <ActionsMapComponent
-      :title="nomeUnidade"
-      :bounds="limitesJeronimo"
-      :center="centroJeronimo"
-      :feature="featureJeronimo"
-      :markers="createMarkers"
-      @show-actions="showActions"
-    />
-    <actions-list-component
-      v-if="isActionsListVisible"
-      :actions="jeronimoActions"
-    />
-  </div>
+  <v-row>
+    <v-col>
+      <v-row>
+        <v-col>
+          <actions-map-component
+            :title="nomeUnidade"
+            :bounds="limitesJeronimo"
+            :center="centroJeronimo"
+            :feature="featureJeronimo"
+            :markers="createMarkers"
+            @show-actions="showActions"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <actions-list-component
+            v-if="isActionsListVisible"
+            :actions="jeronimoActions"
+          /> </v-col
+      ></v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

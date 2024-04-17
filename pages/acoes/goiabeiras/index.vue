@@ -4,15 +4,20 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>Sobre o campus</v-card-title>
-          <v-card-subtitle>
-            Mais informações
-            <a href="https://www.ufes.br/campus-de-goiabeiras" target="_blank">
-              na página da ufes
-              <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
-            </a>
-          </v-card-subtitle>
-          <hr />
+          <v-card-item>
+            <v-card-title>Sobre o campus</v-card-title>
+            <v-card-subtitle>
+              Mais informações
+              <a
+                href="https://www.ufes.br/campus-de-goiabeiras"
+                target="_blank"
+              >
+                na página da ufes
+                <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
+              </a>
+            </v-card-subtitle>
+          </v-card-item>
+          <the-card-divider />
           <v-card-text>
             <p>
               É o principal campus da Ufes. Localizado em Vitória, Capital do
@@ -59,7 +64,10 @@
           :markers="createMarkers"
           @show-actions="showActions"
         />
-
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <actions-list-component
           v-if="isActionsListVisible"
           :actions="goiabeirasActions"
@@ -72,6 +80,7 @@
 <script lang="ts">
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
 import goiabeirasInfo from '~/assets/data/goiabeirasInfo.json'
@@ -81,7 +90,7 @@ import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
-  components: { ActionsListComponent, ActionsMapComponent },
+  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   data() {
     return {

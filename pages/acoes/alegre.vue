@@ -1,6 +1,56 @@
 <template>
   <v-row>
     <v-col>
+      <!-- SOBRE O CAMPUS -->
+      <v-row>
+        <v-col>
+          <v-card>
+            <v-card-item>
+              <v-card-title>Sobre o campus</v-card-title>
+              <v-card-subtitle>
+                Mais informações
+                <a href="https://www.ufes.br/campus-de-alegre" target="_blank">
+                  na página da ufes
+                  <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
+                </a>
+              </v-card-subtitle>
+            </v-card-item>
+            <the-card-divider />
+            <v-card-text>
+              <p>
+                O Campus de Alegre da Universidade Federal do Espírito Santo
+                está localizado na região sul do Espírito Santo e oferta
+                atualmente 17 cursos de graduação, 8 cursos de mestrado e 3 de
+                doutorado.
+              </p>
+              <br />
+              <p>
+                Com o desmembramento do extinto Centro de Ciências Agrárias,
+                atualmente, abriga dois centros de ensino denominados Centro de
+                Ciências Agrárias e Engenharias e Centro de Ciências Exatas,
+                Naturais e da Saúde, sendo que os dois Centros compartilham o
+                mesmo espaço físico, com atividades de ensino, pesquisa e
+                extensão, em articulação com os cursos de graduação e as
+                coordenações dos programas de pós-graduação.
+              </p>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer />
+              <a href="https://alegre.ufes.br/" target="_blank">
+                <v-btn
+                  small
+                  color="primary"
+                  text="Ir para o site"
+                  append-icon="mdi-open-in-new"
+                >
+                </v-btn>
+              </a>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+
       <!-- INFO SOBRE AS ÁREAS DO CAMPUS -->
       <v-row>
         <v-col>
@@ -59,7 +109,7 @@
 
       <!-- EXIBIÇÃO DO MAPA -->
       <v-row>
-        <v-col id="child-container" ref="childContainer">
+        <v-col>
           <nuxt-page />
         </v-col>
       </v-row>
@@ -68,6 +118,7 @@
 </template>
 
 <script lang="ts">
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import colorPalleteUfes from '~/assets/colors'
 
 async function carregarMapa(campus: string) {
@@ -75,6 +126,7 @@ async function carregarMapa(campus: string) {
 }
 
 export default {
+  components: { TheCardDivider },
   data() {
     return {
       corBotao: colorPalleteUfes.monocromatic.secondary,
@@ -95,7 +147,6 @@ export default {
   },
 }
 </script>
-
 <style scoped>
 ul {
   padding-left: 25px;
