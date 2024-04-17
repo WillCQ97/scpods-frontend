@@ -1,96 +1,72 @@
 <template>
-  <v-row>
-    <v-spacer />
-    <v-col cols="10">
-      <v-card min-width="80vh">
-        <v-data-table :headers="header" :items="actions">
-          <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
-          <template #top>
-            <v-dialog v-model="showDialog" width="125vh">
-              <v-card>
-                <v-card-title>
-                  Informações detalhadas sobre o projeto
-                </v-card-title>
-                <hr />
-                <v-card-text>
-                  <strong>Ação:</strong> {{ selectedItem.titulo }}
-                  <br />
+  <v-card min-width="80vh">
+    <v-card-title> Listagem das Ações </v-card-title>
+    <the-card-divider />
+    <v-data-table :headers="header" :items="actions">
+      <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
+      <template #top>
+        <v-dialog v-model="showDialog" width="150vh">
+          <action-card-detail-component
+            :is-submission="isSubmission"
+            :action="selectedItem"
+            @close="showDialog = false"
+            @accept="acceptHandler"
+          />
+        </v-dialog>
+      </template>
 
-                  <strong>ODS:</strong>
-                  {{ selectedItem.meta.objetivo.id }} -
-                  {{ selectedItem.meta.objetivo.titulo }}
-                  <br />
+      <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
+      <template #item.image="{ item }">
+        <the-goal-image :goal-id="item.meta.objetivo.id" />
+      </template>
 
-                  <strong>Meta ODS: </strong>
-                  {{ selectedItem.meta.id }}
-                  -
-                  {{ selectedItem.meta.descricao }}
-                  <br />
-
-                  <strong>Descrição: </strong>{{ selectedItem.descricao }}
-                  <br />
-
-                  <strong>Centro: </strong>
-                  {{ selectedItem.lotacao.descricao }}
-                  <br />
-
-                  <strong>Local: </strong>
-                  {{ selectedItem.local.nomePrincipal }}
-                  <br />
-
-                  <strong>Coordenador: </strong>
-                  {{ selectedItem.coordenador.nome }}
-                  <br />
-
-                  <strong>Vínculo com a UFES: </strong>
-                  {{ selectedItem.coordenador.descricaoVinculo }}
-                  <br />
-
-                  <strong>Data de Início: </strong>
-                  {{ selectedItem.dataInicio }}
-                  <br />
-
-                  <strong>Data Fim: </strong>
-                  {{ selectedItem.dataEncerramento }}
-                </v-card-text>
-
-                <v-divider></v-divider>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="primary" @click="showDialog = false">
-                    OK
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </template>
-
-          <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
-          <template #item.image="{ item }">
-            <v-img :src="loadGoalImage(item.meta.objetivo.id)"></v-img>
-          </template>
-
-          <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
-          <template #item.options="{ item }">
-            <v-icon class="me-2" size="small" @click="showItem(item)">
-              mdi-eye
-            </v-icon>
-          </template>
-        </v-data-table>
+      <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
+      <template #item.options="{ item }">
+        <v-icon class="me-2" size="small" @click="showItem(item)">
+          mdi-eye
+        </v-icon>
+      </template>
+    </v-data-table>
+    <v-dialog v-model="showSuccess" width="50vh">
+      <v-card>
+        <v-card-title>Sucesso</v-card-title>
+        <v-card-text>
+          A submissão foi {{ aceito ? 'aceita' : 'recusada' }}!
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="showSuccess = false">Fechar</v-btn>
+        </v-card-actions>
       </v-card>
-    </v-col>
-    <v-spacer />
-  </v-row>
+    </v-dialog>
+    <v-dialog v-model="showError" width="50vh">
+      <v-card>
+        <v-card-title>Erro</v-card-title>
+        <v-card-text> A ação não pode ser concluída! </v-card-text>
+        <v-card-actions>
+          <v-btn @click="showError = false">Fechar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-card>
 </template>
 
 <script lang="ts">
+import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+
 export default {
   name: 'ActionsListComponent',
+  components: { ActionCardDetailComponent, TheCardDivider, TheGoalImage },
   props: {
     actions: {
       type: Array,
       required: true,
+    },
+    isSubmission: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {
@@ -145,16 +121,32 @@ export default {
           sigla: '',
         },
       },
+      aceito: undefined,
       showDialog: false,
+      showError: false,
+      showSuccess: false,
     }
   },
   methods: {
-    loadGoalImage(goalId: number): string {
-      return '/img/ods_icons/' + goalId + '.png'
-    },
     showItem(item) {
       this.selectedItem = item
       this.showDialog = true
+    },
+    acceptHandler(accept: boolean) {
+      console.log('Aceito: ', accept)
+      if (accept) {
+        // aceitar submissão
+        this.aceito = true
+      } else {
+        //recusar submissão
+        this.aceito = false
+      }
+
+      if (Math.floor(Math.random() * 10) % 2 === 0) {
+        this.showSuccess = true
+      } else {
+        this.showError = true
+      }
     },
   },
 }

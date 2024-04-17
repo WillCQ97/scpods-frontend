@@ -1,7 +1,7 @@
 import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
-
 import { createVuetify, type ThemeDefinition } from 'vuetify'
+import { pt } from 'vuetify/locale' // Translations provided by Vuetify
+import 'vuetify/styles'
 import colors from 'vuetify/util/colors'
 import colorPalleteUfes from '~/assets/colors'
 
@@ -52,6 +52,10 @@ const ufesTheme: ThemeDefinition = {
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
+    locale: {
+      locale: 'pt',
+      messages: { pt },
+    },
     theme: {
       defaultTheme: 'ufesTheme',
       themes: {

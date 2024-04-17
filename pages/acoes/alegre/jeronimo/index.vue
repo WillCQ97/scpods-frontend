@@ -1,18 +1,28 @@
 <template>
-  <div>
-    <ActionsMapComponent
-      :title="nomeUnidade"
-      :bounds="limitesJeronimo"
-      :center="centroJeronimo"
-      :feature="featureJeronimo"
-      :markers="createMarkers"
-      @show-actions="showActions"
-    />
-    <actions-list-component
-      v-if="isActionsListVisible"
-      :actions="jeronimoActions"
-    />
-  </div>
+  <v-row>
+    <v-col>
+      <v-row>
+        <v-col>
+          <actions-map-component
+            :title="nomeUnidade"
+            :bounds="limitesJeronimo"
+            :center="centroJeronimo"
+            :feature="featureJeronimo"
+            :markers="createMarkers"
+            @show-actions="showActions"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <actions-list-component
+            v-if="isActionsListVisible"
+            :actions="jeronimoActions"
+          /> </v-col
+      ></v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
@@ -65,9 +75,9 @@ export default {
         content:
           '<div class="popup">' +
           '<img class="popup_img" src="' +
-          '/img/ods_icons/' +
+          '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoMaisAtendido +
-          '.png' +
+          '.svg' +
           '"><br>' +
           '<div class="popup_text">' +
           '<strong>' +

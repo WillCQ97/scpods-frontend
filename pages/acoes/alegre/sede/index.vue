@@ -1,19 +1,29 @@
 <template>
-  <div>
-    <actions-map-component
-      :title="mapTitle"
-      :bounds="mapLimits"
-      :center="mapCenter"
-      :feature="featureAlegre"
-      :markers="createMarkers"
-      @show-actions="showActions"
-    />
+  <v-row>
+    <v-col>
+      <v-row>
+        <v-col>
+          <actions-map-component
+            :title="mapTitle"
+            :bounds="mapLimits"
+            :center="mapCenter"
+            :feature="featureAlegre"
+            :markers="createMarkers"
+            @show-actions="showActions"
+          />
+        </v-col>
+      </v-row>
 
-    <actions-list-component
-      v-if="isActionsListVisible"
-      :actions="alegreSedeActions"
-    />
-  </div>
+      <v-row>
+        <v-col>
+          <actions-list-component
+            v-if="isActionsListVisible"
+            :actions="alegreSedeActions"
+          />
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
@@ -64,9 +74,9 @@ export default {
         content:
           '<div class="popup">' +
           '<img class="popup_img" src="' +
-          '/img/ods_icons/' +
+          '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoMaisAtendido +
-          '.png' +
+          '.svg' +
           '"><br>' +
           '<div class="popup_text">' +
           '<strong>' +

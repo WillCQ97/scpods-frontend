@@ -1,39 +1,35 @@
 <template>
-  <v-row>
-    <v-spacer />
-    <v-col cols="10">
-      <v-card min-width="80vh">
-        <v-card-title>{{ title }}</v-card-title>
-        <hr />
-        <AppMapComponent
-          :attribution="attributionHOT"
-          :bounds="bounds"
-          :center="center"
-          :feature="feature"
-          :markers="markers"
-          :tile-url="urlHOT"
-          :show-feature="true"
-          :zoom="zoom"
-        />
-        <hr />
-        <v-card-actions>
-          <v-btn class="btn" @click="emitShowActionsList">
-            {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-spacer />
-  </v-row>
+  <v-card min-width="80vh">
+    <v-card-title>{{ title }}</v-card-title>
+    <the-card-divider />
+    <AppMapComponent
+      :attribution="attributionHOT"
+      :bounds="bounds"
+      :center="center"
+      :feature="feature"
+      :markers="markers"
+      :tile-url="urlHOT"
+      :show-feature="true"
+      :zoom="zoom"
+    />
+    <the-card-divider />
+    <v-card-actions>
+      <v-spacer />
+      <v-btn class="btn" @click="emitShowActionsList">
+        {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script lang="ts">
 import AppMapComponent from '~/components/UI/AppMap.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
   name: 'ActionsMapComponent',
-  components: { AppMapComponent },
+  components: { AppMapComponent, TheCardDivider },
   props: {
     bounds: {
       type: Array,

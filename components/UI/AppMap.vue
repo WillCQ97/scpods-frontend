@@ -1,5 +1,11 @@
 <template>
   <client-only>
+    <template #fallback>
+      <br />
+      <p style="text-align: center">Preparando exibição do mapa ...</p>
+      <br />
+    </template>
+
     <!-- PROPRIEDADES DO MAPA -->
     <l-map
       :center="center"
@@ -31,9 +37,12 @@
 </template>
 
 <script lang="ts">
+/*
+ * A ordem esperada das coordenadas é latitude, longitude
+ */
 export default {
-  // A ordem esperada das coordenadas é latitude, longitude
   name: 'AppMapComponent',
+
   props: {
     attribution: {
       type: String,
@@ -73,6 +82,7 @@ export default {
       required: false,
     },
   },
+
   data() {
     return {
       enableTooltip: true,
@@ -80,6 +90,7 @@ export default {
       markerIconSize: [20, 20],
     }
   },
+
   computed: {
     featureOptions() {
       return {

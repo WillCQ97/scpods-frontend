@@ -1,22 +1,30 @@
 <template>
   <v-app>
-    <!-- TOP BAR (CABEÇALHO) -->
-    <v-app-bar :clipped-left="clipped" :color="corCabecalho" fixed>
+    <!-- TOP BAR -->
+    <v-app-bar :clipped-left="clipped" :color="headerColor" fixed>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <!-- TODO: CORRIGIR PROBLEMA DO SUBMENU COM MINIVARIANT QUE NÃO APARECE O ICONE, POIS É ADICIONADO UM PADING AO ITEM DO SUBMENU -->
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-
+      <!-- TITTLE -->
       <v-app-bar-title id="title-bar" class="text-h5 font-weight-bold">
-        {{ tituloCabecalho }}
+        {{ headerTitle }}
       </v-app-bar-title>
 
-      <v-spacer />
+      <!-- LOGIN/LOGOUT BUTTONS -->
+      <!-- USER -->
+      <v-btn
+        :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
+        @click.stop="changeUserFlag()"
+      >
+        {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
+      </v-btn>
 
-      <!-- TODO: ICONE NO BOTÃO COM DISABLE FICA COM FADE APLICADO -->
-      <v-btn icon disabled>
+      <!-- ADMIN -->
+      <v-btn prepend-icon="mdi-shield-account" @click.stop="changeUserAdmin()">
+        Admin
+      </v-btn>
+
+      <!-- ODS ICON-->
+      <v-btn id="btn-icon-ods" icon disabled>
         <v-img
           src="/img/logo-ods-na-ufes.png"
           height="40"
@@ -27,7 +35,7 @@
     </v-app-bar>
 
     <!-- MENU -->
-    <v-navigation-drawer v-model="drawer" :color="corMenu" :rail="miniVariant">
+    <v-navigation-drawer v-model="drawer" :color="menuColor">
       <v-list>
         <!-- HOME -->
         <v-list-item to="/" prepend-icon="mdi-home">
@@ -48,30 +56,78 @@
 
           <!-- SUBMENU DOS CAMPUS -->
           <v-list-item
-            v-for="(item, i) in itensSubMenuMapas"
-            :key="i"
-            :to="item.pagina"
-            :prepend-icon="item.icone"
+            to="/acoes/alegre"
+            prepend-icon="mdi-alpha-a"
             router
             exact
           >
             <v-list-item-title class="font-weight-bold">
-              {{ item.titulo }}
+              Alegre
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            to="/acoes/goiabeiras"
+            prepend-icon="mdi-alpha-g"
+            router
+            exact
+          >
+            <v-list-item-title class="font-weight-bold">
+              Goiabeiras
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            to="/acoes/maruipe"
+            prepend-icon="mdi-alpha-g"
+            router
+            exact
+          >
+            <v-list-item-title class="font-weight-bold">
+              Maruípe
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            to="/acoes/sao-mateus"
+            prepend-icon="mdi-alpha-s"
+            router
+            exact
+          >
+            <v-list-item-title class="font-weight-bold">
+              São Mateus
             </v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <!-- RESTANTE DOS ITEMS DO MENU -->
+        <!-- SUGERIR AÇÃO -->
         <v-list-item
-          v-for="(item, i) in itensMenu"
-          :key="i"
-          :to="item.pagina"
-          :prepend-icon="item.icone"
+          to="/sugerir-acao"
+          prepend-icon="mdi-message-outline"
           router
           exact
         >
           <v-list-item-title class="font-weight-bold">
-            {{ item.titulo }}
+            Sugerir Ação
+          </v-list-item-title>
+        </v-list-item>
+
+        <v-list-item
+          v-if="isUserAdmin()"
+          to="/admin/avaliar-submissoes"
+          prepend-icon="mdi-order-bool-ascending-variant"
+          router
+          exact
+        >
+          <v-list-item-title class="font-weight-bold">
+            Avaliar Submissões
+          </v-list-item-title>
+        </v-list-item>
+
+        <!-- SOBRE -->
+        <v-list-item to="/sobre" prepend-icon="mdi-text" router exact>
+          <v-list-item-title class="font-weight-bold">
+            Sobre
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -85,9 +141,9 @@
     </v-main>
 
     <!-- FOOTER -->
-    <v-footer :color="corRodape">
+    <v-footer :color="footerColor">
       <v-spacer />
-      <span> &copy; {{ new Date().getFullYear() }} - {{ autor }} </span>
+      <span> &copy; {{ new Date().getFullYear() }} - {{ author }} </span>
       <v-spacer />
     </v-footer>
   </v-app>
@@ -95,6 +151,8 @@
 
 <script lang="ts">
 import colorPalleteUfes from 'assets/colors'
+
+const user = useUser()
 
 export default {
   name: 'DefaultLayout',
@@ -106,53 +164,35 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      autor: 'Willian Conceição Queiroz',
-      corCabecalho: colorPalleteUfes.monocromatic.mono6,
-      corRodape: colorPalleteUfes.monocromatic.mono5,
-      corMenu: colorPalleteUfes.monocromatic.mono7,
-      itensMenu: [
-        /* TODO: exibir a lista de submissões para aceite apenas para o usuário logado com esse privilégio,
-         * provavelmente deverá ser adicionado em outro leiaute
-         */
-        {
-          icone: 'mdi-message-outline',
-          titulo: 'Sugerir Ação',
-          pagina: '/sugerir-acao',
-        },
-        {
-          icone: 'mdi-text',
-          titulo: 'Sobre',
-          pagina: '/sobre',
-        },
-      ],
-      itensSubMenuMapas: [
-        {
-          icone: 'mdi-alpha-a',
-          titulo: 'Alegre',
-          pagina: '/acoes/alegre',
-        },
-        {
-          icone: 'mdi-alpha-g',
-          titulo: 'Goiabeiras',
-          pagina: '/acoes/goiabeiras',
-        },
-        {
-          icone: 'mdi-alpha-m',
-          titulo: 'Maruípe',
-          pagina: '/acoes/maruipe',
-        },
-        {
-          icone: 'mdi-alpha-s',
-          titulo: 'São Mateus',
-          pagina: '/acoes/sao-mateus',
-        },
-      ],
-      tituloCabecalho: 'Mapa Colaborativo: Sustentabilidade na UFES',
+
+      author: 'Willian Conceição Queiroz',
+      headerColor: colorPalleteUfes.monocromatic.mono6,
+      footerColor: colorPalleteUfes.monocromatic.mono5,
+      menuColor: colorPalleteUfes.monocromatic.mono7,
+      headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
     }
+  },
+
+  methods: {
+    isUserLoggedIn() {
+      return user.isLoggedIn
+    },
+    isUserAdmin() {
+      return user.isAdmin
+    },
+    changeUserFlag() {
+      user.isLoggedIn = !user.isLoggedIn
+    },
+    changeUserAdmin() {
+      user.isAdmin = !user.isAdmin
+    },
   },
 }
 </script>
 <style scoped>
+#btn-icon-ods {
+  opacity: 1;
+}
 #title-bar {
   font-family: 'Ufes Sans', sans-serif !important;
   text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */

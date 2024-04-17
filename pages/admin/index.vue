@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h1>ADMIN PAGE</h1>
-  </div>
+  <v-card>
+    <v-card-title>Página do Admin</v-card-title>
+  </v-card>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'AdminPage',
-}
+definePageMeta({
+  middleware: ['auth'],
+})
 </script>

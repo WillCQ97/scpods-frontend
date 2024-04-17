@@ -3,18 +3,20 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>Sobre o campus</v-card-title>
-          <v-card-subtitle>
-            Mais informações
-            <a
-              href="https://www.ufes.br/campi/campus-de-sao-mateus"
-              target="_blank"
-            >
-              na página da ufes
-              <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
-            </a>
-          </v-card-subtitle>
-          <hr />
+          <v-card-item>
+            <v-card-title>Sobre o campus</v-card-title>
+            <v-card-subtitle>
+              Mais informações
+              <a
+                href="https://www.ufes.br/campi/campus-de-sao-mateus"
+                target="_blank"
+              >
+                na página da ufes
+                <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
+              </a>
+            </v-card-subtitle>
+          </v-card-item>
+          <the-card-divider />
           <v-card-text>
             <p>
               O campus de São Mateus abriga o Centro Universitário Norte do
@@ -60,7 +62,10 @@
           :markers="createMarkers"
           @show-actions="showActions"
         />
-
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <actions-list-component
           v-if="isActionsListVisible"
           :actions="saoMateusActions"
@@ -73,6 +78,7 @@
 <script lang="ts">
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 import saoMateusActions from '~/assets/data/saoMateusActions.json'
 import saoMateusInfo from '~/assets/data/saoMateusInfo.json'
@@ -82,7 +88,7 @@ import feature from '~/assets/features/sao_mateus.json'
 
 export default {
   name: 'PaginaAcoesSaoMateus',
-  components: { ActionsListComponent, ActionsMapComponent },
+  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   data() {
     return {
@@ -113,9 +119,9 @@ export default {
         content:
           '<div class="popup">' +
           '<img class="popup_img" src="' +
-          '/img/ods_icons/' +
+          '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoMaisAtendido +
-          '.png' +
+          '.svg' +
           '"><br>' +
           '<div class="popup_text">' +
           '<strong>' +
