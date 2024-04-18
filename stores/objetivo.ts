@@ -1,20 +1,22 @@
 import type { Objetivo } from '~/models/objetivo.model'
 
-export type RootState = {
+type RootState = {
   objetivos: Objetivo[]
 }
 
 export const useObjetivoStore = defineStore('objetivoStore', {
   state: () => ({ objetivos: [] }) as RootState,
+  // state: () => ({ objetivos: <Objetivo[]>[] }) // not recommended to avoid type assertion
+  // state: () => ({ objetivos: [] }) as { objetivos: Objetivo[] },
 
   getters: {
-    getObjetivos(state) {
+    getObjetivos(state): Objetivo[] {
       return state.objetivos
     },
-    getTituloObjetivoById: (state) => {
-      return (id: number) => {
-        const objetivo = state.objetivos.find((ods) => ods.id === id)
-        return objetivo ? objetivo.titulo : ''
+
+    getTituloObjetivoById({ objetivos }): (id: number) => string | undefined {
+      return (id: number): string | undefined => {
+        return objetivos.find((ods) => ods.id === id)?.titulo
       }
     },
   },
