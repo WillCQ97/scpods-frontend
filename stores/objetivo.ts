@@ -1,3 +1,4 @@
+import type { Meta } from '~/models/meta.model'
 import type { Objetivo } from '~/models/objetivo.model'
 
 type State = {
@@ -15,9 +16,27 @@ export const useObjetivoStore = defineStore('objetivoStore', {
       return state.objetivos
     },
 
-    getTituloObjetivoById({ objetivos }): (id: number) => string | undefined {
+    getObjetivoById({ objetivos }): (id: number) => Objetivo | undefined {
+      return (id: number): Objetivo | undefined => {
+        return objetivos.find((ods) => ods.id === id)
+      }
+    },
+
+    getTituloObjetivoById(): (id: number) => string | undefined {
       return (id: number): string | undefined => {
-        return objetivos.find((ods) => ods.id === id)?.titulo
+        return this.getObjetivoById(id)?.titulo
+      }
+    },
+
+    getDescricaoObjetivoById(): (id: number) => string | undefined {
+      return (id: number): string | undefined => {
+        return this.getObjetivoById(id)?.descricao
+      }
+    },
+
+    getMetasByObjetivoId(): (id: number) => Meta[] | undefined {
+      return (id: number): Meta[] | undefined => {
+        return this.getObjetivoById(id)?.metas
       }
     },
   },

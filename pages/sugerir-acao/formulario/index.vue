@@ -84,7 +84,7 @@
                     />
                   </div>
                   <p id="ods-selected-text">
-                    <strong>{{ getGoalDescription(btnGoalIndex + 1) }}</strong>
+                    <strong>{{ getGoalTitle(btnGoalIndex + 1) }}</strong>
                   </p>
                 </div>
               </v-col>
@@ -279,7 +279,8 @@
 
 <script lang="ts">
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
-import goals from '~/assets/data/odsGoals.json'
+
+const odsStore = useObjetivoStore()
 
 definePageMeta({
   middleware: ['auth'],
@@ -373,7 +374,7 @@ export default {
       dialogError: false,
       rules: [(value) => !!value || 'Este campo é obrigatório.'],
 
-      goals,
+      goals: odsStore.getObjetivos,
       targetsSelected: [],
       targetDisabled: true,
       btnGoalIndex: null,
@@ -415,30 +416,28 @@ export default {
       return this.btnGoalIndex + 1
     },
     getGoal(id: number) {
-      return this.goals.filter((goal) => goal.id === id)
+      return odsStore.getObjetivoById(id)
     },
-    getGoalDescription(odsNumber) {
-      return this.getGoal(odsNumber)[0].titulo
+    getGoalTitle(id: number) {
+      return odsStore.getTituloObjetivoById(id)
     },
-    getTargetsODS(odsNumber) {
-      if (odsNumber == null) {
+    getGoalTargets(id: number) {
+      if (id == null) {
         return
       }
-
-      const objetivo = this.getGoal(odsNumber)
-      return objetivo[0].metas
+      return odsStore.getMetasByObjetivoId(id)
     },
-    getMetaFieldItems(odsNumber) {
+    getMetaFieldItems(id: number) {
       if (this.btnGoalIndex === null || this.btnGoalIndex === undefined) {
         this.targetDisabled = true
         return []
       }
 
       this.targetDisabled = false
-      const objetivo = this.getGoal(odsNumber)
-      return objetivo[0].metas.map(
-        (meta) =>
-          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 117) +
+
+      return this.getGoalTargets(id)?.map(
+        (target) =>
+          ('Meta ' + target.id + ' - ' + target.descricao).substring(0, 117) +
           ' ...',
       )
     },

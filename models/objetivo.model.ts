@@ -4,5 +4,5 @@ export interface Objetivo {
   id: number
   titulo: string
   descricao: string
-  meta: Meta
+  metas: Meta[]
 }
