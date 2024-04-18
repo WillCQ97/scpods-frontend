@@ -17,8 +17,10 @@ const siteImage = ''
 const siteUrl = ''
 
 // INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
-const objetivos = useObjetivoStore()
-await useAsyncData('objetivos', () => objetivos.fetchObjetivos())
+const odsStore = useObjetivoStore()
+await useAsyncData('objetivos', () => odsStore.fetchObjetivos())
+console.log('Imprimindo STORE')
+console.log(JSON.stringify(odsStore.getObjetivos))
 
 useHead({
   titleTemplate: '%s',

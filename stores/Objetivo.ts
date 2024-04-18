@@ -1,11 +1,21 @@
+import type { Objetivo } from '~/models/objetivo.model'
+
+export type RootState = {
+  objetivos: Objetivo[]
+}
+
 export const useObjetivoStore = defineStore('objetivoStore', {
-  state: () => ({
-    objetivos: [],
-  }),
+  state: () => ({ objetivos: [] }) as RootState,
 
   getters: {
     getObjetivos(state) {
       return state.objetivos
+    },
+    getTituloObjetivoById: (state) => {
+      return (id: number) => {
+        const objetivo = state.objetivos.find((ods) => ods.id === id)
+        return objetivo ? objetivo.titulo : ''
+      }
     },
   },
 

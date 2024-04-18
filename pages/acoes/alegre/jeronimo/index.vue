@@ -35,6 +35,11 @@ import odsGoals from '~/assets/data/odsGoals.json'
 
 import featureJeronimo from '~/assets/features/jeronimo.json'
 
+const odsStore = useObjetivoStore()
+//const { getTituloObjetivoById } = storeToRefs(odsStore)
+
+//const teste = getTituloObjetivoById(2)
+
 export default {
   name: 'PaginaAcoesJeronimo',
   components: { ActionsListComponent, ActionsMapComponent },
@@ -89,8 +94,7 @@ export default {
           local.quantidadeObjetivosAtendidos +
           '<br/>Objetivo mais atendido: ' +
           '<br/>' +
-          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
-            .titulo +
+          getTituloObjetivo(local.idObjetivoMaisAtendido) +
           '</div></div>',
       }))
 
