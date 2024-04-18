@@ -29,12 +29,11 @@
 <script lang="ts">
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-
 import alegreActions from '~/assets/data/alegreActions.json'
 import alegreInfo from '~/assets/data/alegreInfo.json'
-import odsGoals from '~/assets/data/odsGoals.json'
-
 import featureAlegre from '~/assets/features/alegre.json'
+
+const odsStore = useObjetivoStore()
 
 export default {
   name: 'PaginaMapaAcoesAlegreSede',
@@ -53,7 +52,6 @@ export default {
         [-20.76464, -41.53211],
       ],
       mapTitle: 'Campus Sede em Alegre',
-      odsGoals: [],
     }
   },
 
@@ -88,8 +86,7 @@ export default {
           local.quantidadeObjetivosAtendidos +
           '<br/>Objetivo mais atendido: ' +
           '<br/>' +
-          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
-            .titulo +
+          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
           '</div></div>',
       }))
 

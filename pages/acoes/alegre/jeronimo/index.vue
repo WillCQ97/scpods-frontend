@@ -28,17 +28,11 @@
 <script lang="ts">
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-
 import alegreActions from '~/assets/data/alegreActions.json'
 import alegreInfo from '~/assets/data/alegreInfo.json'
-import odsGoals from '~/assets/data/odsGoals.json'
-
 import featureJeronimo from '~/assets/features/jeronimo.json'
 
 const odsStore = useObjetivoStore()
-//const { getTituloObjetivoById } = storeToRefs(odsStore)
-
-//const teste = getTituloObjetivoById(2)
 
 export default {
   name: 'PaginaAcoesJeronimo',
@@ -48,7 +42,6 @@ export default {
     return {
       alegreActions,
       alegreInfo,
-      odsGoals,
       isActionsListVisible: false,
       jeronimoActions: [],
       unidadeId: 6,
@@ -94,7 +87,7 @@ export default {
           local.quantidadeObjetivosAtendidos +
           '<br/>Objetivo mais atendido: ' +
           '<br/>' +
-          getTituloObjetivo(local.idObjetivoMaisAtendido) +
+          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
           '</div></div>',
       }))
 
