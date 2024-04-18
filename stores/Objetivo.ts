@@ -1,23 +1,24 @@
-//import { useRuntimeConfig } from "#app"
-//import { useFetch } from '#app'
+export const useObjetivoStore = defineStore('objetivoStore', {
+  state: () => ({
+    objetivos: [],
+  }),
 
-const config = useRuntimeConfig()
-
-export const useObjetivo = defineStore('objetivo', {
-  state: () => {
-    objetivos: []
+  getters: {
+    getObjetivos(state) {
+      return state.objetivos
+    },
   },
 
   actions: {
     async fetchObjetivos() {
       try {
-        this.$state.objetivos = await useFetch('objetivos', {
-          baseURL: config.public.apiBase as string,
+        const response = await useFetch('objetivos', {
+          baseURL: 'http://localhost:8080/acoes-ods/v1/',
           method: 'get',
         })
+        this.objetivos = response.data
       } catch (error) {
-        console.log('ERRO:')
-        console.log(error)
+        console.log('ERRO:', error)
         return error
       }
     },

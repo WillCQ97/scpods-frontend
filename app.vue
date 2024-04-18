@@ -5,6 +5,7 @@
     </v-app>
   </NuxtLayout>
 </template>
+
 <script setup lang="ts">
 /* https://nuxt.com/docs/migration/pages-and-layouts#appvue */
 
@@ -14,6 +15,10 @@ const siteDescription =
   'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na UFES'
 const siteImage = ''
 const siteUrl = ''
+
+// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
+const objetivos = useObjetivoStore()
+await useAsyncData('objetivos', () => objetivos.fetchObjetivos())
 
 useHead({
   titleTemplate: '%s',
