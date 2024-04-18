@@ -30,12 +30,11 @@
 <script lang="ts">
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-
 import alegreActions from '~/assets/data/alegreActions.json'
 import alegreInfo from '~/assets/data/alegreInfo.json'
-import odsGoals from '~/assets/data/odsGoals.json'
-
 import featureUnidadeRive from '~/assets/features/rive.json'
+
+const odsStore = useObjetivoStore()
 
 export default {
   name: 'PaginaMapaAcoesAlegreRive',
@@ -46,7 +45,6 @@ export default {
     return {
       alegreActions,
       alegreInfo,
-      odsGoals,
       isActionsListVisible: false,
       riveActions: [],
       nomeCampus: 'ALEGRE',
@@ -93,8 +91,7 @@ export default {
           local.quantidadeObjetivosAtendidos +
           '<br/>Objetivo mais atendido: ' +
           '<br/>' +
-          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
-            .titulo +
+          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
           '</div></div>',
       }))
 
