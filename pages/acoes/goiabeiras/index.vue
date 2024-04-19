@@ -86,10 +86,10 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
-import goiabeirasInfo from '~/assets/data/goiabeirasInfo.json'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 
-const odsStore = useObjetivoStore()
+const unidadeStore = useUnidadeStore()
+await useAsyncData('goiabeirasInfo', () => unidadeStore.fetchInfo('goiabeiras'))
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
@@ -97,7 +97,6 @@ export default {
 
   data() {
     return {
-      goiabeirasInfo,
       goiabeirasActions,
       unidadeId: 2,
       isActionsListVisible: false,
@@ -114,36 +113,7 @@ export default {
 
   computed: {
     createMarkers() {
-      const locais = goiabeirasInfo.unidades[0].locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
-      )
-
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+      return unidadeStore.getMarkers
     },
   },
   methods: {
