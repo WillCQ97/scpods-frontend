@@ -8,6 +8,7 @@ export interface Local {
   nomeTerciario?: string
   localizacao: Localizacao
 
+  // pode ser extraído para outra interface que estende esta???
   projetosTotais: number
   projetosAtivos: number
   objetivosAtendidos: number

@@ -89,7 +89,9 @@ import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('goiabeirasInfo', () => unidadeStore.fetchInfo('goiabeiras'))
+await useAsyncData('goiabeirasInfo', () =>
+  unidadeStore.fetchInfo('UN_GOIABEIRAS'),
+)
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
@@ -113,7 +115,7 @@ export default {
 
   computed: {
     createMarkers() {
-      return unidadeStore.getMarkers
+      return unidadeStore.getMarcadores
     },
   },
   methods: {

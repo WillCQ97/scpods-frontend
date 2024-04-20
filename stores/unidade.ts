@@ -1,29 +1,30 @@
 import type { Local } from '~/models/local.model'
 import type { Unidade } from '~/models/unidade.model'
 
-interface Marker {
+interface Marcador {
   id: number
   coordinates: number[]
   content: string
 }
 
 type State = {
-  unidade: Unidade
+  unidades: Unidade[] // armazenar a listagem dos locais para o formulário
+  info: Unidade // armazernar a info de uma certa unidade (será substituída ao trocar de página)
 }
 
 const odsStore = useObjetivoStore()
 
 export const useUnidadeStore = defineStore('unidadeStore', {
-  state: () => ({ unidade: {} }) as State,
+  state: () => ({ unidades: [], info: {} as Unidade }) as State,
 
   getters: {
-    getInfo: ({ unidade }) => unidade,
+    getInfo: ({ unidades, info }) => info,
 
-    getLocaisComProjetosAtivos({ unidade }): Local[] {
-      return unidade.locais.filter((local) => local.projetosAtivos > 0)
+    getLocaisComProjetosAtivos({ unidades, info }): Local[] {
+      return info.locais.filter((local) => local.projetosAtivos > 0)
     },
 
-    getMarkers(): Marker[] {
+    getMarcadores(): Marcador[] {
       return this.getLocaisComProjetosAtivos.map((local: Local) => ({
         ...local,
         id: local.id,
@@ -52,31 +53,16 @@ export const useUnidadeStore = defineStore('unidadeStore', {
   },
 
   actions: {
-    async fetchInfo(campus: string) {
-      try {
-        const response = await useFetch('campus/info', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
-          method: 'get',
-          query: { campus: campus },
-        })
-        this.unidade = response.data
-        //console.log(response.data)
-        //console.log('=====')
-        //console.log(this.$state)
-      } catch (error) {
-        console.log('ERRO:', error)
-        return error
-      }
-    },
+    async fetchInfo(codigoUnidade: string) {
+      const path = 'unidade/' + codigoUnidade + '/info'
 
-    async fetchLocais() {
       try {
-        const response = await useFetch('campus/info', {
+        const response = await useFetch(path, {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
           method: 'get',
-          query: { campus: campus },
         })
-        this.infos = response.data
+
+        this.info = response.data
       } catch (error) {
         console.log('ERRO:', error)
         return error
