@@ -82,10 +82,12 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import saoMateusActions from '~/assets/data/saoMateusActions.json'
-import saoMateusInfo from '~/assets/data/saoMateusInfo.json'
 import feature from '~/assets/features/sao_mateus.json'
 
-const odsStore = useObjetivoStore()
+const unidadeStore = useUnidadeStore()
+await useAsyncData('infoSaoMateus', () =>
+  unidadeStore.fetchInfo('UN_SAO_MATEUS'),
+)
 
 export default {
   name: 'PaginaAcoesSaoMateus',
@@ -94,7 +96,6 @@ export default {
   data() {
     return {
       saoMateusActions,
-      saoMateusInfo,
       isActionsListVisible: false,
       nomeCampus: 'SAO_MATEUS',
       nomeUnidade: 'Unidade de São Mateus',
@@ -108,36 +109,7 @@ export default {
   },
   computed: {
     createMarkers() {
-      const locais = saoMateusInfo.unidades[0].locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
-      )
-
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+      return unidadeStore.getMarcadores
     },
   },
   methods: {

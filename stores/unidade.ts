@@ -21,10 +21,12 @@ export const useUnidadeStore = defineStore('unidadeStore', {
     getInfo: ({ unidades, info }) => info,
 
     getLocaisComProjetosAtivos({ unidades, info }): Local[] {
-      return info.locais.filter((local) => local.projetosAtivos > 0)
+      return info.locais?.filter((local) => local.projetosAtivos > 0)
     },
 
     getMarcadores(): Marcador[] {
+      if (this.getLocaisComProjetosAtivos === undefined) return []
+
       return this.getLocaisComProjetosAtivos.map((local: Local) => ({
         ...local,
         id: local.id,
@@ -33,7 +35,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
           '<div class="popup">' +
           '<img class="popup_img" src="' +
           '/img/ods-icons/pt-br/SDG-' +
-          local.objetivosAtendidos +
+          local.idObjetivoComMaisProjetos +
           '.svg' +
           '"><br>' +
           '<div class="popup_text">' +
@@ -57,9 +59,11 @@ export const useUnidadeStore = defineStore('unidadeStore', {
       const path = 'unidade/' + codigoUnidade + '/info'
 
       try {
-        const response = await useFetch(path, {
+        const response = await $fetch(path, {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
           method: 'get',
+          lazy: true,
+          server: false,
         })
 
         this.info = response.data

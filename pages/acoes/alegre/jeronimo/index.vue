@@ -29,10 +29,10 @@
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import alegreActions from '~/assets/data/alegreActions.json'
-import alegreInfo from '~/assets/data/alegreInfo.json'
 import featureJeronimo from '~/assets/features/jeronimo.json'
 
-const odsStore = useObjetivoStore()
+const unidadeStore = useUnidadeStore()
+await useAsyncData('infoJeronimo', () => unidadeStore.fetchInfo('UN_JERONIMO'))
 
 export default {
   name: 'PaginaAcoesJeronimo',
@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       alegreActions,
-      alegreInfo,
       isActionsListVisible: false,
       jeronimoActions: [],
       unidadeId: 6,
@@ -58,40 +57,7 @@ export default {
 
   computed: {
     createMarkers() {
-      const sede = this.alegreInfo.unidades.filter(
-        (un) => un.id === this.unidadeId,
-      )[0]
-
-      const locais = sede.locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
-      )
-
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+      return unidadeStore.getMarcadores
     },
   },
 

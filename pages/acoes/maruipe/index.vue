@@ -81,10 +81,10 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import maruipeActions from '~/assets/data/maruipeActions.json'
-import maruipeInfo from '~/assets/data/maruipeInfo.json'
 import feature from '~/assets/features/maruipe.json'
 
-const odsStore = useObjetivoStore()
+const unidadeStore = useUnidadeStore()
+await useAsyncData('infoMaruipe', () => unidadeStore.fetchInfo('UN_MARUIPE'))
 
 export default {
   name: 'PaginaAcoesMaruipe',
@@ -93,7 +93,6 @@ export default {
   data() {
     return {
       maruipeActions,
-      maruipeInfo,
       isActionsListVisible: false,
       nomeCampus: 'MARUÍPE',
       nomeUnidade: 'Unidade de Maruípe',
@@ -108,36 +107,7 @@ export default {
 
   computed: {
     createMarkers() {
-      const locais = maruipeInfo.unidades[0].locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
-      )
-
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+      return unidadeStore.getMarcadores
     },
   },
   methods: {
