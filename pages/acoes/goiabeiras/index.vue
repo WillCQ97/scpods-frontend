@@ -82,25 +82,26 @@
 </template>
 
 <script lang="ts">
+import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
-import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 
+const codigoUnidade = 'UN_GOIABEIRAS'
 const unidadeStore = useUnidadeStore()
+const acaoStore = useAcaoStore()
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   async beforeRouteEnter() {
-    await unidadeStore.fetchInfo('UN_GOIABEIRAS')
+    await unidadeStore.fetchInfo(codigoUnidade)
   },
 
   data() {
     return {
-      goiabeirasActions,
+      goiabeirasActions: [],
       unidadeId: 2,
       isActionsListVisible: false,
       nomeCampus: 'GOIABEIRAS',
@@ -121,8 +122,9 @@ export default {
   },
 
   methods: {
-    showActions(flag: boolean) {
+    async showActions(flag: boolean) {
       this.isActionsListVisible = flag
+      this.goiabeirasActions = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }
