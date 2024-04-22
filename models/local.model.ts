@@ -1,6 +1,6 @@
-import type { Localizacao } from './localizacao.model'
+import type Localizacao from './localizacao.model'
 
-export interface Local {
+export default interface Local {
   id: number
   idd: number
   nomePrincipal: string
@@ -8,7 +8,7 @@ export interface Local {
   nomeTerciario?: string
   localizacao: Localizacao
 
-  // pode ser extraído para outra interface que estende esta???
+  // TODO: pode ser extraído para outra interface que estende esta???
   projetosTotais: number
   projetosAtivos: number
   objetivosAtendidos: number

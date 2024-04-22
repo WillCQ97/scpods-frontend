@@ -1,6 +1,6 @@
-import type { Local } from './local.model'
+import type Local from './local.model'
 
-export interface Unidade {
+export default interface Unidade {
   id: number
   nome: string
   codigo: string

@@ -1,11 +1,6 @@
-import type { Local } from '~/models/local.model'
-import type { Unidade } from '~/models/unidade.model'
-
-interface Marcador {
-  id: number
-  coordinates: number[]
-  content: string
-}
+import type Local from '~/models/local.model'
+import type Marker from '~/models/marker.model'
+import type Unidade from '~/models/unidade.model'
 
 type State = {
   unidades: Unidade[] // armazenar a listagem dos locais para o formulário
@@ -24,7 +19,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
       return info.locais?.filter((local) => local.projetosAtivos > 0)
     },
 
-    getMarcadores(): Marcador[] {
+    getMarcadores(): Marker[] {
       if (this.getLocaisComProjetosAtivos === undefined) return []
 
       return this.getLocaisComProjetosAtivos.map((local: Local) => ({
@@ -65,8 +60,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
           lazy: true,
           server: false,
         })
-
-        this.info = response.data
+        this.info = response
       } catch (error) {
         console.log('ERRO:', error)
         return error

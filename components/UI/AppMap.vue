@@ -37,6 +37,8 @@
 </template>
 
 <script lang="ts">
+import type Marker from '~/models/marker.model'
+
 /*
  * A ordem esperada das coordenadas é latitude, longitude
  */
@@ -63,7 +65,7 @@ export default {
       default: null,
     },
     markers: {
-      type: Array,
+      type: Array as PropType<Marker[]>,
       required: true,
     },
     tileUrl: {
@@ -145,15 +147,16 @@ export default {
 </script>
 
 <style>
+/* ESTE CSS NÃO PODE SER SCOPED, POIS NÃO SERIA APLICADO AO POPUP DENTRO DA LAYER DO MAPA */
 div.popup {
   display: flex;
 }
 
 img.popup_img {
-  height: 75px;
+  height: 100px;
   margin-bottom: auto;
   margin-top: auto;
-  width: 75px;
+  width: 100px;
 }
 
 div.popup_text {

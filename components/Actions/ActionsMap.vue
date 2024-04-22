@@ -18,6 +18,7 @@
       <v-btn class="btn" @click="emitShowActionsList">
         {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
       </v-btn>
+      <v-btn class="btn" @click="emitRefreshData"> Atualizar </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -25,6 +26,7 @@
 <script lang="ts">
 import AppMapComponent from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import type Marker from '~/models/marker.model'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
@@ -44,7 +46,7 @@ export default {
       required: true,
     },
     markers: {
-      type: Array,
+      type: Array as PropType<Marker[]>, //https://vuejs.org/guide/typescript/options-api.html#typing-component-props
       required: true,
     },
     title: {
@@ -57,7 +59,7 @@ export default {
       required: false,
     },
   },
-  emits: ['showActions'],
+  emits: ['showActions', 'refreshData'],
   data() {
     return {
       attribution:
@@ -74,6 +76,9 @@ export default {
     emitShowActionsList() {
       this.isActionListVisible = !this.isActionListVisible
       this.$emit('showActions', this.isActionListVisible)
+    },
+    emitRefreshData() {
+      this.$emit('refreshData')
     },
   },
 }
