@@ -1,14 +1,15 @@
 import type Localizacao from './localizacao.model'
 
-export default interface Local {
+export interface Local {
   id: number
   idd: number
   nomePrincipal: string
   nomeSecundario?: string
   nomeTerciario?: string
   localizacao: Localizacao
+}
 
-  // TODO: pode ser extraído para outra interface que estende esta???
+export interface LocalInfo extends Local {
   projetosTotais: number
   projetosAtivos: number
   objetivosAtendidos: number

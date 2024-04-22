@@ -1,28 +1,28 @@
-import type Local from '~/models/local.model'
+import type { LocalInfo } from '~/models/local.model'
 import type Marker from '~/models/marker.model'
-import type Unidade from '~/models/unidade.model'
+import type { Unidade, UnidadeInfo } from '~/models/unidade.model'
 
 type State = {
   unidades: Unidade[] // armazenar a listagem dos locais para o formulário
-  info: Unidade // armazernar a info de uma certa unidade (será substituída ao trocar de página)
+  unidadeInfo: UnidadeInfo // armazernar a info de uma certa unidade (será substituída ao trocar de página)
 }
 
 const odsStore = useObjetivoStore()
 
 export const useUnidadeStore = defineStore('unidadeStore', {
-  state: () => ({ unidades: [], info: {} as Unidade }) as State,
+  state: () => ({ unidades: [], unidadeInfo: {} as UnidadeInfo }) as State,
 
   getters: {
-    getInfo: ({ unidades, info }) => info,
+    getInfo: ({ unidades, unidadeInfo: info }) => info,
 
-    getLocaisComProjetosAtivos({ unidades, info }): Local[] {
+    getLocaisComProjetosAtivos({ unidades, unidadeInfo: info }): LocalInfo[] {
       return info.locais?.filter((local) => local.projetosAtivos > 0)
     },
 
     getMarcadores(): Marker[] {
       if (this.getLocaisComProjetosAtivos === undefined) return []
 
-      return this.getLocaisComProjetosAtivos.map((local: Local) => ({
+      return this.getLocaisComProjetosAtivos.map((local: LocalInfo) => ({
         ...local,
         id: local.id,
         coordinates: local.localizacao.coordinates.reverse(),
@@ -60,7 +60,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
           lazy: true,
           server: false,
         })
-        this.info = response
+        this.unidadeInfo = response
       } catch (error) {
         console.log('ERRO:', error)
         return error
