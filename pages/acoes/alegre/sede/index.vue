@@ -33,11 +33,14 @@ import alegreActions from '~/assets/data/alegreActions.json'
 import featureAlegre from '~/assets/features/alegre.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('infoAlegreSede', () => unidadeStore.fetchInfo('UN_ALEGRE'))
 
 export default {
   name: 'PaginaMapaAcoesAlegreSede',
   components: { ActionsListComponent, ActionsMapComponent },
+
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo('UN_ALEGRE')
+  },
 
   data() {
     return {

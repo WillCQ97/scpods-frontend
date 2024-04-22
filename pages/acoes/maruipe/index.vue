@@ -84,11 +84,14 @@ import maruipeActions from '~/assets/data/maruipeActions.json'
 import feature from '~/assets/features/maruipe.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('infoMaruipe', () => unidadeStore.fetchInfo('UN_MARUIPE'))
 
 export default {
   name: 'PaginaAcoesMaruipe',
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo('UN_MARUIPE')
+  },
 
   data() {
     return {

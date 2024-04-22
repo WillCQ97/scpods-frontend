@@ -34,12 +34,14 @@ import alegreActions from '~/assets/data/alegreActions.json'
 import featureUnidadeRive from '~/assets/features/rive.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('infoRive', () => unidadeStore.fetchInfo('EX_RIVE'))
 
 export default {
   name: 'PaginaMapaAcoesAlegreRive',
-
   components: { ActionsListComponent, ActionsMapComponent },
+
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo('EX_RIVE')
+  },
 
   data() {
     return {

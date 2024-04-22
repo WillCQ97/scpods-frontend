@@ -32,11 +32,14 @@ import alegreActions from '~/assets/data/alegreActions.json'
 import featureJeronimo from '~/assets/features/jeronimo.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('infoJeronimo', () => unidadeStore.fetchInfo('UN_JERONIMO'))
 
 export default {
   name: 'PaginaAcoesJeronimo',
   components: { ActionsListComponent, ActionsMapComponent },
+
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo('UN_JERONIMO')
+  },
 
   data() {
     return {

@@ -85,13 +85,14 @@ import saoMateusActions from '~/assets/data/saoMateusActions.json'
 import feature from '~/assets/features/sao_mateus.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('infoSaoMateus', () =>
-  unidadeStore.fetchInfo('UN_SAO_MATEUS'),
-)
 
 export default {
   name: 'PaginaAcoesSaoMateus',
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo('UN_SAO_MATEUS')
+  },
 
   data() {
     return {
@@ -107,11 +108,13 @@ export default {
       featureCampus: feature,
     }
   },
+
   computed: {
     createMarkers() {
       return unidadeStore.getMarcadores
     },
   },
+
   methods: {
     showActions(flag: boolean) {
       this.isActionsListVisible = flag

@@ -89,13 +89,14 @@ import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 
 const unidadeStore = useUnidadeStore()
-await useAsyncData('goiabeirasInfo', () =>
-  unidadeStore.fetchInfo('UN_GOIABEIRAS'),
-)
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo('UN_GOIABEIRAS')
+  },
 
   data() {
     return {
@@ -118,6 +119,7 @@ export default {
       return unidadeStore.getMarcadores
     },
   },
+
   methods: {
     showActions(flag: boolean) {
       this.isActionsListVisible = flag
