@@ -17,8 +17,16 @@
       <v-spacer />
       <v-btn class="btn" @click="emitShowActionsList">
         {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
+        <v-tooltip activator="parent" location="bottom">
+          Mostrar a listagem das ações para esta unidade
+        </v-tooltip>
       </v-btn>
-      <v-btn class="btn" @click="emitRefreshData"> Atualizar </v-btn>
+      <v-btn class="btn" @click="emitRefreshData">
+        Atualizar
+        <v-tooltip activator="parent" location="bottom">
+          Recarrega as informações mostradas no mapa
+        </v-tooltip>
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
