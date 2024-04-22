@@ -1,10 +1,12 @@
+import type { Acao } from '~/models/acao/acao.model'
+
 export const useAcaoStore = defineStore('acaoStore', {
   state: () => ({
     acoesInfo: {}, // listagem das ações mostradas no mapa
   }),
 
   actions: {
-    async fetchAcoes(codigoUnidade: string) {
+    async fetchAcoes(codigoUnidade: string): Promise<Acao[]> {
       try {
         const response = await $fetch('acoes', {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
@@ -13,7 +15,7 @@ export const useAcaoStore = defineStore('acaoStore', {
           lazy: true,
           server: false,
         })
-        return response
+        return response as Acao[]
       } catch (error) {
         console.log('ERRO:', error)
         return error

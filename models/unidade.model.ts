@@ -1,6 +1,6 @@
 import type { Local, LocalInfo } from './local.model'
 
-interface UnidadeBase {
+export interface UnidadeBase {
   id: number
   nome: string
   codigo: string

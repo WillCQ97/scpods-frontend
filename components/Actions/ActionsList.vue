@@ -84,7 +84,7 @@ export default {
           key: 'titulo',
         },
         { title: 'Meta', key: 'meta.id' },
-        { title: 'Centro', key: 'lotacao.sigla' },
+        { title: 'Lotação', key: 'lotacao.sigla' },
         { title: 'Local', key: 'local.nomePrincipal' },
         { title: 'Coordenador', key: 'coordenador.nome' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },

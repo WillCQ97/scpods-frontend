@@ -86,6 +86,7 @@ import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import type { Acao } from '~/models/acao/acao.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
 const unidadeStore = useUnidadeStore()
@@ -101,7 +102,7 @@ export default {
 
   data() {
     return {
-      goiabeirasActions: [],
+      goiabeirasActions: [] as Acao[],
       unidadeId: 2,
       isActionsListVisible: false,
       nomeCampus: 'GOIABEIRAS',
