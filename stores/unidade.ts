@@ -51,7 +51,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
 
   actions: {
     async fetchInfo(codigoUnidade: string) {
-      const path = 'unidade/' + codigoUnidade + '/info'
+      const path = 'unidades/' + codigoUnidade + '/info'
 
       try {
         const response = await $fetch(path, {
