@@ -60,8 +60,8 @@
         <v-col>
           <actions-map-component
             :title="nomeUnidade"
-            :bounds="limitesGoiabeiras"
-            :center="centroGoiabeiras"
+            :bounds="limitesMapa"
+            :center="centroMapa"
             :feature="featureGoiabeiras"
             :markers="createMarkers"
             @show-actions="showActions"
@@ -72,8 +72,8 @@
       <v-row>
         <v-col>
           <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="goiabeirasActions"
+            v-if="exibirAcoes"
+            :actions="acoesGoiabeiras"
           />
         </v-col>
       </v-row>
@@ -89,8 +89,8 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao/acao.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
-const unidadeStore = useUnidadeStore()
 const acaoStore = useAcaoStore()
+const unidadeStore = useUnidadeStore()
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
@@ -102,13 +102,11 @@ export default {
 
   data() {
     return {
-      goiabeirasActions: [] as Acao[],
-      unidadeId: 2,
-      isActionsListVisible: false,
-      nomeCampus: 'GOIABEIRAS',
+      acoesGoiabeiras: [] as Acao[],
+      exibirAcoes: false,
       nomeUnidade: 'Campus em Goiabeiras',
-      centroGoiabeiras: [-20.2764, -40.3037],
-      limitesGoiabeiras: [
+      centroMapa: [-20.2764, -40.3037],
+      limitesMapa: [
         [-20.2696, -40.308],
         [-20.284, -40.3009],
       ],
@@ -124,8 +122,8 @@ export default {
 
   methods: {
     async showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.goiabeirasActions = await acaoStore.fetchAcoes(codigoUnidade)
+      this.exibirAcoes = flag
+      this.acoesGoiabeiras = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }

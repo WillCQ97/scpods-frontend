@@ -7,6 +7,7 @@ type State = {
 
 export const useObjetivoStore = defineStore('objetivoStore', {
   state: () => ({ objetivos: [] }) as State,
+  // TODO: clean the examples
   // state: (): RootState => ({ objetivos: [] }),
   // state: () => ({ objetivos: <Objetivo[]>[] }) // not recommended to avoid type assertion
   // state: () => ({ objetivos: [] }) as { objetivos: Objetivo[] },
