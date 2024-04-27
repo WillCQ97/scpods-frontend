@@ -22,7 +22,19 @@ export const useAcaoStore = defineStore('acaoStore', {
       }
     },
     async fetchSubmissoes() {
-      // todo: retorna a lista de submissões para avaliação
+      try {
+        const response = await $fetch('acoes', {
+          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          method: 'get',
+          params: { aceito: false },
+          lazy: true,
+          server: false,
+        })
+        return response as Acao[]
+      } catch (error) {
+        console.log('ERRO:', error)
+        return error
+      }
     },
     async submitSubmissao() {
       // todo: envia uma submissão de ação ao backend
