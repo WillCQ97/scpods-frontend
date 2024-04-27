@@ -17,8 +17,8 @@
       <v-row>
         <v-col>
           <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="jeronimoActions"
+            v-if="exibirAcores"
+            :actions="acoesJeronimo"
           /> </v-col
       ></v-row>
     </v-col>
@@ -26,11 +26,13 @@
 </template>
 
 <script lang="ts">
+import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import alegreActions from '~/assets/data/alegreActions.json'
-import featureJeronimo from '~/assets/features/jeronimo.json'
+import type { Acao } from '~/models/acao/acao.model'
 
+const codigoUnidade = 'UN_JERONIMO'
+const acaoStore = useAcaoStore()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -38,16 +40,13 @@ export default {
   components: { ActionsListComponent, ActionsMapComponent },
 
   async beforeRouteEnter() {
-    await unidadeStore.fetchInfo('UN_JERONIMO')
+    await unidadeStore.fetchInfo(codigoUnidade)
   },
 
   data() {
     return {
-      alegreActions,
-      isActionsListVisible: false,
-      jeronimoActions: [],
-      unidadeId: 6,
-      nomeCampus: 'ALEGRE',
+      acoesJeronimo: [] as Acao[],
+      exibirAcores: false,
       nomeUnidade: 'Unidade em Jerônimo Monteiro',
       centroJeronimo: [-20.79071, -41.38887],
       limitesJeronimo: [
@@ -65,11 +64,9 @@ export default {
   },
 
   methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.jeronimoActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
+    async showActions(flag: boolean) {
+      this.exibirAcores = flag
+      this.acoesJeronimo = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }

@@ -4,10 +4,10 @@
       <v-row>
         <v-col>
           <actions-map-component
-            :title="mapName"
+            :title="nomeUnidade"
             :bounds="limitesRive"
             :center="centroRive"
-            :feature="featureUnidadeRive"
+            :feature="featureRive"
             :markers="createMarkers"
             :zoom="zoom"
             @show-actions="showActions"
@@ -17,10 +17,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="riveActions"
-          />
+          <actions-list-component v-if="exibirAcoes" :actions="acoesRive" />
         </v-col>
       </v-row>
     </v-col>
@@ -28,11 +25,13 @@
 </template>
 
 <script lang="ts">
+import featureRive from '~/assets/features/rive.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import alegreActions from '~/assets/data/alegreActions.json'
-import featureUnidadeRive from '~/assets/features/rive.json'
+import type { Acao } from '~/models/acao/acao.model'
 
+const codigoUnidade = 'EXP_RIVE'
+const acaoStore = useAcaoStore()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -40,23 +39,20 @@ export default {
   components: { ActionsListComponent, ActionsMapComponent },
 
   async beforeRouteEnter() {
-    await unidadeStore.fetchInfo('EX_RIVE')
+    await unidadeStore.fetchInfo(codigoUnidade)
   },
 
   data() {
     return {
-      alegreActions,
-      isActionsListVisible: false,
-      riveActions: [],
-      nomeCampus: 'ALEGRE',
-      unidadeId: 5,
-      mapName: 'Área Experimental em Rive, Alegre',
+      acoesRive: [] as Acao[],
+      exibirAcoes: false,
+      nomeUnidade: 'Área Experimental em Rive, Alegre',
       centroRive: [-20.7494, -41.4875],
       limitesRive: [
         [-20.7422, -41.4932],
         [-20.7562, -41.4815],
       ],
-      featureUnidadeRive,
+      featureRive,
       zoom: 16,
     }
   },
@@ -68,11 +64,9 @@ export default {
   },
 
   methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.riveActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
+    async showActions(flag: boolean) {
+      this.exibirAcoes = flag
+      this.acoesRive = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }
