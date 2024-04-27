@@ -56,8 +56,8 @@
         <v-col>
           <actions-map-component
             :title="nomeUnidade"
-            :bounds="limitesMapa"
-            :center="centroMapa"
+            :bounds="limitesMaruipe"
+            :center="centroMaruipe"
             :feature="featureCampus"
             :markers="createMarkers"
             @show-actions="showActions"
@@ -66,10 +66,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="maruipeActions"
-          />
+          <actions-list-component v-if="exibirAcoes" :actions="acoesMaruipe" />
         </v-col>
       </v-row>
     </v-col>
@@ -77,12 +74,14 @@
 </template>
 
 <script lang="ts">
+import feature from '~/assets/features/maruipe.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import maruipeActions from '~/assets/data/maruipeActions.json'
-import feature from '~/assets/features/maruipe.json'
+import type { Acao } from '~/models/acao/acao.model'
 
+const codigoUnidade = 'UN_MARUIPE'
+const acaoStore = useAcaoStore()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -90,18 +89,17 @@ export default {
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   async beforeRouteEnter() {
-    await unidadeStore.fetchInfo('UN_MARUIPE')
+    await unidadeStore.fetchInfo(codigoUnidade)
   },
 
   data() {
     return {
-      maruipeActions,
-      isActionsListVisible: false,
-      nomeCampus: 'MARUÍPE',
+      acoesMaruipe: [] as Acao[],
+      exibirAcoes: false,
       nomeUnidade: 'Unidade de Maruípe',
-      centroMapa: [-20.29815881701748, -40.31628393322453],
-      limitesMapa: [
-        [-20.297085718911358, -40.320649264497376],
+      centroMaruipe: [-20.29815881701748, -40.31628393322453],
+      limitesMaruipe: [
+        [-20.297085718911358, -40.32064926449737],
         [-20.301772383132487, -40.31412608305674],
       ],
       featureCampus: feature, // TODO: corrigir discrepância do geojson para a tile
@@ -114,8 +112,9 @@ export default {
     },
   },
   methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
+    async showActions(flag: boolean) {
+      this.exibirAcoes = flag
+      this.acoesMaruipe = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }

@@ -57,8 +57,8 @@
         <v-col>
           <actions-map-component
             :title="nomeUnidade"
-            :bounds="limitesMapa"
-            :center="centroMapa"
+            :bounds="limitesSaoMateus"
+            :center="centroSaoMateus"
             :feature="featureCampus"
             :markers="createMarkers"
             @show-actions="showActions"
@@ -68,8 +68,8 @@
       <v-row>
         <v-col>
           <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="saoMateusActions"
+            v-if="exibirAcoes"
+            :actions="acoesSaoMateus"
           />
         </v-col>
       </v-row>
@@ -78,12 +78,14 @@
 </template>
 
 <script lang="ts">
+import feature from '~/assets/features/sao_mateus.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import saoMateusActions from '~/assets/data/saoMateusActions.json'
-import feature from '~/assets/features/sao_mateus.json'
+import type { Acao } from '~/models/acao/acao.model'
 
+const codigoUnidade = 'UN_SAO_MATEUS'
+const acaoStore = useAcaoStore()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -91,17 +93,16 @@ export default {
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   async beforeRouteEnter() {
-    await unidadeStore.fetchInfo('UN_SAO_MATEUS')
+    await unidadeStore.fetchInfo(codigoUnidade)
   },
 
   data() {
     return {
-      saoMateusActions,
-      isActionsListVisible: false,
-      nomeCampus: 'SAO_MATEUS',
+      acoesSaoMateus: [] as Acao[],
+      exibirAcoes: false,
       nomeUnidade: 'Unidade de São Mateus',
-      centroMapa: [-18.675738334093378, -39.86240690464644],
-      limitesMapa: [
+      centroSaoMateus: [-18.675738334093378, -39.86240690464644],
+      limitesSaoMateus: [
         [-18.670727522212445, -39.866469236990035],
         [-18.680308622184185, -39.85245444148613],
       ],
@@ -116,8 +117,9 @@ export default {
   },
 
   methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
+    async showActions(flag: boolean) {
+      this.exibirAcoes = flag
+      this.acoesSaoMateus = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }
