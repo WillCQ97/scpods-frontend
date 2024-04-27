@@ -60,8 +60,8 @@
         <v-col>
           <actions-map-component
             :title="nomeUnidade"
-            :bounds="limitesMapa"
-            :center="centroMapa"
+            :bounds="limitesGoiabeiras"
+            :center="centroGoiabeiras"
             :feature="featureGoiabeiras"
             :markers="createMarkers"
             @show-actions="showActions"
@@ -105,8 +105,8 @@ export default {
       acoesGoiabeiras: [] as Acao[],
       exibirAcoes: false,
       nomeUnidade: 'Campus em Goiabeiras',
-      centroMapa: [-20.2764, -40.3037],
-      limitesMapa: [
+      centroGoiabeiras: [-20.2764, -40.3037],
+      limitesGoiabeiras: [
         [-20.2696, -40.308],
         [-20.284, -40.3009],
       ],
