@@ -37,8 +37,10 @@ export default {
   name: 'PaginaMapaAcoesAlegreSede',
   components: { ActionsListComponent, ActionsMapComponent },
 
+  // const { data, pending, error, refresh } = await useFetch()
   async beforeRouteEnter() {
     await unidadeStore.fetchInfo(codigoUnidade)
+    // refresh
   },
 
   data() {
