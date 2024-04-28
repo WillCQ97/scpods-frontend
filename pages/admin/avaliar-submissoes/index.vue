@@ -83,15 +83,9 @@ async function refreshList() {
 }
 
 async function acceptHandler({ accepted, id }) {
+  aceito = accepted
   if (accepted) {
-    await acaoStore.acceptSubmissao(id)
-    aceito.value = true
-  } else {
-    await acaoStore.rejectSubmissao(id)
-    aceito.value = false
+    const { error } = await acaoStore.acceptSubmissao()
   }
-  showSuccess.value = true
-
-  refreshList()
 }
 </script>

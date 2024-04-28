@@ -1,5 +1,5 @@
 import type { LocalInfo } from '~/models/local.model'
-import type Marker from '~/models/marker.model'
+import type Marker from '~/models/props/marker.model'
 import type { Unidade, UnidadeInfo } from '~/models/unidade.model'
 
 type State = {
@@ -20,6 +20,9 @@ export const useUnidadeStore = defineStore('unidadeStore', {
     },
 
     getMarcadores(): Marker[] {
+      /*
+       * As classes css utilizadas no html abaixo são definidas em main.css
+       */
       if (this.getLocaisComProjetosAtivos === undefined) return []
 
       return this.getLocaisComProjetosAtivos.map((local: LocalInfo) => ({
@@ -27,13 +30,13 @@ export const useUnidadeStore = defineStore('unidadeStore', {
         id: local.id,
         coordinates: local.localizacao.coordinates.reverse(),
         content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
+          '<div class="map_popup">' +
+          '<img class="map_popup_img" src="' +
           '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoComMaisProjetos +
           '.svg' +
           '"><br>' +
-          '<div class="popup_text">' +
+          '<div class="map_popup_text">' +
           '<strong>' +
           local.nomePrincipal +
           '</strong>' +

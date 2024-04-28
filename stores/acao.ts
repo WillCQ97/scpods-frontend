@@ -39,6 +39,7 @@ export const useAcaoStore = defineStore('acaoStore', {
     },
 
     async submitSubmissao(submissao: Acao) {
+      // todo
       try {
         const response = await $fetch('acoes', {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
@@ -54,37 +55,23 @@ export const useAcaoStore = defineStore('acaoStore', {
       }
     },
     async acceptSubmissao(id: number) {
-      try {
-        const response = await $fetch('acoes', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
-          method: 'post',
-          params: { id },
-          lazy: true,
-          server: false,
-        })
-        return response
-      } catch (error) {
-        // ofetch Automatically throws errors when response.ok is false with a friendly error message and compact stack (hiding internals).
-        console.log('ERRO:', error)
-        console.log('Parsed error body:', error.data)
-        return error
-      }
+      const { error } = await useFetch('acoes', {
+        baseURL: 'http://localhost:8080/acoes-ods/v1/',
+        method: 'post',
+        params: { id },
+        lazy: true,
+        server: false,
+      })
+      return { error }
     },
     async rejectSubmissao(id: number) {
-      try {
-        const response = await $fetch('acoes/' + id, {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
-          method: 'delete',
-          lazy: true,
-          server: false,
-        })
-        return response
-      } catch (error) {
-        // ofetch Automatically throws errors when response.ok is false with a friendly error message and compact stack (hiding internals).
-        console.log('ERRO:', error)
-        console.log('Parsed error body:', error.data)
-        return error
-      }
+      const { error } = await useFetch('acoes/' + id, {
+        baseURL: 'http://localhost:8080/acoes-ods/v1/',
+        method: 'delete',
+        lazy: true,
+        server: false,
+      })
+      return { error }
     },
   },
 })

@@ -4,12 +4,13 @@
       <v-row>
         <v-col>
           <actions-map-component
-            :title="nomeUnidade"
-            :bounds="limitesJeronimo"
-            :center="centroJeronimo"
-            :feature="featureJeronimo"
-            :markers="createMarkers"
-            @show-actions="showActions"
+            :title="mapTitle"
+            :bounds="jeronimoBounds"
+            :center="jeronimoCenter"
+            :feature="campusFeatures"
+            :markers="jeronimoMarkers"
+            @show-actions="showActionsHandler"
+            @refresh-data="reloadInfoHandler"
           />
         </v-col>
       </v-row>
@@ -17,8 +18,8 @@
       <v-row>
         <v-col>
           <actions-list-component
-            v-if="exibirAcores"
-            :actions="acoesJeronimo"
+            v-if="isActionsListVisible"
+            :actions="jeronimoActions"
           /> </v-col
       ></v-row>
     </v-col>
@@ -33,40 +34,48 @@ import type { Acao } from '~/models/acao/acao.model'
 
 const codigoUnidade = 'UN_JERONIMO'
 const acaoStore = useAcaoStore()
+
 const unidadeStore = useUnidadeStore()
+
+async function carregarInfo() {
+  await unidadeStore.fetchInfo(codigoUnidade)
+}
 
 export default {
   name: 'PaginaAcoesJeronimo',
   components: { ActionsListComponent, ActionsMapComponent },
 
   async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
+    await carregarInfo()
   },
 
   data() {
     return {
-      acoesJeronimo: [] as Acao[],
-      exibirAcores: false,
-      nomeUnidade: 'Unidade em Jerônimo Monteiro',
-      centroJeronimo: [-20.79071, -41.38887],
-      limitesJeronimo: [
+      jeronimoActions: [] as Acao[], // TODO: TIPAR EM INGLÊS
+      campusFeatures: featureJeronimo,
+      isActionsListVisible: false,
+      mapTitle: 'Unidade em Jerônimo Monteiro',
+      jeronimoBounds: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
       ],
-      featureJeronimo,
+      jeronimoCenter: [-20.79071, -41.38887],
     }
   },
 
   computed: {
-    createMarkers() {
+    jeronimoMarkers() {
       return unidadeStore.getMarcadores
     },
   },
 
   methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcores = flag
-      this.acoesJeronimo = await acaoStore.fetchAcoes(codigoUnidade)
+    async showActionsHandler(flag: boolean) {
+      this.isActionsListVisible = flag
+      this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
+    },
+    async reloadInfoHandler() {
+      await carregarInfo()
     },
   },
 }

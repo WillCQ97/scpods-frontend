@@ -34,7 +34,7 @@
 <script lang="ts">
 import AppMapComponent from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type Marker from '~/models/marker.model'
+import type Marker from '~/models/props/marker.model'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
@@ -54,7 +54,7 @@ export default {
       required: true,
     },
     markers: {
-      type: Array as PropType<Marker[]>, //https://vuejs.org/guide/typescript/options-api.html#typing-component-props
+      type: Array as PropType<Marker[]>,
       required: true,
     },
     title: {

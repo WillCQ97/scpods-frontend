@@ -44,6 +44,7 @@ export const useObjetivoStore = defineStore('objetivoStore', {
 
   actions: {
     async fetchObjetivos() {
+      //TODO: return await useFetch permite utilizar o {data, error, refresh} no front
       try {
         const response = await useFetch('objetivos', {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
