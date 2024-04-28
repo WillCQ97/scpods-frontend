@@ -1,9 +1,8 @@
 <template>
-  <!-- DIÁLOGOS DE ERRO E SUCESSO -->
-
+  <!-- DIÁLOGO DE SUCESSO -->
   <v-dialog v-model="showSuccess" width="50vh">
     <v-card>
-      <v-card-title>Sucesso</v-card-title>
+      <v-card-title>SUCESSO</v-card-title>
       <v-card-text>
         A submissão foi {{ aceito ? 'aceita' : 'recusada' }}!
       </v-card-text>
@@ -13,9 +12,10 @@
     </v-card>
   </v-dialog>
 
+  <!-- DIÁLOGO DE ERRO -->
   <v-dialog v-model="showError" width="50vh">
     <v-card>
-      <v-card-title>Erro</v-card-title>
+      <v-card-title>ERRO</v-card-title>
       <v-card-text> A ação não pode ser concluída! </v-card-text>
       <v-card-actions>
         <v-btn @click="showError = false">Fechar</v-btn>
@@ -23,6 +23,7 @@
     </v-card>
   </v-dialog>
 
+  <!-- TEMPLATE DA PÁGINA -->
   <v-row>
     <v-col>
       <v-row>
@@ -63,6 +64,10 @@
 </template>
 
 <script setup lang="ts">
+/*
+ * Como neste arquivo está sendo usado a Composition API, os valores devem
+ * ser acessados com variavel.value no script setup
+ */
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
@@ -83,9 +88,22 @@ async function refreshList() {
 }
 
 async function acceptHandler({ accepted, id }) {
-  aceito = accepted
-  if (accepted) {
-    const { error } = await acaoStore.acceptSubmissao()
+  console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
+
+  try {
+    aceito = accepted
+
+    if (accepted) {
+      await acaoStore.acceptSubmissao(id)
+    } else {
+      await acaoStore.rejectSubmissao(id)
+    }
+    showSuccess.value = true
+  } catch (error) {
+    showError.value = true
+    console.log('ERRO: ', error)
   }
+
+  await refreshList()
 }
 </script>

@@ -75,6 +75,7 @@ export default {
       this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
     },
     async reloadInfoHandler() {
+      // FIXME: ATUALIZAR NÃO ESTÁ FUNCIONANDO
       await carregarInfo()
     },
   },

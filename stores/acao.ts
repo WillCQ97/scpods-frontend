@@ -54,24 +54,20 @@ export const useAcaoStore = defineStore('acaoStore', {
         return error
       }
     },
+
     async acceptSubmissao(id: number) {
-      const { error } = await useFetch('acoes', {
-        baseURL: 'http://localhost:8080/acoes-ods/v1/',
+      return await $fetch('aceitar', {
+        baseURL: 'http://localhost:8080/acoes-ods/v1/acoes',
         method: 'post',
         params: { id },
-        lazy: true,
-        server: false,
       })
-      return { error }
     },
+
     async rejectSubmissao(id: number) {
-      const { error } = await useFetch('acoes/' + id, {
+      return await $fetch('acoes/' + id, {
         baseURL: 'http://localhost:8080/acoes-ods/v1/',
         method: 'delete',
-        lazy: true,
-        server: false,
       })
-      return { error }
     },
   },
 })
