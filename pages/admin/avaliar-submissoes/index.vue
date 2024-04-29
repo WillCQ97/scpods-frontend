@@ -4,7 +4,7 @@
     <v-card>
       <v-card-title>SUCESSO</v-card-title>
       <v-card-text>
-        A submissão foi {{ aceito ? 'aceita' : 'recusada' }}!
+        A submissão foi {{ accepted ? 'aceita' : 'recusada' }}!
       </v-card-text>
       <v-card-actions>
         <v-btn @click="showSuccess = false">Fechar</v-btn>
@@ -13,12 +13,12 @@
   </v-dialog>
 
   <!-- DIÁLOGO DE ERRO -->
-  <v-dialog v-model="showError" width="50vh">
+  <v-dialog v-model="showErrorDialog" width="50vh">
     <v-card>
       <v-card-title>ERRO</v-card-title>
       <v-card-text> A ação não pode ser concluída! </v-card-text>
       <v-card-actions>
-        <v-btn @click="showError = false">Fechar</v-btn>
+        <v-btn @click="showErrorDialog = false">Fechar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -63,7 +63,7 @@
   </v-row>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 /*
  * Como neste arquivo está sendo usado a Composition API, os valores devem
  * ser acessados com variavel.value no script setup
@@ -74,36 +74,47 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 const acaoStore = useAcaoStore()
 var submissoes = await acaoStore.fetchSubmissoes()
 
-const showError = ref(false)
-const showSuccess = ref(false)
-
-var aceito = ref(false)
-
 definePageMeta({
   middleware: 'auth',
 })
 
-async function refreshList() {
-  submissoes = await acaoStore.fetchSubmissoes()
-}
+export default {
+  components: { ActionsListComponent, TheCardDivider },
 
-async function acceptHandler({ accepted, id }) {
-  console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
-
-  try {
-    aceito = accepted
-
-    if (accepted) {
-      await acaoStore.acceptSubmissao(id)
-    } else {
-      await acaoStore.rejectSubmissao(id)
+  data() {
+    return {
+      accepted: false,
+      showErrorDialog: false,
+      showSuccess: false,
+      submissoes,
     }
-    showSuccess.value = true
-  } catch (error) {
-    showError.value = true
-    console.log('ERRO: ', error)
-  }
+  },
 
-  await refreshList()
+  methods: {
+    async acceptHandler({ accepted, id }) {
+      console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
+
+      try {
+        this.accepted = accepted
+
+        if (accepted) {
+          await acaoStore.acceptSubmissao(id)
+        } else {
+          await acaoStore.rejectSubmissao(id)
+        }
+        this.showSuccess = true
+      } catch (error) {
+        this.showErrorDialog = true
+        console.log('ERRO: ', error)
+      }
+
+      await this.refreshList()
+      console.log('REFRESH: ', submissoes)
+    },
+
+    async refreshList() {
+      submissoes = await acaoStore.fetchSubmissoes()
+    },
+  },
 }
 </script>
