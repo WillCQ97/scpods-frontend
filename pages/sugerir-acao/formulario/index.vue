@@ -206,23 +206,26 @@
             <v-row>
               <v-col cols="3">
                 <v-combobox
+                  v-model="campusSelecionado"
                   label="Campus"
-                  :items="fieldCampusItems"
+                  :items="loadCampusItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
               <v-col>
                 <v-combobox
+                  v-model="unidadeSelecionada"
                   label="Unidade"
-                  :items="fieldUnidadeItems"
+                  :items="loadUnidadeItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
 
               <v-col>
                 <v-combobox
+                  v-model="localSelecionado"
                   label="Local"
-                  :items="fieldLocalItems"
+                  :items="loadLocalItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
@@ -281,6 +284,9 @@
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
 
 const odsStore = useObjetivoStore()
+const unidadeStore = useUnidadeStore()
+
+await unidadeStore.fetchLocais()
 
 definePageMeta({
   middleware: ['auth'],
@@ -320,31 +326,12 @@ export default {
       fieldCoordinatorRole: '',
 
       // lotação
-      fieldCampusItems: ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus'],
-      fieldUnidadeItems: [
-        'Campus Alegre',
-        'Campus de Goiabeiras',
-        'Campus Maruípe',
-        'Campus São Mateus',
-        'Área Experimental em Rive, Alegre',
-        'Unidade em Jerônimo Monteiro',
-        'Área Experimental em Jerônimo Monteiro',
-        'Área Experimental em São José do Calçado',
-      ],
-      fieldLocalItems: [
-        'Anatomia Animal',
-        'Biologia',
-        'Biotecnologia',
-        'SUGRAD',
-        'Cemuni 1',
-        'Cemuni 2',
-        'Cemuni 3',
-        'Cantina / Copiadora',
-        'Prédio da Oceanografia',
-        'Oceanografia - Prédio da Mata',
-        'CT 1',
-        'CT 2',
-      ],
+      fieldCampusItems: [],
+      campusSelecionado: '',
+      fieldUnidadeItems: [],
+      unidadeSelecionada: '',
+      fieldLocalItems: [],
+      localSelecionado: '',
       fieldLotacaoItems: [
         'Centro de Ciências Agrárias e Engenharias',
         'Centro de Ciências Exatas, Naturais e da Saúde',
@@ -449,6 +436,38 @@ export default {
         this.targetSelectedIndex !== null &&
         this.targetSelectedIndex !== undefined
       )
+    },
+    loadCampusItems() {
+      return ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus']
+    },
+    loadUnidadeItems() {
+      if (!this.unidadeSelecionada) return []
+      return [
+        'Campus Alegre',
+        'Campus de Goiabeiras',
+        'Campus Maruípe',
+        'Campus São Mateus',
+        'Área Experimental em Rive, Alegre',
+        'Unidade em Jerônimo Monteiro',
+        'Área Experimental em Jerônimo Monteiro',
+        'Área Experimental em São José do Calçado',
+      ]
+    },
+    loadLocalItems() {
+      return [
+        'Anatomia Animal',
+        'Biologia',
+        'Biotecnologia',
+        'SUGRAD',
+        'Cemuni 1',
+        'Cemuni 2',
+        'Cemuni 3',
+        'Cantina / Copiadora',
+        'Prédio da Oceanografia',
+        'Oceanografia - Prédio da Mata',
+        'CT 1',
+        'CT 2',
+      ]
     },
     sendForm() {
       const campos = [

@@ -50,9 +50,28 @@ export const useUnidadeStore = defineStore('unidadeStore', {
           '</div></div>',
       }))
     },
+
+    getUnidades({ unidades, unidadeInfo }) {
+      return unidades
+    },
   },
 
   actions: {
+    async fetchCampusOptions() {
+      try {
+        const response = await $fetch('unidades/opcoes-campus', {
+          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          method: 'get',
+          lazy: true,
+          server: false,
+        })
+        return response
+      } catch (error) {
+        console.log('ERRO:', error)
+        return error
+      }
+    },
+
     async fetchInfo(codigoUnidade: string) {
       const path = 'unidades/' + codigoUnidade + '/info'
 
@@ -64,6 +83,21 @@ export const useUnidadeStore = defineStore('unidadeStore', {
           server: false,
         })
         this.unidadeInfo = response
+      } catch (error) {
+        console.log('ERRO:', error)
+        return error
+      }
+    },
+
+    async fetchLocais() {
+      try {
+        const response = await $fetch('unidades/', {
+          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          method: 'get',
+          lazy: true,
+          server: false,
+        })
+        this.unidades = response
       } catch (error) {
         console.log('ERRO:', error)
         return error
