@@ -27,7 +27,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn :color="btnColor" variant="elevated" @click="showForm">
-              Exibir Formulário
+              Acessar Formulário
             </v-btn>
             <v-spacer />
           </v-card-actions>
@@ -94,7 +94,7 @@ export default {
       if (!user.isLoggedIn) {
         this.showDialog = true
       }
-      // the middleware auth should prevent this page to load the form
+      // todo: the middleware auth should prevent this page to load the form
       return navigateTo('/sugerir-acao/formulario')
     },
   },

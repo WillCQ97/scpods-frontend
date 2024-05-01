@@ -1,16 +1,26 @@
-.ufes-style {
+/* CSS RESET */
+
+* {
   font-family: 'Ufes Sans', sans-serif;
 }
 
-/* TODO: serve apenas para referencia do colorPalleteUfes durante o desenvolvimento */
-#ufes-color-pallete {
-  primary: #234379;
-  mono1: #000011;
-  mono2: #11182c;
-  mono3: #182849;
-  mono4: #203a69;
-  mono5: #345188;
-  mono6: #546da8;
-  mono7: #748bc8;
-  mono8: #94aaea;
+/* *** */
+
+/*** POPUP DOS MAPAS: UTILIZADO EM UNIDADE.TS ***/
+
+div.map_popup {
+  display: flex;
 }
+
+img.map_popup_img {
+  height: 100px;
+  margin-bottom: auto;
+  margin-top: auto;
+  width: 100px;
+}
+
+div.map_popup_text {
+  padding-left: 5px;
+}
+
+/* *** */

@@ -37,6 +37,8 @@
 </template>
 
 <script lang="ts">
+import type Marker from '~/models/props/marker.model'
+
 /*
  * A ordem esperada das coordenadas é latitude, longitude
  */
@@ -63,7 +65,7 @@ export default {
       default: null,
     },
     markers: {
-      type: Array,
+      type: Array as PropType<Marker[]>,
       required: true,
     },
     tileUrl: {
@@ -102,14 +104,17 @@ export default {
         return
       }
       return (feature, layer) => {
+        /*
+         * ESTE TOOLTIP CONSIDERA A ESTRUTURA DO GEOJSON DOS CAMPI
+         */
         const props = feature.properties
-        let tags = ''
 
+        let tags = ''
         Object.entries(props.palavras_chave).forEach(([_key, value]) => {
           tags += value + '; '
         })
 
-        const popupContent =
+        const mapTooltip =
           '<strong>ID:</strong> ' +
           props.idd +
           '<br /><strong>Nome:</strong> ' +
@@ -117,7 +122,7 @@ export default {
           '<br /><strong>Tags:</strong> ' +
           tags
 
-        layer.bindTooltip(popupContent, { permanent: false, sticky: true })
+        layer.bindTooltip(mapTooltip, { permanent: false, sticky: true })
       }
     },
     mapOptions() {
@@ -143,20 +148,3 @@ export default {
   },
 }
 </script>
-
-<style>
-div.popup {
-  display: flex;
-}
-
-img.popup_img {
-  height: 75px;
-  margin-bottom: auto;
-  margin-top: auto;
-  width: 75px;
-}
-
-div.popup_text {
-  padding-left: 5px;
-}
-</style>

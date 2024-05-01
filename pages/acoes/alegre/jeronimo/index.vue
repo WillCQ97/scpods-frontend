@@ -4,12 +4,13 @@
       <v-row>
         <v-col>
           <actions-map-component
-            :title="nomeUnidade"
-            :bounds="limitesJeronimo"
-            :center="centroJeronimo"
-            :feature="featureJeronimo"
-            :markers="createMarkers"
-            @show-actions="showActions"
+            :title="mapTitle"
+            :bounds="jeronimoBounds"
+            :center="jeronimoCenter"
+            :feature="campusFeatures"
+            :markers="jeronimoMarkers"
+            @show-actions="showActionsHandler"
+            @refresh-data="reloadInfoHandler"
           />
         </v-col>
       </v-row>
@@ -26,84 +27,56 @@
 </template>
 
 <script lang="ts">
+import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import type { Acao } from '~/models/acao/acao.model'
 
-import alegreActions from '~/assets/data/alegreActions.json'
-import alegreInfo from '~/assets/data/alegreInfo.json'
-import odsGoals from '~/assets/data/odsGoals.json'
+const codigoUnidade = 'UN_JERONIMO'
+const acaoStore = useAcaoStore()
 
-import featureJeronimo from '~/assets/features/jeronimo.json'
+const unidadeStore = useUnidadeStore()
+
+async function carregarInfo() {
+  await unidadeStore.fetchInfo(codigoUnidade)
+}
 
 export default {
   name: 'PaginaAcoesJeronimo',
   components: { ActionsListComponent, ActionsMapComponent },
 
+  async beforeRouteEnter() {
+    await carregarInfo()
+  },
+
   data() {
     return {
-      alegreActions,
-      alegreInfo,
-      odsGoals,
+      jeronimoActions: [] as Acao[], // TODO: TIPAR EM INGLÊS
+      campusFeatures: featureJeronimo,
       isActionsListVisible: false,
-      jeronimoActions: [],
-      unidadeId: 6,
-      nomeCampus: 'ALEGRE',
-      nomeUnidade: 'Unidade em Jerônimo Monteiro',
-      centroJeronimo: [-20.79071, -41.38887],
-      limitesJeronimo: [
+      mapTitle: 'Unidade em Jerônimo Monteiro',
+      jeronimoBounds: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
       ],
-      featureJeronimo,
+      jeronimoCenter: [-20.79071, -41.38887],
     }
   },
 
   computed: {
-    createMarkers() {
-      const sede = this.alegreInfo.unidades.filter(
-        (un) => un.id === this.unidadeId,
-      )[0]
-
-      const locais = sede.locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
-      )
-
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
-            .titulo +
-          '</div></div>',
-      }))
-
-      return markers
+    jeronimoMarkers() {
+      return unidadeStore.getMarcadores
     },
   },
 
   methods: {
-    showActions(flag: boolean) {
+    async showActionsHandler(flag: boolean) {
       this.isActionsListVisible = flag
-      this.jeronimoActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
+      this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
+    },
+    async reloadInfoHandler() {
+      // FIXME: ATUALIZAR NÃO ESTÁ FUNCIONANDO
+      await carregarInfo()
     },
   },
 }

@@ -4,9 +4,9 @@
       <v-row>
         <v-col>
           <actions-map-component
-            :title="mapTitle"
-            :bounds="mapLimits"
-            :center="mapCenter"
+            :title="nomeCampus"
+            :bounds="limitesAlegre"
+            :center="centroAlegre"
             :feature="featureAlegre"
             :markers="createMarkers"
             @show-actions="showActions"
@@ -16,10 +16,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="alegreSedeActions"
-          />
+          <actions-list-component v-if="exibirAcoes" :actions="acoesAlegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -27,81 +24,49 @@
 </template>
 
 <script lang="ts">
+import featureAlegre from '~/assets/features/alegre.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import type { Acao } from '~/models/acao/acao.model'
 
-import alegreActions from '~/assets/data/alegreActions.json'
-import alegreInfo from '~/assets/data/alegreInfo.json'
-import odsGoals from '~/assets/data/odsGoals.json'
-
-import featureAlegre from '~/assets/features/alegre.json'
+const codigoUnidade = 'UN_ALEGRE'
+const acaoStore = useAcaoStore()
+const unidadeStore = useUnidadeStore()
 
 export default {
   name: 'PaginaMapaAcoesAlegreSede',
   components: { ActionsListComponent, ActionsMapComponent },
 
+  // const { data, pending, error, refresh } = await useFetch()
+  async beforeRouteEnter() {
+    await unidadeStore.fetchInfo(codigoUnidade)
+    // refresh
+  },
+
   data() {
     return {
-      alegreInfo,
-      alegreSedeActions: [],
-      unidadeId: 1,
-      isActionsListVisible: false,
+      acoesAlegre: [] as Acao[],
+      exibirAcoes: false,
       featureAlegre,
-      mapCenter: [-20.76161, -41.536],
-      mapLimits: [
+      nomeCampus: 'Campus Sede em Alegre',
+      centroAlegre: [-20.76161, -41.536],
+      limitesAlegre: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],
       ],
-      mapTitle: 'Campus Sede em Alegre',
-      odsGoals: [],
     }
   },
 
   computed: {
     createMarkers() {
-      const sede = this.alegreInfo.unidades.filter(
-        (un) => un.id === this.unidadeId,
-      )[0]
-
-      const locais = sede.locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
-      )
-
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsGoals.filter((ods) => ods.id === local.idObjetivoMaisAtendido)[0]
-            .titulo +
-          '</div></div>',
-      }))
-
-      return markers
+      return unidadeStore.getMarcadores
     },
   },
+
   methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.alegreSedeActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
+    async showActions(flag: boolean) {
+      this.exibirAcoes = flag
+      this.acoesAlegre = await acaoStore.fetchAcoes(codigoUnidade)
     },
   },
 }

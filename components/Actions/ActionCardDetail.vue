@@ -195,7 +195,7 @@ export default {
 
   methods: {
     emitAccept(accept: boolean) {
-      this.$emit('accept', accept)
+      this.$emit('accept', { accepted: accept, id: this.action.id })
     },
     emitClose() {
       this.$emit('close', true)

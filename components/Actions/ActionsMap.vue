@@ -17,6 +17,15 @@
       <v-spacer />
       <v-btn class="btn" @click="emitShowActionsList">
         {{ isActionListVisible ? 'Ocultar' : 'Exibir' }} Ações
+        <v-tooltip activator="parent" location="bottom">
+          Mostrar a listagem das ações para esta unidade
+        </v-tooltip>
+      </v-btn>
+      <v-btn class="btn" @click="emitRefreshData">
+        Atualizar
+        <v-tooltip activator="parent" location="bottom">
+          Recarrega as informações mostradas no mapa
+        </v-tooltip>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -25,6 +34,7 @@
 <script lang="ts">
 import AppMapComponent from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import type Marker from '~/models/props/marker.model'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
@@ -44,7 +54,7 @@ export default {
       required: true,
     },
     markers: {
-      type: Array,
+      type: Array as PropType<Marker[]>,
       required: true,
     },
     title: {
@@ -57,7 +67,7 @@ export default {
       required: false,
     },
   },
-  emits: ['showActions'],
+  emits: ['showActions', 'refreshData'],
   data() {
     return {
       attribution:
@@ -74,6 +84,9 @@ export default {
     emitShowActionsList() {
       this.isActionListVisible = !this.isActionListVisible
       this.$emit('showActions', this.isActionListVisible)
+    },
+    emitRefreshData() {
+      this.$emit('refreshData')
     },
   },
 }

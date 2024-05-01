@@ -84,7 +84,7 @@
                     />
                   </div>
                   <p id="ods-selected-text">
-                    <strong>{{ getGoalDescription(btnGoalIndex + 1) }}</strong>
+                    <strong>{{ getGoalTitle(btnGoalIndex + 1) }}</strong>
                   </p>
                 </div>
               </v-col>
@@ -206,23 +206,26 @@
             <v-row>
               <v-col cols="3">
                 <v-combobox
+                  v-model="campusSelecionado"
                   label="Campus"
-                  :items="fieldCampusItems"
+                  :items="loadCampusItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
               <v-col>
                 <v-combobox
+                  v-model="unidadeSelecionada"
                   label="Unidade"
-                  :items="fieldUnidadeItems"
+                  :items="loadUnidadeItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
 
               <v-col>
                 <v-combobox
+                  v-model="localSelecionado"
                   label="Local"
-                  :items="fieldLocalItems"
+                  :items="loadLocalItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
@@ -279,7 +282,11 @@
 
 <script lang="ts">
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
-import goals from '~/assets/data/odsGoals.json'
+
+const odsStore = useObjetivoStore()
+const unidadeStore = useUnidadeStore()
+
+await unidadeStore.fetchLocais()
 
 definePageMeta({
   middleware: ['auth'],
@@ -319,31 +326,12 @@ export default {
       fieldCoordinatorRole: '',
 
       // lotação
-      fieldCampusItems: ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus'],
-      fieldUnidadeItems: [
-        'Campus Alegre',
-        'Campus de Goiabeiras',
-        'Campus Maruípe',
-        'Campus São Mateus',
-        'Área Experimental em Rive, Alegre',
-        'Unidade em Jerônimo Monteiro',
-        'Área Experimental em Jerônimo Monteiro',
-        'Área Experimental em São José do Calçado',
-      ],
-      fieldLocalItems: [
-        'Anatomia Animal',
-        'Biologia',
-        'Biotecnologia',
-        'SUGRAD',
-        'Cemuni 1',
-        'Cemuni 2',
-        'Cemuni 3',
-        'Cantina / Copiadora',
-        'Prédio da Oceanografia',
-        'Oceanografia - Prédio da Mata',
-        'CT 1',
-        'CT 2',
-      ],
+      fieldCampusItems: [],
+      campusSelecionado: '',
+      fieldUnidadeItems: [],
+      unidadeSelecionada: '',
+      fieldLocalItems: [],
+      localSelecionado: '',
       fieldLotacaoItems: [
         'Centro de Ciências Agrárias e Engenharias',
         'Centro de Ciências Exatas, Naturais e da Saúde',
@@ -373,7 +361,7 @@ export default {
       dialogError: false,
       rules: [(value) => !!value || 'Este campo é obrigatório.'],
 
-      goals,
+      goals: odsStore.getObjetivos,
       targetsSelected: [],
       targetDisabled: true,
       btnGoalIndex: null,
@@ -415,30 +403,28 @@ export default {
       return this.btnGoalIndex + 1
     },
     getGoal(id: number) {
-      return this.goals.filter((goal) => goal.id === id)
+      return odsStore.getObjetivoById(id)
     },
-    getGoalDescription(odsNumber) {
-      return this.getGoal(odsNumber)[0].titulo
+    getGoalTitle(id: number) {
+      return odsStore.getTituloObjetivoById(id)
     },
-    getTargetsODS(odsNumber) {
-      if (odsNumber == null) {
+    getGoalTargets(id: number) {
+      if (id == null) {
         return
       }
-
-      const objetivo = this.getGoal(odsNumber)
-      return objetivo[0].metas
+      return odsStore.getMetasByObjetivoId(id)
     },
-    getMetaFieldItems(odsNumber) {
+    getMetaFieldItems(id: number) {
       if (this.btnGoalIndex === null || this.btnGoalIndex === undefined) {
         this.targetDisabled = true
         return []
       }
 
       this.targetDisabled = false
-      const objetivo = this.getGoal(odsNumber)
-      return objetivo[0].metas.map(
-        (meta) =>
-          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 117) +
+
+      return this.getGoalTargets(id)?.map(
+        (target) =>
+          ('Meta ' + target.id + ' - ' + target.descricao).substring(0, 117) +
           ' ...',
       )
     },
@@ -450,6 +436,38 @@ export default {
         this.targetSelectedIndex !== null &&
         this.targetSelectedIndex !== undefined
       )
+    },
+    loadCampusItems() {
+      return ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus']
+    },
+    loadUnidadeItems() {
+      if (!this.unidadeSelecionada) return []
+      return [
+        'Campus Alegre',
+        'Campus de Goiabeiras',
+        'Campus Maruípe',
+        'Campus São Mateus',
+        'Área Experimental em Rive, Alegre',
+        'Unidade em Jerônimo Monteiro',
+        'Área Experimental em Jerônimo Monteiro',
+        'Área Experimental em São José do Calçado',
+      ]
+    },
+    loadLocalItems() {
+      return [
+        'Anatomia Animal',
+        'Biologia',
+        'Biotecnologia',
+        'SUGRAD',
+        'Cemuni 1',
+        'Cemuni 2',
+        'Cemuni 3',
+        'Cantina / Copiadora',
+        'Prédio da Oceanografia',
+        'Oceanografia - Prédio da Mata',
+        'CT 1',
+        'CT 2',
+      ]
     },
     sendForm() {
       const campos = [

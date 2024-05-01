@@ -10,7 +10,7 @@
             :is-submission="isSubmission"
             :action="selectedItem"
             @close="showDialog = false"
-            @accept="acceptHandler"
+            @accept="emitAccept"
           />
         </v-dialog>
       </template>
@@ -27,26 +27,6 @@
         </v-icon>
       </template>
     </v-data-table>
-    <v-dialog v-model="showSuccess" width="50vh">
-      <v-card>
-        <v-card-title>Sucesso</v-card-title>
-        <v-card-text>
-          A submissão foi {{ aceito ? 'aceita' : 'recusada' }}!
-        </v-card-text>
-        <v-card-actions>
-          <v-btn @click="showSuccess = false">Fechar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="showError" width="50vh">
-      <v-card>
-        <v-card-title>Erro</v-card-title>
-        <v-card-text> A ação não pode ser concluída! </v-card-text>
-        <v-card-actions>
-          <v-btn @click="showError = false">Fechar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-card>
 </template>
 
@@ -54,10 +34,12 @@
 import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import type { Acao } from '~/models/acao/acao.model'
 
 export default {
   name: 'ActionsListComponent',
   components: { ActionCardDetailComponent, TheCardDivider, TheGoalImage },
+
   props: {
     actions: {
       type: Array,
@@ -69,6 +51,7 @@ export default {
       default: false,
     },
   },
+
   data() {
     return {
       header: [
@@ -84,12 +67,14 @@ export default {
           key: 'titulo',
         },
         { title: 'Meta', key: 'meta.id' },
-        { title: 'Centro', key: 'lotacao.sigla' },
+        { title: 'Lotação', key: 'lotacao.sigla' },
         { title: 'Local', key: 'local.nomePrincipal' },
         { title: 'Coordenador', key: 'coordenador.nome' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
+
       selectedItem: {
+        // TODO: CRIAR UM BUILDER USANDO TYPESCRIPT PARA INSTANCIAR ESSE OBJETO
         titulo: '',
         descricao: '',
         dataCadastro: '',
@@ -121,32 +106,21 @@ export default {
           sigla: '',
         },
       },
-      aceito: undefined,
+
       showDialog: false,
-      showError: false,
-      showSuccess: false,
     }
   },
+
+  emits: ['accept'],
+
   methods: {
-    showItem(item) {
+    showItem(item: Acao) {
+      // TODO: TYPESCRIPT WARNING
       this.selectedItem = item
       this.showDialog = true
     },
-    acceptHandler(accept: boolean) {
-      console.log('Aceito: ', accept)
-      if (accept) {
-        // aceitar submissão
-        this.aceito = true
-      } else {
-        //recusar submissão
-        this.aceito = false
-      }
-
-      if (Math.floor(Math.random() * 10) % 2 === 0) {
-        this.showSuccess = true
-      } else {
-        this.showError = true
-      }
+    emitAccept({ accepted, id }) {
+      this.$emit('accept', { accepted, id })
     },
   },
 }

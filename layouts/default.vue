@@ -79,7 +79,7 @@
 
           <v-list-item
             to="/acoes/maruipe"
-            prepend-icon="mdi-alpha-g"
+            prepend-icon="mdi-alpha-m"
             router
             exact
           >
