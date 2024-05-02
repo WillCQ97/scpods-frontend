@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>Sobre o formulário de sugestão</v-card-title>
-    <hr />
+    <the-card-divider />
     <v-card-text>
       <p>
         O formulário é composto por informações essenciais acerca da
@@ -27,6 +27,15 @@
     </v-card-text>
   </v-card>
 </template>
+
+<script lang="ts">
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+export default {
+  name: 'PaginaSugerirNovaAcao',
+  components: { TheCardDivider },
+}
+</script>
+
 <style scoped>
 ul {
   padding-left: 25px;

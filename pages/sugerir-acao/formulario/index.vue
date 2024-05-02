@@ -5,7 +5,7 @@
       <v-col>
         <v-card>
           <v-card-title>Informações da ação</v-card-title>
-          <hr />
+          <the-card-divider />
           <v-card-text>
             <v-row>
               <v-col>
@@ -160,7 +160,7 @@
       <v-col>
         <v-card>
           <v-card-title>Informações do coordenador</v-card-title>
-          <hr />
+          <the-card-divider />
           <v-card-text>
             <v-row>
               <v-col>
@@ -201,7 +201,7 @@
           <v-card-title>
             Local de realização, nos limites da universidade
           </v-card-title>
-          <hr />
+          <the-card-divider />
           <v-card-text>
             <v-row>
               <v-col cols="3">
@@ -252,7 +252,7 @@
           Sua ação foi enviada para contemplação pela comissão avaliadora.
         </v-card-text>
 
-        <v-divider></v-divider>
+        <the-card-divider />
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -269,7 +269,7 @@
           Por favor, verifique-os e tente novamente!
         </v-card-text>
 
-        <v-divider></v-divider>
+        <the-card-divider />
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -281,6 +281,7 @@
 </template>
 
 <script lang="ts">
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
 
 const odsStore = useObjetivoStore()
@@ -294,7 +295,7 @@ definePageMeta({
 
 export default {
   name: 'PaginaFormularioSugerirNovaAcao',
-  components: { TheGoalImageComponent },
+  components: { TheCardDivider, TheGoalImageComponent },
   data() {
     return {
       submissao: {

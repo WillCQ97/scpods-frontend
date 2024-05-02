@@ -64,10 +64,6 @@
 </template>
 
 <script lang="ts">
-/*
- * Como neste arquivo está sendo usado a Composition API, os valores devem
- * ser acessados com variavel.value no script setup
- */
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 

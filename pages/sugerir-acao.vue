@@ -4,7 +4,7 @@
       <v-col>
         <v-card>
           <v-card-title>Passos para sugerir uma ação</v-card-title>
-          <v-divider :color="dividerColor" thickness="3"></v-divider>
+          <the-card-divider />
           <v-card-text>
             <ol>
               <li>
@@ -45,7 +45,7 @@
     <v-dialog v-model="showDialog" width="75vh">
       <v-card>
         <v-card-title> Validação Necessária </v-card-title>
-        <v-divider :color="dividerColor" thickness="3"></v-divider>
+        <the-card-divider />
         <v-card-text>
           <p>
             Apenas membros da comunidade acadêmica podem realizar a submissão de
@@ -54,7 +54,7 @@
           <p>Por favor, utilize o botão de entrar no menu superior.</p>
         </v-card-text>
 
-        <v-divider :color="dividerColor"></v-divider>
+        <the-card-divider />
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -73,6 +73,7 @@
 
 <script lang="ts">
 import colorPalleteUfes from '~/assets/colors'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 // FIXME: isso resulta em erro relacionado ao carregamento do pinia se a página for acessada primeiramente
 // USO DO COMPOSITION API RESOLVE?!
@@ -81,11 +82,11 @@ import colorPalleteUfes from '~/assets/colors'
 const user = useUser()
 
 export default {
-  name: 'PaginaWraperSugerirNovaAcao',
+  name: 'PaginaSugerirNovaAcaoWraper',
+  components: { TheCardDivider },
   data() {
     return {
       btnColor: colorPalleteUfes.monocromatic.secondary,
-      dividerColor: colorPalleteUfes.monocromatic.mono3,
       showDialog: false,
     }
   },
