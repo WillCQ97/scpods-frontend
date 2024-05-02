@@ -36,16 +36,17 @@
 
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+
 const userStore = useUserStore()
 
 export default {
   name: 'PaginaLogin',
   components: { TheCardDivider },
   methods: {
-    validarLogin() {
+    validarLogin(): void {
       userStore.login('cpf', 'senha')
     },
-    cancelar() {
+    cancelar(): void {
       navigateTo('/')
     },
   },

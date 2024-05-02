@@ -182,7 +182,7 @@ export default {
       userStore.isAdmin = !userStore.isAdmin
     },
     login(): void {
-      navigateTo('\entrar')
+      navigateTo('/entrar')
     },
     logoff(): void {
       userStore.logout()
