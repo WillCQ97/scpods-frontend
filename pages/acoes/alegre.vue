@@ -119,8 +119,8 @@
 </template>
 
 <script lang="ts">
-import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import colorPalleteUfes from '~/assets/colors'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 async function carregarMapa(campus: string) {
   await navigateTo('/acoes/alegre/' + campus)
@@ -147,6 +147,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 ul {
   padding-left: 25px;

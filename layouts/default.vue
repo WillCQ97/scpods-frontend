@@ -13,7 +13,7 @@
       <!-- USER -->
       <v-btn
         :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="changeUserFlag()"
+        @click.stop="!isUserLoggedIn() ? login() : logoff()"
       >
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
@@ -152,7 +152,7 @@
 <script lang="ts">
 import colorPalleteUfes from 'assets/colors'
 
-const user = useUser()
+const user = useUserStore()
 
 export default {
   name: 'DefaultLayout',
@@ -180,12 +180,13 @@ export default {
     isUserAdmin() {
       return user.isAdmin
     },
-    changeUserFlag() {
-      user.isLoggedIn = !user.isLoggedIn
-    },
     changeUserAdmin() {
       user.isAdmin = !user.isAdmin
     },
+    login() {
+      navigateTo('\entrar')
+    },
+    logoff() {},
   },
 }
 </script>
@@ -194,8 +195,6 @@ export default {
   opacity: 1;
 }
 #title-bar {
-  font-family: 'Ufes Sans', sans-serif !important;
   text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
-  /*color: black; */ /* TODO: É POSSÍVEL DEFINIR A COR DA FONTE DIRETAMENTE ASSIM */
 }
 </style>
