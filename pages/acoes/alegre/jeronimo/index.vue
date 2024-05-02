@@ -76,6 +76,8 @@ export default {
     },
     async reloadInfoHandler() {
       // FIXME: ATUALIZAR NÃO ESTÁ FUNCIONANDO
+      // PROVAVELMENTE, PORQUE A INFO É UTILIZADA PARA GERAR OS MARCADORES
+      // MAS OS MESMOS SÃO UTILIZADOS COMO COMPUTED E POR ISSO NÃO SÃO ATUALIZADOS
       await carregarInfo()
     },
   },
