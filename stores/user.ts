@@ -5,21 +5,26 @@
 // https://nuxt.com/docs/guide/going-further/runtime-config#environment-variables
 
 export const useUserStore = defineStore('userStore', {
-  state: () => {
-    return {
-      user: {},
-      isLoggedIn: false,
-      isAdmin: true,
-    }
-  },
+  state: () => ({
+    isLoggedIn: false,
+    isAdmin: true,
+  }),
 
-  getters: {},
+  getters: {
+    isUserLoggedIn({ isLoggedIn }): boolean {
+      return isLoggedIn
+    },
+  },
 
   actions: {
     login(login: string, password: string) {
       // TODO: implementar a lógica de acesso
       this.isLoggedIn = true
       console.log(this.isLoggedIn)
+    },
+
+    logout() {
+      this.isLoggedIn = false
     },
   },
 })

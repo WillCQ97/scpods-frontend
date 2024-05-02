@@ -152,41 +152,41 @@
 <script lang="ts">
 import colorPalleteUfes from 'assets/colors'
 
-const user = useUserStore()
+const userStore = useUserStore()
 
 export default {
   name: 'DefaultLayout',
-  data() {
-    return {
-      clipped: true,
-      drawer: false,
-      fixed: false,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
+  data: () => ({
+    clipped: true,
+    drawer: false,
+    fixed: false,
+    miniVariant: false,
+    right: true,
+    rightDrawer: false,
 
-      author: 'Willian Conceição Queiroz',
-      headerColor: colorPalleteUfes.monocromatic.mono6,
-      footerColor: colorPalleteUfes.monocromatic.mono5,
-      menuColor: colorPalleteUfes.monocromatic.mono7,
-      headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
-    }
-  },
+    author: 'Willian Conceição Queiroz',
+    headerColor: colorPalleteUfes.monocromatic.mono6,
+    footerColor: colorPalleteUfes.monocromatic.mono5,
+    menuColor: colorPalleteUfes.monocromatic.mono7,
+    headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
+  }),
 
   methods: {
-    isUserLoggedIn() {
-      return user.isLoggedIn
+    isUserLoggedIn(): boolean {
+      return userStore.isUserLoggedIn
     },
-    isUserAdmin() {
-      return user.isAdmin
+    isUserAdmin(): boolean {
+      return userStore.isAdmin
     },
-    changeUserAdmin() {
-      user.isAdmin = !user.isAdmin
+    changeUserAdmin(): void {
+      userStore.isAdmin = !userStore.isAdmin
     },
-    login() {
+    login(): void {
       navigateTo('\entrar')
     },
-    logoff() {},
+    logoff(): void {
+      userStore.logout()
+    },
   },
 }
 </script>

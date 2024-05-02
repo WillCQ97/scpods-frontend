@@ -25,7 +25,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn> Validar Login </v-btn>
+          <v-btn @click="validarLogin()"> Validar Login </v-btn>
           <v-btn @click="cancelar()"> Cancelar </v-btn>
         </v-card-actions>
       </v-card>
