@@ -10,7 +10,7 @@
             {{ otherError }}
           </v-card-title>
 
-          <hr />
+          <the-card-divider />
           <v-card-text v-if="error.statusCode === 404">
             <p>
               Lamentamos, mas a página que você está tentando acessar não
@@ -37,21 +37,27 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import TheCardDivider from './components/UI/TheCardDivider.vue'
+
 export default {
-  name: 'ErrorPage',
+  name: 'PaginaErro',
+  components: { TheCardDivider },
+
   props: {
     error: {
       type: Object,
       default: null,
     },
   },
+
   data() {
     return {
       pageNotFound: 'Erro 404: Conteúdo não encontrado',
       otherError: 'Ops... Algo de errado não está certo!',
     }
   },
+
   head() {
     const title =
       this.error.statusCode === 404 ? this.pageNotFound : this.otherError

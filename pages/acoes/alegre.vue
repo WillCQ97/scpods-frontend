@@ -59,8 +59,8 @@
               <v-card-title>Campus de Alegre</v-card-title>
               <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
             </v-card-item>
-            <!--TODO-->
-            <v-divider :color="dividerColor" thickness="3"></v-divider>
+
+            <the-card-divider />
 
             <v-card-text>
               <p>
@@ -119,8 +119,8 @@
 </template>
 
 <script lang="ts">
-import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import colorPalleteUfes from '~/assets/colors'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 async function carregarMapa(campus: string) {
   await navigateTo('/acoes/alegre/' + campus)
@@ -131,7 +131,6 @@ export default {
   data() {
     return {
       corBotao: colorPalleteUfes.monocromatic.secondary,
-      dividerColor: colorPalleteUfes.monocromatic.primary,
       mapas: [
         { titulo: 'Sede em Alegre', subpagina: 'sede' },
         { titulo: 'Unidade Jerônimo Monteiro', subpagina: 'jeronimo' },
@@ -148,6 +147,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 ul {
   padding-left: 25px;

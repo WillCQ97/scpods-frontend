@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title> Informações detalhadas sobre a ação </v-card-title>
 
-    <v-divider></v-divider>
+    <the-card-divider />
 
     <v-card-text>
       <!-- FORMULÁRIO -->
@@ -138,7 +138,7 @@
       </v-form>
     </v-card-text>
 
-    <v-divider></v-divider>
+    <the-card-divider />
 
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -157,10 +157,11 @@
 
 <script lang="ts">
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
+import TheCardDivider from '../UI/TheCardDivider.vue'
 
 export default {
   name: 'ActionCardDetailComponent',
-  components: { TheGoalImageComponent },
+  components: { TheCardDivider, TheGoalImageComponent },
 
   props: {
     action: {

@@ -13,7 +13,7 @@
       <!-- USER -->
       <v-btn
         :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="changeUserFlag()"
+        @click.stop="!isUserLoggedIn() ? login() : logoff()"
       >
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
@@ -152,39 +152,40 @@
 <script lang="ts">
 import colorPalleteUfes from 'assets/colors'
 
-const user = useUser()
+const userStore = useUserStore()
 
 export default {
   name: 'DefaultLayout',
-  data() {
-    return {
-      clipped: true,
-      drawer: false,
-      fixed: false,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
+  data: () => ({
+    clipped: true,
+    drawer: false,
+    fixed: false,
+    miniVariant: false,
+    right: true,
+    rightDrawer: false,
 
-      author: 'Willian Conceição Queiroz',
-      headerColor: colorPalleteUfes.monocromatic.mono6,
-      footerColor: colorPalleteUfes.monocromatic.mono5,
-      menuColor: colorPalleteUfes.monocromatic.mono7,
-      headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
-    }
-  },
+    author: 'Willian Conceição Queiroz',
+    headerColor: colorPalleteUfes.monocromatic.mono6,
+    footerColor: colorPalleteUfes.monocromatic.mono5,
+    menuColor: colorPalleteUfes.monocromatic.mono7,
+    headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
+  }),
 
   methods: {
-    isUserLoggedIn() {
-      return user.isLoggedIn
+    isUserLoggedIn(): boolean {
+      return userStore.isUserLoggedIn
     },
-    isUserAdmin() {
-      return user.isAdmin
+    isUserAdmin(): boolean {
+      return userStore.isAdmin
     },
-    changeUserFlag() {
-      user.isLoggedIn = !user.isLoggedIn
+    changeUserAdmin(): void {
+      userStore.isAdmin = !userStore.isAdmin
     },
-    changeUserAdmin() {
-      user.isAdmin = !user.isAdmin
+    login(): void {
+      navigateTo('/entrar')
+    },
+    logoff(): void {
+      userStore.logout()
     },
   },
 }
@@ -194,8 +195,6 @@ export default {
   opacity: 1;
 }
 #title-bar {
-  font-family: 'Ufes Sans', sans-serif !important;
   text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
-  /*color: black; */ /* TODO: É POSSÍVEL DEFINIR A COR DA FONTE DIRETAMENTE ASSIM */
 }
 </style>

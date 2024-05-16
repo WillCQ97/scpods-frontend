@@ -87,6 +87,7 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao/acao.model'
+import type Marker from '~/models/props/marker.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
 const acaoStore = useAcaoStore()
@@ -107,15 +108,15 @@ export default {
       nomeUnidade: 'Campus em Goiabeiras',
       centroGoiabeiras: [-20.2764, -40.3037],
       limitesGoiabeiras: [
-        [-20.2696, -40.308],
-        [-20.284, -40.3009],
+        [-20.2696, -40.3089],
+        [-20.2846, -40.3009],
       ],
       featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
     }
   },
 
   computed: {
-    createMarkers() {
+    createMarkers(): Marker[] {
       return unidadeStore.getMarcadores
     },
   },

@@ -64,10 +64,6 @@
 </template>
 
 <script lang="ts">
-/*
- * Como neste arquivo está sendo usado a Composition API, os valores devem
- * ser acessados com variavel.value no script setup
- */
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
@@ -77,21 +73,18 @@ var submissoes = await acaoStore.fetchSubmissoes()
 definePageMeta({
   middleware: 'auth',
 })
-
 export default {
   components: { ActionsListComponent, TheCardDivider },
 
-  data() {
-    return {
-      accepted: false,
-      showErrorDialog: false,
-      showSuccess: false,
-      submissoes,
-    }
-  },
+  data: () => ({
+    accepted: false,
+    showErrorDialog: false,
+    showSuccess: false,
+    submissoes,
+  }),
 
   methods: {
-    async acceptHandler({ accepted, id }) {
+    async acceptHandler({ accepted, id }): Promise<void> {
       console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
       try {
@@ -112,7 +105,7 @@ export default {
       console.log('REFRESH: ', submissoes)
     },
 
-    async refreshList() {
+    async refreshList(): Promise<void> {
       submissoes = await acaoStore.fetchSubmissoes()
     },
   },

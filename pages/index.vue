@@ -111,6 +111,11 @@
   </v-row>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+
+export default {
+  name: 'PaginaInicial',
+  components: { TheCardDivider },
+}
 </script>

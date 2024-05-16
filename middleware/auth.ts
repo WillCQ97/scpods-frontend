@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   console.log('[MIDDLEWARE] Verificando autenticação?!')
 
-  const user = useUser()
+  const user = useUserStore()
   // APENAS O ADMIN PODE ACESSAR A PÁGINA PARA AVALIAR AS SUBMISSÕES
   if (to.path === '/admin/avaliar-submissoes') {
     if (!user.isAdmin) {
