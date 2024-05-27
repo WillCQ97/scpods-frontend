@@ -1,9 +1,14 @@
 import type { Meta } from './meta.model'
 
-export interface Objetivo {
+interface ObjetivoBase {
   id: number
-  titulo: string
   codigo: string
+  titulo: string
   descricao: string
+}
+
+export interface ObjetivoAcao extends ObjetivoBase {}
+
+export interface Objetivo extends ObjetivoBase {
   metas: Meta[]
 }

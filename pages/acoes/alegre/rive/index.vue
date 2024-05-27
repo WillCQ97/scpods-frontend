@@ -28,7 +28,7 @@
 import featureRive from '~/assets/features/rive.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'EXP_RIVE'
 const acaoStore = useAcaoStore()

@@ -30,7 +30,7 @@
 import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_JERONIMO'
 const acaoStore = useAcaoStore()

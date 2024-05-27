@@ -34,7 +34,7 @@
 import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import type { Acao } from '~/models/acao.model'
 
 export default {
   name: 'ActionsListComponent',

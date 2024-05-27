@@ -1,6 +1,7 @@
 import type Localizacao from './localizacao.model'
+import type { UnidadeAcao } from './unidade.model'
 
-export interface Local {
+interface LocalBase {
   id: number
   idd: number
   nomePrincipal: string
@@ -9,7 +10,13 @@ export interface Local {
   localizacao: Localizacao
 }
 
-export interface LocalInfo extends Local {
+export interface Local extends LocalBase {}
+
+export interface LocalAcao extends LocalBase {
+  unidade: UnidadeAcao
+}
+
+export interface LocalInfo extends LocalBase {
   projetosTotais: number
   projetosAtivos: number
   objetivosAtendidos: number

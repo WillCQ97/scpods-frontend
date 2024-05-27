@@ -86,7 +86,7 @@ import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import type { Acao } from '~/models/acao.model'
 import type Marker from '~/models/props/marker.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'

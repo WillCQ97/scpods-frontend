@@ -1,4 +1,4 @@
-import type { Acao } from '~/models/acao/acao.model'
+import type { Acao } from '~/models/acao.model'
 
 export const useAcaoStore = defineStore('acaoStore', {
   state: () => ({
