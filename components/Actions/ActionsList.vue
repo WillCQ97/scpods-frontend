@@ -17,7 +17,7 @@
 
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item }">
-        <the-goal-image :goal-id="item.meta.objetivo.id" />
+        <the-goal-image :goal-id="item.meta.objetivo.codigo" />
       </template>
 
       <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
@@ -66,7 +66,7 @@ export default {
           sortable: false,
           key: 'titulo',
         },
-        { title: 'Meta', key: 'meta.id' },
+        { title: 'Meta', key: 'meta.codigo' },
         { title: 'Lotação', key: 'lotacao.sigla' },
         { title: 'Local', key: 'local.nomePrincipal' },
         { title: 'Coordenador', key: 'coordenador.nome' },
@@ -85,10 +85,12 @@ export default {
           descricaoVinculo: '',
         },
         meta: {
-          id: '',
+          id: null,
+          codigo: '',
           descricao: '',
           objetivo: {
-            id: '',
+            id: null,
+            codigo: '',
             titulo: '',
             descricao: '',
           },

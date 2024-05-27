@@ -179,15 +179,15 @@ export default {
 
   computed: {
     goalId() {
-      return this.action.meta.objetivo.id
+      return this.action.meta.objetivo.codigo
     },
     goalText() {
       const objetivo = this.action.meta.objetivo
-      return objetivo.id + ' - ' + objetivo.descricao
+      return objetivo.codigo + ' - ' + objetivo.descricao
     },
     targetText() {
       const target = this.action.meta
-      return target.id + ' - ' + target.descricao
+      return target.codigo + ' - ' + target.descricao
     },
     showedItem() {
       return this.action
