@@ -1,12 +1,14 @@
+import type { RuntimeConfig } from 'nuxt/schema'
 import type { Meta } from '~/models/meta.model'
 import type { Objetivo } from '~/models/objetivo.model'
 
 type State = {
   objetivos: Objetivo[]
+  config: RuntimeConfig
 }
 
 export const useObjetivoStore = defineStore('objetivoStore', {
-  state: () => ({ objetivos: [] }) as State,
+  state: () => ({ objetivos: [], config: useRuntimeConfig() }) as State,
   // TODO: clean the examples
   // state: (): RootState => ({ objetivos: [] }),
   // state: () => ({ objetivos: <Objetivo[]>[] }) // not recommended to avoid type assertion
@@ -45,10 +47,18 @@ export const useObjetivoStore = defineStore('objetivoStore', {
   actions: {
     async fetchObjetivos() {
       //TODO: return await useFetch permite utilizar o {data, error, refresh} no front
+      console.log(
+        'fetchObjetivos',
+        this.config.public.apiBase,
+        this.config.apiSecret,
+      )
       try {
         const response = await useFetch('objetivos', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          baseURL: this.config.public.apiBase,
           method: 'get',
+          headers: {
+            'X-AUTH-API-KEY': this.config.apiSecret,
+          },
         })
         this.objetivos = response.data
       } catch (error) {

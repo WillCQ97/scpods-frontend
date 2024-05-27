@@ -25,10 +25,9 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
-    apiSecret: '', // can be overridden by NUXT_API_SECRET environment variable
+    apiSecret: process.env.NUXT_API_SECRET,
     public: {
-      // can be overridden by NUXT_PUBLIC_API_BASE environment variable
-      apiBase: 'http://localhost:8080/acoes-ods/v1/',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
     },
   },
 

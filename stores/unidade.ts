@@ -1,3 +1,4 @@
+import type { RuntimeConfig } from 'nuxt/schema'
 import type { LocalInfo } from '~/models/local.model'
 import type Marker from '~/models/props/marker.model'
 import type { Unidade, UnidadeInfo } from '~/models/unidade.model'
@@ -5,12 +6,18 @@ import type { Unidade, UnidadeInfo } from '~/models/unidade.model'
 type State = {
   unidades: Unidade[] // armazenar a listagem dos locais para o formulário
   unidadeInfo: UnidadeInfo // armazernar a info de uma certa unidade (será substituída ao trocar de página)
+  config: RuntimeConfig
 }
 
 const odsStore = useObjetivoStore()
 
 export const useUnidadeStore = defineStore('unidadeStore', {
-  state: () => ({ unidades: [], unidadeInfo: {} as UnidadeInfo }) as State,
+  state: () =>
+    ({
+      unidades: [],
+      unidadeInfo: {} as UnidadeInfo,
+      config: useRuntimeConfig(),
+    }) as State,
 
   getters: {
     getInfo: ({ unidades, unidadeInfo: info }) => info,
@@ -60,7 +67,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
     async fetchCampusOptions() {
       try {
         const response = await $fetch('unidades/opcoes-campus', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          baseURL: this.config.public.apiBase,
           method: 'get',
           lazy: true,
           server: false,
@@ -77,10 +84,13 @@ export const useUnidadeStore = defineStore('unidadeStore', {
 
       try {
         const response = await $fetch(path, {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          baseURL: this.config.public.apiBase,
           method: 'get',
           lazy: true,
           server: false,
+          headers: {
+            'X-AUTH-API-KEY': this.config.apiSecret,
+          },
         })
         this.unidadeInfo = response
       } catch (error) {
@@ -92,10 +102,13 @@ export const useUnidadeStore = defineStore('unidadeStore', {
     async fetchLocais() {
       try {
         const response = await $fetch('unidades/', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
+          baseURL: this.config.public.apiBase,
           method: 'get',
           lazy: true,
           server: false,
+          headers: {
+            'X-AUTH-API-KEY': this.config.apiSecret,
+          },
         })
         this.unidades = response
       } catch (error) {
