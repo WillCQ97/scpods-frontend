@@ -7,6 +7,8 @@
 </template>
 
 <script setup lang="ts">
+import type { IObjetivo } from './models/objetivo.model'
+
 /* https://nuxt.com/docs/migration/pages-and-layouts#appvue */
 // TODO: adicionar imagem e url para o site
 const siteTitle = 'Mapa Colaborativo: ODS na UFES'
@@ -16,6 +18,27 @@ const siteImage = ''
 const siteUrl = ''
 
 // INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
+/*
+console.log('====')
+const { $api } = useNuxtApp()
+console.log($api)
+const acaoRepo = repository($api)
+console.log(acaoRepo)
+const { data } = await useAsyncData(() => acaoRepo.get('alegre'))
+console.log(data)
+console.log('====')
+*/
+console.log('====')
+const { $api } = useNuxtApp()
+//console.log($api)
+const objetivos: IObjetivo[] = await $api.objetivoRepository.getObjetivos()
+
+console.log(objetivos[1].titulo)
+
+const objetivo2: IObjetivo = await $api.objetivoRepository.getObjetivoById(2)
+console.log(objetivo2.id + ': ' + objetivo2.descricao)
+console.log('====')
+
 const odsStore = useObjetivoStore()
 await useAsyncData('objetivos', () => odsStore.fetchObjetivos())
 

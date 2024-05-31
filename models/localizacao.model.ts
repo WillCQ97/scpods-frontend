@@ -1,4 +1,4 @@
-export default interface Localizacao {
+export default interface ILocalizacao {
   type: string
   coordinates: number[]
 }

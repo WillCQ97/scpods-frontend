@@ -28,7 +28,7 @@
 import featureRive from '~/assets/features/rive.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 const codigoUnidade = 'EXP_RIVE'
 const acaoStore = useAcaoStore()
@@ -44,7 +44,7 @@ export default {
 
   data() {
     return {
-      acoesRive: [] as Acao[],
+      acoesRive: [] as AcaoInterface[],
       exibirAcoes: false,
       nomeUnidade: 'Área Experimental em Rive, Alegre',
       centroRive: [-20.7494, -41.4875],

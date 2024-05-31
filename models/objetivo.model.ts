@@ -1,14 +1,14 @@
-import type { Meta } from './meta.model'
+import type { MetaInterface } from './meta.model'
 
-interface ObjetivoBase {
+interface IObjetivoBase {
   id: number
   codigo: string
   titulo: string
   descricao: string
 }
 
-export interface ObjetivoAcao extends ObjetivoBase {}
+export interface IObjetivoAcao extends IObjetivoBase {}
 
-export interface Objetivo extends ObjetivoBase {
-  metas: Meta[]
+export interface IObjetivo extends IObjetivoBase {
+  metas: MetaInterface[]
 }

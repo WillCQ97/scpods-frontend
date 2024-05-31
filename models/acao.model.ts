@@ -1,9 +1,9 @@
-import type { CoordenadorAcao } from './coordenador.model'
+import type { CoordenadorInterface } from './coordenador.model'
 import type { LocalAcao } from './local.model'
-import type { LotacaoAcao } from './lotacao.model'
-import type { MetaAcao } from './meta.model'
+import type { ILotacao } from './lotacao.model'
+import type { IMetaAcao } from './meta.model'
 
-export interface Acao {
+export interface AcaoInterface {
   id: number
   titulo: string
   descricao: string
@@ -14,8 +14,8 @@ export interface Acao {
 
   aceito: boolean
 
-  coordenador: CoordenadorAcao
-  meta: MetaAcao
+  coordenador: CoordenadorInterface
+  meta: IMetaAcao
   local: LocalAcao
-  lotacao: LotacaoAcao
+  lotacao: ILotacao
 }

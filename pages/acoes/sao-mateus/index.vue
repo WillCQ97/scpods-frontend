@@ -82,7 +82,7 @@ import feature from '~/assets/features/sao_mateus.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_SAO_MATEUS'
 const acaoStore = useAcaoStore()
@@ -98,7 +98,7 @@ export default {
 
   data() {
     return {
-      acoesSaoMateus: [] as Acao[],
+      acoesSaoMateus: [] as AcaoInterface[],
       exibirAcoes: false,
       nomeUnidade: 'Unidade de São Mateus',
       centroSaoMateus: [-18.675738334093378, -39.86240690464644],

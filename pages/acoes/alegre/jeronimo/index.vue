@@ -30,7 +30,7 @@
 import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_JERONIMO'
 const acaoStore = useAcaoStore()
@@ -51,7 +51,7 @@ export default {
 
   data() {
     return {
-      jeronimoActions: [] as Acao[], // TODO: TIPAR EM INGLÊS
+      jeronimoActions: [] as AcaoInterface[], // TODO: TIPAR EM INGLÊS
       campusFeatures: featureJeronimo,
       isActionsListVisible: false,
       mapTitle: 'Unidade em Jerônimo Monteiro',

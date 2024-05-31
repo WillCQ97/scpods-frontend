@@ -86,8 +86,8 @@ import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
-import type Marker from '~/models/props/marker.model'
+import type { AcaoInterface } from '~/models/acao.model'
+import type MarkerInterface from '~/models/props/marker.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
 const acaoStore = useAcaoStore()
@@ -103,7 +103,7 @@ export default {
 
   data() {
     return {
-      acoesGoiabeiras: [] as Acao[],
+      acoesGoiabeiras: [] as AcaoInterface[],
       exibirAcoes: false,
       nomeUnidade: 'Campus em Goiabeiras',
       centroGoiabeiras: [-20.2764, -40.3037],
@@ -116,7 +116,7 @@ export default {
   },
 
   computed: {
-    createMarkers(): Marker[] {
+    createMarkers(): MarkerInterface[] {
       return unidadeStore.getMarcadores
     },
   },

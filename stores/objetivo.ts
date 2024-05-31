@@ -1,8 +1,8 @@
-import type { Meta } from '~/models/meta.model'
-import type { Objetivo } from '~/models/objetivo.model'
+import type { MetaInterface } from '~/models/meta.model'
+import type { IObjetivo } from '~/models/objetivo.model'
 
 type State = {
-  objetivos: Objetivo[]
+  objetivos: IObjetivo[]
 }
 
 export const useObjetivoStore = defineStore('objetivoStore', {
@@ -13,12 +13,12 @@ export const useObjetivoStore = defineStore('objetivoStore', {
   // state: () => ({ objetivos: [] }) as { objetivos: Objetivo[] },
 
   getters: {
-    getObjetivos(state): Objetivo[] {
+    getObjetivos(state): IObjetivo[] {
       return state.objetivos
     },
 
-    getObjetivoById({ objetivos }): (id: number) => Objetivo | undefined {
-      return (id: number): Objetivo | undefined => {
+    getObjetivoById({ objetivos }): (id: number) => IObjetivo | undefined {
+      return (id: number): IObjetivo | undefined => {
         return objetivos.find((ods) => ods.id === id)
       }
     },
@@ -35,8 +35,8 @@ export const useObjetivoStore = defineStore('objetivoStore', {
       }
     },
 
-    getMetasByObjetivoId(): (id: number) => Meta[] | undefined {
-      return (id: number): Meta[] | undefined => {
+    getMetasByObjetivoId(): (id: number) => MetaInterface[] | undefined {
+      return (id: number): MetaInterface[] | undefined => {
         return this.getObjetivoById(id)?.metas
       }
     },

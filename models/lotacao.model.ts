@@ -1,4 +1,4 @@
-export interface LotacaoAcao {
+export interface ILotacao {
   id: number
   descricao: string
   sigla: string
