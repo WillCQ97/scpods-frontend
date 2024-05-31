@@ -1,11 +1,13 @@
-import type { ObjetivoAcao } from './objetivo.model'
+import type { IObjetivoAcao } from './objetivo.model'
 
-export interface Meta {
+export interface MetaInterface {
   id: number
   codigo: string
   descricao: string
+
+  objetivo?: IObjetivoAcao
 }
 
-export interface MetaAcao extends Meta {
-  objetivo: ObjetivoAcao
+export interface IMetaAcao extends MetaInterface {
+  objetivo: IObjetivoAcao
 }

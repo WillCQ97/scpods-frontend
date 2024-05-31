@@ -1,4 +1,4 @@
-export interface CoordenadorAcao {
+export interface CoordenadorInterface {
   id: number
   nome: string
 

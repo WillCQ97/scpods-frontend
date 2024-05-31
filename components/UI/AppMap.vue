@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import type Marker from '~/models/props/marker.model'
+import type MarkerInterface from '~/models/props/marker.model'
 
 /*
  * A ordem esperada das coordenadas é latitude, longitude
@@ -65,7 +65,7 @@ export default {
       default: null,
     },
     markers: {
-      type: Array as PropType<Marker[]>,
+      type: Array as PropType<MarkerInterface[]>,
       required: true,
     },
     tileUrl: {

@@ -1,16 +1,16 @@
 import type { LocalInfo } from '~/models/local.model'
-import type Marker from '~/models/props/marker.model'
-import type { Unidade, UnidadeInfo } from '~/models/unidade.model'
+import type MarkerInterface from '~/models/props/marker.model'
+import type { IUnidade, IUnidadeInfo } from '~/models/unidade.model'
 
 type State = {
-  unidades: Unidade[] // armazenar a listagem dos locais para o formulário
-  unidadeInfo: UnidadeInfo // armazernar a info de uma certa unidade (será substituída ao trocar de página)
+  unidades: IUnidade[] // armazenar a listagem dos locais para o formulário
+  unidadeInfo: IUnidadeInfo // armazernar a info de uma certa unidade (será substituída ao trocar de página)
 }
 
 const odsStore = useObjetivoStore()
 
 export const useUnidadeStore = defineStore('unidadeStore', {
-  state: () => ({ unidades: [], unidadeInfo: {} as UnidadeInfo }) as State,
+  state: () => ({ unidades: [], unidadeInfo: {} as IUnidadeInfo }) as State,
 
   getters: {
     getInfo: ({ unidades, unidadeInfo: info }) => info,
@@ -19,7 +19,7 @@ export const useUnidadeStore = defineStore('unidadeStore', {
       return info.locais?.filter((local) => local.projetosAtivos > 0)
     },
 
-    getMarcadores(): Marker[] {
+    getMarcadores(): MarkerInterface[] {
       /*
        * As classes css utilizadas no html abaixo são definidas em main.css
        */

@@ -78,7 +78,7 @@ import feature from '~/assets/features/maruipe.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_MARUIPE'
 const acaoStore = useAcaoStore()
@@ -94,7 +94,7 @@ export default {
 
   data() {
     return {
-      acoesMaruipe: [] as Acao[],
+      acoesMaruipe: [] as AcaoInterface[],
       exibirAcoes: false,
       nomeUnidade: 'Unidade de Maruípe',
       centroMaruipe: [-20.29815881701748, -40.31628393322453],

@@ -34,7 +34,7 @@
 import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 export default {
   name: 'ActionsListComponent',
@@ -116,7 +116,7 @@ export default {
   emits: ['accept'],
 
   methods: {
-    showItem(item: Acao) {
+    showItem(item: AcaoInterface) {
       // TODO: TYPESCRIPT WARNING
       this.selectedItem = item
       this.showDialog = true

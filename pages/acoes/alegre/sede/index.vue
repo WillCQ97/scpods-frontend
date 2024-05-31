@@ -27,7 +27,7 @@
 import featureAlegre from '~/assets/features/alegre.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_ALEGRE'
 const acaoStore = useAcaoStore()
@@ -45,7 +45,7 @@ export default {
 
   data() {
     return {
-      acoesAlegre: [] as Acao[],
+      acoesAlegre: [] as AcaoInterface[],
       exibirAcoes: false,
       featureAlegre,
       nomeCampus: 'Campus Sede em Alegre',

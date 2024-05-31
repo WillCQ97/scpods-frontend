@@ -1,4 +1,4 @@
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 
 export const useAcaoStore = defineStore('acaoStore', {
   state: () => ({
@@ -6,7 +6,7 @@ export const useAcaoStore = defineStore('acaoStore', {
   }),
 
   actions: {
-    async fetchAcoes(codigoUnidade: string): Promise<Acao[]> {
+    async fetchAcoes(codigoUnidade: string): Promise<AcaoInterface[]> {
       try {
         const response = await $fetch('acoes', {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
@@ -15,14 +15,14 @@ export const useAcaoStore = defineStore('acaoStore', {
           lazy: true,
           server: false,
         })
-        return response as Acao[]
+        return response as AcaoInterface[]
       } catch (error) {
         console.log('ERRO:', error)
         return error
       }
     },
 
-    async fetchSubmissoes(): Promise<Acao[]> {
+    async fetchSubmissoes(): Promise<AcaoInterface[]> {
       try {
         const response = await $fetch('acoes', {
           baseURL: 'http://localhost:8080/acoes-ods/v1/',
@@ -31,14 +31,14 @@ export const useAcaoStore = defineStore('acaoStore', {
           lazy: true,
           server: false,
         })
-        return response as Acao[]
+        return response as AcaoInterface[]
       } catch (error) {
         console.log('ERRO:', error)
         return error
       }
     },
 
-    async submitSubmissao(submissao: Acao) {
+    async submitSubmissao(submissao: AcaoInterface) {
       // todo
       try {
         const response = await $fetch('acoes', {

@@ -1,18 +1,20 @@
 import type { Local, LocalInfo } from './local.model'
 
-interface UnidadeBase {
+interface IUnidadeBase {
   id: number
   nome: string
   codigo: string
   campus: string
+
+  locais?: Local[] //
 }
 
-export interface Unidade extends UnidadeBase {
+export interface IUnidade extends IUnidadeBase {
   locais: Local[]
 }
 
-export interface UnidadeAcao extends UnidadeBase {}
+export interface IUnidadeAcao extends IUnidadeBase {}
 
-export interface UnidadeInfo extends UnidadeBase {
+export interface IUnidadeInfo extends IUnidadeBase {
   locais: LocalInfo[]
 }
