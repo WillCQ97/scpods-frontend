@@ -31,7 +31,7 @@ import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'EXP_RIVE'
-const acaoStore = useAcaoStore()
+const { $api } = useNuxtApp()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -64,9 +64,14 @@ export default {
   },
 
   methods: {
-    async showActions(flag: boolean) {
+    async loadActions() {
+      this.acoesRive = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
       this.exibirAcoes = flag
-      this.acoesRive = await acaoStore.fetchAcoes(codigoUnidade)
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 }

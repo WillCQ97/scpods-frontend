@@ -10,7 +10,6 @@
             :feature="campusFeatures"
             :markers="jeronimoMarkers"
             @show-actions="showActionsHandler"
-            @refresh-data="reloadInfoHandler"
           />
         </v-col>
       </v-row>
@@ -33,7 +32,7 @@ import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_JERONIMO'
-const acaoStore = useAcaoStore()
+const { $api } = useNuxtApp()
 
 const unidadeStore = useUnidadeStore()
 
@@ -70,15 +69,16 @@ export default {
   },
 
   methods: {
-    async showActionsHandler(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
+    async loadActionsList() {
+      this.jeronimoActions = await $api.acoes.getAcoes(codigoUnidade)
     },
-    async reloadInfoHandler() {
-      // FIXME: ATUALIZAR NÃO ESTÁ FUNCIONANDO
-      // PROVAVELMENTE, PORQUE A INFO É UTILIZADA PARA GERAR OS MARCADORES
-      // MAS OS MESMOS SÃO UTILIZADOS COMO COMPUTED E POR ISSO NÃO SÃO ATUALIZADOS
-      await carregarInfo()
+
+    showActionsHandler(flag: boolean) {
+      this.isActionsListVisible = flag
+
+      if (this.isActionsListVisible) {
+        this.loadActionsList()
+      }
     },
   },
 }

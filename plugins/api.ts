@@ -1,9 +1,11 @@
 // 3rd's
 import { $fetch, type FetchOptions } from 'ofetch'
+import AcoesModule from '~/repository/modules/acoes'
 // locals
 import ObjetivosModule from '~/repository/modules/objetivos'
 
 interface IApiInstance {
+  acoes: AcoesModule
   objetivos: ObjetivosModule
 }
 
@@ -19,6 +21,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // An object containing all repositories we need to expose
   const modules: IApiInstance = {
+    acoes: new AcoesModule(apiFetcher),
     objetivos: new ObjetivosModule(apiFetcher),
   }
 

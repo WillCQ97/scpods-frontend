@@ -6,22 +6,6 @@ export const useAcaoStore = defineStore('acaoStore', {
   }),
 
   actions: {
-    async fetchAcoes(codigoUnidade: string): Promise<Acao[]> {
-      try {
-        const response = await $fetch('acoes', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
-          method: 'get',
-          params: { aceito: true, unidade: codigoUnidade },
-          lazy: true,
-          server: false,
-        })
-        return response as Acao[]
-      } catch (error) {
-        console.log('ERRO:', error)
-        return error
-      }
-    },
-
     async fetchSubmissoes(): Promise<Acao[]> {
       try {
         const response = await $fetch('acoes', {

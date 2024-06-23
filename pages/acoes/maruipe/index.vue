@@ -81,7 +81,7 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_MARUIPE'
-const acaoStore = useAcaoStore()
+const { $api } = useNuxtApp()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -112,9 +112,15 @@ export default {
     },
   },
   methods: {
-    async showActions(flag: boolean) {
+    async loadActions() {
+      this.acoesMaruipe = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
       this.exibirAcoes = flag
-      this.acoesMaruipe = await acaoStore.fetchAcoes(codigoUnidade)
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 }

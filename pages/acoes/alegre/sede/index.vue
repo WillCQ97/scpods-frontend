@@ -30,7 +30,7 @@ import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_ALEGRE'
-const acaoStore = useAcaoStore()
+const { $api } = useNuxtApp()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -64,9 +64,15 @@ export default {
   },
 
   methods: {
-    async showActions(flag: boolean) {
+    async loadActions() {
+      this.acoesAlegre = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
       this.exibirAcoes = flag
-      this.acoesAlegre = await acaoStore.fetchAcoes(codigoUnidade)
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 }

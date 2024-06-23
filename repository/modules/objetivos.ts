@@ -11,7 +11,12 @@ class ObjetivosModule extends FetchFactory {
       const fetchOptions: FetchOptions<'json'> = {
         headers: {},
       }
-      return this.call<Objetivo[]>('GET', `${this.RESOURCE}`, undefined, {})
+      return this.call<Objetivo[]>(
+        'GET',
+        `${this.RESOURCE}`,
+        undefined, // body
+        fetchOptions,
+      )
     }, asyncDataOptions)
   }
 }

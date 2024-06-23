@@ -85,7 +85,7 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_SAO_MATEUS'
-const acaoStore = useAcaoStore()
+const { $api } = useNuxtApp()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -117,9 +117,15 @@ export default {
   },
 
   methods: {
-    async showActions(flag: boolean) {
+    async loadActions() {
+      this.acoesSaoMateus = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
       this.exibirAcoes = flag
-      this.acoesSaoMateus = await acaoStore.fetchAcoes(codigoUnidade)
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 }

@@ -90,7 +90,7 @@ import type { Acao } from '~/models/acao.model'
 import type Marker from '~/models/props/marker.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
-const acaoStore = useAcaoStore()
+const { $api } = useNuxtApp()
 const unidadeStore = useUnidadeStore()
 
 export default {
@@ -122,9 +122,16 @@ export default {
   },
 
   methods: {
-    async showActions(flag: boolean) {
+    async loadActions() {
+      this.acoesGoiabeiras = await $api.acoes.getAcoes(codigoUnidade)
+    },
+
+    showActions(flag: boolean) {
       this.exibirAcoes = flag
-      this.acoesGoiabeiras = await acaoStore.fetchAcoes(codigoUnidade)
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 }
