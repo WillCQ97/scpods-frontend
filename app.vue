@@ -25,6 +25,16 @@ await useAsyncData('objetivos', () => odsStore.fetchObjetivos())
 //console.log('Imprimindo ALGUNS TÍTULOS DE OBJETIVOS')
 // const { getTituloObjetivoById } = storeToRefs(odsStore)
 // console.log(2, getTituloObjetivoById.value(2))
+const { $api } = useNuxtApp()
+
+const {
+  data: objetivosList,
+  pending,
+  error,
+} = await $api.objetivos.getObjetivos({ server: false })
+
+console.log('Logando os objetivos da repository')
+objetivosList.value?.forEach((objetivo) => console.log(objetivo.titulo))
 
 useHead({
   titleTemplate: '%s',

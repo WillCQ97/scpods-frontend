@@ -31,3 +31,7 @@
 ## Assets
 
 - Imagens das logos para representar cada ODS foram obtidas em https://brasil.un.org/pt-br/sdgs.
+
+## Leituras
+
+- [Nuxt 3 | Repository pattern: organising and managing your calls to APIs (Typescript)](https://medium.com/@luizzappa/nuxt-3-repository-pattern-organising-and-managing-your-calls-to-apis-with-typescript-acd563a4e046)
