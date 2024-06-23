@@ -7,6 +7,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Objetivo } from './models/objetivo.model'
+
 /* https://nuxt.com/docs/migration/pages-and-layouts#appvue */
 // TODO: adicionar imagem e url para o site
 const siteTitle = 'Mapa Colaborativo: ODS na UFES'
@@ -14,27 +16,6 @@ const siteDescription =
   'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na UFES'
 const siteImage = ''
 const siteUrl = ''
-
-// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
-const odsStore = useObjetivoStore()
-await useAsyncData('objetivos', () => odsStore.fetchObjetivos())
-
-//console.log('Imprimindo ALGUNS TÍTULOS DE OBJETIVOS')
-//console.log(2, odsStore.getTituloObjetivoById(2))
-
-//console.log('Imprimindo ALGUNS TÍTULOS DE OBJETIVOS')
-// const { getTituloObjetivoById } = storeToRefs(odsStore)
-// console.log(2, getTituloObjetivoById.value(2))
-const { $api } = useNuxtApp()
-
-const {
-  data: objetivosList,
-  pending,
-  error,
-} = await $api.objetivos.getObjetivos({ server: false })
-
-console.log('Logando os objetivos da repository')
-objetivosList.value?.forEach((objetivo) => console.log(objetivo.titulo))
 
 useHead({
   titleTemplate: '%s',
@@ -69,4 +50,19 @@ useHead({
     },
   ],
 })
+
+// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
+// usa a repository para obter os dados da api, então seta na store para ser usado em outras páginas
+const { $api } = useNuxtApp()
+const odsStore = useObjetivoStore()
+
+const {
+  data: objetivosList,
+  pending,
+  error,
+} = await $api.objetivos.getObjetivos({ server: true })
+
+odsStore.setObjetivos(
+  objetivosList?.value ? objetivosList.value : ([] as Objetivo[]),
+)
 </script>

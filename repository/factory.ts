@@ -6,7 +6,7 @@ import type { $Fetch, FetchOptions } from 'ofetch'
  It encapsulates the functionality for making API requests asynchronously 
  through the call function, utilizing the provided HTTP client.
 */
-class FetchFactory<T> {
+class FetchFactory {
   private $fetch: $Fetch
 
   constructor(fetcher: $Fetch) {
@@ -21,7 +21,7 @@ class FetchFactory<T> {
    * @param fetchOptions fetch options
    * @returns
    */
-  async call(
+  async call<T>(
     method: string,
     url: string,
     data?: object,

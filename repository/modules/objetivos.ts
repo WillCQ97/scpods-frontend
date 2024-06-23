@@ -1,10 +1,9 @@
-import type { Objetivo } from '~/models/objetivo.model'
-import FetchFactory from '../factory'
 import type { AsyncDataOptions } from '#app'
 import type { FetchOptions } from 'ofetch'
+import type { Objetivo } from '~/models/objetivo.model'
+import FetchFactory from '../factory'
 
-class ObjetivosModule extends FetchFactory<Objetivo[]> {
-  // usar no singular
+class ObjetivosModule extends FetchFactory {
   private RESOURCE = '/objetivos'
 
   async getObjetivos(asyncDataOptions?: AsyncDataOptions<Objetivo[]>) {
@@ -12,7 +11,7 @@ class ObjetivosModule extends FetchFactory<Objetivo[]> {
       const fetchOptions: FetchOptions<'json'> = {
         headers: {},
       }
-      return this.call('GET', `${this.RESOURCE}`, undefined, {})
+      return this.call<Objetivo[]>('GET', `${this.RESOURCE}`, undefined, {})
     }, asyncDataOptions)
   }
 }
