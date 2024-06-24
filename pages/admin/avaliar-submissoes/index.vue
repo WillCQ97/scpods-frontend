@@ -67,8 +67,8 @@
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
-const acaoStore = useAcaoStore()
-var submissoes = await acaoStore.fetchSubmissoes()
+const { $api } = useNuxtApp()
+var submissoes = await $api.acoes.getSubmissoes()
 
 definePageMeta({
   middleware: 'auth',
@@ -91,9 +91,9 @@ export default {
         this.accepted = accepted
 
         if (accepted) {
-          await acaoStore.acceptSubmissao(id)
+          await this.$api.acoes.aceitarSubmissao(id)
         } else {
-          await acaoStore.rejectSubmissao(id)
+          await this.$api.acoes.rejeitarSubmissao(id)
         }
         this.showSuccess = true
       } catch (error) {
@@ -106,7 +106,7 @@ export default {
     },
 
     async refreshList(): Promise<void> {
-      submissoes = await acaoStore.fetchSubmissoes()
+      submissoes = await $api.acoes.getSubmissoes()
     },
   },
 }

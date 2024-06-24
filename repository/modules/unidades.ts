@@ -1,4 +1,4 @@
-import type { UnidadeInfo } from '~/models/unidade.model'
+import { type Unidade, type UnidadeInfo } from '~/models/unidade.model'
 import FetchFactory from '../factory'
 
 class UnidadesModule extends FetchFactory {
@@ -13,6 +13,10 @@ class UnidadesModule extends FetchFactory {
       'GET',
       `${this.RESOURCE}/${codigoUnidade}/info`,
     )
+  }
+
+  async getLocais() {
+    return this.call<Unidade[]>('GET', `${this.RESOURCE}`)
   }
 }
 

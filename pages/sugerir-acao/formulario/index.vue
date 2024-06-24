@@ -285,9 +285,6 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
 
 const odsStore = useObjetivoStore()
-const unidadeStore = useUnidadeStore()
-
-await unidadeStore.fetchLocais()
 
 definePageMeta({
   middleware: ['auth'],
