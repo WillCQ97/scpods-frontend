@@ -9,14 +9,12 @@ class AcoesModule extends FetchFactory {
     const fetchOptions: FetchOptions<'json'> = {
       params: { aceito: true, unidade: codigoUnidade },
     }
-    const data = this.call<Acao[]>(
+    return this.call<Acao[]>(
       'GET',
       `${this.RESOURCE}`,
       undefined, // body
       fetchOptions,
     )
-    debugger
-    return data
   }
 }
 

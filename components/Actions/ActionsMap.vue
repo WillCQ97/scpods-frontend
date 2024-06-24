@@ -7,7 +7,7 @@
       :bounds="bounds"
       :center="center"
       :feature="feature"
-      :markers="markers"
+      :markers="createMarkers"
       :tile-url="urlHOT"
       :show-feature="true"
       :zoom="zoom"
@@ -28,12 +28,18 @@
 <script lang="ts">
 import AppMapComponent from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import type { LocalInfo } from '~/models/local.model'
 import type Marker from '~/models/props/marker.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
+
+const odsStore = useObjetivoStore()
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
   name: 'ActionsMapComponent',
+
   components: { AppMapComponent, TheCardDivider },
+
   props: {
     bounds: {
       type: Array,
@@ -47,8 +53,8 @@ export default {
       type: Object,
       required: true,
     },
-    markers: {
-      type: Array as PropType<Marker[]>,
+    unidadeInfo: {
+      type: Object as PropType<UnidadeInfo>,
       required: true,
     },
     title: {
@@ -61,7 +67,47 @@ export default {
       required: false,
     },
   },
+
   emits: ['showActions', 'refreshData'],
+
+  computed: {
+    createMarkers(): Marker[] {
+      /*
+       * As classes css utilizadas no html abaixo estão definidas em main.css
+       */
+      const locaisAtivos = this.unidadeInfo.locais?.filter(
+        (local) => local.projetosAtivos > 0,
+      )
+
+      if (locaisAtivos === undefined) return []
+
+      return locaisAtivos.map((local: LocalInfo) => ({
+        ...local,
+        id: local.id,
+        coordinates: local.localizacao.coordinates.toReversed(),
+        content:
+          '<div class="map_popup">' +
+          '<img class="map_popup_img" src="' +
+          '/img/ods-icons/pt-br/SDG-' +
+          local.idObjetivoComMaisProjetos +
+          '.svg' +
+          '"><br>' +
+          '<div class="map_popup_text">' +
+          '<strong>' +
+          local.nomePrincipal +
+          '</strong>' +
+          '<br/>Número de Projetos Ativos: ' +
+          local.projetosAtivos +
+          '<br/>Objetivos atendidos: ' +
+          local.objetivosAtendidos +
+          '<br/>Objetivo mais atendido: ' +
+          '<br/>' +
+          odsStore.getTituloObjetivoById(local.idObjetivoComMaisProjetos) +
+          '</div></div>',
+      }))
+    },
+  },
+
   data() {
     return {
       attribution:
@@ -74,6 +120,7 @@ export default {
       urlHOT: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
     }
   },
+
   methods: {
     emitShowActionsList() {
       this.isActionListVisible = !this.isActionListVisible

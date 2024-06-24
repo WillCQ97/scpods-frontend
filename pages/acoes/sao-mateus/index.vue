@@ -60,7 +60,7 @@
             :bounds="limitesSaoMateus"
             :center="centroSaoMateus"
             :feature="featureCampus"
-            :markers="createMarkers"
+            :unidade-info="infoSaoMateus"
             @show-actions="showActions"
           />
         </v-col>
@@ -83,23 +83,20 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_SAO_MATEUS'
 const { $api } = useNuxtApp()
-const unidadeStore = useUnidadeStore()
 
 export default {
   name: 'PaginaAcoesSaoMateus',
   components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
-
   data() {
     return {
       acoesSaoMateus: [] as Acao[],
       exibirAcoes: false,
+      infoSaoMateus: {} as UnidadeInfo,
       nomeUnidade: 'Unidade de São Mateus',
       centroSaoMateus: [-18.675738334093378, -39.86240690464644],
       limitesSaoMateus: [
@@ -108,12 +105,6 @@ export default {
       ],
       featureCampus: feature,
     }
-  },
-
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
-    },
   },
 
   methods: {
@@ -127,6 +118,10 @@ export default {
         this.loadActions()
       }
     },
+  },
+
+  async mounted() {
+    this.infoSaoMateus = await this.$api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

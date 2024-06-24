@@ -8,7 +8,7 @@
             :bounds="jeronimoBounds"
             :center="jeronimoCenter"
             :feature="campusFeatures"
-            :markers="jeronimoMarkers"
+            :unidade-info="jeronimoInfo"
             @show-actions="showActionsHandler"
           />
         </v-col>
@@ -30,23 +30,15 @@ import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_JERONIMO'
 const { $api } = useNuxtApp()
 
-const unidadeStore = useUnidadeStore()
-
-async function carregarInfo() {
-  await unidadeStore.fetchInfo(codigoUnidade)
-}
-
 export default {
   name: 'PaginaAcoesJeronimo',
-  components: { ActionsListComponent, ActionsMapComponent },
 
-  async beforeRouteEnter() {
-    await carregarInfo()
-  },
+  components: { ActionsListComponent, ActionsMapComponent },
 
   data() {
     return {
@@ -59,13 +51,8 @@ export default {
         [-20.79285, -41.38471],
       ],
       jeronimoCenter: [-20.79071, -41.38887],
+      jeronimoInfo: {} as UnidadeInfo,
     }
-  },
-
-  computed: {
-    jeronimoMarkers() {
-      return unidadeStore.getMarcadores
-    },
   },
 
   methods: {
@@ -80,6 +67,10 @@ export default {
         this.loadActionsList()
       }
     },
+  },
+
+  async mounted() {
+    this.jeronimoInfo = await $api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

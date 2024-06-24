@@ -63,7 +63,7 @@
             :bounds="limitesGoiabeiras"
             :center="centroGoiabeiras"
             :feature="featureGoiabeiras"
-            :markers="createMarkers"
+            :unidade-info="goiabeirasInfo"
             @show-actions="showActions"
           />
         </v-col>
@@ -87,19 +87,15 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao.model'
-import type Marker from '~/models/props/marker.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
 const { $api } = useNuxtApp()
-const unidadeStore = useUnidadeStore()
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
+  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   data() {
     return {
@@ -112,13 +108,8 @@ export default {
         [-20.2846, -40.3009],
       ],
       featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
+      goiabeirasInfo: {} as UnidadeInfo,
     }
-  },
-
-  computed: {
-    createMarkers(): Marker[] {
-      return unidadeStore.getMarcadores
-    },
   },
 
   methods: {
@@ -133,6 +124,10 @@ export default {
         this.loadActions()
       }
     },
+  },
+
+  async mounted() {
+    this.goiabeirasInfo = await $api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

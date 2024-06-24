@@ -8,7 +8,7 @@
             :bounds="limitesAlegre"
             :center="centroAlegre"
             :feature="featureAlegre"
-            :markers="createMarkers"
+            :unidade-info="infoAlegre"
             @show-actions="showActions"
           />
         </v-col>
@@ -28,25 +28,20 @@ import featureAlegre from '~/assets/features/alegre.json'
 import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_ALEGRE'
 const { $api } = useNuxtApp()
-const unidadeStore = useUnidadeStore()
 
 export default {
   name: 'PaginaMapaAcoesAlegreSede',
   components: { ActionsListComponent, ActionsMapComponent },
 
-  // const { data, pending, error, refresh } = await useFetch()
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-    // refresh
-  },
-
   data() {
     return {
       acoesAlegre: [] as Acao[],
       exibirAcoes: false,
+      infoAlegre: {} as UnidadeInfo,
       featureAlegre,
       nomeCampus: 'Campus Sede em Alegre',
       centroAlegre: [-20.76161, -41.536],
@@ -55,12 +50,6 @@ export default {
         [-20.76464, -41.53211],
       ],
     }
-  },
-
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
-    },
   },
 
   methods: {
@@ -74,6 +63,10 @@ export default {
         this.loadActions()
       }
     },
+  },
+
+  async mounted() {
+    this.infoAlegre = await $api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

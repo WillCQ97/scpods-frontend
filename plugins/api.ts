@@ -3,10 +3,12 @@ import { $fetch, type FetchOptions } from 'ofetch'
 import AcoesModule from '~/repository/modules/acoes'
 // locals
 import ObjetivosModule from '~/repository/modules/objetivos'
+import UnidadesModule from '~/repository/modules/unidades'
 
 interface IApiInstance {
   acoes: AcoesModule
   objetivos: ObjetivosModule
+  unidades: UnidadesModule
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -23,6 +25,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const modules: IApiInstance = {
     acoes: new AcoesModule(apiFetcher),
     objetivos: new ObjetivosModule(apiFetcher),
+    unidades: new UnidadesModule(apiFetcher),
   }
 
   return { provide: { api: modules } }
