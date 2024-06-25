@@ -32,6 +32,8 @@ export default defineNuxtConfig({
     },
   },
 
+  ssr: false,
+
   vite: {
     build: { target: 'es2022' },
     vue: {

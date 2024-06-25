@@ -36,3 +36,24 @@
 
 - [Nuxt 3 | Repository pattern: organising and managing your calls to APIs (Typescript)](https://medium.com/@luizzappa/nuxt-3-repository-pattern-organising-and-managing-your-calls-to-apis-with-typescript-acd563a4e046)
 - [Vue Lifecycle Hooks](https://vuejs.org/guide/essentials/lifecycle.html)
+
+## Build para deploy do projeto
+
+- Para realizar o build e servir o projeto com um servidor node (padrão em localhost:3000):
+
+```bash
+yarn build
+node .output/server/index.mjs
+```
+
+- Para gerar um site estático, sem que as rotas sejam pré-renderizadas é preciso definir a opção `ssr: false`:
+
+```bash
+yarn generate
+```
+
+- O site será gerado em um diretório chamado `dist` e pode então ser servido usando um servidor http:
+
+```bash
+python -m http.server 8001 --directory dist
+```
