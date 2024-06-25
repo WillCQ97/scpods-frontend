@@ -33,6 +33,7 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    build: { target: 'es2022' },
     vue: {
       template: {
         transformAssetUrls,
