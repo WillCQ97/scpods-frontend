@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout class="ufes-style">
+  <NuxtLayout>
     <v-app>
       <NuxtPage />
     </v-app>
@@ -9,7 +9,6 @@
 <script setup lang="ts">
 import type { Objetivo } from './models/objetivo.model'
 
-/* https://nuxt.com/docs/migration/pages-and-layouts#appvue */
 // TODO: adicionar imagem e url para o site
 const siteTitle = 'Mapa Colaborativo: ODS na UFES'
 const siteDescription =
@@ -51,14 +50,12 @@ useHead({
   ],
 })
 
-const { $api } = useNuxtApp()
-
 // INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
 // usa a repository para obter os dados da api, então adiciona a store
-const odsStore = useObjetivoStore()
-
+const { $api } = useNuxtApp()
 const { data: objetivosResponse } = await $api.objetivos.getObjetivos()
 
+const odsStore = useObjetivoStore()
 odsStore.setObjetivos(
   objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
 )

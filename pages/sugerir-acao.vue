@@ -78,20 +78,22 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 export default {
   name: 'PaginaSugerirNovaAcaoWraper',
   components: { TheCardDivider },
+
   data() {
     return {
       btnColor: colorPalleteUfes.monocromatic.secondary,
       showDialog: false,
     }
   },
+
   methods: {
     showForm() {
       const userStore = useUserStore()
 
       if (!userStore.isLoggedIn) {
         this.showDialog = true
+        return
       }
-      // todo: the middleware auth should prevent this page to load the form
       return navigateTo('/sugerir-acao/formulario')
     },
   },
