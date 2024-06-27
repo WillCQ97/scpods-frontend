@@ -86,13 +86,13 @@ export default {
         id: local.id,
         coordinates: local.localizacao.coordinates.toReversed(),
         content:
-          '<div class="map_popup">' +
-          '<img class="map_popup_img" src="' +
+          '<div class="map-popup">' +
+          '<img class="map-popup-img" src="' +
           '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoComMaisProjetos +
           '.svg' +
           '"><br>' +
-          '<div class="map_popup_text">' +
+          '<div class="map-popup-text">' +
           '<strong>' +
           local.nomePrincipal +
           '</strong>' +
@@ -132,3 +132,20 @@ export default {
   },
 }
 </script>
+
+<style>
+div.map-popup {
+  display: flex;
+}
+
+img.map-popup-img {
+  height: 100px;
+  margin-bottom: auto;
+  margin-top: auto;
+  width: 100px;
+}
+
+div.map-popup-text {
+  padding-left: 5px;
+}
+</style>
