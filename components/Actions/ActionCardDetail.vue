@@ -10,7 +10,7 @@
         <!-- OBJETIVO -->
         <v-row dense>
           <v-col cols="3" align-self="center">
-            <the-goal-image-component :goal-id="goalId" :cover="true" />
+            <the-goal-image-component :goal-code="goalId" :cover="true" />
           </v-col>
 
           <v-col>

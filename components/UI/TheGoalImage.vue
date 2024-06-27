@@ -15,8 +15,8 @@
 export default {
   name: 'TheGoalImageComponent',
   props: {
-    goalId: {
-      type: Number,
+    goalCode: {
+      type: String,
       required: true,
     },
     cover: {
@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     loadGoalIcon() {
-      return '/img/ods-icons/pt-br/SDG-' + this.goalId + '.svg'
+      return '/img/ods-icons/pt-br/SDG-' + this.goalCode + '.svg'
     },
   },
 }

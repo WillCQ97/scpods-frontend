@@ -17,7 +17,7 @@
 
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item }">
-        <the-goal-image :goal-id="item.meta.objetivo.codigo" />
+        <the-goal-image :goal-code="item.meta.objetivo.codigo" />
       </template>
 
       <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->

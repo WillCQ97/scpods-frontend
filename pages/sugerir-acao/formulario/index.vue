@@ -52,7 +52,7 @@
                   >
                     <the-goal-image-component
                       :cover="true"
-                      :goal-id="goal.id"
+                      :goal-code="goal.codigo"
                       :height="100"
                       :width="100"
                     />
@@ -78,7 +78,7 @@
                   <div id="ods-selected-image">
                     <the-goal-image-component
                       :cover="true"
-                      :goal-id="btnGoalIndex + 1"
+                      :goal-code="btnGoalIndex + 1"
                       :height="50"
                       :width="50"
                     />
