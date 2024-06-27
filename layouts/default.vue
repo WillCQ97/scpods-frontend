@@ -152,11 +152,11 @@
 <script setup lang="ts">
 import colorPalleteUfes from 'assets/colors'
 
-const author = 'Willian Conceição Queiroz'
-const headerColor = colorPalleteUfes.monocromatic.mono6
-const footerColor = colorPalleteUfes.monocromatic.mono5
-const menuColor = colorPalleteUfes.monocromatic.mono7
-const headerTitle = 'Mapa Colaborativo: Sustentabilidade na UFES'
+const author = ref('Willian Conceição Queiroz')
+const headerColor = ref(colorPalleteUfes.monocromatic.mono6)
+const footerColor = ref(colorPalleteUfes.monocromatic.mono5)
+const menuColor = ref(colorPalleteUfes.monocromatic.mono7)
+const headerTitle = ref('Mapa Colaborativo: Sustentabilidade na UFES')
 
 const clipped = ref(true)
 const drawer = ref(false)
