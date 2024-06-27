@@ -51,18 +51,15 @@ useHead({
   ],
 })
 
-// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
-// usa a repository para obter os dados da api, então seta na store para ser usado em outras páginas
 const { $api } = useNuxtApp()
+
+// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
+// usa a repository para obter os dados da api, então adiciona a store
 const odsStore = useObjetivoStore()
 
-const {
-  data: objetivosList,
-  pending,
-  error,
-} = await $api.objetivos.getObjetivos({ server: true })
+const { data: objetivosResponse } = await $api.objetivos.getObjetivos()
 
 odsStore.setObjetivos(
-  objetivosList?.value ? objetivosList.value : ([] as Objetivo[]),
+  objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
 )
 </script>

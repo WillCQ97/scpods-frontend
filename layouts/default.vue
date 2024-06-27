@@ -149,52 +149,43 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import colorPalleteUfes from 'assets/colors'
+
+const author = 'Willian Conceição Queiroz'
+const headerColor = colorPalleteUfes.monocromatic.mono6
+const footerColor = colorPalleteUfes.monocromatic.mono5
+const menuColor = colorPalleteUfes.monocromatic.mono7
+const headerTitle = 'Mapa Colaborativo: Sustentabilidade na UFES'
+
+const clipped = ref(true)
+const drawer = ref(false)
 
 const userStore = useUserStore()
 
-export default {
-  name: 'DefaultLayout',
-  data: () => ({
-    clipped: true,
-    drawer: false,
-    fixed: false,
-    miniVariant: false,
-    right: true,
-    rightDrawer: false,
-
-    author: 'Willian Conceição Queiroz',
-    headerColor: colorPalleteUfes.monocromatic.mono6,
-    footerColor: colorPalleteUfes.monocromatic.mono5,
-    menuColor: colorPalleteUfes.monocromatic.mono7,
-    headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
-  }),
-
-  methods: {
-    isUserLoggedIn(): boolean {
-      return userStore.isUserLoggedIn
-    },
-    isUserAdmin(): boolean {
-      return userStore.isAdmin
-    },
-    changeUserAdmin(): void {
-      userStore.isAdmin = !userStore.isAdmin
-    },
-    login(): void {
-      navigateTo('/entrar')
-    },
-    logoff(): void {
-      userStore.logout()
-    },
-  },
+function isUserLoggedIn(): boolean {
+  return userStore.isUserLoggedIn
+}
+function isUserAdmin(): boolean {
+  return userStore.isAdmin
+}
+function changeUserAdmin(): void {
+  userStore.isAdmin = !userStore.isAdmin
+}
+function login(): void {
+  navigateTo('/entrar')
+}
+function logoff(): void {
+  userStore.logout()
 }
 </script>
+
 <style scoped>
 #btn-icon-ods {
   opacity: 1;
 }
 #title-bar {
-  text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
+  /* colorPalleteUfes.monocromatic.mono8 */
+  text-shadow: 1px 1px 2px #94aaea;
 }
 </style>
