@@ -20,7 +20,7 @@
             <v-row>
               <v-col>
                 <v-text-field
-                  v-model="fieldTitle"
+                  v-model="fieldTitulo"
                   label="Título ou nome da ação"
                   :rules="rules"
                 ></v-text-field>
@@ -134,7 +134,7 @@
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="fieldDescription"
+                  v-model="fieldDescricao"
                   label="Descrição e objetivos da sua ação"
                   :rules="rules"
                 ></v-textarea>
@@ -145,7 +145,7 @@
               <v-col>
                 <v-combobox
                   label="Lotação da ação"
-                  :items="fieldLotacaoItems"
+                  :items="loadLotacaoItems()"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
@@ -165,7 +165,7 @@
             <v-row>
               <v-col>
                 <v-text-field
-                  v-model="fieldCoordinatorName"
+                  v-model="fieldNomeCoordenador"
                   label="Nome completo"
                   :rules="rules"
                 ></v-text-field>
@@ -175,15 +175,15 @@
             <v-row>
               <v-col>
                 <v-combobox
-                  v-model="fieldCoordinatorRole"
+                  v-model="fieldVinculoCoordenador"
                   label="Vínculo com a UFES"
-                  :items="fieldRoleItems"
+                  :items="fieldOpcoesVinculo"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
               <v-col>
                 <v-text-field
-                  v-model="fieldCoordinatorEmail"
+                  v-model="fieldEmailCoordenador"
                   label="Endereço de e-mail"
                   :rules="rules"
                 ></v-text-field>
@@ -206,9 +206,10 @@
             <v-row>
               <v-col cols="3">
                 <v-combobox
+                  v-on:update:menu="setUnidadeItems()"
                   v-model="campusSelecionado"
                   label="Campus"
-                  :items="loadCampusItems()"
+                  :items="fieldOpcoesCampus"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
@@ -216,7 +217,7 @@
                 <v-combobox
                   v-model="unidadeSelecionada"
                   label="Unidade"
-                  :items="loadUnidadeItems()"
+                  :items="fieldOpcoesUnidade"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
@@ -225,7 +226,7 @@
                 <v-combobox
                   v-model="localSelecionado"
                   label="Local"
-                  :items="loadLocalItems()"
+                  :items="fieldOpcoesLocal"
                   :rules="rules"
                 ></v-combobox>
               </v-col>
@@ -283,8 +284,24 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
+import type { Objetivo } from '~/models/objetivo.model'
 
-const odsStore = useObjetivoStore() //todo: isso irá falhar ao acessar a página diretamente
+const { $api } = useNuxtApp()
+
+// TODO: criar lógica de obtenção dos objetivos
+const odsStore = useObjetivoStore() // TODO: verificar erro de acesso ao pinia antes do mesmo estar ativo
+if (odsStore.getLength == 0) {
+  const { data: objetivosResponse, error } = await $api.objetivos.getObjetivos()
+
+  if (error) {
+    // show dialog não foi carregar os objetivos
+    //return
+  }
+
+  odsStore.setObjetivos(
+    objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
+  )
+}
 
 definePageMeta({
   middleware: [], //todo: adicionar auth
@@ -315,42 +332,30 @@ export default {
           id: '',
         },
       },
-      fieldTitle: '',
-      fieldDescription: '',
-      fieldInitialDate: '',
-      fieldEndDate: '',
-      fieldCoordinatorName: '',
-      fieldCoordinatorEmail: '',
-      fieldCoordinatorRole: '',
 
-      // lotação
-      fieldCampusItems: [],
-      campusSelecionado: '',
-      fieldUnidadeItems: [],
-      unidadeSelecionada: '',
-      fieldLocalItems: [],
-      localSelecionado: '',
-      fieldLotacaoItems: [
-        'Centro de Ciências Agrárias e Engenharias',
-        'Centro de Ciências Exatas, Naturais e da Saúde',
-        'Centro Universitário Norte do Espírito Santo',
-        'Centro de Ciências da Saúde',
-        'Centro de Artes',
-        'Centro de Ciências Exatas',
-        'Centro de Ciências Humanas e Naturais',
-        'Centro de Ciências Jurídicas e Econômicas',
-        'Centro de Educação',
-        'Centro de Educação Física e Desportos',
-        'Centro Tecnológico',
-        'Hospital Universitário Cassiano Antônio Moraes',
-        'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)',
-      ],
-      fieldRoleItems: [
+      fieldTitulo: '',
+      fieldDescricao: '',
+      fieldDataInicial: '', // https://vuetifyjs.com/en/components/date-inputs/
+      fieldDataFinal: '',
+      fieldNomeCoordenador: '',
+      fieldEmailCoordenador: '',
+      fieldVinculoCoordenador: '',
+
+      fieldOpcoesVinculo: [
         'Professor',
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
         'Aluno de graduação',
+        'Outro',
       ],
+      fieldOpcoesCampus: ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus'],
+      fieldOpcoesUnidade: [] as Array<string>,
+      fieldOpcoesLocal: [],
+
+      // dados da unidade e lotação
+      campusSelecionado: '',
+      unidadeSelecionada: '',
+      localSelecionado: '',
 
       fieldCenterValue: '',
       fieldDepartament: '',
@@ -367,7 +372,7 @@ export default {
     }
   },
   methods: {
-    addZeroToDate(number) {
+    addZeroToDate(number: number) {
       if (number <= 9) {
         return '0' + number
       }
@@ -377,13 +382,13 @@ export default {
       return navigateTo('/sugerir-acao/')
     },
     cleanFormFields() {
-      this.fieldTitle = ''
+      this.fieldTitulo = ''
       this.fieldCenter = ''
-      this.fieldCoordinatorName = ''
+      this.fieldNomeCoordenador = ''
       this.fieldDepartament = ''
-      this.fieldDescription = ''
-      this.fieldCoordinatorEmail = ''
-      this.fieldCoordinatorRole = ''
+      this.fieldDescricao = ''
+      this.fieldEmailCoordenador = ''
+      this.fieldVinculoCoordenador = ''
       this.btnGoalIndex = null
       this.targetSelectedIndex = null
     },
@@ -435,21 +440,30 @@ export default {
         this.targetSelectedIndex !== undefined
       )
     },
-    loadCampusItems() {
-      return ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus']
-    },
-    loadUnidadeItems() {
-      if (!this.unidadeSelecionada) return []
-      return [
-        'Campus Alegre',
-        'Campus de Goiabeiras',
-        'Campus Maruípe',
-        'Campus São Mateus',
-        'Área Experimental em Rive, Alegre',
-        'Unidade em Jerônimo Monteiro',
-        'Área Experimental em Jerônimo Monteiro',
-        'Área Experimental em São José do Calçado',
-      ]
+    setUnidadeItems() {
+      if (!this.campusSelecionado) {
+        this.fieldOpcoesUnidade = []
+        return
+      }
+
+      if (this.campusSelecionado === 'Alegre') {
+        this.fieldOpcoesUnidade = [
+          'Campus Alegre',
+          'Área Experimental em Rive, Alegre',
+          'Unidade em Jerônimo Monteiro',
+          'Área Experimental em Jerônimo Monteiro',
+          'Área Experimental em São José do Calçado',
+        ]
+      }
+      if (this.campusSelecionado === 'Goiabeiras') {
+        this.fieldOpcoesUnidade = ['Campus de Goiabeiras']
+      }
+      if (this.campusSelecionado === 'Maruípe') {
+        this.fieldOpcoesUnidade = ['Campus de Maruípe']
+      }
+      if (this.campusSelecionado === 'São Mateus') {
+        this.fieldOpcoesUnidade = ['Campus de São Mateus']
+      }
     },
     loadLocalItems() {
       return [
@@ -467,15 +481,32 @@ export default {
         'CT 2',
       ]
     },
+    loadLotacaoItems() {
+      return [
+        'Centro de Ciências Agrárias e Engenharias',
+        'Centro de Ciências Exatas, Naturais e da Saúde',
+        'Centro Universitário Norte do Espírito Santo',
+        'Centro de Ciências da Saúde',
+        'Centro de Artes',
+        'Centro de Ciências Exatas',
+        'Centro de Ciências Humanas e Naturais',
+        'Centro de Ciências Jurídicas e Econômicas',
+        'Centro de Educação',
+        'Centro de Educação Física e Desportos',
+        'Centro Tecnológico',
+        'Hospital Universitário Cassiano Antônio Moraes',
+        'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)',
+      ]
+    },
     sendForm() {
       const campos = [
-        this.fieldTitle,
+        this.fieldTitulo,
         this.fieldCenterValue,
-        this.fieldCoordinatorName,
+        this.fieldNomeCoordenador,
         this.fieldDepartament,
-        this.fieldDescription,
-        this.fieldCoordinatorEmail,
-        this.fieldCoordinatorRole,
+        this.fieldDescricao,
+        this.fieldEmailCoordenador,
+        this.fieldVinculoCoordenador,
       ]
 
       for (const campo of campos) {

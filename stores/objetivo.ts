@@ -9,6 +9,10 @@ export const useObjetivoStore = defineStore('objetivoStore', {
   state: () => ({ objetivos: [] }) as State,
 
   getters: {
+    getLength(state): Number {
+      return state.objetivos.length
+    },
+
     getObjetivos(state): Objetivo[] {
       return state.objetivos
     },
