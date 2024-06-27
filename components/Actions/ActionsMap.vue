@@ -32,8 +32,6 @@ import type { LocalInfo } from '~/models/local.model'
 import type Marker from '~/models/props/marker.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
-const odsStore = useObjetivoStore()
-
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
   name: 'ActionsMapComponent',
@@ -75,6 +73,8 @@ export default {
       /*
        * As classes css utilizadas no html abaixo estão definidas em main.css
        */
+      const odsStore = useObjetivoStore()
+
       const locaisAtivos = this.unidadeInfo.locais?.filter(
         (local) => local.projetosAtivos > 0,
       )

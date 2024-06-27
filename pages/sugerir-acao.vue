@@ -75,12 +75,6 @@
 import colorPalleteUfes from '~/assets/colors'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
-// FIXME: isso resulta em erro relacionado ao carregamento do pinia se a página for acessada primeiramente
-// USO DO COMPOSITION API RESOLVE?!
-// USO DO PLUGIN, CRIANDO A STORE GLOBALMENTE RESOLVE?!
-// WORKAROUND: criar um middleware onde se o to e from são iguais e não são /, redireciona para a home?!
-const userStore = useUserStore()
-
 export default {
   name: 'PaginaSugerirNovaAcaoWraper',
   components: { TheCardDivider },
@@ -92,6 +86,8 @@ export default {
   },
   methods: {
     showForm() {
+      const userStore = useUserStore()
+
       if (!userStore.isLoggedIn) {
         this.showDialog = true
       }

@@ -284,10 +284,10 @@
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
 
-const odsStore = useObjetivoStore()
+const odsStore = useObjetivoStore() //todo: isso irá falhar ao acessar a página diretamente
 
 definePageMeta({
-  middleware: ['auth'],
+  middleware: [], //todo: adicionar auth
 })
 
 export default {
