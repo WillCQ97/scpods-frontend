@@ -79,7 +79,7 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 // USO DO COMPOSITION API RESOLVE?!
 // USO DO PLUGIN, CRIANDO A STORE GLOBALMENTE RESOLVE?!
 // WORKAROUND: criar um middleware onde se o to e from são iguais e não são /, redireciona para a home?!
-const user = useUser()
+const userStore = useUserStore()
 
 export default {
   name: 'PaginaSugerirNovaAcaoWraper',
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     showForm() {
-      if (!user.isLoggedIn) {
+      if (!userStore.isLoggedIn) {
         this.showDialog = true
       }
       // todo: the middleware auth should prevent this page to load the form
