@@ -1,20 +1,10 @@
 <template>
   <v-card min-width="80vh">
-    <v-card-title> Listagem das Ações </v-card-title>
+    <v-card-title>
+      Listagem das {{ isSubmission ? 'Submissões' : 'Ações' }}
+    </v-card-title>
     <the-card-divider />
     <v-data-table :headers="header" :items="actions">
-      <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
-      <template #top>
-        <v-dialog v-model="showDialog" width="125vh">
-          <action-card-detail
-            :is-submission="isSubmission"
-            :action="selectedItem"
-            @close="showDialog = false"
-            @accept="emitAccept"
-          />
-        </v-dialog>
-      </template>
-
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item }">
         <the-goal-image :goal-code="item.codigoObjetivo" />
@@ -25,6 +15,18 @@
         <v-icon class="me-2" size="small" @click="showAcao(item)">
           mdi-eye
         </v-icon>
+      </template>
+
+      <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
+      <template #top>
+        <v-dialog v-model="showDialog" width="125vh">
+          <action-card-detail
+            :is-submission="isSubmission"
+            :action="selectedItem"
+            @close="showDialog = false"
+            @accept="emitAccept"
+          />
+        </v-dialog>
       </template>
     </v-data-table>
   </v-card>
@@ -67,6 +69,7 @@ export default {
           sortable: false,
           key: 'titulo',
         },
+        { title: 'Envio', key: 'dataCadastro' },
         { title: 'Meta', key: 'codigoMeta' },
         { title: 'Lotação', key: 'siglaLotacao' },
         { title: 'Local', key: 'nomePrincipalLocal' },
