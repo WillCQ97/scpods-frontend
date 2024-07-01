@@ -9,13 +9,8 @@
       <v-form :readonly="true">
         <!-- OBJETIVO -->
         <v-row dense>
-          <v-col cols="2" align-self="center">
-            <the-goal-image
-              :goal-code="goalId"
-              :cover="true"
-              height="225"
-              width="225"
-            />
+          <v-col cols="3" align-self="center">
+            <the-goal-image :goal-code="goalId" :cover="true" />
           </v-col>
 
           <v-col>

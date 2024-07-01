@@ -50,7 +50,7 @@
                     height="120"
                     width="120"
                   >
-                    <the-goal-image-component
+                    <the-goal-image
                       :cover="true"
                       :goal-code="goal.codigo"
                       :height="100"
@@ -76,7 +76,7 @@
                 </p>
                 <div v-if="isGoalSelected()" id="ods-selected">
                   <div id="ods-selected-image">
-                    <the-goal-image-component
+                    <the-goal-image
                       :cover="true"
                       :goal-code="btnGoalIndex + 1"
                       :height="50"

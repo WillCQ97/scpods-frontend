@@ -5,8 +5,8 @@
     <v-data-table :headers="header" :items="actions">
       <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
       <template #top>
-        <v-dialog v-model="showDialog" width="150vh">
-          <action-card-detail-component
+        <v-dialog v-model="showDialog" width="125vh">
+          <action-card-detail
             :is-submission="isSubmission"
             :action="selectedItem"
             @close="showDialog = false"

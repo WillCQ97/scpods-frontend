@@ -52,7 +52,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
+          <actions-list
             :actions="submissoes"
             :is-submission="true"
             @accept="acceptHandler"
@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 const { $api } = useNuxtApp()
@@ -74,7 +74,7 @@ definePageMeta({
   middleware: 'auth',
 })
 export default {
-  components: { ActionsListComponent, TheCardDivider },
+  components: { ActionsList, TheCardDivider },
 
   data: () => ({
     accepted: false,

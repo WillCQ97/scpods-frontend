@@ -3,7 +3,7 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="mapTitle"
             :bounds="jeronimoBounds"
             :center="jeronimoCenter"
@@ -16,7 +16,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component
+          <actions-list
             v-if="isActionsListVisible"
             :actions="jeronimoActions"
           /> </v-col
@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import featureJeronimo from '~/assets/features/jeronimo.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
@@ -38,7 +38,7 @@ const { $api } = useNuxtApp()
 export default {
   name: 'PaginaAcoesJeronimo',
 
-  components: { ActionsListComponent, ActionsMapComponent },
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {

@@ -54,7 +54,7 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
             :bounds="limitesMaruipe"
             :center="centroMaruipe"
@@ -66,7 +66,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component v-if="exibirAcoes" :actions="acoesMaruipe" />
+          <actions-list v-if="exibirAcoes" :actions="acoesMaruipe" />
         </v-col>
       </v-row>
     </v-col>
@@ -75,8 +75,8 @@
 
 <script lang="ts">
 import feature from '~/assets/features/maruipe.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
@@ -86,7 +86,7 @@ const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+  components: { ActionsList, ActionsMap, TheCardDivider },
 
   data() {
     return {

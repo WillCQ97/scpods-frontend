@@ -3,7 +3,7 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
             :bounds="limitesRive"
             :center="centroRive"
@@ -17,7 +17,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component v-if="exibirAcoes" :actions="acoesRive" />
+          <actions-list v-if="exibirAcoes" :actions="acoesRive" />
         </v-col>
       </v-row>
     </v-col>
@@ -26,8 +26,8 @@
 
 <script lang="ts">
 import featureRive from '~/assets/features/rive.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
@@ -36,7 +36,7 @@ const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaMapaAcoesAlegreRive',
-  components: { ActionsListComponent, ActionsMapComponent },
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
