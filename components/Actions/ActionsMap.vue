@@ -2,7 +2,7 @@
   <v-card min-width="80vh">
     <v-card-title>{{ title }}</v-card-title>
     <the-card-divider />
-    <AppMapComponent
+    <app-map
       :attribution="attributionHOT"
       :bounds="bounds"
       :center="center"
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { LocalInfo } from '~/models/local.model'
 import type Marker from '~/models/props/marker.model'
@@ -34,9 +34,9 @@ import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
-  name: 'ActionsMapComponent',
+  name: 'ActionsMap',
 
-  components: { AppMapComponent, TheCardDivider },
+  components: { AppMap, TheCardDivider },
 
   props: {
     bounds: {

@@ -31,14 +31,14 @@
 </template>
 
 <script lang="ts">
-import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
+import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { Acao } from '~/models/acao.model'
+import { AcaoBuilder, type Acao } from '~/models/acao.model'
 
 export default {
-  name: 'ActionsListComponent',
-  components: { ActionCardDetailComponent, TheCardDivider, TheGoalImage },
+  name: 'ActionsList',
+  components: { ActionCardDetail, TheCardDivider, TheGoalImage },
 
   props: {
     actions: {
@@ -73,41 +73,8 @@ export default {
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
 
-      selectedItem: {
-        // TODO: CRIAR UM BUILDER USANDO TYPESCRIPT PARA INSTANCIAR ESSE OBJETO
-        titulo: '',
-        descricao: '',
-        dataCadastro: '',
-        dataInicio: '',
-        dataEncerramento: null,
-        coordenador: {
-          nome: '',
-          descricaoVinculo: '',
-        },
-        meta: {
-          id: null,
-          codigo: '',
-          descricao: '',
-          objetivo: {
-            id: null,
-            codigo: '',
-            titulo: '',
-            descricao: '',
-          },
-        },
-        local: {
-          nomePrincipal: '',
-          nomeSecundario: null,
-          nomeTerciario: null,
-          unidade: {
-            nome: '',
-          },
-        },
-        lotacao: {
-          descricao: '',
-          sigla: '',
-        },
-      },
+      // TODO: CRIAR UM BUILDER USANDO TYPESCRIPT PARA INSTANCIAR ESSE OBJETO
+      selectedItem: AcaoBuilder(),
 
       showDialog: false,
     }
@@ -117,7 +84,6 @@ export default {
 
   methods: {
     showItem(item: Acao) {
-      // TODO: TYPESCRIPT WARNING
       this.selectedItem = item
       this.showDialog = true
     },

@@ -9,8 +9,13 @@
       <v-form :readonly="true">
         <!-- OBJETIVO -->
         <v-row dense>
-          <v-col cols="3" align-self="center">
-            <the-goal-image-component :goal-code="goalId" :cover="true" />
+          <v-col cols="2" align-self="center">
+            <the-goal-image
+              :goal-code="goalId"
+              :cover="true"
+              height="225"
+              width="225"
+            />
           </v-col>
 
           <v-col>
@@ -156,12 +161,12 @@
 </template>
 
 <script lang="ts">
-import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
+import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import TheCardDivider from '../UI/TheCardDivider.vue'
 
 export default {
-  name: 'ActionCardDetailComponent',
-  components: { TheCardDivider, TheGoalImageComponent },
+  name: 'ActionCardDetail',
+  components: { TheCardDivider, TheGoalImage },
 
   props: {
     action: {

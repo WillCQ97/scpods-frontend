@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'TheGoalImageComponent',
+  name: 'TheGoalImage',
   props: {
     goalCode: {
       type: String,
