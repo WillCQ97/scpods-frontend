@@ -3,7 +3,7 @@ import type { LocalAcao } from './local.model'
 import type { LotacaoAcao } from './lotacao.model'
 import type { MetaAcao } from './meta.model'
 
-export interface Acao {
+export interface AcaoInterface {
   id: number
   titulo: string
   descricao: string
@@ -20,7 +20,7 @@ export interface Acao {
   lotacao: LotacaoAcao
 }
 
-export function AcaoBuilder(): Acao {
+export function AcaoBuilder(): AcaoInterface {
   return {
     titulo: '',
     descricao: '',

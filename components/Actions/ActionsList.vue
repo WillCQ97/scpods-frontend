@@ -17,12 +17,12 @@
 
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item }">
-        <the-goal-image :goal-code="item.meta.objetivo.codigo" />
+        <the-goal-image :goal-code="item.codigoObjetivo" />
       </template>
 
       <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
       <template #item.options="{ item }">
-        <v-icon class="me-2" size="small" @click="showItem(item)">
+        <v-icon class="me-2" size="small" @click="showAcao(item)">
           mdi-eye
         </v-icon>
       </template>
@@ -34,7 +34,8 @@
 import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import { AcaoBuilder, type Acao } from '~/models/acao.model'
+import type { AcaoGridInterface } from '~/models/acao.grid.interface'
+import { AcaoBuilder, type AcaoInterface } from '~/models/acao.model'
 
 export default {
   name: 'ActionsList',
@@ -66,14 +67,13 @@ export default {
           sortable: false,
           key: 'titulo',
         },
-        { title: 'Meta', key: 'meta.codigo' },
-        { title: 'Lotação', key: 'lotacao.sigla' },
-        { title: 'Local', key: 'local.nomePrincipal' },
-        { title: 'Coordenador', key: 'coordenador.nome' },
+        { title: 'Meta', key: 'codigoMeta' },
+        { title: 'Lotação', key: 'siglaLotacao' },
+        { title: 'Local', key: 'nomePrincipalLocal' },
+        { title: 'Coordenador', key: 'nomeCoordenador' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
 
-      // TODO: CRIAR UM BUILDER USANDO TYPESCRIPT PARA INSTANCIAR ESSE OBJETO
       selectedItem: AcaoBuilder(),
 
       showDialog: false,
@@ -83,8 +83,11 @@ export default {
   emits: ['accept'],
 
   methods: {
-    showItem(item: Acao) {
-      this.selectedItem = item
+    async showAcao(acaoGrid: AcaoGridInterface) {
+      const { $api } = useNuxtApp()
+      const acao = await $api.acoes.findById(acaoGrid.id)
+
+      this.selectedItem = acao
       this.showDialog = true
     },
     emitAccept({ accepted, id }) {

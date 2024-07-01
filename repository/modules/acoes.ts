@@ -1,15 +1,19 @@
 import type { FetchOptions } from 'ofetch'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 import FetchFactory from '../factory'
 
 class AcoesModule extends FetchFactory {
   private RESOURCE = '/acoes'
 
+  async findById(id: number) {
+    return this.call<AcaoInterface[]>('GET', `${this.RESOURCE}/${id}`)
+  }
+
   async getAcoes(codigoUnidade: string) {
     const fetchOptions: FetchOptions<'json'> = {
       params: { aceito: true, unidade: codigoUnidade },
     }
-    return this.call<Acao[]>(
+    return this.call<AcaoInterface[]>(
       'GET',
       `${this.RESOURCE}`,
       undefined, // body
@@ -21,7 +25,7 @@ class AcoesModule extends FetchFactory {
     const fetchOptions: FetchOptions<'json'> = {
       params: { aceito: false },
     }
-    return this.call<Acao[]>(
+    return this.call<AcaoInterface[]>(
       'GET',
       `${this.RESOURCE}`,
       undefined, // body
@@ -29,18 +33,23 @@ class AcoesModule extends FetchFactory {
     )
   }
 
-  async enviarSubmissao(submissao: Acao) {
-    return this.call<Acao>('POST', `${this.RESOURCE}`, submissao)
+  async enviarSubmissao(submissao: AcaoInterface) {
+    return this.call<AcaoInterface>('POST', `${this.RESOURCE}`, submissao)
   }
 
   async aceitarSubmissao(id: number) {
-    return this.call<Acao>('PATCH', `${this.RESOURCE}/aceitar`, undefined, {
-      params: { id },
-    })
+    return this.call<AcaoInterface>(
+      'PATCH',
+      `${this.RESOURCE}/aceitar`,
+      undefined,
+      {
+        params: { id },
+      },
+    )
   }
 
   async rejeitarSubmissao(id: number) {
-    return this.call<Acao>('DELETE', `${this.RESOURCE} + ${id}`)
+    return this.call<AcaoInterface>('DELETE', `${this.RESOURCE} + ${id}`)
   }
 }
 

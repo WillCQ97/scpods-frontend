@@ -83,7 +83,7 @@ import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
@@ -96,7 +96,7 @@ export default {
 
   data() {
     return {
-      acoesGoiabeiras: [] as Acao[],
+      acoesGoiabeiras: [] as AcaoInterface[],
       exibirAcoes: false,
       nomeUnidade: 'Campus em Goiabeiras',
       centroGoiabeiras: [-20.2764, -40.3037],

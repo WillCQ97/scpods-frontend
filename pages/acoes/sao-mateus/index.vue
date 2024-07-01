@@ -79,7 +79,7 @@ import feature from '~/assets/features/sao_mateus.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_SAO_MATEUS'
@@ -91,7 +91,7 @@ export default {
 
   data() {
     return {
-      acoesSaoMateus: [] as Acao[],
+      acoesSaoMateus: [] as AcaoInterface[],
       exibirAcoes: false,
       infoSaoMateus: {} as UnidadeInfo,
       nomeUnidade: 'Unidade de São Mateus',
