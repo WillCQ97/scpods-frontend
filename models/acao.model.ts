@@ -20,7 +20,8 @@ export interface AcaoInterface {
   lotacao: LotacaoAcao
 }
 
-export function AcaoBuilder(): AcaoInterface {
+// TODO: melhorar o uso dessas interfaces
+export function AcaoInterfaceBuilder(): AcaoInterface {
   return {
     titulo: '',
     descricao: '',

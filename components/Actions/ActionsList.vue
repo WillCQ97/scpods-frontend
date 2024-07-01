@@ -35,7 +35,7 @@ import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import type { AcaoGridInterface } from '~/models/acao.grid.interface'
-import { AcaoBuilder, type AcaoInterface } from '~/models/acao.model'
+import { AcaoInterfaceBuilder } from '~/models/acao.model'
 
 export default {
   name: 'ActionsList',
@@ -74,7 +74,7 @@ export default {
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
 
-      selectedItem: AcaoBuilder(),
+      selectedItem: AcaoInterfaceBuilder(),
 
       showDialog: false,
     }

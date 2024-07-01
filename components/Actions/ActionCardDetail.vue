@@ -1,6 +1,9 @@
 <template>
   <v-card>
-    <v-card-title> Informações detalhadas sobre a ação </v-card-title>
+    <v-card-title>
+      Informações detalhadas sobre a
+      {{ isSubmission ? 'submissão enviada' : 'ação cadastrada' }}
+    </v-card-title>
 
     <the-card-divider />
 
@@ -142,15 +145,25 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
+
+      <v-btn
+        v-if="isSubmission"
+        prepend-icon="mdi-check"
+        color="green"
+        @click="emitAccept(true)"
+      >
+        Aceitar
+      </v-btn>
+
+      <v-btn
+        v-if="isSubmission"
+        prepend-icon="mdi-close"
+        color="red"
+        @click="emitAccept(false)"
+      >
+        Recusar
+      </v-btn>
       <v-btn color="primary" @click="emitClose()"> Fechar </v-btn>
-
-      <v-btn v-if="isSubmission" color="primary" @click="emitAccept(true)">
-        Aceitar Submissão
-      </v-btn>
-
-      <v-btn v-if="isSubmission" color="red" @click="emitAccept(false)">
-        Recusar Submissão
-      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

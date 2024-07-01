@@ -49,7 +49,7 @@ class AcoesModule extends FetchFactory {
   }
 
   async rejeitarSubmissao(id: number) {
-    return this.call<AcaoInterface>('DELETE', `${this.RESOURCE} + ${id}`)
+    return this.call<AcaoInterface>('DELETE', `${this.RESOURCE}/${id}`)
   }
 }
 
