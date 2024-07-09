@@ -105,7 +105,7 @@ export default {
 
   methods: {
     async loadActions() {
-      this.acoesMaruipe = await $api.acoes.getAcoes(codigoUnidade)
+      this.acoesMaruipe = await $api.acoes.search(codigoUnidade)
     },
     showActions(flag: boolean) {
       this.exibirAcoes = flag

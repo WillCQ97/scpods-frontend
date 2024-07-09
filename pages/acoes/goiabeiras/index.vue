@@ -111,7 +111,7 @@ export default {
 
   methods: {
     async loadActions() {
-      this.acoesGoiabeiras = await $api.acoes.getAcoes(codigoUnidade)
+      this.acoesGoiabeiras = await $api.acoes.search(codigoUnidade)
     },
 
     showActions(flag: boolean) {

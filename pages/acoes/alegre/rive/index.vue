@@ -56,7 +56,7 @@ export default {
 
   methods: {
     async loadActions() {
-      this.acoesRive = await $api.acoes.getAcoes(codigoUnidade)
+      this.acoesRive = await $api.acoes.search(codigoUnidade)
     },
     showActions(flag: boolean) {
       this.exibirAcoes = flag

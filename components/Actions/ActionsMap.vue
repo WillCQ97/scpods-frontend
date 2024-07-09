@@ -70,9 +70,6 @@ export default {
 
   computed: {
     createMarkers(): Marker[] {
-      /*
-       * As classes css utilizadas no html abaixo estão definidas em main.css
-       */
       const odsStore = useObjetivoStore()
 
       const locaisAtivos = this.unidadeInfo.locais?.filter(

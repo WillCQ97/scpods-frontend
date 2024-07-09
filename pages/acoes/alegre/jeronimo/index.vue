@@ -57,7 +57,7 @@ export default {
 
   methods: {
     async loadActionsList() {
-      this.jeronimoActions = await $api.acoes.getAcoes(codigoUnidade)
+      this.jeronimoActions = await $api.acoes.search(codigoUnidade)
     },
 
     showActionsHandler(flag: boolean) {

@@ -106,7 +106,7 @@ export default {
 
   methods: {
     async loadActions() {
-      this.acoesSaoMateus = await $api.acoes.getAcoes(codigoUnidade)
+      this.acoesSaoMateus = await $api.acoes.search(codigoUnidade)
     },
     showActions(flag: boolean) {
       this.exibirAcoes = flag

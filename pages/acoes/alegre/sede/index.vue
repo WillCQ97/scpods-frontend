@@ -54,7 +54,7 @@ export default {
 
   methods: {
     async loadActions() {
-      this.acoesAlegre = await $api.acoes.getAcoes(codigoUnidade)
+      this.acoesAlegre = await $api.acoes.search(codigoUnidade)
     },
     showActions(flag: boolean) {
       this.exibirAcoes = flag
