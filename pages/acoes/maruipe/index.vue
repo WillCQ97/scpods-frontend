@@ -54,19 +54,19 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
             :bounds="limitesMaruipe"
             :center="centroMaruipe"
             :feature="featureCampus"
-            :markers="createMarkers"
+            :unidade-info="infoMaruipe"
             @show-actions="showActions"
           />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component v-if="exibirAcoes" :actions="acoesMaruipe" />
+          <actions-list v-if="exibirAcoes" :actions="acoesMaruipe" />
         </v-col>
       </v-row>
     </v-col>
@@ -75,28 +75,25 @@
 
 <script lang="ts">
 import feature from '~/assets/features/maruipe.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_MARUIPE'
-const acaoStore = useAcaoStore()
-const unidadeStore = useUnidadeStore()
+const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
-
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
+  components: { ActionsList, ActionsMap, TheCardDivider },
 
   data() {
     return {
-      acoesMaruipe: [] as Acao[],
+      acoesMaruipe: [] as AcaoInterface[],
       exibirAcoes: false,
       nomeUnidade: 'Unidade de Maruípe',
+      infoMaruipe: {} as UnidadeInfo,
       centroMaruipe: [-20.29815881701748, -40.31628393322453],
       limitesMaruipe: [
         [-20.297085718911358, -40.32064926449737],
@@ -106,16 +103,21 @@ export default {
     }
   },
 
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
+  methods: {
+    async loadActions() {
+      this.acoesMaruipe = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
-  methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcoes = flag
-      this.acoesMaruipe = await acaoStore.fetchAcoes(codigoUnidade)
-    },
+
+  async mounted() {
+    this.infoMaruipe = await this.$api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

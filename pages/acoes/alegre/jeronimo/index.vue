@@ -3,21 +3,20 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="mapTitle"
             :bounds="jeronimoBounds"
             :center="jeronimoCenter"
             :feature="campusFeatures"
-            :markers="jeronimoMarkers"
+            :unidade-info="jeronimoInfo"
             @show-actions="showActionsHandler"
-            @refresh-data="reloadInfoHandler"
           />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col>
-          <actions-list-component
+          <actions-list
             v-if="isActionsListVisible"
             :actions="jeronimoActions"
           /> </v-col
@@ -28,30 +27,22 @@
 
 <script lang="ts">
 import featureJeronimo from '~/assets/features/jeronimo.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_JERONIMO'
-const acaoStore = useAcaoStore()
-
-const unidadeStore = useUnidadeStore()
-
-async function carregarInfo() {
-  await unidadeStore.fetchInfo(codigoUnidade)
-}
+const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesJeronimo',
-  components: { ActionsListComponent, ActionsMapComponent },
 
-  async beforeRouteEnter() {
-    await carregarInfo()
-  },
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
-      jeronimoActions: [] as Acao[], // TODO: TIPAR EM INGLÊS
+      jeronimoActions: [] as AcaoInterface[], // TODO: TIPAR EM INGLÊS
       campusFeatures: featureJeronimo,
       isActionsListVisible: false,
       mapTitle: 'Unidade em Jerônimo Monteiro',
@@ -60,26 +51,26 @@ export default {
         [-20.79285, -41.38471],
       ],
       jeronimoCenter: [-20.79071, -41.38887],
+      jeronimoInfo: {} as UnidadeInfo,
     }
   },
 
-  computed: {
-    jeronimoMarkers() {
-      return unidadeStore.getMarcadores
+  methods: {
+    async loadActionsList() {
+      this.jeronimoActions = await $api.acoes.getAcoes(codigoUnidade)
+    },
+
+    showActionsHandler(flag: boolean) {
+      this.isActionsListVisible = flag
+
+      if (this.isActionsListVisible) {
+        this.loadActionsList()
+      }
     },
   },
 
-  methods: {
-    async showActionsHandler(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
-    },
-    async reloadInfoHandler() {
-      // FIXME: ATUALIZAR NÃO ESTÁ FUNCIONANDO
-      // PROVAVELMENTE, PORQUE A INFO É UTILIZADA PARA GERAR OS MARCADORES
-      // MAS OS MESMOS SÃO UTILIZADOS COMO COMPUTED E POR ISSO NÃO SÃO ATUALIZADOS
-      await carregarInfo()
-    },
+  async mounted() {
+    this.jeronimoInfo = await $api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

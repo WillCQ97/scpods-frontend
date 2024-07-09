@@ -3,12 +3,12 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeCampus"
             :bounds="limitesAlegre"
             :center="centroAlegre"
             :feature="featureAlegre"
-            :markers="createMarkers"
+            :unidade-info="infoAlegre"
             @show-actions="showActions"
           />
         </v-col>
@@ -16,7 +16,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component v-if="exibirAcoes" :actions="acoesAlegre" />
+          <actions-list v-if="exibirAcoes" :actions="acoesAlegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -25,28 +25,23 @@
 
 <script lang="ts">
 import featureAlegre from '~/assets/features/alegre.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_ALEGRE'
-const acaoStore = useAcaoStore()
-const unidadeStore = useUnidadeStore()
+const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaMapaAcoesAlegreSede',
-  components: { ActionsListComponent, ActionsMapComponent },
-
-  // const { data, pending, error, refresh } = await useFetch()
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-    // refresh
-  },
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
-      acoesAlegre: [] as Acao[],
+      acoesAlegre: [] as AcaoInterface[],
       exibirAcoes: false,
+      infoAlegre: {} as UnidadeInfo,
       featureAlegre,
       nomeCampus: 'Campus Sede em Alegre',
       centroAlegre: [-20.76161, -41.536],
@@ -57,17 +52,21 @@ export default {
     }
   },
 
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
+  methods: {
+    async loadActions() {
+      this.acoesAlegre = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 
-  methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcoes = flag
-      this.acoesAlegre = await acaoStore.fetchAcoes(codigoUnidade)
-    },
+  async mounted() {
+    this.infoAlegre = await $api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

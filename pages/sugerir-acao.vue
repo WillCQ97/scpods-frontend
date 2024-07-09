@@ -75,27 +75,25 @@
 import colorPalleteUfes from '~/assets/colors'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
-// FIXME: isso resulta em erro relacionado ao carregamento do pinia se a página for acessada primeiramente
-// USO DO COMPOSITION API RESOLVE?!
-// USO DO PLUGIN, CRIANDO A STORE GLOBALMENTE RESOLVE?!
-// WORKAROUND: criar um middleware onde se o to e from são iguais e não são /, redireciona para a home?!
-const user = useUser()
-
 export default {
   name: 'PaginaSugerirNovaAcaoWraper',
   components: { TheCardDivider },
+
   data() {
     return {
       btnColor: colorPalleteUfes.monocromatic.secondary,
       showDialog: false,
     }
   },
+
   methods: {
     showForm() {
-      if (!user.isLoggedIn) {
+      const userStore = useUserStore()
+
+      if (!userStore.isLoggedIn) {
         this.showDialog = true
+        return
       }
-      // todo: the middleware auth should prevent this page to load the form
       return navigateTo('/sugerir-acao/formulario')
     },
   },

@@ -43,7 +43,7 @@ import type Marker from '~/models/props/marker.model'
  * A ordem esperada das coordenadas é latitude, longitude
  */
 export default {
-  name: 'AppMapComponent',
+  name: 'AppMap',
 
   props: {
     attribution: {

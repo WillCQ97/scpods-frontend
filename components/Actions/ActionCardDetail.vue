@@ -1,6 +1,9 @@
 <template>
   <v-card>
-    <v-card-title> Informações detalhadas sobre a ação </v-card-title>
+    <v-card-title>
+      Informações detalhadas sobre a
+      {{ isSubmission ? 'submissão enviada' : 'ação cadastrada' }}
+    </v-card-title>
 
     <the-card-divider />
 
@@ -10,7 +13,7 @@
         <!-- OBJETIVO -->
         <v-row dense>
           <v-col cols="3" align-self="center">
-            <the-goal-image-component :goal-id="goalId" :cover="true" />
+            <the-goal-image :goal-code="goalId" :cover="true" />
           </v-col>
 
           <v-col>
@@ -142,26 +145,36 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
+
+      <v-btn
+        v-if="isSubmission"
+        prepend-icon="mdi-check"
+        color="green"
+        @click="emitAccept(true)"
+      >
+        Aceitar
+      </v-btn>
+
+      <v-btn
+        v-if="isSubmission"
+        prepend-icon="mdi-close"
+        color="red"
+        @click="emitAccept(false)"
+      >
+        Recusar
+      </v-btn>
       <v-btn color="primary" @click="emitClose()"> Fechar </v-btn>
-
-      <v-btn v-if="isSubmission" color="primary" @click="emitAccept(true)">
-        Aceitar Submissão
-      </v-btn>
-
-      <v-btn v-if="isSubmission" color="red" @click="emitAccept(false)">
-        Recusar Submissão
-      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
-import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
+import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import TheCardDivider from '../UI/TheCardDivider.vue'
 
 export default {
-  name: 'ActionCardDetailComponent',
-  components: { TheCardDivider, TheGoalImageComponent },
+  name: 'ActionCardDetail',
+  components: { TheCardDivider, TheGoalImage },
 
   props: {
     action: {
@@ -179,15 +192,15 @@ export default {
 
   computed: {
     goalId() {
-      return this.action.meta.objetivo.id
+      return this.action.meta.objetivo.codigo
     },
     goalText() {
       const objetivo = this.action.meta.objetivo
-      return objetivo.id + ' - ' + objetivo.descricao
+      return objetivo.codigo + ' - ' + objetivo.descricao
     },
     targetText() {
       const target = this.action.meta
-      return target.id + ' - ' + target.descricao
+      return target.codigo + ' - ' + target.descricao
     },
     showedItem() {
       return this.action

@@ -55,22 +55,19 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
             :bounds="limitesSaoMateus"
             :center="centroSaoMateus"
             :feature="featureCampus"
-            :markers="createMarkers"
+            :unidade-info="infoSaoMateus"
             @show-actions="showActions"
           />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="exibirAcoes"
-            :actions="acoesSaoMateus"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesSaoMateus" />
         </v-col>
       </v-row>
     </v-col>
@@ -79,27 +76,24 @@
 
 <script lang="ts">
 import feature from '~/assets/features/sao_mateus.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao/acao.model'
+import type { AcaoInterface } from '~/models/acao.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 const codigoUnidade = 'UN_SAO_MATEUS'
-const acaoStore = useAcaoStore()
-const unidadeStore = useUnidadeStore()
+const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesSaoMateus',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
-
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
+  components: { ActionsList, ActionsMap, TheCardDivider },
 
   data() {
     return {
-      acoesSaoMateus: [] as Acao[],
+      acoesSaoMateus: [] as AcaoInterface[],
       exibirAcoes: false,
+      infoSaoMateus: {} as UnidadeInfo,
       nomeUnidade: 'Unidade de São Mateus',
       centroSaoMateus: [-18.675738334093378, -39.86240690464644],
       limitesSaoMateus: [
@@ -110,17 +104,21 @@ export default {
     }
   },
 
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
+  methods: {
+    async loadActions() {
+      this.acoesSaoMateus = await $api.acoes.getAcoes(codigoUnidade)
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 
-  methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcoes = flag
-      this.acoesSaoMateus = await acaoStore.fetchAcoes(codigoUnidade)
-    },
+  async mounted() {
+    this.infoSaoMateus = await this.$api.unidades.getUnidadeInfo(codigoUnidade)
   },
 }
 </script>

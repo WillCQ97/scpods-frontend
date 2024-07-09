@@ -52,7 +52,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
+          <actions-list
             :actions="submissoes"
             :is-submission="true"
             @accept="acceptHandler"
@@ -63,51 +63,43 @@
   </v-row>
 </template>
 
-<script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
+<script setup lang="ts">
+import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
-const acaoStore = useAcaoStore()
-var submissoes = await acaoStore.fetchSubmissoes()
+const { $api } = useNuxtApp()
+var submissoes = await $api.acoes.getSubmissoes()
+
+const accepted = ref(false)
+const showErrorDialog = ref(false)
+const showSuccess = ref(false)
 
 definePageMeta({
   middleware: 'auth',
 })
-export default {
-  components: { ActionsListComponent, TheCardDivider },
 
-  data: () => ({
-    accepted: false,
-    showErrorDialog: false,
-    showSuccess: false,
-    submissoes,
-  }),
+async function acceptHandler({ accepted, id }): Promise<void> {
+  console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
-  methods: {
-    async acceptHandler({ accepted, id }): Promise<void> {
-      console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
+  try {
+    accepted = accepted
 
-      try {
-        this.accepted = accepted
+    if (accepted) {
+      await $api.acoes.aceitarSubmissao(id)
+    } else {
+      await $api.acoes.rejeitarSubmissao(id)
+    }
+    showSuccess.value = true
+  } catch (error) {
+    showErrorDialog.value = true
+    console.log('ERRO: ', error)
+  }
 
-        if (accepted) {
-          await acaoStore.acceptSubmissao(id)
-        } else {
-          await acaoStore.rejectSubmissao(id)
-        }
-        this.showSuccess = true
-      } catch (error) {
-        this.showErrorDialog = true
-        console.log('ERRO: ', error)
-      }
+  await refreshList()
+  console.log('REFRESH: ', submissoes)
+}
 
-      await this.refreshList()
-      console.log('REFRESH: ', submissoes)
-    },
-
-    async refreshList(): Promise<void> {
-      submissoes = await acaoStore.fetchSubmissoes()
-    },
-  },
+async function refreshList(): Promise<void> {
+  submissoes = await $api.acoes.getSubmissoes()
 }
 </script>
