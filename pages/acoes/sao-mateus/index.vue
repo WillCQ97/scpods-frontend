@@ -57,9 +57,9 @@
         <v-col>
           <actions-map
             :title="nomeUnidade"
-            :bounds="limitesSaoMateus"
-            :center="centroSaoMateus"
-            :feature="featureCampus"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
             :unidade-info="infoSaoMateus"
             @show-actions="showActions"
           />
@@ -75,15 +75,13 @@
 </template>
 
 <script lang="ts">
-import feature from '~/assets/features/sao_mateus.json'
+import featureSaoMateus from '~/assets/features/sao_mateus.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
-
-const codigoUnidade = 'UN_SAO_MATEUS'
-const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesSaoMateus',
@@ -91,22 +89,26 @@ export default {
 
   data() {
     return {
-      acoesSaoMateus: [] as AcaoInterface[],
-      exibirAcoes: false,
-      infoSaoMateus: {} as UnidadeInfo,
       nomeUnidade: 'Unidade de São Mateus',
-      centroSaoMateus: [-18.675738334093378, -39.86240690464644],
-      limitesSaoMateus: [
+      codigoUnidade: 'UN_SAO_MATEUS',
+      acoesSaoMateus: [] as AcaoInterface[],
+      infoSaoMateus: {} as UnidadeInfo,
+      exibirAcoes: false,
+      centroMapa: [-18.675738334093378, -39.86240690464644],
+      limitesMapa: [
         [-18.670727522212445, -39.866469236990035],
         [-18.680308622184185, -39.85245444148613],
       ],
-      featureCampus: feature,
+      campusGeojson: featureSaoMateus,
     }
   },
 
   methods: {
     async loadActions() {
-      this.acoesSaoMateus = await $api.acoes.search(codigoUnidade)
+      const { $api } = useNuxtApp()
+      this.acoesSaoMateus = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
     },
     showActions(flag: boolean) {
       this.exibirAcoes = flag
@@ -118,7 +120,8 @@ export default {
   },
 
   async mounted() {
-    this.infoSaoMateus = await this.$api.unidades.getUnidadeInfo(codigoUnidade)
+    const { $api } = useNuxtApp()
+    this.infoSaoMateus = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

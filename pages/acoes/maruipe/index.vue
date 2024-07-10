@@ -56,8 +56,8 @@
         <v-col>
           <actions-map
             :title="nomeUnidade"
-            :bounds="limitesMaruipe"
-            :center="centroMaruipe"
+            :bounds="limitesMaapa"
+            :center="centroMapa"
             :feature="featureCampus"
             :unidade-info="infoMaruipe"
             @show-actions="showActions"
@@ -79,10 +79,8 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
-
-const codigoUnidade = 'UN_MARUIPE'
-const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesMaruipe',
@@ -90,22 +88,26 @@ export default {
 
   data() {
     return {
-      acoesMaruipe: [] as AcaoInterface[],
-      exibirAcoes: false,
       nomeUnidade: 'Unidade de Maruípe',
+      codigoUnidade: 'UN_MARUIPE',
+      acoesMaruipe: [] as AcaoInterface[],
       infoMaruipe: {} as UnidadeInfo,
-      centroMaruipe: [-20.29815881701748, -40.31628393322453],
-      limitesMaruipe: [
+      exibirAcoes: false,
+      centroMapa: [-20.29815881701748, -40.31628393322453],
+      limitesMaapa: [
         [-20.297085718911358, -40.32064926449737],
         [-20.301772383132487, -40.31412608305674],
       ],
-      featureCampus: feature, // TODO: corrigir discrepância do geojson para a tile
+      featureCampus: feature,
     }
   },
 
   methods: {
     async loadActions() {
-      this.acoesMaruipe = await $api.acoes.search(codigoUnidade)
+      const { $api } = useNuxtApp()
+      this.acoesMaruipe = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
     },
     showActions(flag: boolean) {
       this.exibirAcoes = flag
@@ -117,7 +119,8 @@ export default {
   },
 
   async mounted() {
-    this.infoMaruipe = await this.$api.unidades.getUnidadeInfo(codigoUnidade)
+    const { $api } = useNuxtApp()
+    this.infoMaruipe = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>
