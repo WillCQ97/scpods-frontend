@@ -55,7 +55,6 @@
             Apenas membros da comunidade acadêmica podem realizar a submissão de
             projetos.
           </p>
-          <p>Por favor, utilize o botão de entrar no menu superior.</p>
         </v-card-text>
 
         <the-card-divider />
