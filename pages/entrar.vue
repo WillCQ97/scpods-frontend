@@ -1,11 +1,13 @@
 <!-- TODO: FINALIZAR ESTE TEMPLATE-->
 <template>
-  <v-row>
+  <v-row align="center">
     <v-spacer />
     <v-col>
-      <v-card width="95vh">
+      <v-card width="75vh">
         <v-card-title>Realizar login</v-card-title>
+
         <the-card-divider />
+
         <v-card-text>
           <v-list>
             <v-list-item>
@@ -20,15 +22,21 @@
               Os dados informados abaixo não serão armazenados.
             </v-list-item>
           </v-list>
+
           <v-text-field
             v-model="username"
             label="Informe seu CPF"
           ></v-text-field>
+
           <v-text-field
             v-model="password"
+            :append-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="exibirSenha ? 'text' : 'password'"
             label="Informe sua senha da UFES"
+            @click:append="exibirSenha = !exibirSenha"
           ></v-text-field>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer />
           <v-btn @click="validarLogin()"> Validar Login </v-btn>
@@ -50,6 +58,7 @@ export default {
 
   data() {
     return {
+      exibirSenha: false,
       username: '',
       password: '',
       execution: '',
@@ -90,7 +99,7 @@ export default {
     async efetuarLogin() {},
     validarLogin(): void {
       const userStore = useUserStore()
-
+      userStore.isLoggedIn = true // TODO: TEMPORÁRIO PARA TESTES
       if (userStore.isLoggedIn) {
         navigateTo('/')
       } else {

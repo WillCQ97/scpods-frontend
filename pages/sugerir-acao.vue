@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>Passos para sugerir uma ação</v-card-title>
+          <v-card-title>Passos para enviar uma sugestão de ação</v-card-title>
           <the-card-divider />
           <v-card-text>
             <ol>
@@ -26,7 +26,11 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn :color="btnColor" variant="elevated" @click="showForm">
+            <v-btn
+              :color="corBotao"
+              variant="elevated"
+              @click="acessarFormulario"
+            >
               Acessar Formulário
             </v-btn>
             <v-spacer />
@@ -42,7 +46,7 @@
     </v-row>
 
     <!-- DIÁLOGO DE LOGIN -->
-    <v-dialog v-model="showDialog" width="75vh">
+    <v-dialog v-model="exibirDialogo" width="75vh">
       <v-card>
         <v-card-title> Validação Necessária </v-card-title>
         <the-card-divider />
@@ -60,10 +64,17 @@
           <v-spacer></v-spacer>
           <v-btn
             variant="elevated"
-            :color="btnColor"
-            @click="showDialog = false"
+            :color="corBotao"
+            @click="navigateTo('/entrar')"
           >
-            OK
+            Ir para página de login
+          </v-btn>
+          <v-btn
+            variant="elevated"
+            :color="corBotao"
+            @click="exibirDialogo = false"
+          >
+            Fechar
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -81,17 +92,17 @@ export default {
 
   data() {
     return {
-      btnColor: colorPalleteUfes.monocromatic.secondary,
-      showDialog: false,
+      corBotao: colorPalleteUfes.monocromatic.secondary,
+      exibirDialogo: false,
     }
   },
 
   methods: {
-    showForm() {
+    acessarFormulario() {
       const userStore = useUserStore()
 
       if (!userStore.isLoggedIn) {
-        this.showDialog = true
+        this.exibirDialogo = true
         return
       }
       return navigateTo('/sugerir-acao/formulario')

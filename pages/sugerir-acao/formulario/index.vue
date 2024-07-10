@@ -39,20 +39,20 @@
             <v-row>
               <v-col>
                 <!--
-              TODO: Este toggle considera que os objetivos recebidos estarão ordenados
-              para obter o objetivo a partir do indice dos botões criados
-              Talvez criar um componente que receba o objetivo.id
-            -->
+                TODO: Este toggle considera que os objetivos recebidos estarão ordenados
+                para obter o objetivo a partir do indice dos botões criados
+                Talvez criar um componente que receba o objetivo.id
+                -->
                 <v-btn-toggle id="ods-btn-toggle" v-model="btnGoalIndex">
                   <v-btn
-                    v-for="goal in goals"
-                    :key="goal.id"
+                    v-for="objetivo in objetivos"
+                    :key="objetivo.id"
                     height="120"
                     width="120"
                   >
                     <the-goal-image
                       :cover="true"
-                      :goal-code="goal.codigo"
+                      :goal-code="objetivo.codigo"
                       :height="100"
                       :width="100"
                     />
@@ -71,7 +71,7 @@
             <v-row>
               <v-col>
                 <p v-if="!isGoalSelected()" style="color: #60646a">
-                  Clique em um Objetivo de Desenvolvimento Sustentável para que
+                  Selecione um Objetivo de Desenvolvimento Sustentável para que
                   sejam exibidas as metas relacionadas.
                 </p>
                 <div v-if="isGoalSelected()" id="ods-selected">
@@ -283,33 +283,39 @@
 
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import TheGoalImageComponent from '~/components/UI/TheGoalImage.vue'
+import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import type { Objetivo } from '~/models/objetivo.model'
 
-const { $api } = useNuxtApp()
-
-// TODO: criar lógica de obtenção dos objetivos
-const odsStore = useObjetivoStore() // TODO: verificar erro de acesso ao pinia antes do mesmo estar ativo
-if (odsStore.getLength == 0) {
-  const { data: objetivosResponse, error } = await $api.objetivos.getObjetivos()
-
-  if (error) {
-    // show dialog não foi carregar os objetivos
-    //return
-  }
-
-  odsStore.setObjetivos(
-    objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
-  )
-}
-
 definePageMeta({
-  middleware: [], //todo: adicionar auth
+  middleware: ['auth'], //todo: adicionar auth
 })
 
 export default {
   name: 'PaginaFormularioSubmissao',
-  components: { TheCardDivider, TheGoalImageComponent },
+
+  components: { TheCardDivider, TheGoalImage },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    const odsStore = useObjetivoStore()
+
+    if (odsStore.getLength != 0) {
+      this.objetivos = odsStore.getObjetivos
+    } else {
+      const { data: objetivosResponse, error } =
+        await $api.objetivos.getObjetivos()
+
+      if (error) {
+        // TODO: show dialog não foi carregar os objetivos
+        return
+      }
+
+      odsStore.setObjetivos(
+        objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
+      )
+    }
+  },
+
   data() {
     return {
       submissao: {
@@ -364,7 +370,7 @@ export default {
       dialogError: false,
       rules: [(value) => !!value || 'Este campo é obrigatório.'],
 
-      goals: odsStore.getObjetivos,
+      objetivos: [] as Objetivo[],
       targetsSelected: [],
       targetDisabled: true,
       btnGoalIndex: null,
@@ -406,12 +412,15 @@ export default {
       return this.btnGoalIndex + 1
     },
     getGoal(id: number) {
+      const odsStore = useObjetivoStore()
       return odsStore.getObjetivoById(id)
     },
     getGoalTitle(id: number) {
+      const odsStore = useObjetivoStore()
       return odsStore.getTituloObjetivoById(id)
     },
     getGoalTargets(id: number) {
+      const odsStore = useObjetivoStore()
       if (id == null) {
         return
       }

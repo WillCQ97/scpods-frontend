@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+
 export default {
   name: 'PaginaSubmissao',
   components: { TheCardDivider },
