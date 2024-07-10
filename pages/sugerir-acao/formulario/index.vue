@@ -296,6 +296,7 @@ export default {
   components: { TheCardDivider, TheGoalImage },
 
   async mounted() {
+    // carrega os objetivos
     const { $api } = useNuxtApp()
     const odsStore = useObjetivoStore()
 
@@ -314,6 +315,9 @@ export default {
         objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
       )
     }
+
+    // carrega as opções de campus
+    this.fieldOpcoesCampus = await $api.unidades.getOpcoesCampus()
   },
 
   data() {
@@ -354,7 +358,7 @@ export default {
         'Aluno de graduação',
         'Outro',
       ],
-      fieldOpcoesCampus: ['Alegre', 'Goiabeiras', 'Maruípe', 'São Mateus'],
+      fieldOpcoesCampus: [] as string[],
       fieldOpcoesUnidade: [] as Array<string>,
       fieldOpcoesLocal: [],
 
