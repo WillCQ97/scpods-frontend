@@ -308,7 +308,7 @@ definePageMeta({
 })
 
 export default {
-  name: 'PaginaFormularioSugerirNovaAcao',
+  name: 'PaginaFormularioSubmissao',
   components: { TheCardDivider, TheGoalImageComponent },
   data() {
     return {

@@ -36,7 +36,7 @@
 import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { AcaoGridInterface } from '~/models/acao.grid.interface'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoInterfaceBuilder } from '~/models/acao.model'
 
 export default {
@@ -86,7 +86,7 @@ export default {
   emits: ['accept'],
 
   methods: {
-    async showAcao(acaoGrid: AcaoGridInterface) {
+    async showAcao(acaoGrid: AcaoSearchInterface) {
       const { $api } = useNuxtApp()
       const acao = await $api.acoes.findById(acaoGrid.id)
 

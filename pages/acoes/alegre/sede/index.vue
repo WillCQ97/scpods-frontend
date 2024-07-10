@@ -4,10 +4,10 @@
       <v-row>
         <v-col>
           <actions-map
-            :title="nomeCampus"
-            :bounds="limitesAlegre"
-            :center="centroAlegre"
-            :feature="featureAlegre"
+            :title="nomeUnidade"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
             :unidade-info="infoAlegre"
             @show-actions="showActions"
           />
@@ -28,24 +28,23 @@ import featureAlegre from '~/assets/features/alegre.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
-const codigoUnidade = 'UN_ALEGRE'
-const { $api } = useNuxtApp()
-
 export default {
-  name: 'PaginaMapaAcoesAlegreSede',
+  name: 'PaginaAcoesAlegre',
   components: { ActionsList, ActionsMap },
 
   data() {
     return {
+      nomeUnidade: 'Campus Sede em Alegre',
+      codigoUnidade: 'UN_ALEGRE',
       acoesAlegre: [] as AcaoInterface[],
-      exibirAcoes: false,
       infoAlegre: {} as UnidadeInfo,
-      featureAlegre,
-      nomeCampus: 'Campus Sede em Alegre',
-      centroAlegre: [-20.76161, -41.536],
-      limitesAlegre: [
+      campusGeojson: featureAlegre,
+      exibirAcoes: false,
+      centroMapa: [-20.76161, -41.536],
+      limitesMapa: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],
       ],
@@ -53,20 +52,25 @@ export default {
   },
 
   methods: {
-    async loadActions() {
-      this.acoesAlegre = await $api.acoes.search(codigoUnidade)
+    async carregarAcoes() {
+      const { $api } = useNuxtApp()
+      this.acoesAlegre = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
     },
+
     showActions(flag: boolean) {
       this.exibirAcoes = flag
 
       if (this.exibirAcoes) {
-        this.loadActions()
+        this.carregarAcoes()
       }
     },
   },
 
   async mounted() {
-    this.infoAlegre = await $api.unidades.getUnidadeInfo(codigoUnidade)
+    const { $api } = useNuxtApp()
+    this.infoAlegre = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

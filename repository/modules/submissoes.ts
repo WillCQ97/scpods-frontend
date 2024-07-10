@@ -1,7 +1,6 @@
-import type { FetchOptions } from 'ofetch'
 import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchOptionsInterface } from '~/models/acao.search.options.model'
 import FetchFactory from '../factory'
-import type { AcaoGridOptionsInterface } from '~/models/acao.grid.options.interface'
 
 class AcoesModule extends FetchFactory {
   private RESOURCE = '/submissoes'
@@ -10,14 +9,14 @@ class AcoesModule extends FetchFactory {
     return this.call<AcaoInterface[]>('GET', `${this.RESOURCE}/${id}`)
   }
 
-  async search(options: AcaoGridOptionsInterface) {
+  async search(options: AcaoSearchOptionsInterface) {
     return this.call<AcaoInterface[]>('GET', `${this.RESOURCE}`, options)
   }
 
-  async rejeitar(id: number) {
+  async aceitar(id: number) {
     return this.call<AcaoInterface>(
-      'DELETE',
-      `${this.RESOURCE}/rejeitar`,
+      'PATCH',
+      `${this.RESOURCE}/aceitar`,
       undefined,
       {
         params: { id },
@@ -25,10 +24,10 @@ class AcoesModule extends FetchFactory {
     )
   }
 
-  async aceitar(id: number) {
+  async rejeitar(id: number) {
     return this.call<AcaoInterface>(
-      'PATCH',
-      `${this.RESOURCE}/aceitar`,
+      'DELETE',
+      `${this.RESOURCE}/rejeitar`,
       undefined,
       {
         params: { id },

@@ -11,7 +11,7 @@ class UnidadesModule extends FetchFactory {
   async getUnidadeInfo(codigoUnidade: string) {
     return this.call<UnidadeInfo>(
       'GET',
-      `${this.RESOURCE}/${codigoUnidade}/info`,
+      `${this.RESOURCE}/info/${codigoUnidade}`,
     )
   }
 
