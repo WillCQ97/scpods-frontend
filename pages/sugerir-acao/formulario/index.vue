@@ -93,11 +93,11 @@
             <v-row>
               <v-col>
                 <v-item-group selected-class="bg-primary">
-                  <v-combobox
+                  <v-select
                     label="Escolha a meta mais relevante para o projeto"
                     :items="getMetaFieldItems(btnGoalIndex + 1)"
                     :disabled="targetDisabled"
-                  ></v-combobox>
+                  ></v-select>
                   <!--
                   <v-item v-slot="{ isSelected, selectedClass, toggle }">
                     <v-card
@@ -143,11 +143,11 @@
 
             <v-row>
               <v-col>
-                <v-combobox
+                <v-select
                   label="Lotação da ação"
                   :items="loadLotacaoItems()"
                   :rules="rules"
-                ></v-combobox>
+                ></v-select>
               </v-col>
             </v-row>
           </v-card-text>
@@ -205,30 +205,39 @@
           <v-card-text>
             <v-row>
               <v-col cols="3">
-                <v-combobox
+                <v-select
                   v-on:update:menu="setUnidadeItems()"
                   v-model="campusSelecionado"
                   label="Campus"
+                  item-title="description"
+                  item-value="value"
                   :items="fieldOpcoesCampus"
                   :rules="rules"
-                ></v-combobox>
+                ></v-select>
               </v-col>
               <v-col>
-                <v-combobox
+                <v-select
+                  v-on:update:menu="setLocalItems()"
                   v-model="unidadeSelecionada"
                   label="Unidade"
+                  item-title="description"
+                  item-value="value"
+                  no-data-text="Selecione um Campus"
                   :items="fieldOpcoesUnidade"
                   :rules="rules"
-                ></v-combobox>
+                ></v-select>
               </v-col>
 
               <v-col>
-                <v-combobox
+                <v-select
                   v-model="localSelecionado"
                   label="Local"
+                  item-title="description"
+                  item-value="value"
+                  no-data-text="Selecione uma Unidade"
                   :items="fieldOpcoesLocal"
                   :rules="rules"
-                ></v-combobox>
+                ></v-select>
               </v-col>
             </v-row>
           </v-card-text>
@@ -284,7 +293,9 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
+import type { Unidade } from '~/models/unidade.model'
 
 definePageMeta({
   middleware: ['auth'], //todo: adicionar auth
@@ -315,13 +326,14 @@ export default {
         objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
       )
     }
-
-    // carrega as opções de campus
-    this.fieldOpcoesCampus = await $api.unidades.getOpcoesCampus()
+    // carrega as unidades do backend
+    this.unidades = await $api.unidades.getUnidades()
   },
 
   data() {
     return {
+      objetivos: [] as Objetivo[],
+      unidades: [] as Unidade[],
       submissao: {
         titulo: '',
         descricao: '',
@@ -358,9 +370,14 @@ export default {
         'Aluno de graduação',
         'Outro',
       ],
-      fieldOpcoesCampus: [] as string[],
-      fieldOpcoesUnidade: [] as Array<string>,
-      fieldOpcoesLocal: [],
+      fieldOpcoesCampus: [
+        { value: 'ALEGRE', description: 'Alegre' },
+        { value: 'GOIABEIRAS', description: 'Goiabeiras' },
+        { value: 'MARUIPE', description: 'Maruípe' },
+        { value: 'SAO_MATEUS', description: 'São Mateus' },
+      ],
+      fieldOpcoesUnidade: [] as Array<Object>,
+      fieldOpcoesLocal: [] as Array<Object>,
 
       // dados da unidade e lotação
       campusSelecionado: '',
@@ -374,7 +391,6 @@ export default {
       dialogError: false,
       rules: [(value) => !!value || 'Este campo é obrigatório.'],
 
-      objetivos: [] as Objetivo[],
       targetsSelected: [],
       targetDisabled: true,
       btnGoalIndex: null,
@@ -459,40 +475,41 @@ export default {
         return
       }
 
-      if (this.campusSelecionado === 'Alegre') {
-        this.fieldOpcoesUnidade = [
-          'Campus Alegre',
-          'Área Experimental em Rive, Alegre',
-          'Unidade em Jerônimo Monteiro',
-          'Área Experimental em Jerônimo Monteiro',
-          'Área Experimental em São José do Calçado',
-        ]
+      this.fieldOpcoesUnidade = this.unidades
+        .filter((un) => un.campus === this.campusSelecionado)
+        .map((un) => ({ value: un.codigo, description: un.nome }))
+
+      this.unidadeSelecionada = ''
+      this.localSelecionado = ''
+    },
+    setLocalItems() {
+      if (!this.unidadeSelecionada) {
+        this.fieldOpcoesLocal = []
+        return
       }
-      if (this.campusSelecionado === 'Goiabeiras') {
-        this.fieldOpcoesUnidade = ['Campus de Goiabeiras']
-      }
-      if (this.campusSelecionado === 'Maruípe') {
-        this.fieldOpcoesUnidade = ['Campus de Maruípe']
-      }
-      if (this.campusSelecionado === 'São Mateus') {
-        this.fieldOpcoesUnidade = ['Campus de São Mateus']
+
+      const unidade = this.unidades
+        .filter((un) => un.campus === this.campusSelecionado)
+        .find((un) => un.codigo === this.unidadeSelecionada)
+
+      if (!unidade) {
+        this.fieldOpcoesLocal = []
+      } else {
+        this.fieldOpcoesLocal = unidade.locais.map((lc) => ({
+          value: lc.id,
+          description: this.mountLocalDescription(lc),
+        }))
       }
     },
-    loadLocalItems() {
-      return [
-        'Anatomia Animal',
-        'Biologia',
-        'Biotecnologia',
-        'SUGRAD',
-        'Cemuni 1',
-        'Cemuni 2',
-        'Cemuni 3',
-        'Cantina / Copiadora',
-        'Prédio da Oceanografia',
-        'Oceanografia - Prédio da Mata',
-        'CT 1',
-        'CT 2',
-      ]
+    mountLocalDescription(local: Local): string {
+      let description = local.nomePrincipal
+      if (local.nomeSecundario) {
+        description += ' - ' + local.nomeSecundario
+      }
+      if (local.nomeTerciario) {
+        description += ' - ' + local.nomeTerciario
+      }
+      return description
     },
     loadLotacaoItems() {
       return [

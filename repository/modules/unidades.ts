@@ -15,7 +15,7 @@ class UnidadesModule extends FetchFactory {
     )
   }
 
-  async getLocais() {
+  async getUnidades() {
     return this.call<Unidade[]>('GET', `${this.RESOURCE}`)
   }
 }
