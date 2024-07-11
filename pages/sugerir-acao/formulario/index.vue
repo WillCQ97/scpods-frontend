@@ -20,9 +20,9 @@
             <v-row>
               <v-col>
                 <v-text-field
-                  v-model="fieldTitulo"
+                  v-model="campoTitulo"
                   label="Título ou nome da ação"
-                  :rules="rules"
+                  :rules="regras"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -43,7 +43,10 @@
                 para obter o objetivo a partir do indice dos botões criados
                 Talvez criar um componente que receba o objetivo.id
                 -->
-                <v-btn-toggle id="ods-btn-toggle" v-model="btnGoalIndex">
+                <v-btn-toggle
+                  id="ods-btn-toggle"
+                  v-model="objetivoSelecionadoIndex"
+                >
                   <v-btn
                     v-for="objetivo in objetivos"
                     :key="objetivo.id"
@@ -70,21 +73,23 @@
 
             <v-row>
               <v-col>
-                <p v-if="!isGoalSelected()" style="color: #60646a">
+                <p v-if="!isObjetivoSelecionado()" style="color: #60646a">
                   Selecione um Objetivo de Desenvolvimento Sustentável para que
                   sejam exibidas as metas relacionadas.
                 </p>
-                <div v-if="isGoalSelected()" id="ods-selected">
+                <div v-if="isObjetivoSelecionado()" id="ods-selected">
                   <div id="ods-selected-image">
                     <the-goal-image
                       :cover="true"
-                      :goal-code="btnGoalIndex + 1"
+                      :goal-code="objetivoSelecionadoIndex + 1"
                       :height="50"
                       :width="50"
                     />
                   </div>
                   <p id="ods-selected-text">
-                    <strong>{{ getGoalTitle(btnGoalIndex + 1) }}</strong>
+                    <strong>{{
+                      getTituloObjetivo(objetivoSelecionadoIndex + 1)
+                    }}</strong>
                   </p>
                 </div>
               </v-col>
@@ -95,23 +100,9 @@
                 <v-item-group selected-class="bg-primary">
                   <v-select
                     label="Escolha a meta mais relevante para o projeto"
-                    :items="getMetaFieldItems(btnGoalIndex + 1)"
+                    :items="getOpcoesMeta(objetivoSelecionadoIndex + 1)"
                     :disabled="targetDisabled"
                   ></v-select>
-                  <!--
-                  <v-item v-slot="{ isSelected, selectedClass, toggle }">
-                    <v-card
-                      :class="['d-flex align-center', selectedClass]"
-                      height="200"
-                      dark
-                      @click="toggle"
-                    >
-                      <div class="text-h3 flex-grow-1 text-center">
-                        {{ isSelected ? 'Selected' : 'Click Me!' }}
-                      </div>
-                    </v-card>
-                  </v-item>
-                  -->
                 </v-item-group>
               </v-col>
             </v-row>
@@ -121,7 +112,7 @@
               <v-col>
                 <v-text-field
                   label="Data de Início"
-                  :rules="rules"
+                  :rules="regras"
                 ></v-text-field>
               </v-col>
               <v-col>
@@ -134,9 +125,9 @@
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="fieldDescricao"
+                  v-model="campoDescricao"
                   label="Descrição e objetivos da sua ação"
-                  :rules="rules"
+                  :rules="regras"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -145,8 +136,8 @@
               <v-col>
                 <v-select
                   label="Lotação da ação"
-                  :items="loadLotacaoItems()"
-                  :rules="rules"
+                  :items="opcoesLotacao"
+                  :rules="regras"
                 ></v-select>
               </v-col>
             </v-row>
@@ -165,9 +156,9 @@
             <v-row>
               <v-col>
                 <v-text-field
-                  v-model="fieldNomeCoordenador"
+                  v-model="campoNomeCoordenador"
                   label="Nome completo"
-                  :rules="rules"
+                  :rules="regras"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -175,17 +166,17 @@
             <v-row>
               <v-col>
                 <v-combobox
-                  v-model="fieldVinculoCoordenador"
+                  v-model="campoVinculoCoordenador"
                   label="Vínculo com a UFES"
-                  :items="fieldOpcoesVinculo"
-                  :rules="rules"
+                  :items="campoOpcoesVinculo"
+                  :rules="regras"
                 ></v-combobox>
               </v-col>
               <v-col>
                 <v-text-field
-                  v-model="fieldEmailCoordenador"
+                  v-model="campoEmailCoordenador"
                   label="Endereço de e-mail"
-                  :rules="rules"
+                  :rules="regras"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -211,8 +202,8 @@
                   label="Campus"
                   item-title="description"
                   item-value="value"
-                  :items="fieldOpcoesCampus"
-                  :rules="rules"
+                  :items="opcoesCampus"
+                  :rules="regras"
                 ></v-select>
               </v-col>
               <v-col>
@@ -223,8 +214,8 @@
                   item-title="description"
                   item-value="value"
                   no-data-text="Selecione um Campus"
-                  :items="fieldOpcoesUnidade"
-                  :rules="rules"
+                  :items="opcoesUnidade"
+                  :rules="regras"
                 ></v-select>
               </v-col>
 
@@ -235,8 +226,8 @@
                   item-title="description"
                   item-value="value"
                   no-data-text="Selecione uma Unidade"
-                  :items="fieldOpcoesLocal"
-                  :rules="rules"
+                  :items="opcoesLocal"
+                  :rules="regras"
                 ></v-select>
               </v-col>
             </v-row>
@@ -244,9 +235,9 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="sendForm"> Enviar submissão </v-btn>
-            <v-btn @click="cleanFormFields"> Limpar campos </v-btn>
-            <v-btn @click="btnVoltar"> Voltar </v-btn>
+            <v-btn @click="enviarFormulario"> Enviar submissão </v-btn>
+            <v-btn @click="limparCamposFormulario"> Limpar campos </v-btn>
+            <v-btn @click="clickBtnVoltar"> Voltar </v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -298,7 +289,7 @@ import type { Objetivo } from '~/models/objetivo.model'
 import type { Unidade } from '~/models/unidade.model'
 
 definePageMeta({
-  middleware: ['auth'], //todo: adicionar auth
+  middleware: ['auth'],
 })
 
 export default {
@@ -355,164 +346,30 @@ export default {
         },
       },
 
-      fieldTitulo: '',
-      fieldDescricao: '',
-      fieldDataInicial: '', // https://vuetifyjs.com/en/components/date-inputs/
-      fieldDataFinal: '',
-      fieldNomeCoordenador: '',
-      fieldEmailCoordenador: '',
-      fieldVinculoCoordenador: '',
+      campoTitulo: '',
+      campoDescricao: '',
+      campoDataInicial: '', // https://vuetifyjs.com/en/components/date-inputs/
+      campoDataFinal: '',
+      campoNomeCoordenador: '',
+      campoEmailCoordenador: '',
+      campoVinculoCoordenador: '',
 
-      fieldOpcoesVinculo: [
+      campoOpcoesVinculo: [
         'Professor',
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
         'Aluno de graduação',
         'Outro',
       ],
-      fieldOpcoesCampus: [
+      opcoesCampus: [
         { value: 'ALEGRE', description: 'Alegre' },
         { value: 'GOIABEIRAS', description: 'Goiabeiras' },
         { value: 'MARUIPE', description: 'Maruípe' },
         { value: 'SAO_MATEUS', description: 'São Mateus' },
       ],
-      fieldOpcoesUnidade: [] as Array<Object>,
-      fieldOpcoesLocal: [] as Array<Object>,
-
-      // dados da unidade e lotação
-      campusSelecionado: '',
-      unidadeSelecionada: '',
-      localSelecionado: '',
-
-      fieldCenterValue: '',
-      fieldDepartament: '',
-
-      dialogSuccess: false,
-      dialogError: false,
-      rules: [(value) => !!value || 'Este campo é obrigatório.'],
-
-      targetsSelected: [],
-      targetDisabled: true,
-      btnGoalIndex: null,
-      targetSelectedIndex: null,
-    }
-  },
-  methods: {
-    addZeroToDate(number: number) {
-      if (number <= 9) {
-        return '0' + number
-      }
-      return number
-    },
-    btnVoltar() {
-      return navigateTo('/sugerir-acao/')
-    },
-    cleanFormFields() {
-      this.fieldTitulo = ''
-      this.fieldCenter = ''
-      this.fieldNomeCoordenador = ''
-      this.fieldDepartament = ''
-      this.fieldDescricao = ''
-      this.fieldEmailCoordenador = ''
-      this.fieldVinculoCoordenador = ''
-      this.btnGoalIndex = null
-      this.targetSelectedIndex = null
-    },
-    dateFormatted() {
-      const date = new Date()
-      return (
-        date.getFullYear() +
-        '-' +
-        this.addZeroToDate(date.getMonth() + 1) +
-        '-' +
-        this.addZeroToDate(date.getDate())
-      )
-    },
-    getSelectedGoal() {
-      return this.btnGoalIndex + 1
-    },
-    getGoal(id: number) {
-      const odsStore = useObjetivoStore()
-      return odsStore.getObjetivoById(id)
-    },
-    getGoalTitle(id: number) {
-      const odsStore = useObjetivoStore()
-      return odsStore.getTituloObjetivoById(id)
-    },
-    getGoalTargets(id: number) {
-      const odsStore = useObjetivoStore()
-      if (id == null) {
-        return
-      }
-      return odsStore.getMetasByObjetivoId(id)
-    },
-    getMetaFieldItems(id: number) {
-      if (this.btnGoalIndex === null || this.btnGoalIndex === undefined) {
-        this.targetDisabled = true
-        return []
-      }
-
-      this.targetDisabled = false
-
-      return this.getGoalTargets(id)?.map(
-        (target) =>
-          ('Meta ' + target.id + ' - ' + target.descricao).substring(0, 117) +
-          ' ...',
-      )
-    },
-    isGoalSelected() {
-      return this.btnGoalIndex !== null && this.btnGoalIndex !== undefined
-    },
-    isTargetSelected() {
-      return (
-        this.targetSelectedIndex !== null &&
-        this.targetSelectedIndex !== undefined
-      )
-    },
-    setUnidadeItems() {
-      if (!this.campusSelecionado) {
-        this.fieldOpcoesUnidade = []
-        return
-      }
-
-      this.fieldOpcoesUnidade = this.unidades
-        .filter((un) => un.campus === this.campusSelecionado)
-        .map((un) => ({ value: un.codigo, description: un.nome }))
-
-      this.unidadeSelecionada = ''
-      this.localSelecionado = ''
-    },
-    setLocalItems() {
-      if (!this.unidadeSelecionada) {
-        this.fieldOpcoesLocal = []
-        return
-      }
-
-      const unidade = this.unidades
-        .filter((un) => un.campus === this.campusSelecionado)
-        .find((un) => un.codigo === this.unidadeSelecionada)
-
-      if (!unidade) {
-        this.fieldOpcoesLocal = []
-      } else {
-        this.fieldOpcoesLocal = unidade.locais.map((lc) => ({
-          value: lc.id,
-          description: this.mountLocalDescription(lc),
-        }))
-      }
-    },
-    mountLocalDescription(local: Local): string {
-      let description = local.nomePrincipal
-      if (local.nomeSecundario) {
-        description += ' - ' + local.nomeSecundario
-      }
-      if (local.nomeTerciario) {
-        description += ' - ' + local.nomeTerciario
-      }
-      return description
-    },
-    loadLotacaoItems() {
-      return [
+      opcoesUnidade: [] as Array<Object>,
+      opcoesLocal: [] as Array<Object>,
+      opcoesLotacao: [
         'Centro de Ciências Agrárias e Engenharias',
         'Centro de Ciências Exatas, Naturais e da Saúde',
         'Centro Universitário Norte do Espírito Santo',
@@ -526,17 +383,144 @@ export default {
         'Centro Tecnológico',
         'Hospital Universitário Cassiano Antônio Moraes',
         'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)',
-      ]
+      ],
+
+      // dados da unidade e lotação
+      campusSelecionado: '',
+      unidadeSelecionada: '',
+      localSelecionado: '',
+
+      dialogSuccess: false,
+      dialogError: false,
+      regras: [(value) => !!value || 'Este campo é obrigatório.'],
+
+      targetDisabled: true,
+      objetivoSelecionadoIndex: null,
+      metaSelecionadaIndex: null,
+    }
+  },
+  methods: {
+    addZeroToDate(number: number) {
+      if (number <= 9) {
+        return '0' + number
+      }
+      return number
     },
-    sendForm() {
+    clickBtnVoltar() {
+      return navigateTo('/sugerir-acao/')
+    },
+    limparCamposFormulario() {
+      this.campoTitulo = ''
+      this.fieldCenter = ''
+      this.campoNomeCoordenador = ''
+      this.fieldDepartament = ''
+      this.campoDescricao = ''
+      this.campoEmailCoordenador = ''
+      this.campoVinculoCoordenador = ''
+      this.objetivoSelecionadoIndex = null
+      this.metaSelecionadaIndex = null
+    },
+    dateFormatted() {
+      const date = new Date()
+      return (
+        date.getFullYear() +
+        '-' +
+        this.addZeroToDate(date.getMonth() + 1) +
+        '-' +
+        this.addZeroToDate(date.getDate())
+      )
+    },
+    getTituloObjetivo(id: number) {
+      const odsStore = useObjetivoStore()
+      return odsStore.getTituloObjetivoById(id)
+    },
+    getMetasByObjetivoId(id: number) {
+      const odsStore = useObjetivoStore()
+      if (id == null) {
+        return
+      }
+      return odsStore.getMetasByObjetivoId(id)
+    },
+    getOpcoesMeta(id: number) {
+      if (
+        this.objetivoSelecionadoIndex === null ||
+        this.objetivoSelecionadoIndex === undefined
+      ) {
+        this.targetDisabled = true
+        return []
+      }
+
+      this.targetDisabled = false
+
+      return this.getMetasByObjetivoId(id)?.map(
+        (target) =>
+          ('Meta ' + target.id + ' - ' + target.descricao).substring(0, 127) +
+          ' ...',
+      )
+    },
+    isObjetivoSelecionado() {
+      return (
+        this.objetivoSelecionadoIndex !== null &&
+        this.objetivoSelecionadoIndex !== undefined
+      )
+    },
+    isMetaSelecionada() {
+      return (
+        this.metaSelecionadaIndex !== null &&
+        this.metaSelecionadaIndex !== undefined
+      )
+    },
+    setUnidadeItems() {
+      if (!this.campusSelecionado) {
+        this.opcoesUnidade = []
+        return
+      }
+
+      this.opcoesUnidade = this.unidades
+        .filter((un) => un.campus === this.campusSelecionado)
+        .map((un) => ({ value: un.codigo, description: un.nome }))
+
+      this.unidadeSelecionada = ''
+      this.localSelecionado = ''
+    },
+    setLocalItems() {
+      if (!this.unidadeSelecionada) {
+        this.opcoesLocal = []
+        return
+      }
+
+      const unidade = this.unidades
+        .filter((un) => un.campus === this.campusSelecionado)
+        .find((un) => un.codigo === this.unidadeSelecionada)
+
+      if (!unidade) {
+        this.opcoesLocal = []
+      } else {
+        this.opcoesLocal = unidade.locais.map((lc) => ({
+          value: lc.id,
+          description: this.getDescricaoLocais(lc),
+        }))
+      }
+    },
+    getDescricaoLocais(local: Local): string {
+      let description = local.nomePrincipal
+      if (local.nomeSecundario) {
+        description += ' - ' + local.nomeSecundario
+      }
+      if (local.nomeTerciario) {
+        description += ' - ' + local.nomeTerciario
+      }
+      return description
+    },
+    enviarFormulario() {
       const campos = [
-        this.fieldTitulo,
+        this.campoTitulo,
         this.fieldCenterValue,
-        this.fieldNomeCoordenador,
+        this.campoNomeCoordenador,
         this.fieldDepartament,
-        this.fieldDescricao,
-        this.fieldEmailCoordenador,
-        this.fieldVinculoCoordenador,
+        this.campoDescricao,
+        this.campoEmailCoordenador,
+        this.campoVinculoCoordenador,
       ]
 
       for (const campo of campos) {
@@ -546,7 +530,10 @@ export default {
         }
       }
 
-      if (this.btnGoalIndex === null || this.targetSelectedIndex === null) {
+      if (
+        this.objetivoSelecionadoIndex === null ||
+        this.metaSelecionadaIndex === null
+      ) {
         this.dialogError = true
         return
       }
