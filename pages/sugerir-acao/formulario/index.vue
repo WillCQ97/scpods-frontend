@@ -397,9 +397,35 @@ export default {
         formatoData: (value) => {
           if (!value) return 'Este campo é obrigatório.'
 
-          if (!value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)) {
-            return 'Formato de data inválido. Use dd/MM/AAAA.'
+          const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+          if (!match) {
+            return 'Formato de data inválido. Use dd/MM/yyyy.'
           }
+
+          const day = parseInt(match[1], 10)
+          const month = parseInt(match[2], 10)
+          const year = parseInt(match[3], 10)
+
+          if (
+            day < 1 ||
+            day > 31 ||
+            month < 1 ||
+            month > 12 ||
+            year < 1000 ||
+            year > 9999
+          ) {
+            return 'Data inválida.'
+          }
+
+          const date = new Date(year, month - 1, day)
+          if (
+            date.getFullYear() !== year ||
+            date.getMonth() !== month - 1 ||
+            date.getDate() !== day
+          ) {
+            return 'Data inválida.'
+          }
+
           return true
         },
       },
