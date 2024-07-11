@@ -22,7 +22,7 @@
                 <v-text-field
                   v-model="campoTitulo"
                   label="Título ou nome da ação"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -81,7 +81,7 @@
                   <div id="ods-selected-image">
                     <the-goal-image
                       :cover="true"
-                      :goal-code="objetivoSelecionadoIndex + 1"
+                      :goal-code="getCodigoObjetivo(objetivoSelecionadoIndex)"
                       :height="50"
                       :width="50"
                     />
@@ -112,7 +112,7 @@
               <v-col>
                 <v-text-field
                   label="Data de Início"
-                  :rules="regras"
+                  :rules="[regras.formatoData]"
                 ></v-text-field>
               </v-col>
               <v-col>
@@ -127,7 +127,7 @@
                 <v-textarea
                   v-model="campoDescricao"
                   label="Descrição e objetivos da sua ação"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -137,7 +137,7 @@
                 <v-select
                   label="Lotação da ação"
                   :items="opcoesLotacao"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-select>
               </v-col>
             </v-row>
@@ -158,7 +158,7 @@
                 <v-text-field
                   v-model="campoNomeCoordenador"
                   label="Nome completo"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -169,14 +169,14 @@
                   v-model="campoVinculoCoordenador"
                   label="Vínculo com a UFES"
                   :items="campoOpcoesVinculo"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-combobox>
               </v-col>
               <v-col>
                 <v-text-field
                   v-model="campoEmailCoordenador"
                   label="Endereço de e-mail"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -203,7 +203,7 @@
                   item-title="description"
                   item-value="value"
                   :items="opcoesCampus"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-select>
               </v-col>
               <v-col>
@@ -215,7 +215,7 @@
                   item-value="value"
                   no-data-text="Selecione um Campus"
                   :items="opcoesUnidade"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-select>
               </v-col>
 
@@ -227,7 +227,7 @@
                   item-value="value"
                   no-data-text="Selecione uma Unidade"
                   :items="opcoesLocal"
-                  :rules="regras"
+                  :rules="[regras.obrigatorio]"
                 ></v-select>
               </v-col>
             </v-row>
@@ -392,7 +392,17 @@ export default {
 
       dialogSuccess: false,
       dialogError: false,
-      regras: [(value) => !!value || 'Este campo é obrigatório.'],
+      regras: {
+        obrigatorio: (value) => !!value || 'Este campo é obrigatório.',
+        formatoData: (value) => {
+          if (!value) return 'Este campo é obrigatório.'
+
+          if (!value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)) {
+            return 'Formato de data inválido. Use dd/MM/AAAA.'
+          }
+          return true
+        },
+      },
 
       targetDisabled: true,
       objetivoSelecionadoIndex: null,
@@ -400,35 +410,21 @@ export default {
     }
   },
   methods: {
-    addZeroToDate(number: number) {
-      if (number <= 9) {
-        return '0' + number
-      }
-      return number
-    },
     clickBtnVoltar() {
       return navigateTo('/sugerir-acao/')
     },
     limparCamposFormulario() {
       this.campoTitulo = ''
-      this.fieldCenter = ''
       this.campoNomeCoordenador = ''
-      this.fieldDepartament = ''
       this.campoDescricao = ''
       this.campoEmailCoordenador = ''
       this.campoVinculoCoordenador = ''
       this.objetivoSelecionadoIndex = null
       this.metaSelecionadaIndex = null
     },
-    dateFormatted() {
-      const date = new Date()
-      return (
-        date.getFullYear() +
-        '-' +
-        this.addZeroToDate(date.getMonth() + 1) +
-        '-' +
-        this.addZeroToDate(date.getDate())
-      )
+    getCodigoObjetivo(index: number | null) {
+      if (!index) return ''
+      return (index + 1).toString()
     },
     getTituloObjetivo(id: number) {
       const odsStore = useObjetivoStore()
