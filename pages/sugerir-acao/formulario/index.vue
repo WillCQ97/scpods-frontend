@@ -167,10 +167,21 @@
               <v-col>
                 <v-combobox
                   v-model="campoVinculoCoordenador"
+                  v-model:search="search"
+                  :hide-no-data="false"
                   label="Vínculo com a UFES"
                   :items="campoOpcoesVinculo"
                   :rules="[regras.obrigatorio]"
-                ></v-combobox>
+                >
+                  <template v-slot:no-data>
+                    <v-list-item>
+                      <v-list-item-title>
+                        No results matching "<strong>{{ search }}</strong
+                        >". Press <kbd>enter</kbd> to create a new one
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
+                </v-combobox>
               </v-col>
               <v-col>
                 <v-text-field
@@ -359,8 +370,8 @@ export default {
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
         'Aluno de graduação',
-        'Outro',
       ],
+      search: null,
       opcoesCampus: [
         { value: 'ALEGRE', description: 'Alegre' },
         { value: 'GOIABEIRAS', description: 'Goiabeiras' },
