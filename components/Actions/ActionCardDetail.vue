@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       Informações detalhadas sobre a
-      {{ isSubmission ? 'submissão enviada' : 'ação cadastrada' }}
+      {{ isSubmission ? 'submissão enviada' : 'ação' }}
     </v-card-title>
 
     <the-card-divider />

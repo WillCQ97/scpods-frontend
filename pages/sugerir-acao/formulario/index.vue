@@ -162,7 +162,12 @@
                 ></v-text-field>
               </v-col>
             </v-row>
-
+            <v-row>
+              <v-col>
+                Para informar um vínculo diferente das opções disponíveis, basta
+                preencher o campo abaixo com valor desejado.
+              </v-col>
+            </v-row>
             <v-row>
               <v-col>
                 <v-combobox
@@ -176,8 +181,9 @@
                   <template v-slot:no-data>
                     <v-list-item>
                       <v-list-item-title>
-                        No results matching "<strong>{{ search }}</strong
-                        >". Press <kbd>enter</kbd> to create a new one
+                        Opção "<strong>{{ search }}</strong
+                        >" informada não reconhecida. Pressione
+                        <kbd>enter</kbd> para adicionar uma nova
                       </v-list-item-title>
                     </v-list-item>
                   </template>
@@ -260,6 +266,7 @@
     <v-dialog v-model="dialogSuccess" width="500">
       <v-card>
         <v-card-title>Sucesso!</v-card-title>
+        <the-card-divider />
         <v-card-text>
           Sua ação foi enviada para contemplação pela comissão avaliadora.
         </v-card-text>
@@ -276,6 +283,7 @@
     <v-dialog v-model="dialogError" width="500">
       <v-card>
         <v-card-title>Erro!</v-card-title>
+        <the-card-divider />
         <v-card-text>
           Existem campos que não foram informados. <br />
           Por favor, verifique-os e tente novamente!

@@ -128,11 +128,11 @@ export default {
     },
     mapOptions() {
       return {
-        minZoom: 16,
-        maxZoom: 18,
-        zoomControl: true,
-        scrollWheelZoom: false,
         maxBounds: this.bounds,
+        maxZoom: 18,
+        minZoom: 16,
+        scrollWheelZoom: false,
+        zoomControl: true,
       }
     },
     showFeatureOnMap(): boolean {
