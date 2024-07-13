@@ -1692,7 +1692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:^3.5.0, @nuxt/kit@npm:^3.5.2":
+"@nuxt/kit@npm:^3.5.0":
   version: 3.11.1
   resolution: "@nuxt/kit@npm:3.11.1"
   dependencies:
@@ -7894,15 +7894,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nuxt3-leaflet@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "nuxt3-leaflet@npm:1.0.12"
+"nuxt3-leaflet@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "nuxt3-leaflet@npm:1.0.13"
   dependencies:
-    "@nuxt/kit": "npm:^3.5.2"
     "@types/leaflet": "npm:^1.9.3"
     "@vue-leaflet/vue-leaflet": "npm:^0.10.1"
     leaflet: "npm:^1.9.4"
-  checksum: 10/381d957bf26956b6e649e0c368908be1f98ba14a162ae34a7810df1d37b559f2f57f667410c9b8fe36381c128adfb3e43fe18516f81a91854a5258e0faee3a35
+  checksum: 10/db2ba2bcffaa8d9e64add561875b66984c5c8da2753b6f6b53163c3df25c9585b4ac174b38cec02ba85209e89507849180b096dd393c42c1124853463545d172
   languageName: node
   linkType: hard
 
@@ -9387,7 +9386,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:^3.6.1"
     eslint-plugin-prettier: "npm:^5.1.3"
     nuxt: "npm:^3.12.3"
-    nuxt3-leaflet: "npm:^1.0.12"
+    nuxt3-leaflet: "npm:^1.0.13"
     ofetch: "npm:^1.3.4"
     pinia: "npm:^2.1.7"
     prettier: "npm:^3.3.3"

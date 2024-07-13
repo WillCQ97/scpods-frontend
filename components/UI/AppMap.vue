@@ -12,6 +12,7 @@
       :options="mapOptions"
       :zoom="zoom"
       style="height: 600px; z-index: 1"
+      :use-global-leaflet="false"
     >
       <!-- LAYER DO OPENSTREETMAP -->
       <l-tile-layer :attribution="attribution" :url="tileUrl"></l-tile-layer>
