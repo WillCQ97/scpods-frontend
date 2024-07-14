@@ -88,7 +88,7 @@ export default {
   methods: {
     async showAcao(acaoGrid: AcaoSearchInterface) {
       const { $api } = useNuxtApp()
-      const acao = await $api.acoes.findById(acaoGrid.id)
+      const acao = await $api.submissoes.findById(acaoGrid.id)
 
       this.selectedItem = acao
       this.showDialog = true

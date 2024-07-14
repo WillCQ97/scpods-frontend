@@ -8,6 +8,8 @@ export const useUserStore = defineStore('userStore', {
   state: () => ({
     isLoggedIn: false,
     isAdmin: true,
+    username: '',
+    password: '',
   }),
 
   getters: {
@@ -17,9 +19,14 @@ export const useUserStore = defineStore('userStore', {
   },
 
   actions: {
-    login(login: string, password: string) {
-      // TODO: implementar a lógica de acesso
-      this.isLoggedIn = true
+    async loginAdmin(login: string, password: string) {
+      useFetch('/http://localhost:8080/acoes-ods/v1/usuarios/validar-admin')
+
+      const { status, error } = await useFetch('/api/modules', {
+        pick: ['title'],
+      })
+
+      this.isAdmin = true
       console.log(this.isLoggedIn)
     },
 

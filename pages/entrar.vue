@@ -35,12 +35,15 @@
             label="Informe sua senha da UFES"
             @click:append="exibirSenha = !exibirSenha"
           ></v-text-field>
+
+          <v-checkbox :v-model="isAdmin" label="Sou administrador"></v-checkbox>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer />
           <v-btn @click="validarLogin()"> Validar Login </v-btn>
           <v-btn @click="cancelar()"> Cancelar </v-btn>
+          <v-spacer />
         </v-card-actions>
       </v-card>
     </v-col>
@@ -58,6 +61,7 @@ export default {
 
   data() {
     return {
+      isAdmin: false,
       exibirSenha: false,
       username: '',
       password: '',
@@ -96,14 +100,16 @@ export default {
         console.log('Error: ', error.message)
       }
     },
+
     async efetuarLogin() {},
+
     validarLogin(): void {
       const userStore = useUserStore()
-      userStore.isLoggedIn = true // TODO: TEMPORÁRIO PARA TESTES
-      if (userStore.isLoggedIn) {
-        navigateTo('/')
+
+      if (!this.isAdmin) {
+        // logar como usuário
       } else {
-        // todo: apresentar erro
+        // logar como administrador
       }
     },
     cancelar(): void {

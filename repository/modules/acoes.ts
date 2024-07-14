@@ -1,5 +1,5 @@
 import type { AcaoInterface } from '~/models/acao.model'
-import type { AcaoSearchOptionsInterface } from '~/models/acao.search.options.model'
+import type { AcaoSearchFilterInterface } from '~/models/acao.search.filter.model'
 import FetchFactory from '../factory'
 
 class AcoesModule extends FetchFactory {
@@ -9,7 +9,7 @@ class AcoesModule extends FetchFactory {
     return this.call<AcaoInterface[]>('GET', `${this.RESOURCE}/${id}`)
   }
 
-  async search(options: AcaoSearchOptionsInterface) {
+  async search(options: AcaoSearchFilterInterface) {
     return this.call<AcaoInterface[]>(
       'POST',
       `${this.RESOURCE}/search`,

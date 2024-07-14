@@ -1,4 +1,4 @@
-export interface AcaoSearchOptionsInterface {
+export interface AcaoSearchFilterInterface {
   id?: number
   titulo?: string
   dataCadastro?: string
@@ -12,6 +12,6 @@ export interface AcaoSearchOptionsInterface {
 
 export function AcaoSearchOptionsBuilder(
   codigoUnidade: string,
-): AcaoSearchOptionsInterface {
+): AcaoSearchFilterInterface {
   return { codigoUnidade: codigoUnidade }
 }
