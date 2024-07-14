@@ -41,6 +41,20 @@
 import type Marker from '~/models/props/marker.model'
 
 /*
+TODO: é possível usar as funções do leaflet para criar os objetos e evitar o erro do typescript 
+
+
+https://docs.maptiler.com/leaflet/examples/ts-get-started/
+const options: MapOptions = {
+  center: latLng(40.731253, -73.996139),
+  zoom: 12,
+};
+
+import L from 'leaflet'
+L.latLng(number, number)
+*/
+
+/*
  * A ordem esperada das coordenadas é latitude, longitude
  */
 export default {
