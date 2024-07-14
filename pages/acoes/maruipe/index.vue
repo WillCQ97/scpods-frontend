@@ -38,15 +38,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://ccs.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://ccs.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -77,6 +69,7 @@
 import feature from '~/assets/features/maruipe.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
@@ -84,7 +77,7 @@ import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { ActionsList, ActionsMap, TheCardDivider },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
