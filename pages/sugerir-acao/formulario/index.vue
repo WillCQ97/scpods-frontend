@@ -88,7 +88,7 @@
                   </div>
                   <p id="ods-selected-text">
                     <strong>{{
-                      getTituloObjetivo(objetivoSelecionadoIndex + 1)
+                      getTituloObjetivo(objetivoSelecionadoIndex! + 1)
                     }}</strong>
                   </p>
                 </div>
@@ -100,7 +100,7 @@
                 <v-item-group selected-class="bg-primary">
                   <v-select
                     label="Escolha a meta mais relevante para o projeto"
-                    :items="getOpcoesMeta(objetivoSelecionadoIndex + 1)"
+                    :items="getOpcoesMeta(objetivoSelecionadoIndex! + 1)"
                     :disabled="targetDisabled"
                   ></v-select>
                 </v-item-group>
@@ -412,8 +412,8 @@ export default {
       dialogSuccess: false,
       dialogError: false,
       regras: {
-        obrigatorio: (value) => !!value || 'Este campo é obrigatório.',
-        formatoData: (value) => {
+        obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
+        formatoData: (value: string) => {
           if (!value) return 'Este campo é obrigatório.'
 
           const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
@@ -556,9 +556,7 @@ export default {
     enviarFormulario() {
       const campos = [
         this.campoTitulo,
-        this.fieldCenterValue,
         this.campoNomeCoordenador,
-        this.fieldDepartament,
         this.campoDescricao,
         this.campoEmailCoordenador,
         this.campoVinculoCoordenador,

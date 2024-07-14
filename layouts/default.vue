@@ -167,13 +167,14 @@ const drawer = ref(false)
 const userStore = useUserStore()
 
 function isUserLoggedIn(): boolean {
-  return userStore.isUserLoggedIn
+  return userStore.isUserLoggedIn || userStore.admin.isLoggedIn
 }
 function isUserAdmin(): boolean {
   return userStore.admin.isLoggedIn
 }
 function logoff(): void {
   userStore.logout()
+  navigateTo('/')
 }
 </script>
 

@@ -79,7 +79,7 @@ export default {
         message: '',
       },
       regras: {
-        obrigatorio: (value) => !!value || 'Este campo é obrigatório.',
+        obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
       },
     }
   },
@@ -107,6 +107,7 @@ export default {
         })
 
         userStore.loginAdmin(this.username, this.password)
+        navigateTo('/admin/avaliar-submissoes')
       } catch (e) {
         const fetchError = e as FetchError
         if (fetchError.status === 401 || fetchError.status === 403) {
