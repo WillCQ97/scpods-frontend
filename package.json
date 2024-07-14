@@ -1,5 +1,6 @@
 {
   "name": "scpods-frontend",
+  "description": "Frontend do sistema para cadastro de projetos relacionados aos ODS na UFES.",
   "version": "2.0.0",
   "private": true,
   "type": "module",
