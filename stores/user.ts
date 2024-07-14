@@ -8,8 +8,8 @@ export const useUserStore = defineStore('userStore', {
   state: () => ({
     isLoggedIn: false,
     isAdmin: true,
-    username: '',
-    password: '',
+    username: 'willcq',
+    password: 'admin.123',
   }),
 
   getters: {

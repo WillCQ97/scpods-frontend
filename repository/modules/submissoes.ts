@@ -6,39 +6,30 @@ import { encodeBasicAuth } from '@/utils/auth'
 class SubmissoesModule extends FetchFactory {
   private RESOURCE = '/submissoes'
 
-  private username = 'willcq'
-  private password = 'admin.123'
-
-  async findById(id: number) {
-    const authHeader = `Basic ${encodeBasicAuth(this.username, this.password)}`
-    const headers = new Headers({
+  private mountAuthHeader() {
+    const userStore = useUserStore()
+    const authHeader = `Basic ${encodeBasicAuth(userStore.username, userStore.password)}`
+    return new Headers({
       Authorization: authHeader,
       'Content-Type': 'application/json',
     })
-    return this.call<AcaoInterface[]>(
+  }
+
+  async findById(id: number) {
+    return this.call<AcaoInterface>(
       'GET',
       `${this.RESOURCE}/${id}`,
       undefined,
-      {
-        headers,
-      },
+      { headers: this.mountAuthHeader() },
     )
   }
 
   async search(searchFilter: AcaoSearchFilterInterface) {
-    const authHeader = `Basic ${encodeBasicAuth(this.username, this.password)}`
-    const headers = new Headers({
-      Authorization: authHeader,
-      'Content-Type': 'application/json',
-    })
-
     return this.call<AcaoInterface[]>(
       'POST',
       `${this.RESOURCE}/search`,
       searchFilter,
-      {
-        headers,
-      },
+      { headers: this.mountAuthHeader() },
     )
   }
 
@@ -49,6 +40,7 @@ class SubmissoesModule extends FetchFactory {
       undefined,
       {
         params: { id },
+        headers: this.mountAuthHeader(),
       },
     )
   }
@@ -60,6 +52,7 @@ class SubmissoesModule extends FetchFactory {
       undefined,
       {
         params: { id },
+        headers: this.mountAuthHeader(),
       },
     )
   }

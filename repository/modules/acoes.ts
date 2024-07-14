@@ -6,7 +6,7 @@ class AcoesModule extends FetchFactory {
   private RESOURCE = '/acoes'
 
   async findById(id: number) {
-    return this.call<AcaoInterface[]>('GET', `${this.RESOURCE}/${id}`)
+    return this.call<AcaoInterface>('GET', `${this.RESOURCE}/${id}`)
   }
 
   async search(options: AcaoSearchFilterInterface) {
