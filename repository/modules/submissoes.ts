@@ -2,7 +2,7 @@ import type { AcaoInterface } from '~/models/acao.model'
 import type { AcaoSearchOptionsInterface } from '~/models/acao.search.options.model'
 import FetchFactory from '../factory'
 
-class AcoesModule extends FetchFactory {
+class SubmissoesModule extends FetchFactory {
   private RESOURCE = '/submissoes'
 
   async findById(id: number) {
@@ -10,7 +10,7 @@ class AcoesModule extends FetchFactory {
   }
 
   async search(options: AcaoSearchOptionsInterface) {
-    return this.call<AcaoInterface[]>('GET', `${this.RESOURCE}`, options)
+    return this.call<AcaoInterface[]>('POST', `${this.RESOURCE}`, options)
   }
 
   async aceitar(id: number) {
@@ -36,4 +36,4 @@ class AcoesModule extends FetchFactory {
   }
 }
 
-export default AcoesModule
+export default SubmissoesModule

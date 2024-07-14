@@ -29,6 +29,13 @@
       <v-row>
         <v-col>
           <v-card>
+            <v-card-title>Filtro</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-card>
             <v-card-title>Avaliação das submissões enviadas</v-card-title>
             <the-card-divider />
             <v-card-text>
@@ -68,7 +75,7 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 const { $api } = useNuxtApp()
-var submissoes = await $api.acoes.getSubmissoes()
+var submissoes = await $api.submissoes.search({})
 
 const accepted = ref(false)
 const showErrorDialog = ref(false)
@@ -85,9 +92,9 @@ async function acceptHandler({ accepted, id }): Promise<void> {
     accepted = accepted
 
     if (accepted) {
-      await $api.acoes.aceitarSubmissao(id)
+      await $api.submissoes.aceitar(id)
     } else {
-      await $api.acoes.rejeitarSubmissao(id)
+      await $api.submissoes.rejeitar(id)
     }
     showSuccess.value = true
   } catch (error) {
@@ -100,6 +107,6 @@ async function acceptHandler({ accepted, id }): Promise<void> {
 }
 
 async function refreshList(): Promise<void> {
-  submissoes = await $api.acoes.getSubmissoes()
+  submissoes = await $api.submissoes.search({})
 }
 </script>
