@@ -13,13 +13,16 @@
       <!-- USER -->
       <v-btn
         :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="!isUserLoggedIn() ? login() : logoff()"
+        @click.stop="!isUserLoggedIn() ? navigateTo('/entrar') : logoff()"
       >
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
       <!-- ADMIN -->
-      <v-btn prepend-icon="mdi-shield-account" @click.stop="changeUserAdmin()">
+      <v-btn
+        prepend-icon="mdi-shield-account"
+        @click.stop="!isUserAdmin() ? navigateTo('/admin/entrar') : logoff()"
+      >
         Admin
       </v-btn>
 
@@ -167,13 +170,7 @@ function isUserLoggedIn(): boolean {
   return userStore.isUserLoggedIn
 }
 function isUserAdmin(): boolean {
-  return userStore.isAdmin
-}
-function changeUserAdmin(): void {
-  userStore.isAdmin = !userStore.isAdmin
-}
-function login(): void {
-  navigateTo('/entrar')
+  return userStore.admin.isLoggedIn
 }
 function logoff(): void {
   userStore.logout()

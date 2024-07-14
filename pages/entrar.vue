@@ -26,18 +26,19 @@
           <v-text-field
             v-model="username"
             label="Informe seu CPF"
+            prepend-icon="mdi-badge-account"
           ></v-text-field>
 
           <v-text-field
             v-model="password"
-            :append-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
+            :prepend-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
             :type="exibirSenha ? 'text' : 'password'"
             label="Informe sua senha da UFES"
-            @click:append="exibirSenha = !exibirSenha"
+            @click:prepend="exibirSenha = !exibirSenha"
           ></v-text-field>
-
-          <v-checkbox :v-model="isAdmin" label="Sou administrador"></v-checkbox>
         </v-card-text>
+
+        <the-card-divider />
 
         <v-card-actions>
           <v-spacer />
@@ -61,7 +62,6 @@ export default {
 
   data() {
     return {
-      isAdmin: false,
       exibirSenha: false,
       username: '',
       password: '',
@@ -105,12 +105,6 @@ export default {
 
     validarLogin(): void {
       const userStore = useUserStore()
-
-      if (!this.isAdmin) {
-        // logar como usuário
-      } else {
-        // logar como administrador
-      }
     },
     cancelar(): void {
       navigateTo('/')

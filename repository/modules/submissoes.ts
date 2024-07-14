@@ -1,14 +1,14 @@
 import type { AcaoInterface } from '~/models/acao.model'
 import type { AcaoSearchFilterInterface } from '~/models/acao.search.filter.model'
 import FetchFactory from '../factory'
-import { encodeBasicAuth } from '@/utils/auth'
+import { encodeBasicAuth } from '@/utils/encodeAuth'
 
 class SubmissoesModule extends FetchFactory {
   private RESOURCE = '/submissoes'
 
   private mountAuthHeader() {
     const userStore = useUserStore()
-    const authHeader = `Basic ${encodeBasicAuth(userStore.username, userStore.password)}`
+    const authHeader = `Basic ${encodeBasicAuth(userStore.admin.username, userStore.admin.password)}`
     return new Headers({
       Authorization: authHeader,
       'Content-Type': 'application/json',
