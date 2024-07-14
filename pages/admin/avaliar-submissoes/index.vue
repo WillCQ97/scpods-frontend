@@ -1,13 +1,13 @@
 <template>
-  <!-- DIÁLOGO DE SUCESSO -->
-  <v-dialog v-model="showDialog" width="50vh">
+  <!-- TEMPLATE DO DIÁLOGO -->
+  <v-dialog v-model="isDialogVisible" width="50vh">
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>
       <v-card-text>
         {{ dialog.message }}
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="showDialog = false">OK</v-btn>
+        <v-btn @click="isDialogVisible = false">OK</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -67,17 +67,22 @@ const { $api } = useNuxtApp()
 var submissoes = await $api.submissoes.search({})
 
 const accepted = ref(false)
-const showErrorDialog = ref(false)
-const showSuccess = ref(false)
 
-const showDialog = ref(false)
+const isDialogVisible = ref(false)
 const dialog = ref({ title: '', message: '' })
 
 definePageMeta({
   middleware: 'auth',
 })
 
-async function acceptHandler({ accepted, id }): Promise<void> {
+interface AcceptHandlerParams {
+  accepted: boolean
+  id: number
+}
+async function acceptHandler({
+  accepted,
+  id,
+}: AcceptHandlerParams): Promise<void> {
   console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
   try {
@@ -88,14 +93,14 @@ async function acceptHandler({ accepted, id }): Promise<void> {
     } else {
       await $api.submissoes.rejeitar(id)
     }
-    dialog.value.title = 'Sucesso'
-    dialog.value.message = `A submissão foi ${accepted ? 'aceita' : 'recusada'}!`
-    showDialog.value = true
+
+    showDialog(
+      'Sucesso',
+      `A submissão foi ${accepted ? 'aceita' : 'recusada'}!`,
+    )
   } catch (error) {
-    dialog.value.title = 'Erro'
-    dialog.value.message = `A ação não pode ser concluída!`
-    showDialog.value = true
     console.log('ERRO: ', error)
+    showDialog('Erro', 'A ação não pode ser concluída!')
   }
 
   await refreshList()
@@ -104,5 +109,11 @@ async function acceptHandler({ accepted, id }): Promise<void> {
 
 async function refreshList(): Promise<void> {
   submissoes = await $api.submissoes.search({})
+}
+
+function showDialog(title: string, message: string) {
+  dialog.value.title = title
+  dialog.value.message = message
+  isDialogVisible.value = true
 }
 </script>

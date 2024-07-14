@@ -1,4 +1,22 @@
 <template>
+  <!-- TEMPLATE DO DIÁLOGO DE ERRO -->
+  <v-dialog v-model="isDialogVisible" width="500">
+    <v-card>
+      <v-card-title>{{ dialog.title }}</v-card-title>
+      <the-card-divider />
+      <v-card-text>
+        {{ dialog.message }}
+      </v-card-text>
+
+      <the-card-divider />
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="isDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
   <v-row align="center">
     <v-spacer />
     <v-col>
@@ -12,7 +30,7 @@
             v-model="username"
             label="Informe seu nome de usuário"
             prepend-icon="mdi-shield-account"
-            :rules="[regras.obrigatorio]"
+            :rules="[rules.mandatory]"
           ></v-text-field>
 
           <v-text-field
@@ -20,7 +38,7 @@
             label="Informe sua senha"
             :type="exibirSenha ? 'text' : 'password'"
             :prepend-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[regras.obrigatorio]"
+            :rules="[rules.mandatory]"
             @click:prepend="exibirSenha = !exibirSenha"
           ></v-text-field>
         </v-card-text>
@@ -34,25 +52,6 @@
           <v-spacer />
         </v-card-actions>
       </v-card>
-
-      <!-- TEMPLATE DO DIÁLOGO DE ERRO -->
-      <v-dialog v-model="dialogError" width="500">
-        <v-card>
-          <v-card-title>{{ error.title }}</v-card-title>
-          <the-card-divider />
-          <v-card-text>
-            {{ error.message }}
-          </v-card-text>
-
-          <the-card-divider />
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="dialogError = false">OK</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </v-col>
     <v-spacer />
   </v-row>
@@ -73,13 +72,13 @@ export default {
       exibirSenha: false,
       username: '',
       password: '',
-      dialogError: false,
-      error: {
+      isDialogVisible: false,
+      dialog: {
         title: '',
         message: '',
       },
-      regras: {
-        obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
+      rules: {
+        mandatory: (value: any) => !!value || 'Este campo é obrigatório.',
       },
     }
   },
@@ -87,9 +86,10 @@ export default {
   methods: {
     async entrar(): Promise<void> {
       if (this.username.trim() === '' || this.password.trim() === '') {
-        this.error.title = 'Há campos não informados!'
-        this.error.message = 'Por favor, verifique-os e tente novamente!'
-        this.dialogError = true
+        this.showDialog(
+          'Há campos não informados!',
+          'Por favor, verifique-os e tente novamente!',
+        )
         return
       }
 
@@ -111,14 +111,16 @@ export default {
       } catch (e) {
         const fetchError = e as FetchError
         if (fetchError.status === 401 || fetchError.status === 403) {
-          this.error.title = 'Login inválido!'
-          this.error.message =
-            'Por favor, verifique suas credenciais e tente novamente!'
+          this.showDialog(
+            'Login inválido!',
+            'Por favor, verifique suas credenciais e tente novamente!',
+          )
         } else {
-          this.error.title = 'Erro desconhecido!'
-          this.error.message = 'Por favor, tente novamente mais tarde!'
+          this.showDialog(
+            'Erro desconhecido!',
+            'Por favor, tente novamente mais tarde!',
+          )
         }
-        this.dialogError = true
       }
     },
     cancelar(): void {
@@ -127,6 +129,11 @@ export default {
     limparCampos() {
       this.password = ''
       this.username = ''
+    },
+    showDialog(title: string, message: string) {
+      this.dialog.title = title
+      this.dialog.message = message
+      this.isDialogVisible = true
     },
   },
 }
