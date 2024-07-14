@@ -1,24 +1,13 @@
 <template>
   <!-- DIÁLOGO DE SUCESSO -->
-  <v-dialog v-model="showSuccess" width="50vh">
+  <v-dialog v-model="showDialog" width="50vh">
     <v-card>
-      <v-card-title>SUCESSO</v-card-title>
+      <v-card-title>{{ dialog.title }}</v-card-title>
       <v-card-text>
-        A submissão foi {{ accepted ? 'aceita' : 'recusada' }}!
+        {{ dialog.message }}
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="showSuccess = false">Fechar</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-
-  <!-- DIÁLOGO DE ERRO -->
-  <v-dialog v-model="showErrorDialog" width="50vh">
-    <v-card>
-      <v-card-title>ERRO</v-card-title>
-      <v-card-text> A ação não pode ser concluída! </v-card-text>
-      <v-card-actions>
-        <v-btn @click="showErrorDialog = false">Fechar</v-btn>
+        <v-btn @click="showDialog = false">OK</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -81,6 +70,9 @@ const accepted = ref(false)
 const showErrorDialog = ref(false)
 const showSuccess = ref(false)
 
+const showDialog = ref(false)
+const dialog = ref({ title: '', message: '' })
+
 definePageMeta({
   middleware: 'auth',
 })
@@ -96,9 +88,13 @@ async function acceptHandler({ accepted, id }): Promise<void> {
     } else {
       await $api.submissoes.rejeitar(id)
     }
-    showSuccess.value = true
+    dialog.value.title = 'Sucesso'
+    dialog.value.message = `A submissão foi ${accepted ? 'aceita' : 'recusada'}!`
+    showDialog.value = true
   } catch (error) {
-    showErrorDialog.value = true
+    dialog.value.title = 'Erro'
+    dialog.value.message = `A ação não pode ser concluída!`
+    showDialog.value = true
     console.log('ERRO: ', error)
   }
 

@@ -98,11 +98,11 @@ export default {
         Authorization: authHeader,
       })
 
-      const apiUrl = useNuxtApp().$config.public.apiBase
+      const apiUrl = useRuntimeConfig().public.apiBase
       const userStore = useUserStore()
 
       try {
-        await $fetch(`${apiUrl}usuarios/validar-admin`, {
+        await $fetch(`${apiUrl}/usuarios/validar-admin`, {
           headers: header,
         })
 
