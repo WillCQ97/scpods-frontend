@@ -102,7 +102,7 @@ export default {
       const userStore = useUserStore()
 
       try {
-        await $fetch(`${apiUrl}/usuarios/validar-admin`, {
+        await $fetch(`${apiUrl}usuarios/validar-admin`, {
           headers: header,
         })
 

@@ -105,6 +105,7 @@ export default {
 
     validarLogin(): void {
       const userStore = useUserStore()
+      userStore.isLoggedIn = true
     },
     cancelar(): void {
       navigateTo('/')
