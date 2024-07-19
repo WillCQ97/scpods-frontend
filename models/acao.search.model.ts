@@ -1,4 +1,4 @@
-export interface AcaoGridInterface {
+export interface AcaoSearchInterface {
   id: number
   titulo: string
   dataCadastro: string

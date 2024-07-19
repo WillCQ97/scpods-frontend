@@ -42,15 +42,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://www.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://www.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -60,9 +52,9 @@
         <v-col>
           <actions-map
             :title="nomeUnidade"
-            :bounds="limitesGoiabeiras"
-            :center="centroGoiabeiras"
-            :feature="featureGoiabeiras"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
             :unidade-info="goiabeirasInfo"
             @show-actions="showActions"
           />
@@ -82,36 +74,39 @@
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.filter.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
-
-const codigoUnidade = 'UN_GOIABEIRAS'
-const { $api } = useNuxtApp()
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
 
-  components: { ActionsList, ActionsMap, TheCardDivider },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      acoesGoiabeiras: [] as AcaoInterface[],
-      exibirAcoes: false,
       nomeUnidade: 'Campus em Goiabeiras',
-      centroGoiabeiras: [-20.2764, -40.3037],
-      limitesGoiabeiras: [
+      codigoUnidade: 'UN_GOIABEIRAS',
+      acoesGoiabeiras: [] as AcaoInterface[],
+      goiabeirasInfo: {} as UnidadeInfo,
+      exibirAcoes: false,
+      centroMapa: [-20.2764, -40.3037],
+      limitesMapa: [
         [-20.2696, -40.3089],
         [-20.2846, -40.3009],
       ],
-      featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
-      goiabeirasInfo: {} as UnidadeInfo,
+      campusGeojson: featureGoiabeiras,
     }
   },
 
   methods: {
     async loadActions() {
-      this.acoesGoiabeiras = await $api.acoes.getAcoes(codigoUnidade)
+      const { $api } = useNuxtApp()
+      this.acoesGoiabeiras = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
     },
 
     showActions(flag: boolean) {
@@ -124,7 +119,8 @@ export default {
   },
 
   async mounted() {
-    this.goiabeirasInfo = await $api.unidades.getUnidadeInfo(codigoUnidade)
+    const { $api } = useNuxtApp()
+    this.goiabeirasInfo = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

@@ -1,24 +1,13 @@
 <template>
-  <!-- DIÁLOGO DE SUCESSO -->
-  <v-dialog v-model="showSuccess" width="50vh">
+  <!-- TEMPLATE DO DIÁLOGO -->
+  <v-dialog v-model="isDialogVisible" width="50vh">
     <v-card>
-      <v-card-title>SUCESSO</v-card-title>
+      <v-card-title>{{ dialog.title }}</v-card-title>
       <v-card-text>
-        A submissão foi {{ accepted ? 'aceita' : 'recusada' }}!
+        {{ dialog.message }}
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="showSuccess = false">Fechar</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-
-  <!-- DIÁLOGO DE ERRO -->
-  <v-dialog v-model="showErrorDialog" width="50vh">
-    <v-card>
-      <v-card-title>ERRO</v-card-title>
-      <v-card-text> A ação não pode ser concluída! </v-card-text>
-      <v-card-actions>
-        <v-btn @click="showErrorDialog = false">Fechar</v-btn>
+        <v-btn @click="isDialogVisible = false">OK</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -26,6 +15,13 @@
   <!-- TEMPLATE DA PÁGINA -->
   <v-row>
     <v-col>
+      <v-row>
+        <v-col>
+          <v-card>
+            <v-card-title>Filtro</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col>
           <v-card>
@@ -68,31 +64,43 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 const { $api } = useNuxtApp()
-var submissoes = await $api.acoes.getSubmissoes()
+var submissoes = await $api.submissoes.search({})
 
 const accepted = ref(false)
-const showErrorDialog = ref(false)
-const showSuccess = ref(false)
+
+const isDialogVisible = ref(false)
+const dialog = ref({ title: '', message: '' })
 
 definePageMeta({
   middleware: 'auth',
 })
 
-async function acceptHandler({ accepted, id }): Promise<void> {
+interface AcceptHandlerParams {
+  accepted: boolean
+  id: number
+}
+async function acceptHandler({
+  accepted,
+  id,
+}: AcceptHandlerParams): Promise<void> {
   console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
   try {
     accepted = accepted
 
     if (accepted) {
-      await $api.acoes.aceitarSubmissao(id)
+      await $api.submissoes.aceitar(id)
     } else {
-      await $api.acoes.rejeitarSubmissao(id)
+      await $api.submissoes.rejeitar(id)
     }
-    showSuccess.value = true
+
+    showDialog(
+      'Sucesso',
+      `A submissão foi ${accepted ? 'aceita' : 'recusada'}!`,
+    )
   } catch (error) {
-    showErrorDialog.value = true
     console.log('ERRO: ', error)
+    showDialog('Erro', 'A ação não pode ser concluída!')
   }
 
   await refreshList()
@@ -100,6 +108,12 @@ async function acceptHandler({ accepted, id }): Promise<void> {
 }
 
 async function refreshList(): Promise<void> {
-  submissoes = await $api.acoes.getSubmissoes()
+  submissoes = await $api.submissoes.search({})
+}
+
+function showDialog(title: string, message: string) {
+  dialog.value.title = title
+  dialog.value.message = message
+  isDialogVisible.value = true
 }
 </script>

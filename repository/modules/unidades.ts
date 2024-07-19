@@ -11,11 +11,11 @@ class UnidadesModule extends FetchFactory {
   async getUnidadeInfo(codigoUnidade: string) {
     return this.call<UnidadeInfo>(
       'GET',
-      `${this.RESOURCE}/${codigoUnidade}/info`,
+      `${this.RESOURCE}/info/${codigoUnidade}`,
     )
   }
 
-  async getLocais() {
+  async getUnidades() {
     return this.call<Unidade[]>('GET', `${this.RESOURCE}`)
   }
 }

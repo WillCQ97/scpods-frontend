@@ -4,7 +4,7 @@
       Listagem das {{ isSubmission ? 'Submissões' : 'Ações' }}
     </v-card-title>
     <the-card-divider />
-    <v-data-table :headers="header" :items="actions">
+    <v-data-table :headers="tableHeader" :items="actions">
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item }">
         <the-goal-image :goal-code="item.codigoObjetivo" />
@@ -12,7 +12,13 @@
 
       <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
       <template #item.options="{ item }">
-        <v-icon class="me-2" size="small" @click="showAcao(item)">
+        <v-icon
+          class="me-2"
+          size="small"
+          @click="
+            isSubmission ? loadSubmissionData(item) : loadActionData(item)
+          "
+        >
           mdi-eye
         </v-icon>
       </template>
@@ -22,7 +28,7 @@
         <v-dialog v-model="showDialog" width="125vh">
           <action-card-detail
             :is-submission="isSubmission"
-            :action="selectedItem"
+            :action="action"
             @close="showDialog = false"
             @accept="emitAccept"
           />
@@ -36,7 +42,7 @@
 import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { AcaoGridInterface } from '~/models/acao.grid.interface'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoInterfaceBuilder } from '~/models/acao.model'
 
 export default {
@@ -57,7 +63,7 @@ export default {
 
   data() {
     return {
-      header: [
+      tableHeader: [
         {
           title: 'Objetivo',
           align: 'start',
@@ -77,7 +83,7 @@ export default {
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
 
-      selectedItem: AcaoInterfaceBuilder(),
+      action: AcaoInterfaceBuilder(),
 
       showDialog: false,
     }
@@ -86,15 +92,26 @@ export default {
   emits: ['accept'],
 
   methods: {
-    async showAcao(acaoGrid: AcaoGridInterface) {
-      const { $api } = useNuxtApp()
-      const acao = await $api.acoes.findById(acaoGrid.id)
-
-      this.selectedItem = acao
-      this.showDialog = true
-    },
     emitAccept({ accepted, id }) {
       this.$emit('accept', { accepted, id })
+    },
+
+    async loadActionData(acaoGrid: AcaoSearchInterface) {
+      const { $api } = useNuxtApp()
+      // TODO: o que fazer ao dar erro?
+      const acao = await $api.acoes.findById(acaoGrid.id)
+
+      this.action = acao
+      this.showDialog = true
+    },
+
+    async loadSubmissionData(acaoGrid: AcaoSearchInterface) {
+      const { $api } = useNuxtApp()
+      // TODO: o que fazer ao dar erro?
+      const submission = await $api.submissoes.findById(acaoGrid.id)
+
+      this.action = submission
+      this.showDialog = true
     },
   },
 }
