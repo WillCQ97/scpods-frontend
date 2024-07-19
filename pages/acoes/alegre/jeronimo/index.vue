@@ -8,9 +8,8 @@
             :bounds="jeronimoBounds"
             :center="jeronimoCenter"
             :feature="campusFeatures"
-            :markers="jeronimoMarkers"
+            :unidade-info="jeronimoInfo"
             @show-actions="showActionsHandler"
-            @refresh-data="reloadInfoHandler"
           />
         </v-col>
       </v-row>
@@ -33,21 +32,20 @@ import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import type { Acao } from '~/models/acao.model'
 
 const codigoUnidade = 'UN_JERONIMO'
+
+const { $api } = useNuxtApp()
 const acaoStore = useAcaoStore()
 
-const unidadeStore = useUnidadeStore()
-
-async function carregarInfo() {
-  await unidadeStore.fetchInfo(codigoUnidade)
-}
+const {
+  data: jeronimoInfo,
+  pending,
+  error,
+} = await $api.unidades.getUnidadeInfo(codigoUnidade)
 
 export default {
   name: 'PaginaAcoesJeronimo',
-  components: { ActionsListComponent, ActionsMapComponent },
 
-  async beforeRouteEnter() {
-    await carregarInfo()
-  },
+  components: { ActionsListComponent, ActionsMapComponent },
 
   data() {
     return {
@@ -60,25 +58,14 @@ export default {
         [-20.79285, -41.38471],
       ],
       jeronimoCenter: [-20.79071, -41.38887],
+      jeronimoInfo,
     }
-  },
-
-  computed: {
-    jeronimoMarkers() {
-      return unidadeStore.getMarcadores
-    },
   },
 
   methods: {
     async showActionsHandler(flag: boolean) {
       this.isActionsListVisible = flag
       this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
-    },
-    async reloadInfoHandler() {
-      // FIXME: ATUALIZAR NÃO ESTÁ FUNCIONANDO
-      // PROVAVELMENTE, PORQUE A INFO É UTILIZADA PARA GERAR OS MARCADORES
-      // MAS OS MESMOS SÃO UTILIZADOS COMO COMPUTED E POR ISSO NÃO SÃO ATUALIZADOS
-      await carregarInfo()
     },
   },
 }

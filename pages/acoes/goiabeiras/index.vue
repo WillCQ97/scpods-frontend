@@ -63,7 +63,7 @@
             :bounds="limitesGoiabeiras"
             :center="centroGoiabeiras"
             :feature="featureGoiabeiras"
-            :markers="createMarkers"
+            :unidade-info="loadInfo"
             @show-actions="showActions"
           />
         </v-col>
@@ -87,19 +87,15 @@ import ActionsListComponent from '~/components/Actions/ActionsList.vue'
 import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { Acao } from '~/models/acao.model'
-import type Marker from '~/models/props/marker.model'
 
 const codigoUnidade = 'UN_GOIABEIRAS'
+const { $api } = useNuxtApp()
 const acaoStore = useAcaoStore()
-const unidadeStore = useUnidadeStore()
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
+  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
 
   data() {
     return {
@@ -115,16 +111,19 @@ export default {
     }
   },
 
-  computed: {
-    createMarkers(): Marker[] {
-      return unidadeStore.getMarcadores
-    },
-  },
-
   methods: {
     async showActions(flag: boolean) {
       this.exibirAcoes = flag
       this.acoesGoiabeiras = await acaoStore.fetchAcoes(codigoUnidade)
+    },
+
+    async loadInfo() {
+      const {
+        data: goiabeirasInfo,
+        pending,
+        error,
+      } = await $api.unidades.getUnidadeInfo(codigoUnidade)
+      return goiabeirasInfo.value
     },
   },
 }
