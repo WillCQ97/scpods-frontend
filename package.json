@@ -33,5 +33,5 @@
     "@pinia/nuxt": "^0.5.1",
     "pinia": "^2.1.7"
   },
-  "packageManager": "yarn@4.3.1"
+  "packageManager": "yarn@4.4.0"
 }
