@@ -1,5 +1,5 @@
 <template>
-  <!-- TEMPLATE DO DIÁLOGO DE ERRO -->
+  <!-- TEMPLATE DO DIÁLOGO -->
   <v-dialog v-model="isDialogVisible" width="500">
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>

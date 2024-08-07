@@ -262,38 +262,21 @@
     </v-row>
 
     <!-- DIÁLOGOS DE MENSAGENS -->
-    <!-- TODO: pode ser utilizado um diálogo apenas -->
-    <v-dialog v-model="dialogSuccess" width="500">
+    <!-- TEMPLATE DO DIÁLOGO -->
+    <v-dialog v-model="isDialogVisible" width="500">
       <v-card>
-        <v-card-title>Sucesso!</v-card-title>
+        <v-card-title>{{ dialog.title }}</v-card-title>
         <the-card-divider />
         <v-card-text>
-          Sua ação foi enviada para contemplação pela comissão avaliadora.
+          {{ dialog.message }}
         </v-card-text>
 
         <the-card-divider />
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="dialogSuccess = false"> OK </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="dialogError" width="500">
-      <v-card>
-        <v-card-title>Erro!</v-card-title>
-        <the-card-divider />
-        <v-card-text>
-          Existem campos que não foram informados. <br />
-          Por favor, verifique-os e tente novamente!
-        </v-card-text>
-
-        <the-card-divider />
-
-        <v-card-actions>
+          <v-btn @click="isDialogVisible = false">OK</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="error" @click="dialogError = false">Voltar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -345,6 +328,11 @@ export default {
 
   data() {
     return {
+      isDialogVisible: false,
+      dialog: {
+        title: '',
+        message: '',
+      },
       objetivos: [] as Objetivo[],
       unidades: [] as Unidade[],
       submissao: {
@@ -395,8 +383,6 @@ export default {
       unidadeSelecionada: '',
       localSelecionado: '',
 
-      dialogSuccess: false,
-      dialogError: false,
       regras: {
         obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
         formatoData: (value: string) => {
@@ -539,6 +525,18 @@ export default {
       }
       return description
     },
+    showErrorCampos() {
+      this.isDialogVisible = true
+      this.dialog.title = 'Erro!'
+      this.dialog.message =
+        'Existem campos que não foram informados. <br /> Por favor, verifique-os e tente novamente!'
+    },
+    showSucesso() {
+      this.isDialogVisible = true
+      this.dialog.title = 'Sucesso!'
+      this.dialog.message =
+        'Sua ação foi enviada para contemplação pela comissão avaliadora.'
+    },
     enviarFormulario() {
       const campos = [
         this.campoTitulo,
@@ -550,7 +548,7 @@ export default {
 
       for (const campo of campos) {
         if (campo.trim() === '') {
-          this.dialogError = true
+          this.showErrorCampos()
           return
         }
       }
@@ -559,11 +557,11 @@ export default {
         this.objetivoSelecionadoIndex === null ||
         this.metaSelecionadaIndex === null
       ) {
-        this.dialogError = true
+        this.showErrorCampos()
         return
       }
 
-      this.dialogSuccess = true
+      this.showSucesso()
     },
   },
 }
