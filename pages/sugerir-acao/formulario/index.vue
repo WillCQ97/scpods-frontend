@@ -305,6 +305,7 @@ import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
+import type { SelectModelInterface } from '~/models/select/select.model'
 import type { Unidade } from '~/models/unidade.model'
 
 definePageMeta({
@@ -336,7 +337,9 @@ export default {
         objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
       )
     }
-    // carrega as unidades do backend
+
+    // carrega informações das unidades do backend
+    this.opcoesCampus = await $api.unidades.getOpcoesCampus()
     this.unidades = await $api.unidades.getUnidades()
   },
 
@@ -374,35 +377,18 @@ export default {
       campoVinculoCoordenador: '',
 
       campoOpcoesVinculo: [
+        //todo: adicionar valores enum
         'Professor',
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
         'Aluno de graduação',
       ],
       search: null,
-      opcoesCampus: [
-        { value: 'ALEGRE', description: 'Alegre' },
-        { value: 'GOIABEIRAS', description: 'Goiabeiras' },
-        { value: 'MARUIPE', description: 'Maruípe' },
-        { value: 'SAO_MATEUS', description: 'São Mateus' },
-      ],
-      opcoesUnidade: [] as Array<Object>,
-      opcoesLocal: [] as Array<Object>,
-      opcoesLotacao: [
-        'Centro de Ciências Agrárias e Engenharias',
-        'Centro de Ciências Exatas, Naturais e da Saúde',
-        'Centro Universitário Norte do Espírito Santo',
-        'Centro de Ciências da Saúde',
-        'Centro de Artes',
-        'Centro de Ciências Exatas',
-        'Centro de Ciências Humanas e Naturais',
-        'Centro de Ciências Jurídicas e Econômicas',
-        'Centro de Educação',
-        'Centro de Educação Física e Desportos',
-        'Centro Tecnológico',
-        'Hospital Universitário Cassiano Antônio Moraes',
-        'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)',
-      ],
+
+      opcoesCampus: [] as Array<SelectModelInterface<string>>,
+      opcoesUnidade: [] as Array<SelectModelInterface<string>>,
+      opcoesLocal: [] as Array<SelectModelInterface<number>>,
+      opcoesLotacao: [] as Array<SelectModelInterface<number>>,
 
       // dados da unidade e lotação
       campusSelecionado: '',
@@ -418,7 +404,7 @@ export default {
 
           const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
           if (!match) {
-            return 'Formato de data inválido. Use dd/MM/yyyy.'
+            return 'Formato de data inválido. Use dd/MM/aaaa.'
           }
 
           const day = parseInt(match[1], 10)
