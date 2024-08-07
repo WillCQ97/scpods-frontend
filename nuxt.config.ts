@@ -19,8 +19,8 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@nuxtjs/leaflet',
     '@pinia/nuxt',
-    'nuxt3-leaflet',
   ],
 
   runtimeConfig: {
