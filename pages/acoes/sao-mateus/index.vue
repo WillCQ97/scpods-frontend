@@ -12,7 +12,7 @@
                   href="https://www.ufes.br/campi/campus-de-sao-mateus"
                   target="_blank"
                 >
-                  na página da ufes
+                  na página da Ufes
                   <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
                 </a>
               </v-card-subtitle>

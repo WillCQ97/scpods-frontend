@@ -174,7 +174,7 @@
                   v-model="campoVinculoCoordenador"
                   v-model:search="search"
                   :hide-no-data="false"
-                  label="Vínculo com a UFES"
+                  label="Vínculo com a Ufes"
                   :items="campoOpcoesVinculo"
                   :rules="[regras.obrigatorio]"
                 >

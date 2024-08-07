@@ -159,7 +159,7 @@ const author = ref('Willian Conceição Queiroz')
 const headerColor = ref(colorPalleteUfes.monocromatic.mono6)
 const footerColor = ref(colorPalleteUfes.monocromatic.mono5)
 const menuColor = ref(colorPalleteUfes.monocromatic.mono7)
-const headerTitle = ref('Mapa Colaborativo: Sustentabilidade na UFES')
+const headerTitle = ref('Mapa Colaborativo: Sustentabilidade na Ufes')
 
 const clipped = ref(true)
 const drawer = ref(false)

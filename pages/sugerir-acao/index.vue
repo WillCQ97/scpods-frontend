@@ -16,7 +16,7 @@
         <li>Descrição contendo o objetivo da ação</li>
         <li>
           Informações sobre a coordenação do projeto: nome, email e vínculo do
-          coordenador com a UFES
+          coordenador com a Ufes
         </li>
         <li>
           Local onde a ação é/foi executada: selecione a unidade e, em seguida,

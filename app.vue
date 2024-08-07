@@ -10,9 +10,9 @@
 import type { Objetivo } from './models/objetivo.model'
 
 // TODO: adicionar imagem e url para o site
-const siteTitle = 'Mapa Colaborativo: ODS na UFES'
+const siteTitle = 'Mapa Colaborativo: ODS na Ufes'
 const siteDescription =
-  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na UFES'
+  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na Ufes'
 const siteImage = ''
 const siteUrl = ''
 

@@ -10,7 +10,7 @@
               <li>
                 <strong>Ser membro da comunidade acadêmica:</strong> Se você
                 deseja sugerir uma ação, é necessário que possua algum vínculo
-                com a UFES.
+                com a Ufes.
               </li>
               <li>
                 <strong>Logar com e-mail institucional:</strong> Após realizar a
