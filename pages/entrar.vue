@@ -72,7 +72,9 @@ export default {
   methods: {
     async getExecutionValueFromLoginPage() {
       try {
-        const response = await fetch('https://acesso.ufes.br/login')
+        const response = await $fetch('https://acesso.ufes.br/login') // ERRO DE CORS
+        console.log(response)
+        /*
         const headerDate = response.headers.get('date') || 'no response date'
 
         console.log('Status Code:', response.status)
@@ -96,14 +98,18 @@ export default {
         } else {
           console.log('No matched items found')
         }
+        */
+        debugger
       } catch (error) {
-        console.log('Error: ', error.message)
+        console.log('Error: ', error)
       }
     },
 
     async efetuarLogin() {},
 
-    validarLogin(): void {
+    async validarLogin() {
+      await this.getExecutionValueFromLoginPage()
+      //debugger
       const userStore = useUserStore()
       userStore.isLoggedIn = true
     },

@@ -50,6 +50,19 @@ useHead({
   ],
 })
 
+/*TODO: ADD CÓDIGO DE TESTE SALVO EM STASH
+const objetivoStore = useObjetivo()
+const runtimeConfig = useRuntimeConfig()
+
+await callOnce(async () => {
+  objetivoStore.objetivos = await $fetch(
+    runtimeConfig.public.apiBase + '//objetivos',
+  ).catch((error) => {
+    console.log('Erro ao requisitar os objetivos', error)
+  })
+})
+*/
+
 // INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
 // usa a repository para obter os dados da api, então adiciona a store
 const { $api } = useNuxtApp()
