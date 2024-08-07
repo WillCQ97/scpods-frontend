@@ -1643,7 +1643,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:3.12.4, @nuxt/kit@npm:^3.9.0":
+"@nuxt/kit@npm:3.12.4, @nuxt/kit@npm:^3.12.4, @nuxt/kit@npm:^3.9.0":
   version: 3.12.4
   resolution: "@nuxt/kit@npm:3.12.4"
   dependencies:
@@ -8108,6 +8108,7 @@ __metadata:
     "@eslint/js": "npm:^9.8.0"
     "@mdi/font": "npm:^7.4.47"
     "@nuxt/devtools": "npm:^1.3.9"
+    "@nuxt/kit": "npm:^3.12.4"
     "@pinia/nuxt": "npm:^0.5.3"
     eslint: "npm:^9.8.0"
     eslint-config-prettier: "npm:^9.1.0"
