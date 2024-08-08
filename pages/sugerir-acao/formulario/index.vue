@@ -294,7 +294,10 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import { SubmissaoInputBuilder } from '~/models/input/submissao.input.model'
+import {
+  SubmissaoInputBuilder,
+  type SubmissaoInputInterface,
+} from '~/models/input/submissao.input.model'
 import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
@@ -374,7 +377,8 @@ export default {
       lotacaoSelecionada: null as number | null,
 
       regras: {
-        obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
+        obrigatorio: (value: any) =>
+          value.trim() !== '' || 'Este campo é obrigatório.',
         formatoData: (value: string) => {
           if (!value) return true
 
@@ -535,6 +539,28 @@ export default {
           return 'OUTRO'
       }
     },
+    montarSubmissao(): SubmissaoInputInterface {
+      let submissao = SubmissaoInputBuilder()
+      submissao.titulo = this.campoTitulo.trim()
+      submissao.descricao = this.campoDescricao.trim()
+      submissao.dataInicio = this.campoDataInicial
+      submissao.dataEncerramento = this.campoDataFinal
+
+      submissao.metaId = this.idMetaSelecionada!
+      submissao.localId = this.localSelecionado!
+      submissao.lotacaoId = this.lotacaoSelecionada!
+
+      submissao.coordenador.nome = this.campoNomeCoordenador.trim()
+      submissao.coordenador.email = this.campoEmailCoordenador
+      submissao.coordenador.tipoVinculo = this.mapTipoVinculo(
+        this.campoVinculoCoordenador,
+      )
+      submissao.coordenador.descricaoVinculo =
+        submissao.coordenador.tipoVinculo === 'OUTRO'
+          ? this.campoVinculoCoordenador
+          : null
+      return submissao
+    },
     showErrorCampos() {
       this.isDialogVisible = true
       this.dialog.title = 'Erro!'
@@ -548,45 +574,12 @@ export default {
         'Sua ação foi enviada para contemplação pela comissão avaliadora.'
     },
     enviarFormulario() {
-      const campos = [
-        this.campoTitulo,
-        this.campoNomeCoordenador,
-        this.campoDescricao,
-        this.campoEmailCoordenador,
-        this.campoVinculoCoordenador,
-      ]
-
-      for (const campo of campos) {
-        if (campo.trim() === '') {
-          this.showErrorCampos()
-          return
-        }
-      }
-
       if (!this.isMetaSelecionada()) {
         this.showErrorCampos()
         return
       }
 
-      let submissao = SubmissaoInputBuilder()
-      submissao.titulo = this.campoTitulo
-      submissao.descricao = this.campoDescricao
-      submissao.dataInicio = this.campoDataInicial
-      submissao.dataEncerramento = this.campoDataFinal
-
-      submissao.metaId = this.idMetaSelecionada!
-      submissao.localId = this.localSelecionado!
-      submissao.lotacaoId = this.lotacaoSelecionada!
-
-      submissao.coordenador.nome = this.campoNomeCoordenador
-      submissao.coordenador.email = this.campoEmailCoordenador
-      submissao.coordenador.tipoVinculo = this.mapTipoVinculo(
-        this.campoVinculoCoordenador,
-      )
-      submissao.coordenador.descricaoVinculo =
-        submissao.coordenador.tipoVinculo === 'OUTRO'
-          ? this.campoVinculoCoordenador
-          : null
+      const submissao = this.montarSubmissao()
 
       debugger
       this.showSucesso()
