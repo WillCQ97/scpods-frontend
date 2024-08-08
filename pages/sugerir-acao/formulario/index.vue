@@ -202,7 +202,7 @@
                 <v-text-field
                   v-model="campoEmailCoordenador"
                   label="Endereço de e-mail"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[regras.obrigatorio, regras.email]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -376,7 +376,7 @@ export default {
       regras: {
         obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
         formatoData: (value: string) => {
-          if (!!value) return true
+          if (!value) return true
 
           const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
           if (!match) {
@@ -408,6 +408,12 @@ export default {
           }
 
           return true
+        },
+        email: (value: any) => {
+          const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+          return (
+            emailPattern.test(value) || 'Por favor, insira um email válido.'
+          )
         },
       },
 
