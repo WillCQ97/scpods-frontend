@@ -101,7 +101,7 @@
                   <v-select
                     label="Escolha a meta mais relevante para o projeto"
                     :items="getOpcoesMeta(objetivoSelecionadoIndex! + 1)"
-                    :disabled="targetDisabled"
+                    :disabled="showOpcoesMetas"
                   ></v-select>
                 </v-item-group>
               </v-col>
@@ -135,6 +135,7 @@
             <v-row>
               <v-col>
                 <v-select
+                  v-model="lotacaoSelecionada"
                   label="Lotação da ação"
                   :items="opcoesLotacao"
                   :rules="[regras.obrigatorio]"
@@ -261,7 +262,6 @@
       </v-col>
     </v-row>
 
-    <!-- DIÁLOGOS DE MENSAGENS -->
     <!-- TEMPLATE DO DIÁLOGO -->
     <v-dialog v-model="isDialogVisible" width="500">
       <v-card>
@@ -286,6 +286,7 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import type { SubmissaoInputInterface } from '~/models/input/submissao.input.model'
 import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
@@ -322,6 +323,7 @@ export default {
     }
 
     // carrega informações das unidades do backend
+    this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
     this.opcoesCampus = await $api.unidades.getOpcoesCampus()
     this.unidades = await $api.unidades.getUnidades()
   },
@@ -333,29 +335,22 @@ export default {
         title: '',
         message: '',
       },
+      search: null,
+
       objetivos: [] as Objetivo[],
       unidades: [] as Unidade[],
-      submissao: {
-        titulo: '',
-        descricao: '',
-        dataInicio: '',
-        dataEncerramento: null,
-        meta: {
-          id: '',
-        },
-        coordenador: {
-          nome: '',
-          email: '',
-          tipoVinculo: '',
-        },
-        local: {
-          id: '',
-        },
-        lotacao: {
-          id: '',
-        },
-      },
 
+      opcoesCampus: [] as Array<SelectModelInterface<string>>,
+      opcoesUnidade: [] as Array<SelectModelInterface<string>>,
+      opcoesLocal: [] as Array<SelectModelInterface<number>>,
+      opcoesLotacao: [] as Array<SelectModelInterface<number>>,
+      campoOpcoesVinculo: [
+        //todo: adicionar valores enum
+        'Professor',
+        'Servidor técnico-administrativo',
+        'Aluno de pós-graduação',
+        'Aluno de graduação',
+      ],
       campoTitulo: '',
       campoDescricao: '',
       campoDataInicial: '', // https://vuetifyjs.com/en/components/date-inputs/
@@ -364,24 +359,11 @@ export default {
       campoEmailCoordenador: '',
       campoVinculoCoordenador: '',
 
-      campoOpcoesVinculo: [
-        //todo: adicionar valores enum
-        'Professor',
-        'Servidor técnico-administrativo',
-        'Aluno de pós-graduação',
-        'Aluno de graduação',
-      ],
-      search: null,
-
-      opcoesCampus: [] as Array<SelectModelInterface<string>>,
-      opcoesUnidade: [] as Array<SelectModelInterface<string>>,
-      opcoesLocal: [] as Array<SelectModelInterface<number>>,
-      opcoesLotacao: [] as Array<SelectModelInterface<number>>,
-
       // dados da unidade e lotação
       campusSelecionado: '',
       unidadeSelecionada: '',
-      localSelecionado: '',
+      localSelecionado: null as number | null,
+      lotacaoSelecionada: null as number | null,
 
       regras: {
         obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
@@ -421,7 +403,7 @@ export default {
         },
       },
 
-      targetDisabled: true,
+      showOpcoesMetas: true,
       objetivoSelecionadoIndex: null,
       metaSelecionadaIndex: null,
     }
@@ -459,11 +441,11 @@ export default {
         this.objetivoSelecionadoIndex === null ||
         this.objetivoSelecionadoIndex === undefined
       ) {
-        this.targetDisabled = true
+        this.showOpcoesMetas = true
         return []
       }
 
-      this.targetDisabled = false
+      this.showOpcoesMetas = false
 
       return this.getMetasByObjetivoId(id)?.map(
         (target) =>
@@ -494,7 +476,7 @@ export default {
         .map((un) => ({ value: un.codigo, description: un.nome }))
 
       this.unidadeSelecionada = ''
-      this.localSelecionado = ''
+      this.localSelecionado = null
     },
     setLocalItems() {
       if (!this.unidadeSelecionada) {
@@ -561,6 +543,21 @@ export default {
         return
       }
 
+      let submissao = {} as SubmissaoInputInterface
+      submissao.titulo = this.campoTitulo
+      submissao.descricao = this.campoDescricao
+      submissao.dataInicio = this.campoDataInicial
+      submissao.dataEncerramento = this.campoDataFinal
+
+      submissao.metaId = this.metaSelecionadaIndex // todo
+      submissao.localId = this.localSelecionado!
+      submissao.lotacaoId = this.lotacaoSelecionada!
+
+      submissao.coordenador.nome = this.campoNomeCoordenador
+      submissao.coordenador.email = this.campoEmailCoordenador
+      submissao.tipoVinculo = this.campoVinculoCoordenador // todo
+
+      debugger
       this.showSucesso()
     },
   },
