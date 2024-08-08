@@ -100,6 +100,9 @@
                 <v-item-group selected-class="bg-primary">
                   <v-select
                     label="Escolha a meta mais relevante para o projeto"
+                    v-model="idMetaSelecionada"
+                    item-title="description"
+                    item-value="value"
                     :items="getOpcoesMeta(objetivoSelecionadoIndex! + 1)"
                     :disabled="showOpcoesMetas"
                   ></v-select>
@@ -111,13 +114,16 @@
             <v-row>
               <v-col>
                 <v-text-field
+                  v-model="campoDataInicial"
                   label="Data de Início"
-                  :rules="[regras.formatoData]"
+                  :rules="[regras.obrigatorio, regras.formatoData]"
                 ></v-text-field>
               </v-col>
               <v-col>
                 <v-text-field
+                  v-model="campoDataFinal"
                   label="Data de Encerramento, se houver"
+                  :rules="[regras.formatoData]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -137,6 +143,8 @@
                 <v-select
                   v-model="lotacaoSelecionada"
                   label="Lotação da ação"
+                  item-title="description"
+                  item-value="value"
                   :items="opcoesLotacao"
                   :rules="[regras.obrigatorio]"
                 ></v-select>
@@ -286,7 +294,7 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { SubmissaoInputInterface } from '~/models/input/submissao.input.model'
+import { SubmissaoInputBuilder } from '~/models/input/submissao.input.model'
 import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
@@ -368,7 +376,7 @@ export default {
       regras: {
         obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
         formatoData: (value: string) => {
-          if (!value) return 'Este campo é obrigatório.'
+          if (!!value) return true
 
           const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
           if (!match) {
@@ -405,7 +413,7 @@ export default {
 
       showOpcoesMetas: true,
       objetivoSelecionadoIndex: null,
-      metaSelecionadaIndex: null,
+      idMetaSelecionada: null,
     }
   },
   methods: {
@@ -419,7 +427,7 @@ export default {
       this.campoEmailCoordenador = ''
       this.campoVinculoCoordenador = ''
       this.objetivoSelecionadoIndex = null
-      this.metaSelecionadaIndex = null
+      this.idMetaSelecionada = null
     },
     getCodigoObjetivo(index: number | null) {
       if (!index) return ''
@@ -447,11 +455,12 @@ export default {
 
       this.showOpcoesMetas = false
 
-      return this.getMetasByObjetivoId(id)?.map(
-        (target) =>
-          ('Meta ' + target.id + ' - ' + target.descricao).substring(0, 127) +
+      return this.getMetasByObjetivoId(id)?.map((meta) => ({
+        description:
+          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 127) +
           ' ...',
-      )
+        value: meta.id,
+      }))
     },
     isObjetivoSelecionado() {
       return (
@@ -461,8 +470,7 @@ export default {
     },
     isMetaSelecionada() {
       return (
-        this.metaSelecionadaIndex !== null &&
-        this.metaSelecionadaIndex !== undefined
+        this.idMetaSelecionada !== null && this.idMetaSelecionada !== undefined
       )
     },
     setUnidadeItems() {
@@ -507,11 +515,25 @@ export default {
       }
       return description
     },
+    mapTipoVinculo(vinculo: string): string {
+      switch (vinculo) {
+        case 'Professor':
+          return 'PROFESSOR'
+        case 'Servidor técnico-administrativo':
+          return 'TECNICO_ADM'
+        case 'Aluno de pós-graduação':
+          return 'ALUNO_POS'
+        case 'Aluno de graduação':
+          return 'ALUNO_GRADUACAO'
+        default:
+          return 'OUTRO'
+      }
+    },
     showErrorCampos() {
       this.isDialogVisible = true
       this.dialog.title = 'Erro!'
       this.dialog.message =
-        'Existem campos que não foram informados. <br /> Por favor, verifique-os e tente novamente!'
+        'Existem campos que não foram informados. Por favor, verifique-os e tente novamente!'
     },
     showSucesso() {
       this.isDialogVisible = true
@@ -535,27 +557,30 @@ export default {
         }
       }
 
-      if (
-        this.objetivoSelecionadoIndex === null ||
-        this.metaSelecionadaIndex === null
-      ) {
+      if (!this.isMetaSelecionada()) {
         this.showErrorCampos()
         return
       }
 
-      let submissao = {} as SubmissaoInputInterface
+      let submissao = SubmissaoInputBuilder()
       submissao.titulo = this.campoTitulo
       submissao.descricao = this.campoDescricao
       submissao.dataInicio = this.campoDataInicial
       submissao.dataEncerramento = this.campoDataFinal
 
-      submissao.metaId = this.metaSelecionadaIndex // todo
+      submissao.metaId = this.idMetaSelecionada!
       submissao.localId = this.localSelecionado!
       submissao.lotacaoId = this.lotacaoSelecionada!
 
       submissao.coordenador.nome = this.campoNomeCoordenador
       submissao.coordenador.email = this.campoEmailCoordenador
-      submissao.tipoVinculo = this.campoVinculoCoordenador // todo
+      submissao.coordenador.tipoVinculo = this.mapTipoVinculo(
+        this.campoVinculoCoordenador,
+      )
+      submissao.coordenador.descricaoVinculo =
+        submissao.coordenador.tipoVinculo === 'OUTRO'
+          ? this.campoVinculoCoordenador
+          : null
 
       debugger
       this.showSucesso()
