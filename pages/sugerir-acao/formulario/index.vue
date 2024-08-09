@@ -283,7 +283,7 @@
           :color="dialog.isError ? 'error' : 'success'"
           size="90"
         ></v-icon>
-        <br />
+        <br /><br />
         {{ dialog.message }}
       </v-card-text>
 
