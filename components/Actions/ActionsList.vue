@@ -25,17 +25,41 @@
 
       <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
       <template #top>
-        <v-dialog v-model="showDialog" width="125vh">
+        <v-dialog v-model="isActionDialogVisible" width="125vh">
           <action-card-detail
             :is-submission="isSubmission"
             :action="action"
-            @close="showDialog = false"
+            @close="isActionDialogVisible = false"
             @accept="emitAccept"
           />
         </v-dialog>
       </template>
     </v-data-table>
   </v-card>
+  <!-- TEMPLATE DO DIÁLOGO -->
+  <v-dialog v-model="isMessageDialogVisible" width="500">
+    <v-card>
+      <v-card-title>{{ dialog.title }}</v-card-title>
+      <the-card-divider />
+      <v-card-text class="dialog">
+        <v-icon
+          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'"
+          size="90"
+        ></v-icon>
+        <br /><br />
+        {{ dialog.message }}
+      </v-card-text>
+
+      <the-card-divider />
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="isMessageDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
@@ -63,6 +87,7 @@ export default {
 
   data() {
     return {
+      action: AcaoInterfaceBuilder(),
       tableHeader: [
         {
           title: 'Objetivo',
@@ -82,36 +107,60 @@ export default {
         { title: 'Coordenador', key: 'nomeCoordenador' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
-
-      action: AcaoInterfaceBuilder(),
-
-      showDialog: false,
+      isActionDialogVisible: false,
+      isMessageDialogVisible: false,
+      dialog: {
+        title: '',
+        message: '',
+        isError: false,
+      },
     }
   },
 
   emits: ['accept'],
 
   methods: {
+    showDialog(title: string, message: string, isError: boolean) {
+      this.dialog.title = title
+      this.dialog.message = message
+      this.dialog.isError = isError
+
+      this.isMessageDialogVisible = true
+    },
     emitAccept({ accepted, id }) {
       this.$emit('accept', { accepted, id })
+      this.isActionDialogVisible = false
     },
 
     async loadActionData(acaoGrid: AcaoSearchInterface) {
       const { $api } = useNuxtApp()
-      // TODO: o que fazer ao dar erro?
-      const acao = await $api.acoes.findById(acaoGrid.id)
 
-      this.action = acao
-      this.showDialog = true
+      try {
+        const acao = await $api.acoes.findById(acaoGrid.id)
+        this.action = acao
+        this.isActionDialogVisible = true
+      } catch (e) {
+        this.showDialog(
+          'Erro ao exibir informações!',
+          'Não foi possível carregar os dados da ação selecionada. Por favor, tente novamente mais tarde!',
+          true,
+        )
+      }
     },
 
     async loadSubmissionData(acaoGrid: AcaoSearchInterface) {
       const { $api } = useNuxtApp()
-      // TODO: o que fazer ao dar erro?
-      const submission = await $api.submissoes.findById(acaoGrid.id)
-
-      this.action = submission
-      this.showDialog = true
+      try {
+        const submission = await $api.submissoes.findById(acaoGrid.id)
+        this.action = submission
+        this.isActionDialogVisible = true
+      } catch (e) {
+        this.showDialog(
+          'Erro ao exibir informações!',
+          'Não foi possível carregar os dados da submissão selecionada. Por favor, tente novamente mais tarde!',
+          true,
+        )
+      }
     },
   },
 }

@@ -1,13 +1,25 @@
 <template>
   <!-- TEMPLATE DO DIÁLOGO -->
-  <v-dialog v-model="isDialogVisible" width="50vh">
+  <v-dialog v-model="isDialogVisible" width="500">
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>
-      <v-card-text>
+      <the-card-divider />
+      <v-card-text class="dialog">
+        <v-icon
+          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'"
+          size="90"
+        ></v-icon>
+        <br /><br />
         {{ dialog.message }}
       </v-card-text>
+
+      <the-card-divider />
+
       <v-card-actions>
+        <v-spacer></v-spacer>
         <v-btn @click="isDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -69,7 +81,7 @@ var submissoes = await $api.submissoes.search({})
 const accepted = ref(false)
 
 const isDialogVisible = ref(false)
-const dialog = ref({ title: '', message: '' })
+const dialog = ref({ title: '', message: '', isError: false })
 
 definePageMeta({
   middleware: 'auth',
@@ -97,10 +109,15 @@ async function acceptHandler({
     showDialog(
       'Sucesso',
       `A submissão foi ${accepted ? 'aceita' : 'recusada'}!`,
+      false,
     )
   } catch (error) {
     console.log('ERRO: ', error)
-    showDialog('Erro', 'A ação não pode ser concluída!')
+    showDialog(
+      `Erro ao ${accepted ? 'aceitar' : 'recusar'}!`,
+      'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
+      true,
+    )
   }
 
   await refreshList()
@@ -111,9 +128,10 @@ async function refreshList(): Promise<void> {
   submissoes = await $api.submissoes.search({})
 }
 
-function showDialog(title: string, message: string) {
+function showDialog(title: string, message: string, isError: boolean) {
   dialog.value.title = title
   dialog.value.message = message
+  dialog.value.isError = true
   isDialogVisible.value = true
 }
 </script>
