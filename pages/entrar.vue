@@ -72,6 +72,8 @@ export default {
     async validarLogin() {
       const userStore = useUserStore()
       userStore.isLoggedIn = true
+
+      this.$router.go(-1)
     },
 
     cancelar(): void {

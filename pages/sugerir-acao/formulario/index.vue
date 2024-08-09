@@ -277,7 +277,13 @@
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>
       <the-card-divider />
-      <v-card-text>
+      <v-card-text class="dialog">
+        <v-icon
+          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'"
+          size="90"
+        ></v-icon>
+        <br />
         {{ dialog.message }}
       </v-card-text>
 
@@ -332,7 +338,11 @@ export default {
         await $api.objetivos.getObjetivos()
 
       if (error) {
-        // TODO: show dialog não foi carregar os objetivos
+        this.showDialog(
+          'Erro desconhecido!',
+          'Por favor, tente novamente mais tarde!',
+          true,
+        )
         return
       }
 
@@ -354,6 +364,7 @@ export default {
       dialog: {
         title: '',
         message: '',
+        isError: false,
       },
       search: null,
 
@@ -527,9 +538,11 @@ export default {
           : null
       return submissao
     },
-    showDialog(title: string, message: string) {
+    showDialog(title: string, message: string, isError: boolean) {
       this.dialog.title = title
       this.dialog.message = message
+      this.dialog.isError = true
+
       this.isDialogVisible = true
     },
     async enviarFormulario() {
@@ -543,11 +556,13 @@ export default {
         this.showDialog(
           'Sucesso!',
           'Sua ação foi enviada para contemplação pela comissão avaliadora.',
+          false,
         )
       } catch (e) {
         this.showDialog(
           'Erro desconhecido!',
           'Por favor, tente novamente mais tarde!',
+          true,
         )
       }
     },
@@ -556,6 +571,11 @@ export default {
 </script>
 
 <style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+
 .required-field {
   color: red;
 }
