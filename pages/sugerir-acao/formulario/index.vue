@@ -327,34 +327,30 @@ export default {
   components: { TheCardDivider, TheGoalImage },
 
   async mounted() {
-    // carrega os objetivos
     const { $api } = useNuxtApp()
     const odsStore = useObjetivoStore()
 
-    if (odsStore.getLength != 0) {
-      this.objetivos = odsStore.getObjetivos
-    } else {
-      const { data: objetivosResponse, error } =
-        await $api.objetivos.getObjetivos()
+    // Carrega informações do backend: opções de campus e lotacao, a lista das unidades,
+    // os objetivos se não tiverem sido carregados
+    try {
+      this.opcoesCampus = await $api.unidades.getOpcoesCampus()
+      this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
+      this.unidades = await $api.unidades.getUnidades()
 
-      if (error) {
-        this.showDialog(
-          'Erro desconhecido!',
-          'Por favor, tente novamente mais tarde!',
-          true,
-        )
-        return
+      if (odsStore.getLength != 0) {
+        this.objetivos = odsStore.getObjetivos
+      } else {
+        const objetivos = await $api.objetivos.getObjetivos()
+
+        odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
       }
-
-      odsStore.setObjetivos(
-        objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
+    } catch (e) {
+      this.showDialog(
+        'Erro ao carregar informações!',
+        'Por favor, tente novamente mais tarde!',
+        true,
       )
     }
-
-    // carrega informações das unidades e de lotações do backend
-    this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
-    this.opcoesCampus = await $api.unidades.getOpcoesCampus()
-    this.unidades = await $api.unidades.getUnidades()
   },
 
   data() {
@@ -560,8 +556,8 @@ export default {
         )
       } catch (e) {
         this.showDialog(
-          'Erro desconhecido!',
-          'Por favor, tente novamente mais tarde!',
+          'Erro ao enviar a submissão!',
+          'Não conseguimos salvar suas informações. Por favor, tente novamente mais tarde!',
           true,
         )
       }
