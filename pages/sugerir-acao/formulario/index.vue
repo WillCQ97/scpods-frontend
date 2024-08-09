@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" ref="form" @submit.prevent="enviarFormulario">
+  <v-form v-model="isFormValid" ref="form" @submit.prevent="enviarFormulario">
     <!-- INFORMAÇÕES DA AÇÃO/PROJETO -->
     <v-row>
       <v-col>
@@ -264,8 +264,8 @@
           <v-card-actions>
             <v-spacer />
             <v-btn type="submit"> Enviar submissão </v-btn>
-            <v-btn @click="reset"> Limpar campos </v-btn>
-            <v-btn @click="clickBtnVoltar"> Voltar </v-btn>
+            <v-btn @click="resetForm"> Limpar campos </v-btn>
+            <v-btn @click="goBack"> Voltar </v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -355,7 +355,7 @@ export default {
 
   data() {
     return {
-      valid: false,
+      isFormValid: false,
       isDialogVisible: false,
       dialog: {
         title: '',
@@ -403,13 +403,13 @@ export default {
 
       if (valid) alert('Form is valid')
     },
-    reset() {
+    resetForm() {
       this.$refs.form.reset()
     },
     resetValidation() {
       this.$refs.form.resetValidation()
     },
-    clickBtnVoltar() {
+    goBack() {
       return navigateTo('/sugerir-acao/')
     },
     getCodigoObjetivo(index: number | null) {
@@ -537,11 +537,13 @@ export default {
     showDialog(title: string, message: string, isError: boolean) {
       this.dialog.title = title
       this.dialog.message = message
-      this.dialog.isError = true
+      this.dialog.isError = isError
 
       this.isDialogVisible = true
     },
     async enviarFormulario() {
+      if (!this.isFormValid) return
+
       const submissao = this.montarSubmissao()
 
       const { $api } = useNuxtApp()
