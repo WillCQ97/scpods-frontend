@@ -1,6 +1,7 @@
 import type { AcaoInterface } from '~/models/acao.model'
 import type { AcaoSearchFilterInterface } from '~/models/acao.search.filter.model'
 import FetchFactory from '../factory'
+import type { SubmissaoInputInterface } from '~/models/input/submissao.input.model'
 
 class AcoesModule extends FetchFactory {
   private RESOURCE = '/acoes'
@@ -17,7 +18,7 @@ class AcoesModule extends FetchFactory {
     )
   }
 
-  async enviarSubmissao(submissao: AcaoInterface) {
+  async enviarSubmissao(submissao: SubmissaoInputInterface) {
     return this.call<AcaoInterface>(
       'POST',
       `${this.RESOURCE}/submeter`,

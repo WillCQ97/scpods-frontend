@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" ref="form" @submit.prevent>
+  <v-form v-model="valid" ref="form" @submit.prevent="enviarFormulario">
     <!-- INFORMAÇÕES DA AÇÃO/PROJETO -->
     <v-row>
       <v-col>
@@ -31,9 +31,7 @@
             <v-row>
               <v-col>
                 <h2>
-                  <strong>
-                    ODS relacionado <span class="required-field">*</span>
-                  </strong>
+                  <strong> ODS relacionado </strong>
                 </h2>
               </v-col>
             </v-row>
@@ -70,10 +68,7 @@
             <v-row>
               <v-col>
                 <h2>
-                  <strong>
-                    Metas Nacionais por ODS
-                    <span class="required-field">*</span>
-                  </strong>
+                  <strong> Metas Nacionais por ODS </strong>
                 </h2>
               </v-col>
             </v-row>
@@ -198,8 +193,8 @@
                     <v-list-item>
                       <v-list-item-title>
                         Opção "<strong>{{ search }}</strong
-                        >" informada não reconhecida. Pressione
-                        <kbd>enter</kbd> para adicionar uma nova
+                        >" não reconhecida. Pressione <kbd>enter</kbd> para
+                        adicionar
                       </v-list-item-title>
                     </v-list-item>
                   </template>
@@ -346,7 +341,7 @@ export default {
       )
     }
 
-    // carrega informações das unidades do backend
+    // carrega informações das unidades e de lotações do backend
     this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
     this.opcoesCampus = await $api.unidades.getOpcoesCampus()
     this.unidades = await $api.unidades.getUnidades()
@@ -532,23 +527,29 @@ export default {
           : null
       return submissao
     },
-    showErrorCampos() {
+    showDialog(title: string, message: string) {
+      this.dialog.title = title
+      this.dialog.message = message
       this.isDialogVisible = true
-      this.dialog.title = 'Erro!'
-      this.dialog.message =
-        'Existem campos que não foram informados. Por favor, verifique-os e tente novamente!'
     },
-    showSucesso() {
-      this.isDialogVisible = true
-      this.dialog.title = 'Sucesso!'
-      this.dialog.message =
-        'Sua ação foi enviada para contemplação pela comissão avaliadora.'
-    },
-    enviarFormulario() {
+    async enviarFormulario() {
       const submissao = this.montarSubmissao()
 
-      debugger
-      this.showSucesso()
+      const { $api } = useNuxtApp()
+
+      try {
+        await $api.acoes.enviarSubmissao(submissao)
+
+        this.showDialog(
+          'Sucesso!',
+          'Sua ação foi enviada para contemplação pela comissão avaliadora.',
+        )
+      } catch (e) {
+        this.showDialog(
+          'Erro desconhecido!',
+          'Por favor, tente novamente mais tarde!',
+        )
+      }
     },
   },
 }
