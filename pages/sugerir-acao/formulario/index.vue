@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-form v-model="valid" @submit.prevent>
     <!-- INFORMAÇÕES DA AÇÃO/PROJETO -->
     <v-row>
       <v-col>
@@ -31,7 +31,9 @@
             <v-row>
               <v-col>
                 <h2>
-                  <strong>ODS relacionado*: </strong>
+                  <strong>
+                    ODS relacionado <span class="required-field">*</span>
+                  </strong>
                 </h2>
               </v-col>
             </v-row>
@@ -67,7 +69,12 @@
             <!-- METAS -->
             <v-row>
               <v-col>
-                <h2><strong>Metas Nacionais por ODS*: </strong></h2>
+                <h2>
+                  <strong>
+                    Metas Nacionais por ODS
+                    <span class="required-field">*</span>
+                  </strong>
+                </h2>
               </v-col>
             </v-row>
 
@@ -261,7 +268,7 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="enviarFormulario"> Enviar submissão </v-btn>
+            <v-btn type="submit"> Enviar submissão </v-btn>
             <v-btn @click="limparCamposFormulario"> Limpar campos </v-btn>
             <v-btn @click="clickBtnVoltar"> Voltar </v-btn>
             <v-spacer />
@@ -269,26 +276,25 @@
         </v-card>
       </v-col>
     </v-row>
+  </v-form>
+  <!-- TEMPLATE DO DIÁLOGO -->
+  <v-dialog v-model="isDialogVisible" width="500">
+    <v-card>
+      <v-card-title>{{ dialog.title }}</v-card-title>
+      <the-card-divider />
+      <v-card-text>
+        {{ dialog.message }}
+      </v-card-text>
 
-    <!-- TEMPLATE DO DIÁLOGO -->
-    <v-dialog v-model="isDialogVisible" width="500">
-      <v-card>
-        <v-card-title>{{ dialog.title }}</v-card-title>
-        <the-card-divider />
-        <v-card-text>
-          {{ dialog.message }}
-        </v-card-text>
+      <the-card-divider />
 
-        <the-card-divider />
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="isDialogVisible = false">OK</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="isDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
@@ -341,6 +347,7 @@ export default {
 
   data() {
     return {
+      valid: false,
       isDialogVisible: false,
       dialog: {
         title: '',
@@ -589,6 +596,10 @@ export default {
 </script>
 
 <style scoped>
+.required-field {
+  color: red;
+}
+
 #ods-btn-toggle {
   display: flex;
   flex-wrap: wrap;
