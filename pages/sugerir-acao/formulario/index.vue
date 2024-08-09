@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" @submit.prevent>
+  <v-form v-model="valid" ref="form" @submit.prevent>
     <!-- INFORMAÇÕES DA AÇÃO/PROJETO -->
     <v-row>
       <v-col>
@@ -22,7 +22,7 @@
                 <v-text-field
                   v-model="campoTitulo"
                   label="Título ou nome da ação"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -123,14 +123,14 @@
                 <v-text-field
                   v-model="campoDataInicial"
                   label="Data de Início"
-                  :rules="[regras.obrigatorio, regras.formatoData]"
+                  :rules="[obrigatorioValidator, formatoDataValidator]"
                 ></v-text-field>
               </v-col>
               <v-col>
                 <v-text-field
                   v-model="campoDataFinal"
                   label="Data de Encerramento, se houver"
-                  :rules="[regras.formatoData]"
+                  :rules="[formatoDataValidator]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -140,7 +140,7 @@
                 <v-textarea
                   v-model="campoDescricao"
                   label="Descrição e objetivos da sua ação"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -153,7 +153,7 @@
                   item-title="description"
                   item-value="value"
                   :items="opcoesLotacao"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
             </v-row>
@@ -174,7 +174,7 @@
                 <v-text-field
                   v-model="campoNomeCoordenador"
                   label="Nome completo"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -192,7 +192,7 @@
                   :hide-no-data="false"
                   label="Vínculo com a Ufes"
                   :items="campoOpcoesVinculo"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 >
                   <template v-slot:no-data>
                     <v-list-item>
@@ -209,7 +209,7 @@
                 <v-text-field
                   v-model="campoEmailCoordenador"
                   label="Endereço de e-mail"
-                  :rules="[regras.obrigatorio, regras.email]"
+                  :rules="[obrigatorioValidator, emailValidator]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -236,7 +236,7 @@
                   item-title="description"
                   item-value="value"
                   :items="opcoesCampus"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
               <v-col>
@@ -248,7 +248,7 @@
                   item-value="value"
                   no-data-text="Selecione um Campus"
                   :items="opcoesUnidade"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
 
@@ -260,7 +260,7 @@
                   item-value="value"
                   no-data-text="Selecione uma Unidade"
                   :items="opcoesLocal"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
             </v-row>
@@ -269,7 +269,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn type="submit"> Enviar submissão </v-btn>
-            <v-btn @click="limparCamposFormulario"> Limpar campos </v-btn>
+            <v-btn @click="reset"> Limpar campos </v-btn>
             <v-btn @click="clickBtnVoltar"> Voltar </v-btn>
             <v-spacer />
           </v-card-actions>
@@ -308,6 +308,13 @@ import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
 import type { Unidade } from '~/models/unidade.model'
+
+import {
+  formatoDataValidator,
+  obrigatorioValidator,
+  naoVazioValidator,
+  emailValidator,
+} from '~/utils/custom.validators'
 
 definePageMeta({
   middleware: ['auth'],
@@ -383,68 +390,25 @@ export default {
       localSelecionado: null as number | null,
       lotacaoSelecionada: null as number | null,
 
-      regras: {
-        obrigatorio: (value: any) =>
-          value.trim() !== '' || 'Este campo é obrigatório.',
-        formatoData: (value: string) => {
-          if (!value) return true
-
-          const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
-          if (!match) {
-            return 'Formato de data inválido. Use dd/MM/aaaa.'
-          }
-
-          const day = parseInt(match[1], 10)
-          const month = parseInt(match[2], 10)
-          const year = parseInt(match[3], 10)
-
-          if (
-            day < 1 ||
-            day > 31 ||
-            month < 1 ||
-            month > 12 ||
-            year < 1000 ||
-            year > 9999
-          ) {
-            return 'Data inválida.'
-          }
-
-          const date = new Date(year, month - 1, day)
-          if (
-            date.getFullYear() !== year ||
-            date.getMonth() !== month - 1 ||
-            date.getDate() !== day
-          ) {
-            return 'Data inválida.'
-          }
-
-          return true
-        },
-        email: (value: any) => {
-          const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-          return (
-            emailPattern.test(value) || 'Por favor, insira um email válido.'
-          )
-        },
-      },
-
       showOpcoesMetas: true,
       objetivoSelecionadoIndex: null,
       idMetaSelecionada: null,
     }
   },
   methods: {
+    async validate() {
+      const { valid } = await this.$refs.form.validate()
+
+      if (valid) alert('Form is valid')
+    },
+    reset() {
+      this.$refs.form.reset()
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation()
+    },
     clickBtnVoltar() {
       return navigateTo('/sugerir-acao/')
-    },
-    limparCamposFormulario() {
-      this.campoTitulo = ''
-      this.campoNomeCoordenador = ''
-      this.campoDescricao = ''
-      this.campoEmailCoordenador = ''
-      this.campoVinculoCoordenador = ''
-      this.objetivoSelecionadoIndex = null
-      this.idMetaSelecionada = null
     },
     getCodigoObjetivo(index: number | null) {
       if (!index) return ''
@@ -581,11 +545,6 @@ export default {
         'Sua ação foi enviada para contemplação pela comissão avaliadora.'
     },
     enviarFormulario() {
-      if (!this.isMetaSelecionada()) {
-        this.showErrorCampos()
-        return
-      }
-
       const submissao = this.montarSubmissao()
 
       debugger
