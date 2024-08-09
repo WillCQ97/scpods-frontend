@@ -131,7 +131,13 @@ async function refreshList(): Promise<void> {
 function showDialog(title: string, message: string, isError: boolean) {
   dialog.value.title = title
   dialog.value.message = message
-  dialog.value.isError = true
+  dialog.value.isError = isError
   isDialogVisible.value = true
 }
 </script>
+<style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+</style>
