@@ -61,17 +61,17 @@
             <v-card>
               <v-card-title>Filtro</v-card-title>
               <v-card-text>
-                <v-row>
+                <v-row dense>
                   <v-col cols="12" md="8">
                     <v-text-field
-                      v-model="filtro.titulo"
+                      v-model="filter.titulo"
                       label="Título"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4">
                     <v-text-field
-                      v-model="filtro.dataCadastro"
+                      v-model="filter.dataCadastro"
                       label="Data de Cadastro"
                       outlined
                       type="date"
@@ -79,42 +79,42 @@
                   </v-col>
                   <v-col cols="12" md="3">
                     <v-text-field
-                      v-model="filtro.codigoObjetivo"
+                      v-model="filter.codigoObjetivo"
                       label="Código do Objetivo"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="3">
                     <v-text-field
-                      v-model="filtro.codigoMeta"
+                      v-model="filter.codigoMeta"
                       label="Código da Meta"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="3">
                     <v-text-field
-                      v-model="filtro.siglaLotacao"
+                      v-model="filter.siglaLotacao"
                       label="Sigla da Lotação"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="3">
                     <v-text-field
-                      v-model="filtro.codigoUnidade"
+                      v-model="filter.codigoUnidade"
                       label="Código da Unidade"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="filtro.nomePrincipalLocal"
+                      v-model="filter.nomeLocal"
                       label="Local"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="filtro.nomeCoordenador"
+                      v-model="filter.nomeCoordenador"
                       label="Coordenador"
                       outlined
                     ></v-text-field>
@@ -126,7 +126,11 @@
                 <v-btn variant="elevated" :color="corBotao" type="submit">
                   Pesquisar
                 </v-btn>
-                <v-btn variant="elevated" :color="corBotao" @click="resetForm">
+                <v-btn
+                  variant="elevated"
+                  :color="corBotao"
+                  @click="cleanFilter"
+                >
                   Limpar
                 </v-btn>
                 <v-spacer />
@@ -152,7 +156,7 @@
 import colorPalleteUfes from '~/assets/colors'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 
 definePageMeta({
   middleware: 'auth',
@@ -163,18 +167,18 @@ const corBotao = colorPalleteUfes.monocromatic.secondary
 const dialog = ref({ title: '', message: '', isError: false })
 const isDialogVisible = ref(false)
 
-const filtro = ref({
+const filter = ref({
   titulo: undefined,
   dataCadastro: undefined,
   codigoObjetivo: undefined,
   codigoMeta: undefined,
   siglaLotacao: undefined,
-  nomePrincipalLocal: undefined,
+  nomeLocal: undefined,
   nomeCoordenador: undefined,
   codigoUnidade: undefined,
 })
 
-const submissoes = ref([{}] as AcaoInterface[])
+const submissoes = ref([{}] as AcaoSearchInterface[])
 searchSubmissoes()
 
 interface AcceptHandlerParams {
@@ -184,7 +188,7 @@ interface AcceptHandlerParams {
 
 async function searchSubmissoes(): Promise<void> {
   try {
-    submissoes.value = await $api.submissoes.search(filtro.value)
+    submissoes.value = await $api.submissoes.search(filter.value)
   } catch (e) {
     showDialog(
       `Erro ao buscar submissões!`,
@@ -229,6 +233,11 @@ async function acceptHandler({
 
 const isFormValid = ref(false)
 const form = ref(null)
+
+async function cleanFilter() {
+  resetForm()
+  searchSubmissoes()
+}
 
 const validate = async () => {
   const { valid } = await form.value.validate()

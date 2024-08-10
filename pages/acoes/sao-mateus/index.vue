@@ -73,7 +73,7 @@ import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
-import { AcaoSearchOptionsBuilder } from '~/models/acao.search.filter.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {

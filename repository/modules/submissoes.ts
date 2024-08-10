@@ -1,7 +1,8 @@
 import type { AcaoInterface } from '~/models/acao.model'
-import type { AcaoSearchFilterInterface } from '~/models/acao.search.filter.model'
+import type { AcaoSearchOptionsInterface } from '~/models/acao.search.options.model'
 import FetchFactory from '../factory'
 import { encodeBasicAuth } from '@/utils/encodeAuth'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 
 class SubmissoesModule extends FetchFactory {
   private RESOURCE = '/submissoes'
@@ -24,8 +25,8 @@ class SubmissoesModule extends FetchFactory {
     )
   }
 
-  async search(searchFilter: AcaoSearchFilterInterface) {
-    return this.call<AcaoInterface[]>(
+  async search(searchFilter: AcaoSearchOptionsInterface) {
+    return this.call<AcaoSearchInterface[]>(
       'POST',
       `${this.RESOURCE}/search`,
       searchFilter,

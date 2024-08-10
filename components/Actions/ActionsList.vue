@@ -103,7 +103,7 @@ export default {
         { title: 'Envio', key: 'dataCadastro' },
         { title: 'Meta', key: 'codigoMeta' },
         { title: 'Lotação', key: 'siglaLotacao' },
-        { title: 'Local', key: 'nomePrincipalLocal' },
+        { title: 'Local', key: 'nomeLocal' },
         { title: 'Coordenador', key: 'nomeCoordenador' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
