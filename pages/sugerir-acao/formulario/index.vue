@@ -1,43 +1,37 @@
 <template>
   <v-form v-model="isFormValid" ref="form" @submit.prevent="enviarFormulario">
     <!-- INFORMAÇÕES DA AÇÃO/PROJETO -->
-    <v-row>
-      <v-col>
+    <v-row dense>
+      <v-col cols="12">
         <v-card>
           <v-card-title>Informações da ação</v-card-title>
           <the-card-divider />
           <v-card-text>
-            <v-row>
-              <v-col>
+            <v-row dense>
+              <v-col cols="12">
                 <p>
                   Informe os campos a seguir para submeter uma ação. Após
                   apreciação, ela poderá ser incluída no mapa.
                 </p>
               </v-col>
-            </v-row>
 
-            <!-- TÍTULO -->
-            <v-row>
-              <v-col>
+              <!-- TÍTULO -->
+              <v-col cols="12">
                 <v-text-field
                   v-model="campoTitulo"
                   label="Título ou nome da ação"
                   :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-text-field>
               </v-col>
-            </v-row>
 
-            <!-- OBJETIVOS -->
-            <v-row>
-              <v-col>
+              <!-- OBJETIVOS -->
+              <v-col cols="12">
                 <h2>
                   <strong> ODS relacionado </strong>
                 </h2>
               </v-col>
-            </v-row>
 
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <!--
                 TODO: Este toggle considera que os objetivos recebidos estarão ordenados
                 para obter o objetivo a partir do indice dos botões criados
@@ -62,19 +56,15 @@
                   </v-btn>
                 </v-btn-toggle>
               </v-col>
-            </v-row>
 
-            <!-- METAS -->
-            <v-row>
-              <v-col>
+              <!-- METAS -->
+              <v-col cols="12">
                 <h2>
-                  <strong> Metas Nacionais por ODS </strong>
+                  <strong> Metas nacionais por ODS </strong>
                 </h2>
               </v-col>
-            </v-row>
 
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <p v-if="!isObjetivoSelecionado()" style="color: #60646a">
                   Selecione um Objetivo de Desenvolvimento Sustentável para que
                   sejam exibidas as metas relacionadas.
@@ -95,10 +85,8 @@
                   </p>
                 </div>
               </v-col>
-            </v-row>
 
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <v-item-group selected-class="bg-primary">
                   <v-select
                     label="Escolha a meta mais relevante para o projeto"
@@ -110,38 +98,9 @@
                   ></v-select>
                 </v-item-group>
               </v-col>
-            </v-row>
 
-            <!-- DEMAIS CAMPOS -->
-            <v-row>
-              <v-col>
-                <v-text-field
-                  v-model="campoDataInicial"
-                  label="Data de Início"
-                  :rules="[obrigatorioValidator, formatoDataValidator]"
-                ></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field
-                  v-model="campoDataFinal"
-                  label="Data de Encerramento, se houver"
-                  :rules="[formatoDataValidator]"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col>
-                <v-textarea
-                  v-model="campoDescricao"
-                  label="Descrição e objetivos da sua ação"
-                  :rules="[obrigatorioValidator, naoVazioValidator]"
-                ></v-textarea>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col>
+              <!-- DEMAIS CAMPOS -->
+              <v-col cols="6">
                 <v-select
                   v-model="lotacaoSelecionada"
                   label="Lotação da ação"
@@ -151,36 +110,55 @@
                   :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
+
+              <v-col cols="3">
+                <v-text-field
+                  v-model="campoDataInicial"
+                  label="Data de Início"
+                  :rules="[obrigatorioValidator]"
+                  type="date"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="3">
+                <v-text-field
+                  v-model="campoDataFinal"
+                  label="Data de Encerramento, se houver"
+                  type="date"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea
+                  v-model="campoDescricao"
+                  label="Descrição e objetivos da sua ação"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
+                ></v-textarea>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card>
       </v-col>
-    </v-row>
 
-    <!--  CAMPOS DO COORDENADOR -->
-    <v-row>
-      <v-col>
+      <!--  CAMPOS DO COORDENADOR -->
+      <v-col cols="12">
         <v-card>
           <v-card-title>Informações do coordenador</v-card-title>
           <the-card-divider />
           <v-card-text>
-            <v-row>
-              <v-col>
+            <v-row dense>
+              <v-col cols="12">
                 <v-text-field
                   v-model="campoNomeCoordenador"
                   label="Nome completo"
                   :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-text-field>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
+
+              <v-col cols="12">
                 Para informar um vínculo diferente das opções disponíveis, basta
                 preencher o campo abaixo com valor desejado.
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
+
+              <v-col cols="4">
                 <v-combobox
                   v-model="campoVinculoCoordenador"
                   v-model:search="search"
@@ -200,7 +178,7 @@
                   </template>
                 </v-combobox>
               </v-col>
-              <v-col>
+              <v-col cols="8">
                 <v-text-field
                   v-model="campoEmailCoordenador"
                   label="Endereço de e-mail"
@@ -211,18 +189,16 @@
           </v-card-text>
         </v-card>
       </v-col>
-    </v-row>
 
-    <!--  CAMPOS DE LOCALIZAÇÃO E LOTAÇÃO -->
-    <v-row>
-      <v-col>
+      <!--  CAMPOS DE LOCALIZAÇÃO E LOTAÇÃO -->
+      <v-col cols="12">
         <v-card>
           <v-card-title>
             Local de realização, nos limites da universidade
           </v-card-title>
           <the-card-divider />
           <v-card-text>
-            <v-row>
+            <v-row dense>
               <v-col cols="3">
                 <v-select
                   v-on:update:menu="setUnidadeItems()"
@@ -234,7 +210,7 @@
                   :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
-              <v-col>
+              <v-col cols="4">
                 <v-select
                   v-on:update:menu="setLocalItems()"
                   v-model="unidadeSelecionada"
@@ -247,7 +223,7 @@
                 ></v-select>
               </v-col>
 
-              <v-col>
+              <v-col cols="5">
                 <v-select
                   v-model="localSelecionado"
                   label="Local"
@@ -311,10 +287,9 @@ import type { SelectModelInterface } from '~/models/select/select.model'
 import type { Unidade } from '~/models/unidade.model'
 
 import {
-  formatoDataValidator,
-  obrigatorioValidator,
-  naoVazioValidator,
   emailValidator,
+  naoVazioValidator,
+  obrigatorioValidator,
 } from '~/utils/custom.validators'
 
 definePageMeta({
@@ -556,12 +531,31 @@ export default {
           'Sua ação foi enviada para contemplação pela comissão avaliadora.',
           false,
         )
-      } catch (e) {
-        this.showDialog(
-          'Erro ao enviar a submissão!',
-          'Não conseguimos salvar suas informações. Por favor, tente novamente mais tarde!',
-          true,
-        )
+      } catch (e: any) {
+        console.log(e)
+
+        if (e.data && e.data.mensagem) {
+          // This checks if the error object contains a 'data' property with a 'mensagem' field
+          this.showDialog(
+            'Erro ao enviar a submissão!',
+            e.data.mensagem, // Display the error message from the backend
+            true,
+          )
+        } else if (e.response && e.response.status === 400) {
+          // If the error has a response status code 400 but no specific message
+          this.showDialog(
+            'Erro ao enviar a submissão!',
+            'Ocorreu um erro de validação. Por favor, verifique os dados e tente novamente.',
+            true,
+          )
+        } else {
+          // Generic fallback message
+          this.showDialog(
+            'Erro ao enviar a submissão!',
+            'Não conseguimos salvar suas informações. Por favor, tente novamente mais tarde!',
+            true,
+          )
+        }
       }
     },
   },

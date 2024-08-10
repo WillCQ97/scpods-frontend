@@ -19,11 +19,7 @@ class AcoesModule extends FetchFactory {
   }
 
   async enviarSubmissao(submissao: SubmissaoInputInterface) {
-    return this.call<AcaoInterface>(
-      'POST',
-      `${this.RESOURCE}/submeter`,
-      submissao,
-    )
+    return this.call<void>('POST', `${this.RESOURCE}/submeter`, submissao)
   }
 }
 
