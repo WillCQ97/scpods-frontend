@@ -239,9 +239,9 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn type="submit"> Enviar submissão </v-btn>
-            <v-btn @click="resetForm"> Limpar campos </v-btn>
-            <v-btn @click="goBack"> Voltar </v-btn>
+            <v-btn variant="outlined" type="submit"> Enviar submissão </v-btn>
+            <v-btn variant="outlined" @click="resetForm"> Limpar campos </v-btn>
+            <v-btn variant="outlined" @click="goBack"> Voltar </v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -347,7 +347,6 @@ export default {
       opcoesLocal: [] as Array<SelectModelInterface<number>>,
       opcoesLotacao: [] as Array<SelectModelInterface<number>>,
       campoOpcoesVinculo: [
-        //todo: adicionar valores enum
         'Professor',
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
@@ -355,13 +354,13 @@ export default {
       ],
       campoTitulo: '',
       campoDescricao: '',
-      campoDataInicial: '', // https://vuetifyjs.com/en/components/date-inputs/
+      campoDataInicial: '',
       campoDataFinal: '',
       campoNomeCoordenador: '',
       campoEmailCoordenador: '',
       campoVinculoCoordenador: '',
 
-      // dados da unidade e lotação
+      // Dados da unidade, local e lotação
       campusSelecionado: '',
       unidadeSelecionada: '',
       localSelecionado: null as number | null,
@@ -535,21 +534,21 @@ export default {
         console.log(e)
 
         if (e.data && e.data.mensagem) {
-          // This checks if the error object contains a 'data' property with a 'mensagem' field
+          // Verifica se o objeto de erro possui a propriedade 'data' com o campo 'mensagem'
           this.showDialog(
             'Erro ao enviar a submissão!',
-            e.data.mensagem, // Display the error message from the backend
+            e.data.mensagem, // Exibe mensagem do backend
             true,
           )
         } else if (e.response && e.response.status === 400) {
-          // If the error has a response status code 400 but no specific message
+          // Erro 400, mas sem mensagem
           this.showDialog(
             'Erro ao enviar a submissão!',
             'Ocorreu um erro de validação. Por favor, verifique os dados e tente novamente.',
             true,
           )
         } else {
-          // Generic fallback message
+          // Qualquer outro erro
           this.showDialog(
             'Erro ao enviar a submissão!',
             'Não conseguimos salvar suas informações. Por favor, tente novamente mais tarde!',
