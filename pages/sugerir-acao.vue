@@ -100,7 +100,7 @@ export default {
     acessarFormulario() {
       const userStore = useUserStore()
 
-      if (!userStore.isLoggedIn) {
+      if (!userStore.isLoggedIn && !userStore.admin.isLoggedIn) {
         this.exibirDialogo = true
         return
       }
