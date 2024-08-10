@@ -531,6 +531,7 @@ export default {
           false,
         )
       } catch (e: any) {
+        console.log('ERRO ao submeter a ação')
         console.log(e)
 
         if (e.data && e.data.mensagem) {

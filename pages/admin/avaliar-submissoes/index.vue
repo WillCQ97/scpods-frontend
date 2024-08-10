@@ -243,7 +243,7 @@ async function acceptHandler({
       false,
     )
   } catch (error) {
-    console.log('ERRO: ', error)
+    console.log('ERRO NO ACEITE/REJEITE: ', error)
     showDialog(
       `Erro ao ${accepted ? 'aceitar' : 'recusar'}!`,
       'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
@@ -251,7 +251,7 @@ async function acceptHandler({
     )
   }
 
-  console.log('REFRESH APÓS ACEITE: ')
+  console.log('EXECUTANDO REFRESH APÓS ACEITE')
   searchSubmissoes()
 }
 
