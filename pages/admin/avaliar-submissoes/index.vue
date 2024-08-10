@@ -59,25 +59,34 @@
             @submit.prevent="searchSubmissoes"
           >
             <v-card>
-              <v-card-title>Filtro</v-card-title>
+              <v-card-title>Filtro de busca</v-card-title>
               <v-card-text>
                 <v-row dense>
-                  <v-col cols="12" md="8">
+                  <v-col cols="12" md="6">
                     <v-text-field
                       v-model="filter.titulo"
                       label="Título"
                       outlined
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="4">
+                  <v-col cols="12" md="3">
                     <v-text-field
-                      v-model="filter.dataCadastro"
-                      label="Data de Cadastro"
+                      v-model="filter.dataInicial"
+                      label="Data Inicial"
                       outlined
                       type="date"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="3">
+                    <v-text-field
+                      v-model="filter.dataFinal"
+                      label="Data Final"
+                      outlined
+                      type="date"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="5">
+                    <!-- TODO: trocar para uma SELECT com os objetivos -->
                     <v-text-field
                       v-model="filter.codigoObjetivo"
                       label="Código do Objetivo"
@@ -85,20 +94,15 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="3">
-                    <v-text-field
-                      v-model="filter.codigoMeta"
-                      label="Código da Meta"
-                      outlined
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="3">
+                    <!--TODO: UTILIZAR SELECT-->
                     <v-text-field
                       v-model="filter.siglaLotacao"
                       label="Sigla da Lotação"
                       outlined
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="3">
+                  <v-col cols="12" md="4">
+                    <!--TODO: UTILIZAR SELECT-->
                     <v-text-field
                       v-model="filter.codigoUnidade"
                       label="Código da Unidade"
@@ -107,15 +111,15 @@
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="filter.nomeLocal"
-                      label="Local"
+                      v-model="filter.nomeCoordenador"
+                      label="Nome do coordenador"
                       outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="filter.nomeCoordenador"
-                      label="Coordenador"
+                      v-model="filter.nomeLocal"
+                      label="Local"
                       outlined
                     ></v-text-field>
                   </v-col>
@@ -157,6 +161,7 @@ import colorPalleteUfes from '~/assets/colors'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoSearchInterface } from '~/models/acao.search.model'
+import { AcaoSearchOptionsBuilderEmpty } from '~/models/acao.search.options.model'
 
 definePageMeta({
   middleware: 'auth',
@@ -167,16 +172,7 @@ const corBotao = colorPalleteUfes.monocromatic.secondary
 const dialog = ref({ title: '', message: '', isError: false })
 const isDialogVisible = ref(false)
 
-const filter = ref({
-  titulo: undefined,
-  dataCadastro: undefined,
-  codigoObjetivo: undefined,
-  codigoMeta: undefined,
-  siglaLotacao: undefined,
-  nomeLocal: undefined,
-  nomeCoordenador: undefined,
-  codigoUnidade: undefined,
-})
+const filter = ref(AcaoSearchOptionsBuilderEmpty())
 
 const submissoes = ref([{}] as AcaoSearchInterface[])
 searchSubmissoes()
@@ -232,7 +228,7 @@ async function acceptHandler({
 }
 
 const isFormValid = ref(false)
-const form = ref(null)
+const form = ref()
 
 async function cleanFilter() {
   resetForm()

@@ -19,3 +19,7 @@ export function AcaoSearchOptionsBuilder(
 ): AcaoSearchOptionsInterface {
   return { codigoUnidade: codigoUnidade }
 }
+
+export function AcaoSearchOptionsBuilderEmpty(): AcaoSearchOptionsInterface {
+  return {} as AcaoSearchOptionsInterface
+}
