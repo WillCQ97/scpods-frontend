@@ -1,44 +1,77 @@
 <template>
   <v-card min-width="80vh">
-    <v-card-title> Listagem das Ações </v-card-title>
+    <v-card-title>
+      Listagem das {{ isSubmission ? 'Submissões' : 'Ações' }}
+    </v-card-title>
     <the-card-divider />
-    <v-data-table :headers="header" :items="actions">
-      <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
-      <template #top>
-        <v-dialog v-model="showDialog" width="150vh">
-          <action-card-detail-component
-            :is-submission="isSubmission"
-            :action="selectedItem"
-            @close="showDialog = false"
-            @accept="emitAccept"
-          />
-        </v-dialog>
-      </template>
-
+    <v-data-table :headers="tableHeader" :items="actions">
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item }">
-        <the-goal-image :goal-id="item.meta.objetivo.codigo" />
+        <the-goal-image :goal-code="item.codigoObjetivo" />
       </template>
 
       <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
       <template #item.options="{ item }">
-        <v-icon class="me-2" size="small" @click="showItem(item)">
+        <v-icon
+          class="me-2"
+          size="small"
+          @click="
+            isSubmission ? loadSubmissionData(item) : loadActionData(item)
+          "
+        >
           mdi-eye
         </v-icon>
       </template>
+
+      <!-- TEMPLATE DO DIÁLOGO QUE EXIBE O ITEM SELECIONADO -->
+      <template #top>
+        <v-dialog v-model="isActionDialogVisible" width="125vh">
+          <action-card-detail
+            :is-submission="isSubmission"
+            :action="action"
+            @close="isActionDialogVisible = false"
+            @accept="emitAccept"
+          />
+        </v-dialog>
+      </template>
     </v-data-table>
   </v-card>
+  <!-- TEMPLATE DO DIÁLOGO -->
+  <v-dialog v-model="isMessageDialogVisible" width="500">
+    <v-card>
+      <v-card-title>{{ dialog.title }}</v-card-title>
+      <the-card-divider />
+      <v-card-text class="dialog">
+        <v-icon
+          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'"
+          size="90"
+        ></v-icon>
+        <br /><br />
+        {{ dialog.message }}
+      </v-card-text>
+
+      <the-card-divider />
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="isMessageDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
-import ActionCardDetailComponent from '~/components/Actions/ActionCardDetail.vue'
+import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
+import { AcaoInterfaceBuilder } from '~/models/acao.model'
 
 export default {
-  name: 'ActionsListComponent',
-  components: { ActionCardDetailComponent, TheCardDivider, TheGoalImage },
+  name: 'ActionsList',
+  components: { ActionCardDetail, TheCardDivider, TheGoalImage },
 
   props: {
     actions: {
@@ -54,7 +87,8 @@ export default {
 
   data() {
     return {
-      header: [
+      action: AcaoInterfaceBuilder(),
+      tableHeader: [
         {
           title: 'Objetivo',
           align: 'start',
@@ -66,64 +100,74 @@ export default {
           sortable: false,
           key: 'titulo',
         },
-        { title: 'Meta', key: 'meta.codigo' },
-        { title: 'Lotação', key: 'lotacao.sigla' },
-        { title: 'Local', key: 'local.nomePrincipal' },
-        { title: 'Coordenador', key: 'coordenador.nome' },
+        { title: 'Envio', key: 'dataCadastro' },
+        { title: 'Meta', key: 'codigoMeta' },
+        { title: 'Lotação', key: 'siglaLotacao' },
+        { title: 'Local', key: 'nomeLocal' },
+        { title: 'Coordenador', key: 'nomeCoordenador' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
       ],
-
-      selectedItem: {
-        // TODO: CRIAR UM BUILDER USANDO TYPESCRIPT PARA INSTANCIAR ESSE OBJETO
-        titulo: '',
-        descricao: '',
-        dataCadastro: '',
-        dataInicio: '',
-        dataEncerramento: null,
-        coordenador: {
-          nome: '',
-          descricaoVinculo: '',
-        },
-        meta: {
-          id: null,
-          codigo: '',
-          descricao: '',
-          objetivo: {
-            id: null,
-            codigo: '',
-            titulo: '',
-            descricao: '',
-          },
-        },
-        local: {
-          nomePrincipal: '',
-          nomeSecundario: null,
-          nomeTerciario: null,
-          unidade: {
-            nome: '',
-          },
-        },
-        lotacao: {
-          descricao: '',
-          sigla: '',
-        },
+      isActionDialogVisible: false,
+      isMessageDialogVisible: false,
+      dialog: {
+        title: '',
+        message: '',
+        isError: false,
       },
-
-      showDialog: false,
     }
   },
 
   emits: ['accept'],
 
   methods: {
-    showItem(item: AcaoInterface) {
-      // TODO: TYPESCRIPT WARNING
-      this.selectedItem = item
-      this.showDialog = true
+    showDialog(title: string, message: string, isError: boolean) {
+      this.dialog.title = title
+      this.dialog.message = message
+      this.dialog.isError = isError
+
+      this.isMessageDialogVisible = true
     },
     emitAccept({ accepted, id }) {
       this.$emit('accept', { accepted, id })
+      this.isActionDialogVisible = false
+    },
+
+    async loadActionData(acaoGrid: AcaoSearchInterface) {
+      const { $api } = useNuxtApp()
+
+      try {
+        const acao = await $api.acoes.findById(acaoGrid.id)
+        this.action = acao
+        this.isActionDialogVisible = true
+      } catch (e) {
+        this.showDialog(
+          'Erro ao exibir informações!',
+          'Não foi possível carregar os dados da ação selecionada. Por favor, tente novamente mais tarde!',
+          true,
+        )
+      }
+    },
+
+    async loadSubmissionData(acaoGrid: AcaoSearchInterface) {
+      const { $api } = useNuxtApp()
+      try {
+        const submission = await $api.submissoes.findById(acaoGrid.id)
+        this.action = submission
+        this.isActionDialogVisible = true
+      } catch (e) {
+        this.showDialog(
+          'Erro ao exibir informações!',
+          'Não foi possível carregar os dados da submissão selecionada. Por favor, tente novamente mais tarde!',
+          true,
+        )
+      }
     },
   },
 }
 </script>
+<style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+</style>

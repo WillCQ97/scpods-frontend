@@ -1,20 +1,18 @@
-import type { Local, LocalInfo } from './local.model'
+import type { LocalInfoInterface, LocalInterface } from './local.model'
 
-interface IUnidadeBase {
+interface UnidadeBase {
   id: number
   nome: string
   codigo: string
   campus: string
-
-  locais?: Local[] //
 }
 
-export interface IUnidade extends IUnidadeBase {
-  locais: Local[]
+export interface UnidadeInterface extends UnidadeBase {
+  locais: LocalInterface[]
 }
 
-export interface IUnidadeAcao extends IUnidadeBase {}
+export interface UnidadeAcaoInterface extends UnidadeBase {}
 
-export interface IUnidadeInfo extends IUnidadeBase {
-  locais: LocalInfo[]
+export interface UnidadeInfoInterface extends UnidadeBase {
+  locais: LocalInfoInterface[]
 }

@@ -7,13 +7,13 @@ type State = {
 
 export const useObjetivoStore = defineStore('objetivoStore', {
   state: () => ({ objetivos: [] }) as State,
-  // TODO: clean the examples
-  // state: (): RootState => ({ objetivos: [] }),
-  // state: () => ({ objetivos: <Objetivo[]>[] }) // not recommended to avoid type assertion
-  // state: () => ({ objetivos: [] }) as { objetivos: Objetivo[] },
 
   getters: {
-    getObjetivos(state): IObjetivo[] {
+    getLength(state): Number {
+      return state.objetivos.length
+    },
+
+    getObjetivos(state): Objetivo[] {
       return state.objetivos
     },
 
@@ -43,18 +43,12 @@ export const useObjetivoStore = defineStore('objetivoStore', {
   },
 
   actions: {
-    async fetchObjetivos() {
-      //TODO: return await useFetch permite utilizar o {data, error, refresh} no front
-      try {
-        const response = await useFetch('objetivos', {
-          baseURL: 'http://localhost:8080/acoes-ods/v1/',
-          method: 'get',
-        })
-        this.objetivos = response.data
-      } catch (error) {
-        console.log('ERRO:', error)
-        return error
-      }
+    setObjetivos(objetivos: Objetivo[]) {
+      this.objetivos = objetivos
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
+}

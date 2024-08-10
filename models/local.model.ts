@@ -1,20 +1,24 @@
-import type ILocalizacao from './localizacao.model'
-import type { IUnidadeAcao } from './unidade.model'
+import type LocalizacaoInterface from './localizacao.model'
+import type { UnidadeAcaoInterface } from './unidade.model'
 
-interface Local {
+interface LocalBaseInterface {
   id: number
   idd: number
   nomePrincipal: string
   nomeSecundario?: string
   nomeTerciario?: string
-  localizacao: ILocalizacao
+  localizacao: LocalizacaoInterface
+}
 
-  // info DTO
-  projetosTotais?: number
-  projetosAtivos?: number
-  objetivosAtendidos?: number
-  idObjetivoComMaisProjetos?: number
+export interface LocalInterface extends LocalBaseInterface {}
 
-  // DTO da acao
-  unidade?: IUnidadeAcao
+export interface LocalAcao extends LocalBaseInterface {
+  unidade: UnidadeAcaoInterface
+}
+
+export interface LocalInfoInterface extends LocalBaseInterface {
+  projetosTotais: number
+  projetosAtivos: number
+  objetivosAtendidos: number
+  idObjetivoComMaisProjetos: number
 }
