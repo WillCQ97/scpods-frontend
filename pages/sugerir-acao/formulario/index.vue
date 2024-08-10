@@ -281,10 +281,10 @@ import {
   SubmissaoInputBuilder,
   type SubmissaoInputInterface,
 } from '~/models/input/submissao.input.model'
-import type { Local } from '~/models/local.model'
+import type { LocalInterface } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
-import type { Unidade } from '~/models/unidade.model'
+import type { UnidadeInterface } from '~/models/unidade.model'
 
 import {
   emailValidator,
@@ -340,7 +340,7 @@ export default {
       search: null,
 
       objetivos: [] as Objetivo[],
-      unidades: [] as Unidade[],
+      unidades: [] as UnidadeInterface[],
 
       opcoesCampus: [] as Array<SelectModelInterface<string>>,
       opcoesUnidade: [] as Array<SelectModelInterface<string>>,
@@ -465,7 +465,7 @@ export default {
           .sort((a, b) => a.description.localeCompare(b.description))
       }
     },
-    getDescricaoLocais(local: Local): string {
+    getDescricaoLocais(local: LocalInterface): string {
       let description = local.nomePrincipal
       if (local.nomeSecundario) {
         description += ' - ' + local.nomeSecundario

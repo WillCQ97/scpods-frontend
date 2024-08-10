@@ -30,7 +30,7 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import { type AcaoInterface } from '~/models/acao.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
-import type { UnidadeInfo } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesRive',
@@ -41,7 +41,7 @@ export default {
       nomeUnidade: 'Área Experimental em Rive, Alegre',
       codigoUnidade: 'EXP_RIVE',
       acoesRive: [] as AcaoInterface[],
-      infoRive: {} as UnidadeInfo,
+      infoRive: {} as UnidadeInfoInterface,
       exibirAcoes: false,
       centroRive: [-20.7494, -41.4875],
       limitesRive: [

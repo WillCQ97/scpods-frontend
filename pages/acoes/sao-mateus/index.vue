@@ -74,7 +74,7 @@ import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
-import type { UnidadeInfo } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesSaoMateus',
@@ -85,7 +85,7 @@ export default {
       nomeUnidade: 'Unidade de São Mateus',
       codigoUnidade: 'UN_SAO_MATEUS',
       acoesSaoMateus: [] as AcaoInterface[],
-      infoSaoMateus: {} as UnidadeInfo,
+      infoSaoMateus: {} as UnidadeInfoInterface,
       exibirAcoes: false,
       centroMapa: [-18.675738334093378, -39.86240690464644],
       limitesMapa: [
