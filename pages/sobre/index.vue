@@ -10,7 +10,7 @@
             <the-card-divider />
             <v-card-text class="text--primary">
               <p>
-                A Universidade Federal do Espírito Santo (UFES) possui diversas
+                A Universidade Federal do Espírito Santo (Ufes) possui diversas
                 ações e projetos relacionados com os Objetivos de
                 Desenvolvimento Sustentável (ODS) definidos pela ONU na Agenda
                 2030, sendo de vital importância sua identificação e
@@ -36,14 +36,14 @@
               <p>
                 Além disso, qualquer pessoa com acesso à internet poderá
                 escolher um dos
-                <em>campi</em> da UFES e visualizar as iniciativas realizadas.
+                <em>campi</em> da Ufes e visualizar as iniciativas realizadas.
               </p>
               <br />
               <p>
                 O mapa representa, portanto, uma alternativa diferenciada e
                 transparente de comunicação, com participação coletiva e, ao
                 mesmo tempo, uma análise espacial da consolidação dos ODS dentro
-                da UFES.
+                da Ufes.
               </p>
             </v-card-text>
           </v-card>
@@ -59,7 +59,7 @@
             id="ufes-banner"
             src="/img/banner-ods-ufes.png"
             max-width="550px"
-            alt="Banner com logotipo da UFES e o texto 'objetivos de desenvolvimento sustentável'"
+            alt="Banner com logotipo da Ufes e o texto 'Objetivos de Desenvolvimento Sustentável'"
           ></v-img>
         </v-col>
         <v-spacer />
@@ -68,8 +68,13 @@
   </v-row>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+
+export default {
+  name: 'PaginaSobre',
+  components: { TheCardDivider },
+}
 </script>
 
 <style scoped>

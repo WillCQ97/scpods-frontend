@@ -3,105 +3,74 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
-            :bounds="limitesJeronimo"
-            :center="centroJeronimo"
-            :feature="featureJeronimo"
-            :markers="createMarkers"
-            @show-actions="showActions"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
+            :unidade-info="infoJeronimo"
+            @show-actions="showActionsHandler"
           />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="jeronimoActions"
-          /> </v-col
+          <actions-list v-if="exibirAcoes" :actions="acoesJeronimo" /> </v-col
       ></v-row>
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import alegreActions from '~/assets/data/alegreActions.json'
-import alegreInfo from '~/assets/data/alegreInfo.json'
 import featureJeronimo from '~/assets/features/jeronimo.json'
-
-const odsStore = useObjetivoStore()
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesJeronimo',
-  components: { ActionsListComponent, ActionsMapComponent },
+
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
-      alegreActions,
-      alegreInfo,
-      isActionsListVisible: false,
-      jeronimoActions: [],
-      unidadeId: 6,
-      nomeCampus: 'ALEGRE',
       nomeUnidade: 'Unidade em Jerônimo Monteiro',
-      centroJeronimo: [-20.79071, -41.38887],
-      limitesJeronimo: [
+      codigoUnidade: 'UN_JERONIMO',
+      acoesJeronimo: [] as AcaoInterface[],
+      infoJeronimo: {} as UnidadeInfo,
+      campusGeojson: featureJeronimo,
+      exibirAcoes: false,
+      centroMapa: [-20.79071, -41.38887],
+      limitesMapa: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
       ],
-      featureJeronimo,
     }
   },
 
-  computed: {
-    createMarkers() {
-      const sede = this.alegreInfo.unidades.filter(
-        (un) => un.id === this.unidadeId,
-      )[0]
-
-      const locais = sede.locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
+  methods: {
+    async loadActionsList() {
+      const { $api } = useNuxtApp()
+      this.acoesJeronimo = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
       )
+    },
 
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
+    showActionsHandler(flag: boolean) {
+      this.exibirAcoes = flag
 
-      return markers
+      if (this.exibirAcoes) {
+        this.loadActionsList()
+      }
     },
   },
 
-  methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.jeronimoActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
-    },
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoJeronimo = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

@@ -12,7 +12,7 @@
                   href="https://www.ufes.br/campi/campus-de-maruipe"
                   target="_blank"
                 >
-                  na página da ufes
+                  na página da Ufes
                   <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
                 </a>
               </v-card-subtitle>
@@ -38,15 +38,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://ccs.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://ccs.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -54,22 +46,19 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
-            :bounds="limitesMapa"
+            :bounds="limitesMaapa"
             :center="centroMapa"
             :feature="featureCampus"
-            :markers="createMarkers"
+            :unidade-info="infoMaruipe"
             @show-actions="showActions"
           />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="maruipeActions"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesMaruipe" />
         </v-col>
       </v-row>
     </v-col>
@@ -77,73 +66,54 @@
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import maruipeActions from '~/assets/data/maruipeActions.json'
-import maruipeInfo from '~/assets/data/maruipeInfo.json'
 import feature from '~/assets/features/maruipe.json'
-
-const odsStore = useObjetivoStore()
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      maruipeActions,
-      maruipeInfo,
-      isActionsListVisible: false,
-      nomeCampus: 'MARUÍPE',
       nomeUnidade: 'Unidade de Maruípe',
+      codigoUnidade: 'UN_MARUIPE',
+      acoesMaruipe: [] as AcaoInterface[],
+      infoMaruipe: {} as UnidadeInfo,
+      exibirAcoes: false,
       centroMapa: [-20.29815881701748, -40.31628393322453],
-      limitesMapa: [
-        [-20.297085718911358, -40.320649264497376],
+      limitesMaapa: [
+        [-20.297085718911358, -40.32064926449737],
         [-20.301772383132487, -40.31412608305674],
       ],
-      featureCampus: feature, // TODO: corrigir discrepância do geojson para a tile
+      featureCampus: feature,
     }
   },
 
-  computed: {
-    createMarkers() {
-      const locais = maruipeInfo.unidades[0].locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
+  methods: {
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesMaruipe = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
       )
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
 
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
-  methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-    },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoMaruipe = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

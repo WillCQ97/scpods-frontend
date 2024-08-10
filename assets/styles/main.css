@@ -1,16 +1,5 @@
-.ufes-style {
-  font-family: 'Ufes Sans', sans-serif;
-}
+/* CSS RESET */
 
-/* TODO: serve apenas para referencia do colorPalleteUfes durante o desenvolvimento */
-#ufes-color-pallete {
-  primary: #234379;
-  mono1: #000011;
-  mono2: #11182c;
-  mono3: #182849;
-  mono4: #203a69;
-  mono5: #345188;
-  mono6: #546da8;
-  mono7: #748bc8;
-  mono8: #94aaea;
+* {
+  font-family: 'Ufes Sans', sans-serif;
 }

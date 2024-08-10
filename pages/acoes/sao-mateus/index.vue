@@ -12,7 +12,7 @@
                   href="https://www.ufes.br/campi/campus-de-sao-mateus"
                   target="_blank"
                 >
-                  na página da ufes
+                  na página da Ufes
                   <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
                 </a>
               </v-card-subtitle>
@@ -39,15 +39,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://saomateus.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://saomateus.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -55,22 +47,19 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
             :bounds="limitesMapa"
             :center="centroMapa"
-            :feature="featureCampus"
-            :markers="createMarkers"
+            :feature="campusGeojson"
+            :unidade-info="infoSaoMateus"
             @show-actions="showActions"
           />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="saoMateusActions"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesSaoMateus" />
         </v-col>
       </v-row>
     </v-col>
@@ -78,72 +67,54 @@
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import featureSaoMateus from '~/assets/features/sao_mateus.json'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import saoMateusActions from '~/assets/data/saoMateusActions.json'
-import saoMateusInfo from '~/assets/data/saoMateusInfo.json'
-import feature from '~/assets/features/sao_mateus.json'
-
-const odsStore = useObjetivoStore()
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesSaoMateus',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      saoMateusActions,
-      saoMateusInfo,
-      isActionsListVisible: false,
-      nomeCampus: 'SAO_MATEUS',
       nomeUnidade: 'Unidade de São Mateus',
+      codigoUnidade: 'UN_SAO_MATEUS',
+      acoesSaoMateus: [] as AcaoInterface[],
+      infoSaoMateus: {} as UnidadeInfo,
+      exibirAcoes: false,
       centroMapa: [-18.675738334093378, -39.86240690464644],
       limitesMapa: [
         [-18.670727522212445, -39.866469236990035],
         [-18.680308622184185, -39.85245444148613],
       ],
-      featureCampus: feature,
+      campusGeojson: featureSaoMateus,
     }
   },
-  computed: {
-    createMarkers() {
-      const locais = saoMateusInfo.unidades[0].locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
+
+  methods: {
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesSaoMateus = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
       )
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
 
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
-  methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-    },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoSaoMateus = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

@@ -1,6 +1,24 @@
 ###
 # Place your Prettier ignore content here
 
+# Ignore specific configuration files
+*.config.js
+
+# Ignore lock files
+yarn.lock
+package-lock.json
+
+# Ignore compiled files
+*.min.js
+*.min.css
+
+# Ignore specific file types
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
 ###
 # .gitignore content is duplicated here due to https://github.com/prettier/prettier/issues/8506
 
@@ -64,6 +82,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

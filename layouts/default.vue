@@ -13,13 +13,16 @@
       <!-- USER -->
       <v-btn
         :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="changeUserFlag()"
+        @click.stop="!isUserLoggedIn() ? navigateTo('/entrar') : logoff()"
       >
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
       <!-- ADMIN -->
-      <v-btn prepend-icon="mdi-shield-account" @click.stop="changeUserAdmin()">
+      <v-btn
+        prepend-icon="mdi-shield-account"
+        @click.stop="!isUserAdmin() ? navigateTo('/admin/entrar') : logoff()"
+      >
         Admin
       </v-btn>
 
@@ -79,7 +82,7 @@
 
           <v-list-item
             to="/acoes/maruipe"
-            prepend-icon="mdi-alpha-g"
+            prepend-icon="mdi-alpha-m"
             router
             exact
           >
@@ -149,53 +152,38 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import colorPalleteUfes from 'assets/colors'
 
-const user = useUser()
+const author = ref('Willian Conceição Queiroz')
+const headerColor = ref(colorPalleteUfes.monocromatic.mono6)
+const footerColor = ref(colorPalleteUfes.monocromatic.mono5)
+const menuColor = ref(colorPalleteUfes.monocromatic.mono7)
+const headerTitle = ref('Mapa Colaborativo: Sustentabilidade na Ufes')
 
-export default {
-  name: 'DefaultLayout',
-  data() {
-    return {
-      clipped: true,
-      drawer: false,
-      fixed: false,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
+const clipped = ref(true)
+const drawer = ref(false)
 
-      author: 'Willian Conceição Queiroz',
-      headerColor: colorPalleteUfes.monocromatic.mono6,
-      footerColor: colorPalleteUfes.monocromatic.mono5,
-      menuColor: colorPalleteUfes.monocromatic.mono7,
-      headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
-    }
-  },
+const userStore = useUserStore()
 
-  methods: {
-    isUserLoggedIn() {
-      return user.isLoggedIn
-    },
-    isUserAdmin() {
-      return user.isAdmin
-    },
-    changeUserFlag() {
-      user.isLoggedIn = !user.isLoggedIn
-    },
-    changeUserAdmin() {
-      user.isAdmin = !user.isAdmin
-    },
-  },
+function isUserLoggedIn(): boolean {
+  return userStore.isUserLoggedIn || userStore.admin.isLoggedIn
+}
+function isUserAdmin(): boolean {
+  return userStore.admin.isLoggedIn
+}
+function logoff(): void {
+  userStore.logout()
+  navigateTo('/')
 }
 </script>
+
 <style scoped>
 #btn-icon-ods {
   opacity: 1;
 }
 #title-bar {
-  font-family: 'Ufes Sans', sans-serif !important;
-  text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
-  /*color: black; */ /* TODO: É POSSÍVEL DEFINIR A COR DA FONTE DIRETAMENTE ASSIM */
+  /* colorPalleteUfes.monocromatic.mono8 */
+  text-shadow: 1px 1px 2px #94aaea;
 }
 </style>

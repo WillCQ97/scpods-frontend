@@ -37,15 +37,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://alegre.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://alegre.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -59,7 +51,8 @@
               <v-card-title>Campus de Alegre</v-card-title>
               <v-card-subtitle>Selecione o mapa a ser exibido!</v-card-subtitle>
             </v-card-item>
-            <v-divider :color="dividerColor" thickness="3"></v-divider>
+
+            <the-card-divider />
 
             <v-card-text>
               <p>
@@ -118,19 +111,19 @@
 </template>
 
 <script lang="ts">
-import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import colorPalleteUfes from '~/assets/colors'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 async function carregarMapa(campus: string) {
   await navigateTo('/acoes/alegre/' + campus)
 }
 
 export default {
-  components: { TheCardDivider },
+  components: { ExternalLinkBtn, TheCardDivider },
   data() {
     return {
       corBotao: colorPalleteUfes.monocromatic.secondary,
-      dividerColor: colorPalleteUfes.monocromatic.primary,
       mapas: [
         { titulo: 'Sede em Alegre', subpagina: 'sede' },
         { titulo: 'Unidade Jerônimo Monteiro', subpagina: 'jeronimo' },
@@ -147,6 +140,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 ul {
   padding-left: 25px;

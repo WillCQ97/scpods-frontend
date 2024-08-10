@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>Sobre o formulário de sugestão</v-card-title>
-    <hr />
+    <the-card-divider />
     <v-card-text>
       <p>
         O formulário é composto por informações essenciais acerca da
@@ -16,7 +16,7 @@
         <li>Descrição contendo o objetivo da ação</li>
         <li>
           Informações sobre a coordenação do projeto: nome, email e vínculo do
-          coordenador com a UFES
+          coordenador com a Ufes
         </li>
         <li>
           Local onde a ação é/foi executada: selecione a unidade e, em seguida,
@@ -27,6 +27,16 @@
     </v-card-text>
   </v-card>
 </template>
+
+<script lang="ts">
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+
+export default {
+  name: 'PaginaSubmissao',
+  components: { TheCardDivider },
+}
+</script>
+
 <style scoped>
 ul {
   padding-left: 25px;

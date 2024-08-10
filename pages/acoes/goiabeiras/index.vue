@@ -42,15 +42,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://www.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://www.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -58,12 +50,12 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
-            :bounds="limitesGoiabeiras"
-            :center="centroGoiabeiras"
-            :feature="featureGoiabeiras"
-            :markers="createMarkers"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
+            :unidade-info="goiabeirasInfo"
             @show-actions="showActions"
           />
         </v-col>
@@ -71,10 +63,7 @@
       <!-- LISTAGEM DAS AÇÕES -->
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="goiabeirasActions"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesGoiabeiras" />
         </v-col>
       </v-row>
     </v-col>
@@ -82,74 +71,56 @@
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import goiabeirasActions from '~/assets/data/goiabeirasActions.json'
-import goiabeirasInfo from '~/assets/data/goiabeirasInfo.json'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
-
-const odsStore = useObjetivoStore()
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      goiabeirasInfo,
-      goiabeirasActions,
-      unidadeId: 2,
-      isActionsListVisible: false,
-      nomeCampus: 'GOIABEIRAS',
       nomeUnidade: 'Campus em Goiabeiras',
-      centroGoiabeiras: [-20.2764, -40.3037],
-      limitesGoiabeiras: [
-        [-20.2696, -40.308],
-        [-20.284, -40.3009],
+      codigoUnidade: 'UN_GOIABEIRAS',
+      acoesGoiabeiras: [] as AcaoInterface[],
+      goiabeirasInfo: {} as UnidadeInfo,
+      exibirAcoes: false,
+      centroMapa: [-20.2764, -40.3037],
+      limitesMapa: [
+        [-20.2696, -40.3089],
+        [-20.2846, -40.3009],
       ],
-      featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
+      campusGeojson: featureGoiabeiras,
     }
   },
 
-  computed: {
-    createMarkers() {
-      const locais = goiabeirasInfo.unidades[0].locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
+  methods: {
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesGoiabeiras = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
       )
+    },
 
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
 
-      return markers
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
-  methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-    },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.goiabeirasInfo = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

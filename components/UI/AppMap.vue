@@ -12,6 +12,7 @@
       :options="mapOptions"
       :zoom="zoom"
       style="height: 600px; z-index: 1"
+      :use-global-leaflet="false"
     >
       <!-- LAYER DO OPENSTREETMAP -->
       <l-tile-layer :attribution="attribution" :url="tileUrl"></l-tile-layer>
@@ -37,11 +38,27 @@
 </template>
 
 <script lang="ts">
+import type Marker from '~/models/props/marker.model'
+
+/*
+TODO: é possível usar as funções do leaflet para criar os objetos e evitar o erro do typescript 
+
+
+https://docs.maptiler.com/leaflet/examples/ts-get-started/
+const options: MapOptions = {
+  center: latLng(40.731253, -73.996139),
+  zoom: 12,
+};
+
+import L from 'leaflet'
+L.latLng(number, number)
+*/
+
 /*
  * A ordem esperada das coordenadas é latitude, longitude
  */
 export default {
-  name: 'AppMapComponent',
+  name: 'AppMap',
 
   props: {
     attribution: {
@@ -63,7 +80,7 @@ export default {
       default: null,
     },
     markers: {
-      type: Array,
+      type: Array as PropType<Marker[]>,
       required: true,
     },
     tileUrl: {
@@ -102,14 +119,17 @@ export default {
         return
       }
       return (feature, layer) => {
+        /*
+         * ESTE TOOLTIP CONSIDERA A ESTRUTURA DO GEOJSON DOS CAMPI
+         */
         const props = feature.properties
-        let tags = ''
 
+        let tags = ''
         Object.entries(props.palavras_chave).forEach(([_key, value]) => {
           tags += value + '; '
         })
 
-        const popupContent =
+        const mapTooltip =
           '<strong>ID:</strong> ' +
           props.idd +
           '<br /><strong>Nome:</strong> ' +
@@ -117,16 +137,16 @@ export default {
           '<br /><strong>Tags:</strong> ' +
           tags
 
-        layer.bindTooltip(popupContent, { permanent: false, sticky: true })
+        layer.bindTooltip(mapTooltip, { permanent: false, sticky: true })
       }
     },
     mapOptions() {
       return {
-        minZoom: 16,
-        maxZoom: 18,
-        zoomControl: true,
-        scrollWheelZoom: false,
         maxBounds: this.bounds,
+        maxZoom: 18,
+        minZoom: 16,
+        scrollWheelZoom: false,
+        zoomControl: true,
       }
     },
     showFeatureOnMap(): boolean {
@@ -143,20 +163,3 @@ export default {
   },
 }
 </script>
-
-<style>
-div.popup {
-  display: flex;
-}
-
-img.popup_img {
-  height: 75px;
-  margin-bottom: auto;
-  margin-top: auto;
-  width: 75px;
-}
-
-div.popup_text {
-  padding-left: 5px;
-}
-</style>

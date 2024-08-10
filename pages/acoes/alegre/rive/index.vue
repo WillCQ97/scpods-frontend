@@ -3,12 +3,12 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
-            :title="mapName"
+          <actions-map
+            :title="nomeUnidade"
             :bounds="limitesRive"
             :center="centroRive"
-            :feature="featureUnidadeRive"
-            :markers="createMarkers"
+            :feature="campusGeojson"
+            :unidade-info="infoRive"
             :zoom="zoom"
             @show-actions="showActions"
           />
@@ -17,10 +17,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="riveActions"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesRive" />
         </v-col>
       </v-row>
     </v-col>
@@ -28,84 +25,53 @@
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import alegreActions from '~/assets/data/alegreActions.json'
-import alegreInfo from '~/assets/data/alegreInfo.json'
-import featureUnidadeRive from '~/assets/features/rive.json'
-
-const odsStore = useObjetivoStore()
+import featureRive from '~/assets/features/rive.json'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import { type AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
-  name: 'PaginaMapaAcoesAlegreRive',
-
-  components: { ActionsListComponent, ActionsMapComponent },
+  name: 'PaginaAcoesRive',
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
-      alegreActions,
-      alegreInfo,
-      isActionsListVisible: false,
-      riveActions: [],
-      nomeCampus: 'ALEGRE',
-      unidadeId: 5,
-      mapName: 'Área Experimental em Rive, Alegre',
+      nomeUnidade: 'Área Experimental em Rive, Alegre',
+      codigoUnidade: 'EXP_RIVE',
+      acoesRive: [] as AcaoInterface[],
+      infoRive: {} as UnidadeInfo,
+      exibirAcoes: false,
       centroRive: [-20.7494, -41.4875],
       limitesRive: [
         [-20.7422, -41.4932],
         [-20.7562, -41.4815],
       ],
-      featureUnidadeRive,
+      campusGeojson: featureRive,
       zoom: 16,
     }
   },
 
-  computed: {
-    createMarkers() {
-      const sede = this.alegreInfo.unidades.filter(
-        (un) => un.id === this.unidadeId,
-      )[0]
-
-      const locais = sede.locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
+  methods: {
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesRive = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
       )
+    },
 
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
-
-      return markers
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 
-  methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.riveActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
-    },
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoRive = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

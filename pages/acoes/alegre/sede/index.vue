@@ -3,12 +3,12 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
-            :title="mapTitle"
-            :bounds="mapLimits"
-            :center="mapCenter"
-            :feature="featureAlegre"
-            :markers="createMarkers"
+          <actions-map
+            :title="nomeUnidade"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
+            :unidade-info="infoAlegre"
             @show-actions="showActions"
           />
         </v-col>
@@ -16,10 +16,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="alegreSedeActions"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesAlegre" />
         </v-col>
       </v-row>
     </v-col>
@@ -27,79 +24,53 @@
 </template>
 
 <script lang="ts">
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import alegreActions from '~/assets/data/alegreActions.json'
-import alegreInfo from '~/assets/data/alegreInfo.json'
 import featureAlegre from '~/assets/features/alegre.json'
-
-const odsStore = useObjetivoStore()
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
-  name: 'PaginaMapaAcoesAlegreSede',
-  components: { ActionsListComponent, ActionsMapComponent },
+  name: 'PaginaAcoesAlegre',
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
-      alegreInfo,
-      alegreSedeActions: [],
-      unidadeId: 1,
-      isActionsListVisible: false,
-      featureAlegre,
-      mapCenter: [-20.76161, -41.536],
-      mapLimits: [
+      nomeUnidade: 'Campus Sede em Alegre',
+      codigoUnidade: 'UN_ALEGRE',
+      acoesAlegre: [] as AcaoInterface[],
+      infoAlegre: {} as UnidadeInfo,
+      campusGeojson: featureAlegre,
+      exibirAcoes: false,
+      centroMapa: [-20.76161, -41.536],
+      limitesMapa: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],
       ],
-      mapTitle: 'Campus Sede em Alegre',
     }
   },
 
-  computed: {
-    createMarkers() {
-      const sede = this.alegreInfo.unidades.filter(
-        (un) => un.id === this.unidadeId,
-      )[0]
-
-      const locais = sede.locais.filter(
-        (local) => local.quantidadeProjetosAtivos > 0,
+  methods: {
+    async carregarAcoes() {
+      const { $api } = useNuxtApp()
+      this.acoesAlegre = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
       )
+    },
 
-      const markers = locais.map((local) => ({
-        ...local,
-        id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
-        content:
-          '<div class="popup">' +
-          '<img class="popup_img" src="' +
-          '/img/ods-icons/pt-br/SDG-' +
-          local.idObjetivoMaisAtendido +
-          '.svg' +
-          '"><br>' +
-          '<div class="popup_text">' +
-          '<strong>' +
-          local.nomePrincipal +
-          '</strong>' +
-          '<br/>Número de Projetos Ativos: ' +
-          local.quantidadeProjetosAtivos +
-          '<br/>Objetivos atendidos: ' +
-          local.quantidadeObjetivosAtendidos +
-          '<br/>Objetivo mais atendido: ' +
-          '<br/>' +
-          odsStore.getTituloObjetivoById(local.idObjetivoMaisAtendido) +
-          '</div></div>',
-      }))
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
 
-      return markers
+      if (this.exibirAcoes) {
+        this.carregarAcoes()
+      }
     },
   },
-  methods: {
-    showActions(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.alegreSedeActions = alegreActions.filter(
-        (action) => action.local.unidade.id === this.unidadeId,
-      )
-    },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoAlegre = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>
