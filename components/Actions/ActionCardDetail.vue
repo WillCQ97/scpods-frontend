@@ -128,7 +128,7 @@
           <v-col>
             <v-text-field
               v-model="showedItem.coordenador.descricaoVinculo"
-              label="Vínculo com a UFES"
+              label="Vínculo com a Ufes"
             ></v-text-field>
           </v-col>
           <v-col v-if="isSubmission">

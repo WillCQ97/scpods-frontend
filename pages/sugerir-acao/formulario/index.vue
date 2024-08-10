@@ -1,43 +1,37 @@
 <template>
-  <div>
+  <v-form v-model="isFormValid" ref="form" @submit.prevent="enviarFormulario">
     <!-- INFORMAÇÕES DA AÇÃO/PROJETO -->
-    <v-row>
-      <v-col>
+    <v-row dense>
+      <v-col cols="12">
         <v-card>
           <v-card-title>Informações da ação</v-card-title>
           <the-card-divider />
           <v-card-text>
-            <v-row>
-              <v-col>
+            <v-row dense>
+              <v-col cols="12">
                 <p>
                   Informe os campos a seguir para submeter uma ação. Após
                   apreciação, ela poderá ser incluída no mapa.
                 </p>
               </v-col>
-            </v-row>
 
-            <!-- TÍTULO -->
-            <v-row>
-              <v-col>
+              <!-- TÍTULO -->
+              <v-col cols="12">
                 <v-text-field
                   v-model="campoTitulo"
                   label="Título ou nome da ação"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-text-field>
               </v-col>
-            </v-row>
 
-            <!-- OBJETIVOS -->
-            <v-row>
-              <v-col>
+              <!-- OBJETIVOS -->
+              <v-col cols="12">
                 <h2>
-                  <strong>ODS relacionado*: </strong>
+                  <strong> ODS relacionado </strong>
                 </h2>
               </v-col>
-            </v-row>
 
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <!--
                 TODO: Este toggle considera que os objetivos recebidos estarão ordenados
                 para obter o objetivo a partir do indice dos botões criados
@@ -62,17 +56,15 @@
                   </v-btn>
                 </v-btn-toggle>
               </v-col>
-            </v-row>
 
-            <!-- METAS -->
-            <v-row>
-              <v-col>
-                <h2><strong>Metas Nacionais por ODS*: </strong></h2>
+              <!-- METAS -->
+              <v-col cols="12">
+                <h2>
+                  <strong> Metas nacionais por ODS </strong>
+                </h2>
               </v-col>
-            </v-row>
 
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <p v-if="!isObjetivoSelecionado()" style="color: #60646a">
                   Selecione um Objetivo de Desenvolvimento Sustentável para que
                   sejam exibidas as metas relacionadas.
@@ -93,125 +85,120 @@
                   </p>
                 </div>
               </v-col>
-            </v-row>
 
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <v-item-group selected-class="bg-primary">
                   <v-select
                     label="Escolha a meta mais relevante para o projeto"
+                    v-model="idMetaSelecionada"
+                    item-title="description"
+                    item-value="value"
                     :items="getOpcoesMeta(objetivoSelecionadoIndex! + 1)"
-                    :disabled="targetDisabled"
+                    :disabled="showOpcoesMetas"
                   ></v-select>
                 </v-item-group>
               </v-col>
-            </v-row>
 
-            <!-- DEMAIS CAMPOS -->
-            <v-row>
-              <v-col>
+              <!-- DEMAIS CAMPOS -->
+              <v-col cols="6">
+                <v-select
+                  v-model="lotacaoSelecionada"
+                  label="Lotação da ação"
+                  item-title="description"
+                  item-value="value"
+                  :items="opcoesLotacao"
+                  :rules="[obrigatorioValidator]"
+                ></v-select>
+              </v-col>
+
+              <v-col cols="3">
                 <v-text-field
+                  v-model="campoDataInicial"
                   label="Data de Início"
-                  :rules="[regras.formatoData]"
+                  :rules="[obrigatorioValidator]"
+                  type="date"
                 ></v-text-field>
               </v-col>
-              <v-col>
+              <v-col cols="3">
                 <v-text-field
+                  v-model="campoDataFinal"
                   label="Data de Encerramento, se houver"
+                  type="date"
                 ></v-text-field>
               </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col>
+              <v-col cols="12">
                 <v-textarea
                   v-model="campoDescricao"
                   label="Descrição e objetivos da sua ação"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-textarea>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col>
-                <v-select
-                  label="Lotação da ação"
-                  :items="opcoesLotacao"
-                  :rules="[regras.obrigatorio]"
-                ></v-select>
               </v-col>
             </v-row>
           </v-card-text>
         </v-card>
       </v-col>
-    </v-row>
 
-    <!--  CAMPOS DO COORDENADOR -->
-    <v-row>
-      <v-col>
+      <!--  CAMPOS DO COORDENADOR -->
+      <v-col cols="12">
         <v-card>
           <v-card-title>Informações do coordenador</v-card-title>
           <the-card-divider />
           <v-card-text>
-            <v-row>
-              <v-col>
+            <v-row dense>
+              <v-col cols="12">
                 <v-text-field
                   v-model="campoNomeCoordenador"
                   label="Nome completo"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-text-field>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
+
+              <v-col cols="12">
                 Para informar um vínculo diferente das opções disponíveis, basta
                 preencher o campo abaixo com valor desejado.
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
+
+              <v-col cols="4">
                 <v-combobox
                   v-model="campoVinculoCoordenador"
                   v-model:search="search"
                   :hide-no-data="false"
-                  label="Vínculo com a UFES"
+                  label="Vínculo com a Ufes"
                   :items="campoOpcoesVinculo"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"
                 >
                   <template v-slot:no-data>
                     <v-list-item>
                       <v-list-item-title>
                         Opção "<strong>{{ search }}</strong
-                        >" informada não reconhecida. Pressione
-                        <kbd>enter</kbd> para adicionar uma nova
+                        >" não reconhecida. Pressione <kbd>enter</kbd> para
+                        adicionar
                       </v-list-item-title>
                     </v-list-item>
                   </template>
                 </v-combobox>
               </v-col>
-              <v-col>
+              <v-col cols="8">
                 <v-text-field
                   v-model="campoEmailCoordenador"
                   label="Endereço de e-mail"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator, emailValidator]"
                 ></v-text-field>
               </v-col>
             </v-row>
           </v-card-text>
         </v-card>
       </v-col>
-    </v-row>
 
-    <!--  CAMPOS DE LOCALIZAÇÃO E LOTAÇÃO -->
-    <v-row>
-      <v-col>
+      <!--  CAMPOS DE LOCALIZAÇÃO E LOTAÇÃO -->
+      <v-col cols="12">
         <v-card>
           <v-card-title>
             Local de realização, nos limites da universidade
           </v-card-title>
           <the-card-divider />
           <v-card-text>
-            <v-row>
+            <v-row dense>
               <v-col cols="3">
                 <v-select
                   v-on:update:menu="setUnidadeItems()"
@@ -220,10 +207,10 @@
                   item-title="description"
                   item-value="value"
                   :items="opcoesCampus"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
-              <v-col>
+              <v-col cols="4">
                 <v-select
                   v-on:update:menu="setLocalItems()"
                   v-model="unidadeSelecionada"
@@ -232,11 +219,11 @@
                   item-value="value"
                   no-data-text="Selecione um Campus"
                   :items="opcoesUnidade"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
 
-              <v-col>
+              <v-col cols="5">
                 <v-select
                   v-model="localSelecionado"
                   label="Local"
@@ -244,7 +231,7 @@
                   item-value="value"
                   no-data-text="Selecione uma Unidade"
                   :items="opcoesLocal"
-                  :rules="[regras.obrigatorio]"
+                  :rules="[obrigatorioValidator]"
                 ></v-select>
               </v-col>
             </v-row>
@@ -252,60 +239,58 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="enviarFormulario"> Enviar submissão </v-btn>
-            <v-btn @click="limparCamposFormulario"> Limpar campos </v-btn>
-            <v-btn @click="clickBtnVoltar"> Voltar </v-btn>
+            <v-btn variant="outlined" type="submit"> Enviar submissão </v-btn>
+            <v-btn variant="outlined" @click="resetForm"> Limpar campos </v-btn>
+            <v-btn variant="outlined" @click="goBack"> Voltar </v-btn>
             <v-spacer />
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
+  </v-form>
+  <!-- TEMPLATE DO DIÁLOGO -->
+  <v-dialog v-model="isDialogVisible" width="500">
+    <v-card>
+      <v-card-title>{{ dialog.title }}</v-card-title>
+      <the-card-divider />
+      <v-card-text class="dialog">
+        <v-icon
+          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'"
+          size="90"
+        ></v-icon>
+        <br /><br />
+        {{ dialog.message }}
+      </v-card-text>
 
-    <!-- DIÁLOGOS DE MENSAGENS -->
-    <!-- TODO: pode ser utilizado um diálogo apenas -->
-    <v-dialog v-model="dialogSuccess" width="500">
-      <v-card>
-        <v-card-title>Sucesso!</v-card-title>
-        <the-card-divider />
-        <v-card-text>
-          Sua ação foi enviada para contemplação pela comissão avaliadora.
-        </v-card-text>
+      <the-card-divider />
 
-        <the-card-divider />
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click="dialogSuccess = false"> OK </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="dialogError" width="500">
-      <v-card>
-        <v-card-title>Erro!</v-card-title>
-        <the-card-divider />
-        <v-card-text>
-          Existem campos que não foram informados. <br />
-          Por favor, verifique-os e tente novamente!
-        </v-card-text>
-
-        <the-card-divider />
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="error" @click="dialogError = false">Voltar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="isDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import {
+  SubmissaoInputBuilder,
+  type SubmissaoInputInterface,
+} from '~/models/input/submissao.input.model'
 import type { Local } from '~/models/local.model'
 import type { Objetivo } from '~/models/objetivo.model'
+import type { SelectModelInterface } from '~/models/select/select.model'
 import type { Unidade } from '~/models/unidade.model'
+
+import {
+  emailValidator,
+  naoVazioValidator,
+  obrigatorioValidator,
+} from '~/utils/custom.validators'
 
 definePageMeta({
   middleware: ['auth'],
@@ -317,155 +302,89 @@ export default {
   components: { TheCardDivider, TheGoalImage },
 
   async mounted() {
-    // carrega os objetivos
     const { $api } = useNuxtApp()
     const odsStore = useObjetivoStore()
 
-    if (odsStore.getLength != 0) {
-      this.objetivos = odsStore.getObjetivos
-    } else {
-      const { data: objetivosResponse, error } =
-        await $api.objetivos.getObjetivos()
+    // Carrega informações do backend: opções de campus e lotacao, a lista das unidades,
+    // os objetivos se não tiverem sido carregados
+    try {
+      this.opcoesCampus = await $api.unidades.getOpcoesCampus()
+      this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
+      this.unidades = await $api.unidades.getUnidades()
 
-      if (error) {
-        // TODO: show dialog não foi carregar os objetivos
-        return
+      if (odsStore.getLength != 0) {
+        this.objetivos = odsStore.getObjetivos
+      } else {
+        const objetivos = await $api.objetivos.getObjetivos()
+
+        odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
       }
-
-      odsStore.setObjetivos(
-        objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
+    } catch (e) {
+      this.showDialog(
+        'Erro ao carregar informações!',
+        'Por favor, tente novamente mais tarde!',
+        true,
       )
     }
-    // carrega as unidades do backend
-    this.unidades = await $api.unidades.getUnidades()
   },
 
   data() {
     return {
+      isFormValid: false,
+      isDialogVisible: false,
+      dialog: {
+        title: '',
+        message: '',
+        isError: false,
+      },
+      search: null,
+
       objetivos: [] as Objetivo[],
       unidades: [] as Unidade[],
-      submissao: {
-        titulo: '',
-        descricao: '',
-        dataInicio: '',
-        dataEncerramento: null,
-        meta: {
-          id: '',
-        },
-        coordenador: {
-          nome: '',
-          email: '',
-          tipoVinculo: '',
-        },
-        local: {
-          id: '',
-        },
-        lotacao: {
-          id: '',
-        },
-      },
 
-      campoTitulo: '',
-      campoDescricao: '',
-      campoDataInicial: '', // https://vuetifyjs.com/en/components/date-inputs/
-      campoDataFinal: '',
-      campoNomeCoordenador: '',
-      campoEmailCoordenador: '',
-      campoVinculoCoordenador: '',
-
+      opcoesCampus: [] as Array<SelectModelInterface<string>>,
+      opcoesUnidade: [] as Array<SelectModelInterface<string>>,
+      opcoesLocal: [] as Array<SelectModelInterface<number>>,
+      opcoesLotacao: [] as Array<SelectModelInterface<number>>,
       campoOpcoesVinculo: [
         'Professor',
         'Servidor técnico-administrativo',
         'Aluno de pós-graduação',
         'Aluno de graduação',
       ],
-      search: null,
-      opcoesCampus: [
-        { value: 'ALEGRE', description: 'Alegre' },
-        { value: 'GOIABEIRAS', description: 'Goiabeiras' },
-        { value: 'MARUIPE', description: 'Maruípe' },
-        { value: 'SAO_MATEUS', description: 'São Mateus' },
-      ],
-      opcoesUnidade: [] as Array<Object>,
-      opcoesLocal: [] as Array<Object>,
-      opcoesLotacao: [
-        'Centro de Ciências Agrárias e Engenharias',
-        'Centro de Ciências Exatas, Naturais e da Saúde',
-        'Centro Universitário Norte do Espírito Santo',
-        'Centro de Ciências da Saúde',
-        'Centro de Artes',
-        'Centro de Ciências Exatas',
-        'Centro de Ciências Humanas e Naturais',
-        'Centro de Ciências Jurídicas e Econômicas',
-        'Centro de Educação',
-        'Centro de Educação Física e Desportos',
-        'Centro Tecnológico',
-        'Hospital Universitário Cassiano Antônio Moraes',
-        'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)',
-      ],
+      campoTitulo: '',
+      campoDescricao: '',
+      campoDataInicial: '',
+      campoDataFinal: '',
+      campoNomeCoordenador: '',
+      campoEmailCoordenador: '',
+      campoVinculoCoordenador: '',
 
-      // dados da unidade e lotação
+      // Dados da unidade, local e lotação
       campusSelecionado: '',
       unidadeSelecionada: '',
-      localSelecionado: '',
+      localSelecionado: null as number | null,
+      lotacaoSelecionada: null as number | null,
 
-      dialogSuccess: false,
-      dialogError: false,
-      regras: {
-        obrigatorio: (value: any) => !!value || 'Este campo é obrigatório.',
-        formatoData: (value: string) => {
-          if (!value) return 'Este campo é obrigatório.'
-
-          const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
-          if (!match) {
-            return 'Formato de data inválido. Use dd/MM/yyyy.'
-          }
-
-          const day = parseInt(match[1], 10)
-          const month = parseInt(match[2], 10)
-          const year = parseInt(match[3], 10)
-
-          if (
-            day < 1 ||
-            day > 31 ||
-            month < 1 ||
-            month > 12 ||
-            year < 1000 ||
-            year > 9999
-          ) {
-            return 'Data inválida.'
-          }
-
-          const date = new Date(year, month - 1, day)
-          if (
-            date.getFullYear() !== year ||
-            date.getMonth() !== month - 1 ||
-            date.getDate() !== day
-          ) {
-            return 'Data inválida.'
-          }
-
-          return true
-        },
-      },
-
-      targetDisabled: true,
+      showOpcoesMetas: true,
       objetivoSelecionadoIndex: null,
-      metaSelecionadaIndex: null,
+      idMetaSelecionada: null,
     }
   },
   methods: {
-    clickBtnVoltar() {
-      return navigateTo('/sugerir-acao/')
+    async validate() {
+      const { valid } = await this.$refs.form.validate()
+
+      if (valid) alert('Form is valid')
     },
-    limparCamposFormulario() {
-      this.campoTitulo = ''
-      this.campoNomeCoordenador = ''
-      this.campoDescricao = ''
-      this.campoEmailCoordenador = ''
-      this.campoVinculoCoordenador = ''
-      this.objetivoSelecionadoIndex = null
-      this.metaSelecionadaIndex = null
+    resetForm() {
+      this.$refs.form.reset()
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation()
+    },
+    goBack() {
+      return navigateTo('/sugerir-acao/')
     },
     getCodigoObjetivo(index: number | null) {
       if (!index) return ''
@@ -487,17 +406,18 @@ export default {
         this.objetivoSelecionadoIndex === null ||
         this.objetivoSelecionadoIndex === undefined
       ) {
-        this.targetDisabled = true
+        this.showOpcoesMetas = true
         return []
       }
 
-      this.targetDisabled = false
+      this.showOpcoesMetas = false
 
-      return this.getMetasByObjetivoId(id)?.map(
-        (target) =>
-          ('Meta ' + target.id + ' - ' + target.descricao).substring(0, 127) +
+      return this.getMetasByObjetivoId(id)?.map((meta) => ({
+        description:
+          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 127) +
           ' ...',
-      )
+        value: meta.id,
+      }))
     },
     isObjetivoSelecionado() {
       return (
@@ -507,8 +427,7 @@ export default {
     },
     isMetaSelecionada() {
       return (
-        this.metaSelecionadaIndex !== null &&
-        this.metaSelecionadaIndex !== undefined
+        this.idMetaSelecionada !== null && this.idMetaSelecionada !== undefined
       )
     },
     setUnidadeItems() {
@@ -522,7 +441,7 @@ export default {
         .map((un) => ({ value: un.codigo, description: un.nome }))
 
       this.unidadeSelecionada = ''
-      this.localSelecionado = ''
+      this.localSelecionado = null
     },
     setLocalItems() {
       if (!this.unidadeSelecionada) {
@@ -553,37 +472,105 @@ export default {
       }
       return description
     },
-    enviarFormulario() {
-      const campos = [
-        this.campoTitulo,
-        this.campoNomeCoordenador,
-        this.campoDescricao,
-        this.campoEmailCoordenador,
-        this.campoVinculoCoordenador,
-      ]
+    mapTipoVinculo(vinculo: string): string {
+      switch (vinculo) {
+        case 'Professor':
+          return 'PROFESSOR'
+        case 'Servidor técnico-administrativo':
+          return 'TECNICO_ADM'
+        case 'Aluno de pós-graduação':
+          return 'ALUNO_POS'
+        case 'Aluno de graduação':
+          return 'ALUNO_GRADUACAO'
+        default:
+          return 'OUTRO'
+      }
+    },
+    montarSubmissao(): SubmissaoInputInterface {
+      let submissao = SubmissaoInputBuilder()
+      submissao.titulo = this.campoTitulo.trim()
+      submissao.descricao = this.campoDescricao.trim()
+      submissao.dataInicio = this.campoDataInicial
+      submissao.dataEncerramento = this.campoDataFinal
 
-      for (const campo of campos) {
-        if (campo.trim() === '') {
-          this.dialogError = true
-          return
+      submissao.metaId = this.idMetaSelecionada!
+      submissao.localId = this.localSelecionado!
+      submissao.lotacaoId = this.lotacaoSelecionada!
+
+      submissao.coordenador.nome = this.campoNomeCoordenador.trim()
+      submissao.coordenador.email = this.campoEmailCoordenador
+      submissao.coordenador.tipoVinculo = this.mapTipoVinculo(
+        this.campoVinculoCoordenador,
+      )
+      submissao.coordenador.descricaoVinculo =
+        submissao.coordenador.tipoVinculo === 'OUTRO'
+          ? this.campoVinculoCoordenador
+          : null
+      return submissao
+    },
+    showDialog(title: string, message: string, isError: boolean) {
+      this.dialog.title = title
+      this.dialog.message = message
+      this.dialog.isError = isError
+
+      this.isDialogVisible = true
+    },
+    async enviarFormulario() {
+      if (!this.isFormValid) return
+
+      const submissao = this.montarSubmissao()
+
+      const { $api } = useNuxtApp()
+
+      try {
+        await $api.acoes.enviarSubmissao(submissao)
+
+        this.showDialog(
+          'Sucesso!',
+          'Sua ação foi enviada para contemplação pela comissão avaliadora.',
+          false,
+        )
+      } catch (e: any) {
+        console.log(e)
+
+        if (e.data && e.data.mensagem) {
+          // Verifica se o objeto de erro possui a propriedade 'data' com o campo 'mensagem'
+          this.showDialog(
+            'Erro ao enviar a submissão!',
+            e.data.mensagem, // Exibe mensagem do backend
+            true,
+          )
+        } else if (e.response && e.response.status === 400) {
+          // Erro 400, mas sem mensagem
+          this.showDialog(
+            'Erro ao enviar a submissão!',
+            'Ocorreu um erro de validação. Por favor, verifique os dados e tente novamente.',
+            true,
+          )
+        } else {
+          // Qualquer outro erro
+          this.showDialog(
+            'Erro ao enviar a submissão!',
+            'Não conseguimos salvar suas informações. Por favor, tente novamente mais tarde!',
+            true,
+          )
         }
       }
-
-      if (
-        this.objetivoSelecionadoIndex === null ||
-        this.metaSelecionadaIndex === null
-      ) {
-        this.dialogError = true
-        return
-      }
-
-      this.dialogSuccess = true
     },
   },
 }
 </script>
 
 <style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+
+.required-field {
+  color: red;
+}
+
 #ods-btn-toggle {
   display: flex;
   flex-wrap: wrap;

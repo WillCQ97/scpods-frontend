@@ -10,9 +10,9 @@
 import type { Objetivo } from './models/objetivo.model'
 
 // TODO: adicionar imagem e url para o site
-const siteTitle = 'Mapa Colaborativo: ODS na UFES'
+const siteTitle = 'Mapa Colaborativo: ODS na Ufes'
 const siteDescription =
-  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na UFES'
+  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na Ufes'
 const siteImage = ''
 const siteUrl = ''
 
@@ -50,26 +50,20 @@ useHead({
   ],
 })
 
-/*TODO: ADD CÓDIGO DE TESTE SALVO EM STASH
-const objetivoStore = useObjetivo()
-const runtimeConfig = useRuntimeConfig()
+// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
+// usa a repository para obter os dados da api do backend, então adiciona a store
+const { $api } = useNuxtApp()
+const odsStore = useObjetivoStore()
 
 await callOnce(async () => {
-  objetivoStore.objetivos = await $fetch(
-    runtimeConfig.public.apiBase + '//objetivos',
-  ).catch((error) => {
-    console.log('Erro ao requisitar os objetivos', error)
-  })
+  try {
+    const objetivos = await $api.objetivos.getObjetivos()
+    odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
+  } catch (error) {
+    console.log(
+      'ERRO ao requisitar os objetivos no carregamento inicial do site  ',
+      error,
+    )
+  }
 })
-*/
-
-// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
-// usa a repository para obter os dados da api, então adiciona a store
-const { $api } = useNuxtApp()
-const { data: objetivosResponse } = await $api.objetivos.getObjetivos()
-
-const odsStore = useObjetivoStore()
-odsStore.setObjetivos(
-  objetivosResponse?.value ? objetivosResponse.value : ([] as Objetivo[]),
-)
 </script>

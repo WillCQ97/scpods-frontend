@@ -108,9 +108,9 @@ export default {
   data() {
     return {
       attribution:
-        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        '<a href="https://mapa.prodesignufes.org">ProDesing Ufes</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       attributionHOT:
-        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+        '<a href="https://mapa.prodesignufes.org">ProDesing Ufes</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
       enableTooltip: true,
       isActionListVisible: false,
       showCampusFeature: true,

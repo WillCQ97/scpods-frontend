@@ -1,13 +1,25 @@
 <template>
   <!-- TEMPLATE DO DIÁLOGO -->
-  <v-dialog v-model="isDialogVisible" width="50vh">
+  <v-dialog v-model="isDialogVisible" width="500">
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>
-      <v-card-text>
+      <the-card-divider />
+      <v-card-text class="dialog">
+        <v-icon
+          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'"
+          size="90"
+        ></v-icon>
+        <br /><br />
         {{ dialog.message }}
       </v-card-text>
+
+      <the-card-divider />
+
       <v-card-actions>
+        <v-spacer></v-spacer>
         <v-btn @click="isDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -15,13 +27,6 @@
   <!-- TEMPLATE DA PÁGINA -->
   <v-row>
     <v-col>
-      <v-row>
-        <v-col>
-          <v-card>
-            <v-card-title>Filtro</v-card-title>
-          </v-card>
-        </v-col>
-      </v-row>
       <v-row>
         <v-col>
           <v-card>
@@ -48,6 +53,99 @@
       </v-row>
       <v-row>
         <v-col>
+          <v-form
+            v-model="isFormValid"
+            ref="form"
+            @submit.prevent="searchSubmissoes"
+          >
+            <v-card>
+              <v-card-title>Filtro de busca</v-card-title>
+              <v-card-text>
+                <v-row dense>
+                  <v-col cols="12" md="8">
+                    <v-text-field
+                      v-model="filter.titulo"
+                      label="Título"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="2">
+                    <v-text-field
+                      v-model="filter.dataInicial"
+                      label="Data Inicial"
+                      outlined
+                      type="date"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="2">
+                    <v-text-field
+                      v-model="filter.dataFinal"
+                      label="Data Final"
+                      outlined
+                      type="date"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="5">
+                    <v-select
+                      v-model="filter.codigoObjetivo"
+                      label="Objetivo"
+                      item-title="description"
+                      item-value="value"
+                      :items="opcoesObjetivos"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-select
+                      v-model="filter.siglaLotacao"
+                      label="Lotação da ação"
+                      :items="opcoesLotacao"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="3">
+                    <v-select
+                      v-model="filter.campus"
+                      label="Campus"
+                      item-title="description"
+                      item-value="value"
+                      :items="opcoesUnidade"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="8">
+                    <v-text-field
+                      v-model="filter.nomeCoordenador"
+                      label="Nome do coordenador"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="filter.nomeLocal"
+                      label="Local"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn variant="elevated" :color="corBotao" type="submit">
+                  Pesquisar
+                </v-btn>
+                <v-btn
+                  variant="elevated"
+                  :color="corBotao"
+                  @click="cleanFilter"
+                >
+                  Limpar
+                </v-btn>
+                <v-spacer />
+              </v-card-actions>
+            </v-card>
+          </v-form>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
           <actions-list
             :actions="submissoes"
             :is-submission="true"
@@ -60,25 +158,70 @@
 </template>
 
 <script setup lang="ts">
+import colorPalleteUfes from '~/assets/colors'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-
-const { $api } = useNuxtApp()
-var submissoes = await $api.submissoes.search({})
-
-const accepted = ref(false)
-
-const isDialogVisible = ref(false)
-const dialog = ref({ title: '', message: '' })
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
+import { AcaoSearchOptionsBuilderEmpty } from '~/models/acao.search.options.model'
+import type { SelectModelInterface } from '~/models/select/select.model'
 
 definePageMeta({
   middleware: 'auth',
 })
 
+const { $api } = useNuxtApp()
+const objetivosStore = useObjetivoStore()
+
+const corBotao = colorPalleteUfes.monocromatic.secondary
+const dialog = ref({ title: '', message: '', isError: false })
+const isDialogVisible = ref(false)
+
+const filter = ref(AcaoSearchOptionsBuilderEmpty())
+
+const opcoesLotacao = [
+  'CCAE',
+  'CCENS',
+  'Ceunes',
+  'CCS',
+  'CAr',
+  'CCE',
+  'CCHN',
+  'CCJE',
+  'CE',
+  'CEFD',
+  'CT',
+  'Hucam',
+  'Reitoria',
+]
+
+const opcoesUnidade = ref([] as SelectModelInterface<string>[])
+opcoesUnidade.value = await $api.unidades.getOpcoesCampus()
+
+const opcoesObjetivos = objetivosStore.getObjetivos.map((obj) => ({
+  value: obj.codigo,
+  description: obj.id + ' - ' + obj.titulo,
+}))
+
+const submissoes = ref([{}] as AcaoSearchInterface[])
+searchSubmissoes()
+
 interface AcceptHandlerParams {
   accepted: boolean
   id: number
 }
+
+async function searchSubmissoes(): Promise<void> {
+  try {
+    submissoes.value = await $api.submissoes.search(filter.value)
+  } catch (e) {
+    showDialog(
+      `Erro ao buscar submissões!`,
+      'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
+      true,
+    )
+  }
+}
+
 async function acceptHandler({
   accepted,
   id,
@@ -97,23 +240,51 @@ async function acceptHandler({
     showDialog(
       'Sucesso',
       `A submissão foi ${accepted ? 'aceita' : 'recusada'}!`,
+      false,
     )
   } catch (error) {
     console.log('ERRO: ', error)
-    showDialog('Erro', 'A ação não pode ser concluída!')
+    showDialog(
+      `Erro ao ${accepted ? 'aceitar' : 'recusar'}!`,
+      'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
+      true,
+    )
   }
 
-  await refreshList()
-  console.log('REFRESH: ', submissoes)
+  console.log('REFRESH APÓS ACEITE: ')
+  searchSubmissoes()
 }
 
-async function refreshList(): Promise<void> {
-  submissoes = await $api.submissoes.search({})
+const isFormValid = ref(false)
+const form = ref()
+
+async function cleanFilter() {
+  resetForm()
+  searchSubmissoes()
 }
 
-function showDialog(title: string, message: string) {
+const validate = async () => {
+  const { valid } = await form.value.validate()
+
+  if (valid) alert('Form is valid')
+}
+const resetForm = () => {
+  form.value.reset()
+}
+const resetValidation = () => {
+  form.value.resetValidation()
+}
+
+function showDialog(title: string, message: string, isError: boolean) {
   dialog.value.title = title
   dialog.value.message = message
+  dialog.value.isError = isError
   isDialogVisible.value = true
 }
 </script>
+<style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+</style>

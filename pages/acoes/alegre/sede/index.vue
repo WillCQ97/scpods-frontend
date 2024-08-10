@@ -28,7 +28,7 @@ import featureAlegre from '~/assets/features/alegre.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import type { AcaoInterface } from '~/models/acao.model'
-import { AcaoSearchOptionsBuilder } from '~/models/acao.search.filter.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {

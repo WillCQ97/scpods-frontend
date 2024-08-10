@@ -12,7 +12,7 @@
                   href="https://www.ufes.br/campi/campus-de-sao-mateus"
                   target="_blank"
                 >
-                  na página da ufes
+                  na página da Ufes
                   <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
                 </a>
               </v-card-subtitle>
@@ -73,7 +73,7 @@ import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
-import { AcaoSearchOptionsBuilder } from '~/models/acao.search.filter.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {

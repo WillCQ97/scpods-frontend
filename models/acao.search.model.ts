@@ -5,6 +5,6 @@ export interface AcaoSearchInterface {
   codigoObjetivo: string
   codigoMeta: string
   siglaLotacao: string
-  nomePrincipalLocal: string
+  nomeLocal: string
   nomeCoordenador: string
 }
