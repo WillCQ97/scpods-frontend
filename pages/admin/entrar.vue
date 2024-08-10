@@ -20,38 +20,40 @@
   <v-row align="center">
     <v-spacer />
     <v-col>
-      <v-card width="75vh">
-        <v-card-title>Login do administrador</v-card-title>
+      <v-form v-model="isFormValid" @submit="entrar()">
+        <v-card width="75vh">
+          <v-card-title>Login do administrador</v-card-title>
 
-        <the-card-divider />
+          <the-card-divider />
 
-        <v-card-text>
-          <v-text-field
-            v-model="username"
-            label="Informe seu nome de usuário"
-            prepend-icon="mdi-shield-account"
-            :rules="[rules.mandatory]"
-          ></v-text-field>
+          <v-card-text>
+            <v-text-field
+              v-model="username"
+              label="Informe seu nome de usuário"
+              prepend-icon="mdi-shield-account"
+              :rules="[obrigatorioValidator]"
+            ></v-text-field>
 
-          <v-text-field
-            v-model="password"
-            label="Informe sua senha"
-            :type="exibirSenha ? 'text' : 'password'"
-            :prepend-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.mandatory]"
-            @click:prepend="exibirSenha = !exibirSenha"
-          ></v-text-field>
-        </v-card-text>
+            <v-text-field
+              v-model="password"
+              label="Informe sua senha"
+              :type="exibirSenha ? 'text' : 'password'"
+              :prepend-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[obrigatorioValidator]"
+              @click:prepend="exibirSenha = !exibirSenha"
+            ></v-text-field>
+          </v-card-text>
 
-        <the-card-divider />
+          <the-card-divider />
 
-        <v-card-actions>
-          <v-spacer />
-          <v-btn @click="entrar()"> Entrar </v-btn>
-          <v-btn @click="cancelar()"> Cancelar </v-btn>
-          <v-spacer />
-        </v-card-actions>
-      </v-card>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn type="submit"> Entrar </v-btn>
+            <v-btn @click="cancelar()"> Cancelar </v-btn>
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-form>
     </v-col>
     <v-spacer />
   </v-row>
@@ -69,6 +71,7 @@ export default {
 
   data() {
     return {
+      isFormValid: false,
       exibirSenha: false,
       username: '',
       password: '',
@@ -77,21 +80,12 @@ export default {
         title: '',
         message: '',
       },
-      rules: {
-        mandatory: (value: any) => !!value || 'Este campo é obrigatório.',
-      },
     }
   },
 
   methods: {
     async entrar(): Promise<void> {
-      if (this.username.trim() === '' || this.password.trim() === '') {
-        this.showDialog(
-          'Há campos não informados!',
-          'Por favor, verifique-os e tente novamente!',
-        )
-        return
-      }
+      if (!this.isFormValid) return
 
       const authHeader = `Basic ${encodeBasicAuth(this.username, this.password)}`
       const header = new Headers({
