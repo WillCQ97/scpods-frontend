@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout class="ufes-style">
+  <NuxtLayout>
     <v-app>
       <NuxtPage />
     </v-app>
@@ -7,47 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import type { IObjetivo } from './models/objetivo.model'
+import type { Objetivo } from './models/objetivo.model'
 
-/* https://nuxt.com/docs/migration/pages-and-layouts#appvue */
 // TODO: adicionar imagem e url para o site
-const siteTitle = 'Mapa Colaborativo: ODS na UFES'
+const siteTitle = 'Mapa Colaborativo: ODS na Ufes'
 const siteDescription =
-  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na UFES'
+  'Conheça as ações e projetos relacionados com os Objetivos de Desenvolvimento Sustentável na Ufes'
 const siteImage = ''
 const siteUrl = ''
-
-// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
-/*
-console.log('====')
-const { $api } = useNuxtApp()
-console.log($api)
-const acaoRepo = repository($api)
-console.log(acaoRepo)
-const { data } = await useAsyncData(() => acaoRepo.get('alegre'))
-console.log(data)
-console.log('====')
-*/
-console.log('====')
-const { $api } = useNuxtApp()
-//console.log($api)
-const objetivos: IObjetivo[] = await $api.objetivoRepository.getObjetivos()
-
-console.log(objetivos[1].titulo)
-
-const objetivo2: IObjetivo = await $api.objetivoRepository.getObjetivoById(2)
-console.log(objetivo2.id + ': ' + objetivo2.descricao)
-console.log('====')
-
-const odsStore = useObjetivoStore()
-await useAsyncData('objetivos', () => odsStore.fetchObjetivos())
-
-//console.log('Imprimindo ALGUNS TÍTULOS DE OBJETIVOS')
-//console.log(2, odsStore.getTituloObjetivoById(2))
-
-//console.log('Imprimindo ALGUNS TÍTULOS DE OBJETIVOS')
-// const { getTituloObjetivoById } = storeToRefs(odsStore)
-// console.log(2, getTituloObjetivoById.value(2))
 
 useHead({
   titleTemplate: '%s',
@@ -81,5 +48,22 @@ useHead({
       innerHTML: "console.log('Olá, executado da meta tag config no app.vue')",
     },
   ],
+})
+
+// INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
+// usa a repository para obter os dados da api do backend, então adiciona a store
+const { $api } = useNuxtApp()
+const odsStore = useObjetivoStore()
+
+await callOnce(async () => {
+  try {
+    const objetivos = await $api.objetivos.getObjetivos()
+    odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
+  } catch (error) {
+    console.log(
+      'ERRO: Não foi possível obter os objetivos no carregamento inicial do site',
+      error,
+    )
+  }
 })
 </script>

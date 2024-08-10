@@ -1,5 +1,12 @@
 <template>
-  <v-img :src="loadGoalIcon" :height="height" :width="width" :cover="cover">
+  <v-img
+    :src="loadGoalIcon"
+    :height="height"
+    :width="width"
+    max-height="225"
+    max-width="225"
+    :cover="cover"
+  >
     <template #placeholder>
       <div class="d-flex align-center justify-center fill-height">
         <v-progress-circular
@@ -13,10 +20,10 @@
 
 <script>
 export default {
-  name: 'TheGoalImageComponent',
+  name: 'TheGoalImage',
   props: {
-    goalId: {
-      type: Number,
+    goalCode: {
+      type: String,
       required: true,
     },
     cover: {
@@ -37,7 +44,7 @@ export default {
   },
   computed: {
     loadGoalIcon() {
-      return '/img/ods-icons/pt-br/SDG-' + this.goalId + '.svg'
+      return '/img/ods-icons/pt-br/SDG-' + this.goalCode + '.svg'
     },
   },
 }

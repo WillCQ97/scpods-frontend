@@ -1,3 +1,4 @@
+// 3rd's
 import type { $Fetch, FetchOptions } from 'ofetch'
 
 /*
@@ -28,7 +29,6 @@ class FetchFactory {
   ): Promise<T> {
     console.log('FetchFactory call')
     console.log(url, { method, body: data, ...fetchOptions })
-
     return this.$fetch<T>(url, { method, body: data, ...fetchOptions })
   }
 }

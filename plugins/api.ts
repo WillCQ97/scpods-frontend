@@ -1,29 +1,38 @@
+// 3rd's
 import { $fetch, type FetchOptions } from 'ofetch'
-import AcaoRepository from '~/repository/modules/acao'
-import ObjetivoRepository from '~/repository/modules/objetivo'
+import AcoesModule from '~/repository/modules/acoes'
+import LotacoesModule from '~/repository/modules/lotacoes'
+// locals
+import ObjetivosModule from '~/repository/modules/objetivos'
+import SubmissoesModule from '~/repository/modules/submissoes'
+import UnidadesModule from '~/repository/modules/unidades'
 
 interface IApiInstance {
-  acaoModule: AcaoRepository
-  objetivoRepository: ObjetivoRepository
+  acoes: AcoesModule
+  objetivos: ObjetivosModule
+  lotacoes: LotacoesModule
+  submissoes: SubmissoesModule
+  unidades: UnidadesModule
 }
 
-export default defineNuxtPlugin({
-  setup() {
-    const config = useRuntimeConfig()
+export default defineNuxtPlugin((nuxtApp) => {
+  const config = useRuntimeConfig()
 
-    const fetchOptions: FetchOptions = {
-      baseURL: config.public.apiBaseUrl,
-      //onRequestError()
-      //onResponse
-    }
+  const fetchOptions: FetchOptions = {
+    baseURL: config.public.apiBase,
+  }
 
-    const apiFetcher = $fetch.create(fetchOptions)
+  // Create a new instance of $fecther with custom option
+  const apiFetcher = $fetch.create(fetchOptions)
 
-    const modules: IApiInstance = {
-      acaoModule: new AcaoRepository(apiFetcher),
-      objetivoRepository: new ObjetivoRepository(apiFetcher),
-    }
+  // An object containing all repositories we need to expose
+  const modules: IApiInstance = {
+    acoes: new AcoesModule(apiFetcher),
+    objetivos: new ObjetivosModule(apiFetcher),
+    lotacoes: new LotacoesModule(apiFetcher),
+    submissoes: new SubmissoesModule(apiFetcher),
+    unidades: new UnidadesModule(apiFetcher),
+  }
 
-    return { provide: { api: modules } }
-  },
+  return { provide: { api: modules } }
 })

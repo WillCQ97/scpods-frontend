@@ -10,7 +10,6 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/styles/main.css', '~/assets/styles/font.css'],
-
   devtools: { enabled: true },
 
   modules: [
@@ -20,8 +19,8 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@nuxtjs/leaflet',
     '@pinia/nuxt',
-    'nuxt3-leaflet',
   ],
 
   runtimeConfig: {
@@ -32,11 +31,16 @@ export default defineNuxtConfig({
     },
   },
 
+  ssr: false,
+
   vite: {
+    build: { target: 'es2022' },
     vue: {
       template: {
         transformAssetUrls,
       },
     },
   },
+
+  compatibilityDate: '2024-07-13',
 })

@@ -12,6 +12,7 @@
       :options="mapOptions"
       :zoom="zoom"
       style="height: 600px; z-index: 1"
+      :use-global-leaflet="false"
     >
       <!-- LAYER DO OPENSTREETMAP -->
       <l-tile-layer :attribution="attribution" :url="tileUrl"></l-tile-layer>
@@ -40,10 +41,24 @@
 import type MarkerInterface from '~/models/props/marker.model'
 
 /*
+TODO: é possível usar as funções do leaflet para criar os objetos e evitar o erro do typescript 
+
+
+https://docs.maptiler.com/leaflet/examples/ts-get-started/
+const options: MapOptions = {
+  center: latLng(40.731253, -73.996139),
+  zoom: 12,
+};
+
+import L from 'leaflet'
+L.latLng(number, number)
+*/
+
+/*
  * A ordem esperada das coordenadas é latitude, longitude
  */
 export default {
-  name: 'AppMapComponent',
+  name: 'AppMap',
 
   props: {
     attribution: {
@@ -127,11 +142,11 @@ export default {
     },
     mapOptions() {
       return {
-        minZoom: 16,
-        maxZoom: 18,
-        zoomControl: true,
-        scrollWheelZoom: false,
         maxBounds: this.bounds,
+        maxZoom: 18,
+        minZoom: 16,
+        scrollWheelZoom: false,
+        zoomControl: true,
       }
     },
     showFeatureOnMap(): boolean {

@@ -12,7 +12,7 @@
                   href="https://www.ufes.br/campi/campus-de-maruipe"
                   target="_blank"
                 >
-                  na página da ufes
+                  na página da Ufes
                   <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
                 </a>
               </v-card-subtitle>
@@ -38,15 +38,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://ccs.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://ccs.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -54,19 +46,19 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
-            :bounds="limitesMaruipe"
-            :center="centroMaruipe"
+            :bounds="limitesMaapa"
+            :center="centroMapa"
             :feature="featureCampus"
-            :markers="createMarkers"
+            :unidade-info="infoMaruipe"
             @show-actions="showActions"
           />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component v-if="exibirAcoes" :actions="acoesMaruipe" />
+          <actions-list v-if="exibirAcoes" :actions="acoesMaruipe" />
         </v-col>
       </v-row>
     </v-col>
@@ -75,47 +67,53 @@
 
 <script lang="ts">
 import feature from '~/assets/features/maruipe.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoInterface } from '~/models/acao.model'
-
-const codigoUnidade = 'UN_MARUIPE'
-const acaoStore = useAcaoStore()
-const unidadeStore = useUnidadeStore()
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesMaruipe',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
-
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      acoesMaruipe: [] as AcaoInterface[],
-      exibirAcoes: false,
       nomeUnidade: 'Unidade de Maruípe',
-      centroMaruipe: [-20.29815881701748, -40.31628393322453],
-      limitesMaruipe: [
+      codigoUnidade: 'UN_MARUIPE',
+      acoesMaruipe: [] as AcaoInterface[],
+      infoMaruipe: {} as UnidadeInfo,
+      exibirAcoes: false,
+      centroMapa: [-20.29815881701748, -40.31628393322453],
+      limitesMaapa: [
         [-20.297085718911358, -40.32064926449737],
         [-20.301772383132487, -40.31412608305674],
       ],
-      featureCampus: feature, // TODO: corrigir discrepância do geojson para a tile
+      featureCampus: feature,
     }
   },
 
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
+  methods: {
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesMaruipe = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
-  methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcoes = flag
-      this.acoesMaruipe = await acaoStore.fetchAcoes(codigoUnidade)
-    },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoMaruipe = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

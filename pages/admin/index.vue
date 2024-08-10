@@ -8,4 +8,7 @@
 definePageMeta({
   middleware: ['auth'],
 })
+export default {
+  name: 'PaginaAdministrador',
+}
 </script>
