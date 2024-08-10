@@ -30,13 +30,6 @@
       <v-row>
         <v-col>
           <v-card>
-            <v-card-title>Filtro</v-card-title>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-card>
             <v-card-title>Avaliação das submissões enviadas</v-card-title>
             <the-card-divider />
             <v-card-text>
@@ -60,6 +53,90 @@
       </v-row>
       <v-row>
         <v-col>
+          <v-form
+            v-model="isFormValid"
+            ref="form"
+            @submit.prevent="searchSubmissoes"
+          >
+            <v-card>
+              <v-card-title>Filtro</v-card-title>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12" md="8">
+                    <v-text-field
+                      v-model="filtro.titulo"
+                      label="Título"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="filtro.dataCadastro"
+                      label="Data de Cadastro"
+                      outlined
+                      type="date"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="3">
+                    <v-text-field
+                      v-model="filtro.codigoObjetivo"
+                      label="Código do Objetivo"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="3">
+                    <v-text-field
+                      v-model="filtro.codigoMeta"
+                      label="Código da Meta"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="3">
+                    <v-text-field
+                      v-model="filtro.siglaLotacao"
+                      label="Sigla da Lotação"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="3">
+                    <v-text-field
+                      v-model="filtro.codigoUnidade"
+                      label="Código da Unidade"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                      v-model="filtro.nomePrincipalLocal"
+                      label="Local"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                      v-model="filtro.nomeCoordenador"
+                      label="Coordenador"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn variant="elevated" :color="corBotao" type="submit">
+                  Pesquisar
+                </v-btn>
+                <v-btn variant="elevated" :color="corBotao" @click="resetForm">
+                  Limpar
+                </v-btn>
+                <v-spacer />
+              </v-card-actions>
+            </v-card>
+          </v-form>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
           <actions-list
             :actions="submissoes"
             :is-submission="true"
@@ -72,25 +149,51 @@
 </template>
 
 <script setup lang="ts">
+import colorPalleteUfes from '~/assets/colors'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-
-const { $api } = useNuxtApp()
-var submissoes = await $api.submissoes.search({})
-
-const accepted = ref(false)
-
-const isDialogVisible = ref(false)
-const dialog = ref({ title: '', message: '', isError: false })
+import type { AcaoInterface } from '~/models/acao.model'
 
 definePageMeta({
   middleware: 'auth',
 })
 
+const { $api } = useNuxtApp()
+const corBotao = colorPalleteUfes.monocromatic.secondary
+const dialog = ref({ title: '', message: '', isError: false })
+const isDialogVisible = ref(false)
+
+const filtro = ref({
+  titulo: undefined,
+  dataCadastro: undefined,
+  codigoObjetivo: undefined,
+  codigoMeta: undefined,
+  siglaLotacao: undefined,
+  nomePrincipalLocal: undefined,
+  nomeCoordenador: undefined,
+  codigoUnidade: undefined,
+})
+
+const submissoes = ref([{}] as AcaoInterface[])
+searchSubmissoes()
+
 interface AcceptHandlerParams {
   accepted: boolean
   id: number
 }
+
+async function searchSubmissoes(): Promise<void> {
+  try {
+    submissoes.value = await $api.submissoes.search(filtro.value)
+  } catch (e) {
+    showDialog(
+      `Erro ao buscar submissões!`,
+      'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
+      true,
+    )
+  }
+}
+
 async function acceptHandler({
   accepted,
   id,
@@ -120,12 +223,23 @@ async function acceptHandler({
     )
   }
 
-  await refreshList()
-  console.log('REFRESH: ', submissoes)
+  console.log('REFRESH APÓS ACEITE: ')
+  searchSubmissoes()
 }
 
-async function refreshList(): Promise<void> {
-  submissoes = await $api.submissoes.search({})
+const isFormValid = ref(false)
+const form = ref(null)
+
+const validate = async () => {
+  const { valid } = await form.value.validate()
+
+  if (valid) alert('Form is valid')
+}
+const resetForm = () => {
+  form.value.reset()
+}
+const resetValidation = () => {
+  form.value.resetValidation()
 }
 
 function showDialog(title: string, message: string, isError: boolean) {

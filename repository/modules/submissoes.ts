@@ -34,27 +34,17 @@ class SubmissoesModule extends FetchFactory {
   }
 
   async aceitar(id: number) {
-    return this.call<AcaoInterface>(
-      'PATCH',
-      `${this.RESOURCE}/aceitar`,
-      undefined,
-      {
-        params: { id },
-        headers: this.mountAuthHeader(),
-      },
-    )
+    return this.call<void>('PATCH', `${this.RESOURCE}/aceitar`, undefined, {
+      params: { id },
+      headers: this.mountAuthHeader(),
+    })
   }
 
   async rejeitar(id: number) {
-    return this.call<AcaoInterface>(
-      'DELETE',
-      `${this.RESOURCE}/rejeitar`,
-      undefined,
-      {
-        params: { id },
-        headers: this.mountAuthHeader(),
-      },
-    )
+    return this.call<void>('DELETE', `${this.RESOURCE}/rejeitar`, undefined, {
+      params: { id },
+      headers: this.mountAuthHeader(),
+    })
   }
 }
 
