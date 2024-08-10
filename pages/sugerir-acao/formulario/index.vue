@@ -347,10 +347,10 @@ export default {
       opcoesLocal: [] as Array<SelectModelInterface<number>>,
       opcoesLotacao: [] as Array<SelectModelInterface<number>>,
       campoOpcoesVinculo: [
+        'Aluno de graduação',
+        'Aluno de pós-graduação',
         'Professor',
         'Servidor técnico-administrativo',
-        'Aluno de pós-graduação',
-        'Aluno de graduação',
       ],
       campoTitulo: '',
       campoDescricao: '',
@@ -439,6 +439,7 @@ export default {
       this.opcoesUnidade = this.unidades
         .filter((un) => un.campus === this.campusSelecionado)
         .map((un) => ({ value: un.codigo, description: un.nome }))
+        .sort((a, b) => a.description.localeCompare(b.description))
 
       this.unidadeSelecionada = ''
       this.localSelecionado = null
@@ -456,10 +457,12 @@ export default {
       if (!unidade) {
         this.opcoesLocal = []
       } else {
-        this.opcoesLocal = unidade.locais.map((lc) => ({
-          value: lc.id,
-          description: this.getDescricaoLocais(lc),
-        }))
+        this.opcoesLocal = unidade.locais
+          .map((lc) => ({
+            value: lc.id,
+            description: this.getDescricaoLocais(lc),
+          }))
+          .sort((a, b) => a.description.localeCompare(b.description))
       }
     },
     getDescricaoLocais(local: Local): string {
