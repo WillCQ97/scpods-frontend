@@ -42,15 +42,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://www.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://www.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -58,12 +50,12 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
-            :bounds="limitesGoiabeiras"
-            :center="centroGoiabeiras"
-            :feature="featureGoiabeiras"
-            :unidade-info="loadInfo"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
+            :unidade-info="goiabeirasInfo"
             @show-actions="showActions"
           />
         </v-col>
@@ -71,10 +63,7 @@
       <!-- LISTAGEM DAS AÇÕES -->
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="exibirAcoes"
-            :actions="acoesGoiabeiras"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesGoiabeiras" />
         </v-col>
       </v-row>
     </v-col>
@@ -83,48 +72,55 @@
 
 <script lang="ts">
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
-
-const codigoUnidade = 'UN_GOIABEIRAS'
-const { $api } = useNuxtApp()
-const acaoStore = useAcaoStore()
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
 
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      acoesGoiabeiras: [] as Acao[],
-      exibirAcoes: false,
       nomeUnidade: 'Campus em Goiabeiras',
-      centroGoiabeiras: [-20.2764, -40.3037],
-      limitesGoiabeiras: [
+      codigoUnidade: 'UN_GOIABEIRAS',
+      acoesGoiabeiras: [] as AcaoInterface[],
+      goiabeirasInfo: {} as UnidadeInfo,
+      exibirAcoes: false,
+      centroMapa: [-20.2764, -40.3037],
+      limitesMapa: [
         [-20.2696, -40.3089],
         [-20.2846, -40.3009],
       ],
-      featureGoiabeiras, // TODO: corrigir discrepância do geojson para a tile
+      campusGeojson: featureGoiabeiras,
     }
   },
 
   methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcoes = flag
-      this.acoesGoiabeiras = await acaoStore.fetchAcoes(codigoUnidade)
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesGoiabeiras = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
     },
 
-    async loadInfo() {
-      const {
-        data: goiabeirasInfo,
-        pending,
-        error,
-      } = await $api.unidades.getUnidadeInfo(codigoUnidade)
-      return goiabeirasInfo.value
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
+  },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.goiabeirasInfo = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

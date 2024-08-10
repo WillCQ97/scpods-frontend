@@ -2,7 +2,7 @@
   <v-card min-width="80vh">
     <v-card-title>{{ title }}</v-card-title>
     <the-card-divider />
-    <AppMapComponent
+    <app-map
       :attribution="attributionHOT"
       :bounds="bounds"
       :center="center"
@@ -26,18 +26,18 @@
 </template>
 
 <script lang="ts">
-import AppMapComponent from '~/components/UI/AppMap.vue'
+import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { LocalInfo } from '~/models/local.model'
 import type Marker from '~/models/props/marker.model'
 import type { UnidadeInfo } from '~/models/unidade.model'
 
-const odsStore = useObjetivoStore()
-
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
-  name: 'ActionsMapComponent',
-  components: { AppMapComponent, TheCardDivider },
+  name: 'ActionsMap',
+
+  components: { AppMap, TheCardDivider },
+
   props: {
     bounds: {
       type: Array,
@@ -65,12 +65,13 @@ export default {
       required: false,
     },
   },
+
   emits: ['showActions', 'refreshData'],
+
   computed: {
     createMarkers(): Marker[] {
-      /*
-       * As classes css utilizadas no html abaixo são definidas em main.css
-       */
+      const odsStore = useObjetivoStore()
+
       const locaisAtivos = this.unidadeInfo.locais?.filter(
         (local) => local.projetosAtivos > 0,
       )
@@ -80,15 +81,15 @@ export default {
       return locaisAtivos.map((local: LocalInfo) => ({
         ...local,
         id: local.id,
-        coordinates: local.localizacao.coordinates.reverse(),
+        coordinates: local.localizacao.coordinates.toReversed(),
         content:
-          '<div class="map_popup">' +
-          '<img class="map_popup_img" src="' +
+          '<div class="map-popup">' +
+          '<img class="map-popup-img" src="' +
           '/img/ods-icons/pt-br/SDG-' +
           local.idObjetivoComMaisProjetos +
           '.svg' +
           '"><br>' +
-          '<div class="map_popup_text">' +
+          '<div class="map-popup-text">' +
           '<strong>' +
           local.nomePrincipal +
           '</strong>' +
@@ -103,18 +104,20 @@ export default {
       }))
     },
   },
+
   data() {
     return {
       attribution:
-        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        '<a href="https://mapa.prodesignufes.org">ProDesing Ufes</a> | &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       attributionHOT:
-        '<a href="https://mapa.prodesignufes.org">Prodesing UFES</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+        '<a href="https://mapa.prodesignufes.org">ProDesing Ufes</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
       enableTooltip: true,
       isActionListVisible: false,
       showCampusFeature: true,
       urlHOT: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
     }
   },
+
   methods: {
     emitShowActionsList() {
       this.isActionListVisible = !this.isActionListVisible
@@ -126,3 +129,20 @@ export default {
   },
 }
 </script>
+
+<style>
+div.map-popup {
+  display: flex;
+}
+
+img.map-popup-img {
+  height: 100px;
+  margin-bottom: auto;
+  margin-top: auto;
+  width: 100px;
+}
+
+div.map-popup-text {
+  padding-left: 5px;
+}
+</style>

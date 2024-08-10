@@ -3,12 +3,12 @@
     <v-col>
       <v-row>
         <v-col>
-          <actions-map-component
-            :title="mapTitle"
-            :bounds="jeronimoBounds"
-            :center="jeronimoCenter"
-            :feature="campusFeatures"
-            :unidade-info="jeronimoInfo"
+          <actions-map
+            :title="nomeUnidade"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
+            :unidade-info="infoJeronimo"
             @show-actions="showActionsHandler"
           />
         </v-col>
@@ -16,10 +16,7 @@
 
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="isActionsListVisible"
-            :actions="jeronimoActions"
-          /> </v-col
+          <actions-list v-if="exibirAcoes" :actions="acoesJeronimo" /> </v-col
       ></v-row>
     </v-col>
   </v-row>
@@ -27,46 +24,53 @@
 
 <script lang="ts">
 import featureJeronimo from '~/assets/features/jeronimo.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
-import type { Acao } from '~/models/acao.model'
-
-const codigoUnidade = 'UN_JERONIMO'
-
-const { $api } = useNuxtApp()
-const acaoStore = useAcaoStore()
-
-const {
-  data: jeronimoInfo,
-  pending,
-  error,
-} = await $api.unidades.getUnidadeInfo(codigoUnidade)
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesJeronimo',
 
-  components: { ActionsListComponent, ActionsMapComponent },
+  components: { ActionsList, ActionsMap },
 
   data() {
     return {
-      jeronimoActions: [] as Acao[], // TODO: TIPAR EM INGLÊS
-      campusFeatures: featureJeronimo,
-      isActionsListVisible: false,
-      mapTitle: 'Unidade em Jerônimo Monteiro',
-      jeronimoBounds: [
+      nomeUnidade: 'Unidade em Jerônimo Monteiro',
+      codigoUnidade: 'UN_JERONIMO',
+      acoesJeronimo: [] as AcaoInterface[],
+      infoJeronimo: {} as UnidadeInfo,
+      campusGeojson: featureJeronimo,
+      exibirAcoes: false,
+      centroMapa: [-20.79071, -41.38887],
+      limitesMapa: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
       ],
-      jeronimoCenter: [-20.79071, -41.38887],
-      jeronimoInfo,
     }
   },
 
   methods: {
-    async showActionsHandler(flag: boolean) {
-      this.isActionsListVisible = flag
-      this.jeronimoActions = await acaoStore.fetchAcoes(codigoUnidade)
+    async loadActionsList() {
+      const { $api } = useNuxtApp()
+      this.acoesJeronimo = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
     },
+
+    showActionsHandler(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActionsList()
+      }
+    },
+  },
+
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoJeronimo = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

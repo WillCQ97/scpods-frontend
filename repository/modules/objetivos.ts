@@ -6,13 +6,8 @@ import FetchFactory from '../factory'
 class ObjetivosModule extends FetchFactory {
   private RESOURCE = '/objetivos'
 
-  async getObjetivos(asyncDataOptions?: AsyncDataOptions<Objetivo[]>) {
-    return useAsyncData(() => {
-      const fetchOptions: FetchOptions<'json'> = {
-        headers: {},
-      }
-      return this.call<Objetivo[]>('GET', `${this.RESOURCE}`, undefined, {})
-    }, asyncDataOptions)
+  async getObjetivos() {
+    return this.call<Objetivo[]>('GET', `${this.RESOURCE}`)
   }
 }
 

@@ -12,7 +12,7 @@
                   href="https://www.ufes.br/campi/campus-de-sao-mateus"
                   target="_blank"
                 >
-                  na página da ufes
+                  na página da Ufes
                   <v-icon icon="mdi-open-in-new" size="x-small"></v-icon>
                 </a>
               </v-card-subtitle>
@@ -39,15 +39,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://saomateus.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://saomateus.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -55,22 +47,19 @@
       <!-- MAPA PARA O CAMPUS -->
       <v-row>
         <v-col>
-          <actions-map-component
+          <actions-map
             :title="nomeUnidade"
-            :bounds="limitesSaoMateus"
-            :center="centroSaoMateus"
-            :feature="featureCampus"
-            :markers="createMarkers"
+            :bounds="limitesMapa"
+            :center="centroMapa"
+            :feature="campusGeojson"
+            :unidade-info="infoSaoMateus"
             @show-actions="showActions"
           />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <actions-list-component
-            v-if="exibirAcoes"
-            :actions="acoesSaoMateus"
-          />
+          <actions-list v-if="exibirAcoes" :actions="acoesSaoMateus" />
         </v-col>
       </v-row>
     </v-col>
@@ -78,49 +67,54 @@
 </template>
 
 <script lang="ts">
-import feature from '~/assets/features/sao_mateus.json'
-import ActionsListComponent from '~/components/Actions/ActionsList.vue'
-import ActionsMapComponent from '~/components/Actions/ActionsMap.vue'
+import featureSaoMateus from '~/assets/features/sao_mateus.json'
+import ActionsList from '~/components/Actions/ActionsList.vue'
+import ActionsMap from '~/components/Actions/ActionsMap.vue'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { Acao } from '~/models/acao.model'
-
-const codigoUnidade = 'UN_SAO_MATEUS'
-const acaoStore = useAcaoStore()
-const unidadeStore = useUnidadeStore()
+import type { AcaoInterface } from '~/models/acao.model'
+import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
+import type { UnidadeInfo } from '~/models/unidade.model'
 
 export default {
   name: 'PaginaAcoesSaoMateus',
-  components: { ActionsListComponent, ActionsMapComponent, TheCardDivider },
-
-  async beforeRouteEnter() {
-    await unidadeStore.fetchInfo(codigoUnidade)
-  },
+  components: { ActionsList, ActionsMap, ExternalLinkBtn, TheCardDivider },
 
   data() {
     return {
-      acoesSaoMateus: [] as Acao[],
-      exibirAcoes: false,
       nomeUnidade: 'Unidade de São Mateus',
-      centroSaoMateus: [-18.675738334093378, -39.86240690464644],
-      limitesSaoMateus: [
+      codigoUnidade: 'UN_SAO_MATEUS',
+      acoesSaoMateus: [] as AcaoInterface[],
+      infoSaoMateus: {} as UnidadeInfo,
+      exibirAcoes: false,
+      centroMapa: [-18.675738334093378, -39.86240690464644],
+      limitesMapa: [
         [-18.670727522212445, -39.866469236990035],
         [-18.680308622184185, -39.85245444148613],
       ],
-      featureCampus: feature,
+      campusGeojson: featureSaoMateus,
     }
   },
 
-  computed: {
-    createMarkers() {
-      return unidadeStore.getMarcadores
+  methods: {
+    async loadActions() {
+      const { $api } = useNuxtApp()
+      this.acoesSaoMateus = await $api.acoes.search(
+        AcaoSearchOptionsBuilder(this.codigoUnidade),
+      )
+    },
+    showActions(flag: boolean) {
+      this.exibirAcoes = flag
+
+      if (this.exibirAcoes) {
+        this.loadActions()
+      }
     },
   },
 
-  methods: {
-    async showActions(flag: boolean) {
-      this.exibirAcoes = flag
-      this.acoesSaoMateus = await acaoStore.fetchAcoes(codigoUnidade)
-    },
+  async mounted() {
+    const { $api } = useNuxtApp()
+    this.infoSaoMateus = await $api.unidades.getUnidadeInfo(this.codigoUnidade)
   },
 }
 </script>

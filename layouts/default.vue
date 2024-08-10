@@ -13,13 +13,16 @@
       <!-- USER -->
       <v-btn
         :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="!isUserLoggedIn() ? login() : logoff()"
+        @click.stop="!isUserLoggedIn() ? navigateTo('/entrar') : logoff()"
       >
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
       <!-- ADMIN -->
-      <v-btn prepend-icon="mdi-shield-account" @click.stop="changeUserAdmin()">
+      <v-btn
+        prepend-icon="mdi-shield-account"
+        @click.stop="!isUserAdmin() ? navigateTo('/admin/entrar') : logoff()"
+      >
         Admin
       </v-btn>
 
@@ -149,52 +152,38 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import colorPalleteUfes from 'assets/colors'
+
+const author = ref('Willian Conceição Queiroz')
+const headerColor = ref(colorPalleteUfes.monocromatic.mono6)
+const footerColor = ref(colorPalleteUfes.monocromatic.mono5)
+const menuColor = ref(colorPalleteUfes.monocromatic.mono7)
+const headerTitle = ref('Mapa Colaborativo: Sustentabilidade na Ufes')
+
+const clipped = ref(true)
+const drawer = ref(false)
 
 const userStore = useUserStore()
 
-export default {
-  name: 'DefaultLayout',
-  data: () => ({
-    clipped: true,
-    drawer: false,
-    fixed: false,
-    miniVariant: false,
-    right: true,
-    rightDrawer: false,
-
-    author: 'Willian Conceição Queiroz',
-    headerColor: colorPalleteUfes.monocromatic.mono6,
-    footerColor: colorPalleteUfes.monocromatic.mono5,
-    menuColor: colorPalleteUfes.monocromatic.mono7,
-    headerTitle: 'Mapa Colaborativo: Sustentabilidade na UFES',
-  }),
-
-  methods: {
-    isUserLoggedIn(): boolean {
-      return userStore.isUserLoggedIn
-    },
-    isUserAdmin(): boolean {
-      return userStore.isAdmin
-    },
-    changeUserAdmin(): void {
-      userStore.isAdmin = !userStore.isAdmin
-    },
-    login(): void {
-      navigateTo('/entrar')
-    },
-    logoff(): void {
-      userStore.logout()
-    },
-  },
+function isUserLoggedIn(): boolean {
+  return userStore.isUserLoggedIn || userStore.admin.isLoggedIn
+}
+function isUserAdmin(): boolean {
+  return userStore.admin.isLoggedIn
+}
+function logoff(): void {
+  userStore.logout()
+  navigateTo('/')
 }
 </script>
+
 <style scoped>
 #btn-icon-ods {
   opacity: 1;
 }
 #title-bar {
-  text-shadow: 1px 1px 2px #94aaea; /* colorPalleteUfes.monocromatic.mono8 */
+  /* colorPalleteUfes.monocromatic.mono8 */
+  text-shadow: 1px 1px 2px #94aaea;
 }
 </style>

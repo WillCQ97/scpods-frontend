@@ -9,6 +9,10 @@ export const useObjetivoStore = defineStore('objetivoStore', {
   state: () => ({ objetivos: [] }) as State,
 
   getters: {
+    getLength(state): Number {
+      return state.objetivos.length
+    },
+
     getObjetivos(state): Objetivo[] {
       return state.objetivos
     },
@@ -44,3 +48,7 @@ export const useObjetivoStore = defineStore('objetivoStore', {
     },
   },
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
+}

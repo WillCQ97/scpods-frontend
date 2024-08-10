@@ -37,15 +37,7 @@
 
             <v-card-actions>
               <v-spacer />
-              <a href="https://alegre.ufes.br/" target="_blank">
-                <v-btn
-                  small
-                  color="primary"
-                  text="Ir para o site"
-                  append-icon="mdi-open-in-new"
-                >
-                </v-btn>
-              </a>
+              <external-link-btn url="https://alegre.ufes.br/" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -120,6 +112,7 @@
 
 <script lang="ts">
 import colorPalleteUfes from '~/assets/colors'
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 async function carregarMapa(campus: string) {
@@ -127,7 +120,7 @@ async function carregarMapa(campus: string) {
 }
 
 export default {
-  components: { TheCardDivider },
+  components: { ExternalLinkBtn, TheCardDivider },
   data() {
     return {
       corBotao: colorPalleteUfes.monocromatic.secondary,

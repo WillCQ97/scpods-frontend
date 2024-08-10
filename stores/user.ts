@@ -1,13 +1,13 @@
-// import { useRuntimeConfig } from '#app'
-// https://nuxt.com/docs/api/composables/use-fetch
-// https://pinia.vuejs.org/core-concepts/actions.html
-// https://blog.logrocket.com/consume-apis-vuex-pinia-axios/
-// https://nuxt.com/docs/guide/going-further/runtime-config#environment-variables
+interface Admin {
+  isLoggedIn: boolean
+  username: string
+  password: string
+}
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
     isLoggedIn: false,
-    isAdmin: true,
+    admin: { isLoggedIn: false, username: '', password: '' } as Admin,
   }),
 
   getters: {
@@ -17,14 +17,16 @@ export const useUserStore = defineStore('userStore', {
   },
 
   actions: {
-    login(login: string, password: string) {
-      // TODO: implementar a lógica de acesso
-      this.isLoggedIn = true
-      console.log(this.isLoggedIn)
+    loginAdmin(username: string, password: string) {
+      this.admin.username = username
+      this.admin.password = password
+      this.admin.isLoggedIn = true
     },
-
     logout() {
       this.isLoggedIn = false
+      this.admin.isLoggedIn = false
+      this.admin.username = ''
+      this.admin.password = ''
     },
   },
 })
