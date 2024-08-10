@@ -62,14 +62,14 @@
               <v-card-title>Filtro de busca</v-card-title>
               <v-card-text>
                 <v-row dense>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="8">
                     <v-text-field
                       v-model="filter.titulo"
                       label="Título"
                       outlined
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="3">
+                  <v-col cols="12" md="2">
                     <v-text-field
                       v-model="filter.dataInicial"
                       label="Data Inicial"
@@ -77,7 +77,7 @@
                       type="date"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="3">
+                  <v-col cols="12" md="2">
                     <v-text-field
                       v-model="filter.dataFinal"
                       label="Data Final"
@@ -86,37 +86,38 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="5">
-                    <!-- TODO: trocar para uma SELECT com os objetivos -->
-                    <v-text-field
+                    <v-select
                       v-model="filter.codigoObjetivo"
-                      label="Código do Objetivo"
-                      outlined
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="3">
-                    <!--TODO: UTILIZAR SELECT-->
-                    <v-text-field
-                      v-model="filter.siglaLotacao"
-                      label="Sigla da Lotação"
-                      outlined
-                    ></v-text-field>
+                      label="Objetivo"
+                      item-title="description"
+                      item-value="value"
+                      :items="opcoesObjetivos"
+                    ></v-select>
                   </v-col>
                   <v-col cols="12" md="4">
-                    <!--TODO: UTILIZAR SELECT-->
-                    <v-text-field
-                      v-model="filter.codigoUnidade"
-                      label="Código da Unidade"
-                      outlined
-                    ></v-text-field>
+                    <v-select
+                      v-model="filter.siglaLotacao"
+                      label="Lotação da ação"
+                      :items="opcoesLotacao"
+                    ></v-select>
                   </v-col>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="3">
+                    <v-select
+                      v-model="filter.campus"
+                      label="Campus"
+                      item-title="description"
+                      item-value="value"
+                      :items="opcoesUnidade"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="8">
                     <v-text-field
                       v-model="filter.nomeCoordenador"
                       label="Nome do coordenador"
                       outlined
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="4">
                     <v-text-field
                       v-model="filter.nomeLocal"
                       label="Local"
@@ -162,17 +163,44 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilderEmpty } from '~/models/acao.search.options.model'
+import type { SelectModelInterface } from '~/models/select/select.model'
 
 definePageMeta({
   middleware: 'auth',
 })
 
 const { $api } = useNuxtApp()
+const objetivosStore = useObjetivoStore()
+
 const corBotao = colorPalleteUfes.monocromatic.secondary
 const dialog = ref({ title: '', message: '', isError: false })
 const isDialogVisible = ref(false)
 
 const filter = ref(AcaoSearchOptionsBuilderEmpty())
+
+const opcoesLotacao = [
+  'CCAE',
+  'CCENS',
+  'Ceunes',
+  'CCS',
+  'CAr',
+  'CCE',
+  'CCHN',
+  'CCJE',
+  'CE',
+  'CEFD',
+  'CT',
+  'Hucam',
+  'Reitoria',
+]
+
+const opcoesUnidade = ref([] as SelectModelInterface<string>[])
+opcoesUnidade.value = await $api.unidades.getOpcoesCampus()
+
+const opcoesObjetivos = objetivosStore.getObjetivos.map((obj) => ({
+  value: obj.codigo,
+  description: obj.id + ' - ' + obj.titulo,
+}))
 
 const submissoes = ref([{}] as AcaoSearchInterface[])
 searchSubmissoes()
