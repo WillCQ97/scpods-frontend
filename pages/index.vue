@@ -57,8 +57,6 @@
         </v-card>
       </v-col>
 
-      <!-- ROW PARA O TERCEIRO CARD -->
-
       <v-col>
         <v-card>
           <v-card-item>

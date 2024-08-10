@@ -2,7 +2,7 @@
   <v-row align="center">
     <v-spacer />
     <v-col>
-      <v-form v-model="isFormValid" @submit="validarLogin()">
+      <v-form v-model="isFormValid" @submit.prevent="validarLogin">
         <v-card width="75vh">
           <v-card-title>Realizar login</v-card-title>
 

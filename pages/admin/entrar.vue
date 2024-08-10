@@ -20,7 +20,7 @@
   <v-row align="center">
     <v-spacer />
     <v-col>
-      <v-form v-model="isFormValid" @submit="entrar()">
+      <v-form v-model="isFormValid" @submit.prevent="entrar">
         <v-card width="75vh">
           <v-card-title>Login do administrador</v-card-title>
 
