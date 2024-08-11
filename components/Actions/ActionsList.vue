@@ -66,8 +66,8 @@
 import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoInterfaceBuilder } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import type { AcceptHandlerParamsInterface } from '~/models/props/accept.handler.model'
 
 export default {

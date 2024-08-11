@@ -28,9 +28,9 @@
 <script lang="ts">
 import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { LocalInfoInterface } from '~/models/local.model'
+import type { LocalInfoInterface } from '~/models/local.info'
 import type Marker from '~/models/props/marker.model'
-import type { UnidadeInfoInterface } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude

@@ -1,5 +1,4 @@
-import colorPalleteUfes from '~/assets/colors'
-import type { CoordenadorInputInterface } from './coordenador.input.model'
+import type { CoordenadorInterface } from './coordenador.model'
 
 export interface SubmissaoInputInterface {
   titulo: string
@@ -12,11 +11,11 @@ export interface SubmissaoInputInterface {
   localId: number
   lotacaoId: number
 
-  coordenador: CoordenadorInputInterface
+  coordenador: CoordenadorInterface
 }
 
 export function SubmissaoInputBuilder(): SubmissaoInputInterface {
   return {
-    coordenador: {} as CoordenadorInputInterface,
+    coordenador: {} as CoordenadorInterface,
   } as SubmissaoInputInterface
 }

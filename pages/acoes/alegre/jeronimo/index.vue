@@ -28,7 +28,7 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
-import type { UnidadeInfoInterface } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
   name: 'PaginaAcoesJeronimo',

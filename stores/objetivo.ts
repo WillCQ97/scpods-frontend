@@ -13,7 +13,7 @@ export const useObjetivoStore = defineStore('objetivoStore', {
       return state.objetivos.length
     },
 
-    getObjetivos(state): Objetivo[] {
+    getObjetivos(state): ObjetivoInterface[] {
       return state.objetivos
     },
 
@@ -45,7 +45,7 @@ export const useObjetivoStore = defineStore('objetivoStore', {
   },
 
   actions: {
-    setObjetivos(objetivos: Objetivo[]) {
+    setObjetivos(objetivos: ObjetivoInterface[]) {
       this.objetivos = objetivos
     },
   },

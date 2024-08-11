@@ -277,15 +277,15 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import type { LocalInterface } from '~/models/local.model'
+import type { SelectModelInterface } from '~/models/select/select.model'
 import {
   SubmissaoInputBuilder,
   type SubmissaoInputInterface,
-} from '~/models/input/submissao.input.model'
-import type { LocalInterface } from '~/models/local.model'
-import type { Objetivo } from '~/models/objetivo.model'
-import type { SelectModelInterface } from '~/models/select/select.model'
+} from '~/models/submissao.input.model'
 import type { UnidadeInterface } from '~/models/unidade.model'
 
+import type { ObjetivoInterface } from '~/models/objetivo.model'
 import {
   emailValidator,
   naoVazioValidator,
@@ -317,7 +317,9 @@ export default {
       } else {
         const objetivos = await $api.objetivos.getObjetivos()
 
-        odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
+        odsStore.setObjetivos(
+          objetivos ? objetivos : ([] as ObjetivoInterface[]),
+        )
       }
     } catch (e) {
       this.showDialog(
@@ -339,7 +341,7 @@ export default {
       },
       search: null,
 
-      objetivos: [] as Objetivo[],
+      objetivos: [] as ObjetivoInterface[],
       unidades: [] as UnidadeInterface[],
 
       opcoesCampus: [] as Array<SelectModelInterface<string>>,

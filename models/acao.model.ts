@@ -1,10 +1,19 @@
-import type { CoordenadorAcaoInterface } from './coordenador.model'
-import type { LocalAcaoInterface } from './local.model'
-import type { LotacaoInterface } from './lotacao.model'
-import type { MetaAcaoInterface } from './meta.model'
+import {
+  CoordenadorInterfaceBuilder,
+  type CoordenadorInterface,
+} from './coordenador.model'
+import {
+  LocalAcaoInterfaceBuilder,
+  type LocalAcaoInterface,
+} from './local.acao.model'
+import { LotacaoInterfaceBuilder, type LotacaoInterface } from './lotacao.model'
+import {
+  MetaAcaoInterfaceBuilder,
+  type MetaAcaoInterface,
+} from './meta.acao.model'
 
 export interface AcaoInterface {
-  id: number
+  id?: number
   titulo: string
   descricao: string
 
@@ -12,9 +21,9 @@ export interface AcaoInterface {
   dataInicio: string
   dataEncerramento: string
 
-  aceito: boolean
+  aceito?: boolean
 
-  coordenador: CoordenadorAcaoInterface // campo extra nas submissões
+  coordenador: CoordenadorInterface // campo extra nas submissões
   meta: MetaAcaoInterface
   local: LocalAcaoInterface
   lotacao: LotacaoInterface
@@ -22,7 +31,6 @@ export interface AcaoInterface {
 
 export function AcaoInterfaceBuilder(): AcaoInterface {
   return {
-    id: 0,
     titulo: '',
     descricao: '',
 
@@ -30,50 +38,9 @@ export function AcaoInterfaceBuilder(): AcaoInterface {
     dataInicio: '',
     dataEncerramento: '',
 
-    aceito: true,
-
-    coordenador: {
-      id: 0,
-      nome: '',
-      descricaoVinculo: '',
-      tipoVinculo: '',
-    },
-
-    meta: {
-      id: 0,
-      codigo: '',
-      descricao: '',
-
-      objetivo: {
-        id: 0,
-        codigo: '',
-        titulo: '',
-        descricao: '',
-      },
-    },
-
-    local: {
-      id: 0,
-      idd: 0,
-      nomePrincipal: '',
-      nomeSecundario: '',
-      nomeTerciario: '',
-
-      localizacao: { type: '', coordinates: [] },
-
-      unidade: {
-        id: 0,
-        nome: '',
-        codigo: '',
-        campus: '',
-      },
-    },
-
-    lotacao: {
-      id: 0,
-      descricao: '',
-      sigla: '',
-      campus: '',
-    },
+    coordenador: CoordenadorInterfaceBuilder(),
+    meta: MetaAcaoInterfaceBuilder(),
+    local: LocalAcaoInterfaceBuilder(),
+    lotacao: LotacaoInterfaceBuilder(),
   }
 }
