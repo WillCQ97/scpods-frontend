@@ -6,13 +6,12 @@
 # Aqui optei apenas por copiar a pasta .output gerada pelo comando yarn build.
 # --
 
-ARG NODE_VERSION=20
-FROM node:${NODE_VERSION}-slim
+FROM docker.io/node:20-slim
 
 # Specifying the PORT as an ARG PORT allows us to override the port when starting the container
 ARG PORT=3000
 ENV NODE_ENV=production
-WORKDIR /app-scpods-frontend
+WORKDIR /app-scpods-frontend/
 
 ENV PORT=$PORT
 
