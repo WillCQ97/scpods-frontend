@@ -15,15 +15,15 @@ class UnidadesModule extends FetchFactory {
     )
   }
 
+  async getUnidades() {
+    return this.call<UnidadeInterface[]>('GET', `${this.RESOURCE}`)
+  }
+
   async getUnidadeInfo(codigoUnidade: string) {
     return this.call<UnidadeInfoInterface>(
       'GET',
       `${this.RESOURCE}/info/${codigoUnidade}`,
     )
-  }
-
-  async getUnidades() {
-    return this.call<UnidadeInterface[]>('GET', `${this.RESOURCE}`)
   }
 }
 

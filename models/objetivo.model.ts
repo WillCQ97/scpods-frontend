@@ -6,9 +6,8 @@ interface ObjetivoBaseInterface {
   titulo: string
   descricao: string
 }
-
-export interface ObjetivoAcaoInterface extends ObjetivoBaseInterface {}
-
-export interface IObjetivo extends ObjetivoBaseInterface {
+export interface ObjetivoInterface extends ObjetivoBaseInterface {
   metas: MetaInterface[]
 }
+
+export interface ObjetivoAcaoInterface extends ObjetivoBaseInterface {}

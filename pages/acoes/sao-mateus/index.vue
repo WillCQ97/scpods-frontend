@@ -72,7 +72,7 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfoInterface } from '~/models/unidade.model'
 
@@ -84,7 +84,7 @@ export default {
     return {
       nomeUnidade: 'Unidade de São Mateus',
       codigoUnidade: 'UN_SAO_MATEUS',
-      acoesSaoMateus: [] as AcaoInterface[],
+      acoesSaoMateus: [] as AcaoSearchInterface[],
       infoSaoMateus: {} as UnidadeInfoInterface,
       exibirAcoes: false,
       centroMapa: [-18.675738334093378, -39.86240690464644],

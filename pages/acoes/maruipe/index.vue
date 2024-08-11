@@ -71,7 +71,7 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
 import type { UnidadeInfoInterface } from '~/models/unidade.model'
 
@@ -83,7 +83,7 @@ export default {
     return {
       nomeUnidade: 'Unidade de Maruípe',
       codigoUnidade: 'UN_MARUIPE',
-      acoesMaruipe: [] as AcaoInterface[],
+      acoesMaruipe: [] as AcaoSearchInterface[],
       infoMaruipe: {} as UnidadeInfoInterface,
       exibirAcoes: false,
       centroMapa: [-20.29815881701748, -40.31628393322453],

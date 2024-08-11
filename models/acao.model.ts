@@ -1,5 +1,5 @@
-import type { CoordenadorInterface } from './coordenador.model'
-import type { LocalAcao } from './local.model'
+import type { CoordenadorAcaoInterface } from './coordenador.model'
+import type { LocalAcaoInterface } from './local.model'
 import type { LotacaoInterface } from './lotacao.model'
 import type { MetaAcaoInterface } from './meta.model'
 
@@ -10,50 +10,70 @@ export interface AcaoInterface {
 
   dataCadastro: string
   dataInicio: string
-  dataEncerramento?: string
+  dataEncerramento: string
 
   aceito: boolean
 
-  coordenador: CoordenadorInterface
+  coordenador: CoordenadorAcaoInterface // campo extra nas submissões
   meta: MetaAcaoInterface
-  local: LocalAcao
+  local: LocalAcaoInterface
   lotacao: LotacaoInterface
 }
 
-// TODO: melhorar o uso dessas interfaces
 export function AcaoInterfaceBuilder(): AcaoInterface {
   return {
+    id: 0,
     titulo: '',
     descricao: '',
+
     dataCadastro: '',
     dataInicio: '',
-    dataEncerramento: undefined,
+    dataEncerramento: '',
+
+    aceito: true,
+
     coordenador: {
+      id: 0,
       nome: '',
       descricaoVinculo: '',
+      tipoVinculo: '',
     },
+
     meta: {
-      id: undefined,
+      id: 0,
       codigo: '',
       descricao: '',
+
       objetivo: {
-        id: undefined,
+        id: 0,
         codigo: '',
         titulo: '',
         descricao: '',
       },
     },
+
     local: {
+      id: 0,
+      idd: 0,
       nomePrincipal: '',
-      nomeSecundario: undefined,
-      nomeTerciario: undefined,
+      nomeSecundario: '',
+      nomeTerciario: '',
+
+      localizacao: { type: '', coordinates: [] },
+
       unidade: {
+        id: 0,
         nome: '',
+        codigo: '',
+        campus: '',
       },
     },
+
     lotacao: {
+      id: 0,
       descricao: '',
       sigla: '',
+      campus: '',
     },
   }
 }
