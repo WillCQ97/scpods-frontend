@@ -309,7 +309,9 @@ export default {
     // os objetivos se não tiverem sido carregados
     try {
       this.opcoesCampus = await $api.unidades.getOpcoesCampus()
-      this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
+      this.opcoesLotacao = (await $api.lotacoes.getOpcoesLotacao()).sort(
+        (a, b) => a.description.localeCompare(b.description),
+      )
       this.unidades = await $api.unidades.getUnidades()
 
       if (odsStore.getLength != 0) {
@@ -414,12 +416,14 @@ export default {
 
       this.showOpcoesMetas = false
 
-      return this.getMetasByObjetivoId(id)?.map((meta) => ({
-        description:
-          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 127) +
-          ' ...',
-        value: meta.id,
-      }))
+      return this.getMetasByObjetivoId(id)
+        ?.map((meta) => ({
+          description:
+            ('Meta ' + meta.codigo + ' - ' + meta.descricao).substring(0, 127) +
+            ' ...',
+          value: meta.id,
+        }))
+        .sort()
     },
     isObjetivoSelecionado() {
       return (
