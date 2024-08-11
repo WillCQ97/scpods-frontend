@@ -1,5 +1,7 @@
+import type { LatLngExpression } from 'leaflet'
+
 export default interface MarkerInterface {
   id: number
-  coordinates: number[]
+  coordinates: LatLngExpression
   content: string
 }

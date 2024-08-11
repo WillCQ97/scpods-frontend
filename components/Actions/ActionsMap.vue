@@ -5,7 +5,7 @@
     <app-map
       :attribution="attributionHOT"
       :bounds="bounds"
-      :center="center"
+      :center="mapCenter"
       :feature="feature"
       :markers="createMarkers"
       :tile-url="urlHOT"
@@ -26,6 +26,9 @@
 </template>
 
 <script lang="ts">
+import type { GeoJsonObject } from 'geojson'
+import { latLng, point, type PointExpression } from 'leaflet'
+import type { PropType } from 'vue'
 import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { LocalInfoInterface } from '~/models/local.info'
@@ -44,11 +47,11 @@ export default {
       required: true,
     },
     center: {
-      type: Array,
+      type: Array<number>,
       required: true,
     },
     feature: {
-      type: Object,
+      type: Object as PropType<GeoJsonObject>,
       required: true,
     },
     unidadeInfo: {
@@ -81,7 +84,9 @@ export default {
       return locaisAtivos.map((local: LocalInfoInterface) => ({
         ...local,
         id: local.id,
-        coordinates: local.localizacao.coordinates.toReversed(),
+        coordinates: this.numberArrayToLatLngExpression(
+          local.localizacao.coordinates.toReversed(),
+        ),
         content:
           '<div class="map-popup">' +
           '<img class="map-popup-img" src="' +
@@ -103,6 +108,9 @@ export default {
           '</div></div>',
       }))
     },
+    mapCenter(): PointExpression {
+      return point(this.center[0], this.center[1])
+    },
   },
 
   data() {
@@ -119,6 +127,9 @@ export default {
   },
 
   methods: {
+    numberArrayToLatLngExpression(coords: number[]) {
+      return latLng(coords[0], coords[1])
+    },
     emitShowActionsList() {
       this.isActionListVisible = !this.isActionListVisible
       this.$emit('showActions', this.isActionListVisible)
