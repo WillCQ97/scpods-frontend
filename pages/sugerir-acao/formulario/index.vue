@@ -277,15 +277,15 @@
 <script lang="ts">
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import type { LocalInterface } from '~/models/local.model'
+import type { SelectModelInterface } from '~/models/select/select.model'
 import {
   SubmissaoInputBuilder,
   type SubmissaoInputInterface,
-} from '~/models/input/submissao.input.model'
-import type { Local } from '~/models/local.model'
-import type { Objetivo } from '~/models/objetivo.model'
-import type { SelectModelInterface } from '~/models/select/select.model'
-import type { Unidade } from '~/models/unidade.model'
+} from '~/models/submissao.input.model'
+import type { UnidadeInterface } from '~/models/unidade.model'
 
+import type { ObjetivoInterface } from '~/models/objetivo.model'
 import {
   emailValidator,
   naoVazioValidator,
@@ -309,7 +309,9 @@ export default {
     // os objetivos se não tiverem sido carregados
     try {
       this.opcoesCampus = await $api.unidades.getOpcoesCampus()
-      this.opcoesLotacao = await $api.lotacoes.getOpcoesLotacao()
+      this.opcoesLotacao = (await $api.lotacoes.getOpcoesLotacao()).sort(
+        (a, b) => a.description.localeCompare(b.description),
+      )
       this.unidades = await $api.unidades.getUnidades()
 
       if (odsStore.getLength != 0) {
@@ -317,7 +319,9 @@ export default {
       } else {
         const objetivos = await $api.objetivos.getObjetivos()
 
-        odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
+        odsStore.setObjetivos(
+          objetivos ? objetivos : ([] as ObjetivoInterface[]),
+        )
       }
     } catch (e) {
       this.showDialog(
@@ -339,18 +343,18 @@ export default {
       },
       search: null,
 
-      objetivos: [] as Objetivo[],
-      unidades: [] as Unidade[],
+      objetivos: [] as ObjetivoInterface[],
+      unidades: [] as UnidadeInterface[],
 
       opcoesCampus: [] as Array<SelectModelInterface<string>>,
       opcoesUnidade: [] as Array<SelectModelInterface<string>>,
       opcoesLocal: [] as Array<SelectModelInterface<number>>,
       opcoesLotacao: [] as Array<SelectModelInterface<number>>,
       campoOpcoesVinculo: [
+        'Aluno de graduação',
+        'Aluno de pós-graduação',
         'Professor',
         'Servidor técnico-administrativo',
-        'Aluno de pós-graduação',
-        'Aluno de graduação',
       ],
       campoTitulo: '',
       campoDescricao: '',
@@ -412,12 +416,14 @@ export default {
 
       this.showOpcoesMetas = false
 
-      return this.getMetasByObjetivoId(id)?.map((meta) => ({
-        description:
-          ('Meta ' + meta.id + ' - ' + meta.descricao).substring(0, 127) +
-          ' ...',
-        value: meta.id,
-      }))
+      return this.getMetasByObjetivoId(id)
+        ?.map((meta) => ({
+          description:
+            ('Meta ' + meta.codigo + ' - ' + meta.descricao).substring(0, 127) +
+            ' ...',
+          value: meta.id,
+        }))
+        .sort()
     },
     isObjetivoSelecionado() {
       return (
@@ -439,6 +445,7 @@ export default {
       this.opcoesUnidade = this.unidades
         .filter((un) => un.campus === this.campusSelecionado)
         .map((un) => ({ value: un.codigo, description: un.nome }))
+        .sort((a, b) => a.description.localeCompare(b.description))
 
       this.unidadeSelecionada = ''
       this.localSelecionado = null
@@ -456,13 +463,15 @@ export default {
       if (!unidade) {
         this.opcoesLocal = []
       } else {
-        this.opcoesLocal = unidade.locais.map((lc) => ({
-          value: lc.id,
-          description: this.getDescricaoLocais(lc),
-        }))
+        this.opcoesLocal = unidade.locais
+          .map((lc) => ({
+            value: lc.id,
+            description: this.getDescricaoLocais(lc),
+          }))
+          .sort((a, b) => a.description.localeCompare(b.description))
       }
     },
-    getDescricaoLocais(local: Local): string {
+    getDescricaoLocais(local: LocalInterface): string {
       let description = local.nomePrincipal
       if (local.nomeSecundario) {
         description += ' - ' + local.nomeSecundario
@@ -531,6 +540,7 @@ export default {
           false,
         )
       } catch (e: any) {
+        console.log('ERRO ao submeter a ação')
         console.log(e)
 
         if (e.data && e.data.mensagem) {

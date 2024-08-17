@@ -27,9 +27,9 @@
 import featureAlegre from '~/assets/features/alegre.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
-import type { UnidadeInfo } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
   name: 'PaginaAcoesAlegre',
@@ -39,8 +39,8 @@ export default {
     return {
       nomeUnidade: 'Campus Sede em Alegre',
       codigoUnidade: 'UN_ALEGRE',
-      acoesAlegre: [] as AcaoInterface[],
-      infoAlegre: {} as UnidadeInfo,
+      acoesAlegre: [] as AcaoSearchInterface[],
+      infoAlegre: {} as UnidadeInfoInterface,
       campusGeojson: featureAlegre,
       exibirAcoes: false,
       centroMapa: [-20.76161, -41.536],

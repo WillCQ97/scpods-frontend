@@ -60,9 +60,9 @@
 </template>
 
 <script lang="ts">
-import { encodeBasicAuth } from '@/utils/encodeAuth'
 import type { FetchError } from 'ofetch'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
+import { encodeBasicAuth } from '~/utils/encode.auth'
 
 export default {
   name: 'PaginaLoginAdministrador',

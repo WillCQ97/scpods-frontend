@@ -1,33 +1,23 @@
-# Adaptado de https://markus.oberlehner.net/blog/running-nuxt-3-in-a-docker-container/
+# Baseado em https://markus.oberlehner.net/blog/running-nuxt-3-in-a-docker-container/
+# ---
+# É muito comum encontrar dockerfiles onde o projeto inteiro é copiado para dentro do contêiner
+# e então é realizado o build com npm e configurado o start como dev ou prod.
+#
+# Nesses casos, o .dockerignore desconsidera as pastas .output, .nuxt e node_modules.
+#
+# Aqui optei apenas por copiar a pasta .output gerada pelo comando yarn build, logo esse comando deve
+# ser executado antes do build da imagem.
+# --
 
-ARG NODE_VERSION=20.11.0
-FROM node:${NODE_VERSION}-slim as base
+FROM docker.io/node:20-slim
 
 # Specifying the PORT as an ARG PORT allows us to override the port when starting the container
 ARG PORT=3000
 ENV NODE_ENV=production
-WORKDIR /src
+WORKDIR /app-scpods-frontend/
 
-# Build stage
-FROM base as build
-
-# we copy over our package.json and package-lock.json files and install our dependencies.
-COPY --link package.json package-lock.json .
-RUN npm install --production=false
-
-# We then copy the rest of our application code and run the build command.
-# The two copy commands are separeted to use the docker cache saving time
-COPY --link . .
-
-RUN npm run build
-RUN npm prune
-
-# Run
-FROM base
 ENV PORT=$PORT
 
-COPY --from=build /src/.output /src/.output
-# Optional, only needed if you rely on unbundled dependencies
-# COPY --from=build /src/node_modules /src/node_modules
+COPY .output/ /app-scpods-frontend/.output
 
 CMD [ "node", ".output/server/index.mjs" ]

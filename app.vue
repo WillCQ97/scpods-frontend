@@ -61,7 +61,7 @@ await callOnce(async () => {
     odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
   } catch (error) {
     console.log(
-      'ERRO ao requisitar os objetivos no carregamento inicial do site  ',
+      'ERRO: Não foi possível obter os objetivos no carregamento inicial do site',
       error,
     )
   }

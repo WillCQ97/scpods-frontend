@@ -6,17 +6,17 @@
     <the-card-divider />
     <v-data-table :headers="tableHeader" :items="actions">
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
-      <template #item.image="{ item }">
-        <the-goal-image :goal-code="item.codigoObjetivo" />
+      <template #item.image="{ item: action }">
+        <the-goal-image :goal-code="action.codigoObjetivo" />
       </template>
 
       <!-- TEMPLATE DA OPÇÃO DE VISUALIZAÇÃO PARA CADA ITEM DO DATA-TABLE -->
-      <template #item.options="{ item }">
+      <template #item.options="{ item: action }">
         <v-icon
           class="me-2"
           size="small"
           @click="
-            isSubmission ? loadSubmissionData(item) : loadActionData(item)
+            isSubmission ? loadSubmissionData(action) : loadActionData(action)
           "
         >
           mdi-eye
@@ -28,7 +28,7 @@
         <v-dialog v-model="isActionDialogVisible" width="125vh">
           <action-card-detail
             :is-submission="isSubmission"
-            :action="action"
+            :action="actionDetails"
             @close="isActionDialogVisible = false"
             @accept="emitAccept"
           />
@@ -66,8 +66,9 @@
 import ActionCardDetail from '~/components/Actions/ActionCardDetail.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
-import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoInterfaceBuilder } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
+import type { AcceptHandlerParamsInterface } from '~/models/props/accept.handler.model'
 
 export default {
   name: 'ActionsList',
@@ -75,7 +76,7 @@ export default {
 
   props: {
     actions: {
-      type: Array,
+      type: Array<AcaoSearchInterface>,
       required: true,
     },
     isSubmission: {
@@ -87,7 +88,7 @@ export default {
 
   data() {
     return {
-      action: AcaoInterfaceBuilder(),
+      actionDetails: AcaoInterfaceBuilder(),
       tableHeader: [
         {
           title: 'Objetivo',
@@ -127,7 +128,7 @@ export default {
 
       this.isMessageDialogVisible = true
     },
-    emitAccept({ accepted, id }) {
+    emitAccept({ accepted, id }: AcceptHandlerParamsInterface) {
       this.$emit('accept', { accepted, id })
       this.isActionDialogVisible = false
     },
@@ -137,7 +138,7 @@ export default {
 
       try {
         const acao = await $api.acoes.findById(acaoGrid.id)
-        this.action = acao
+        this.actionDetails = acao
         this.isActionDialogVisible = true
       } catch (e) {
         this.showDialog(
@@ -152,7 +153,7 @@ export default {
       const { $api } = useNuxtApp()
       try {
         const submission = await $api.submissoes.findById(acaoGrid.id)
-        this.action = submission
+        this.actionDetails = submission
         this.isActionDialogVisible = true
       } catch (e) {
         this.showDialog(

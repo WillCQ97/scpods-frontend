@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       Informações detalhadas sobre a
-      {{ isSubmission ? 'submissão enviada' : 'ação' }}
+      {{ isSubmission ? 'submissão enviada' : 'ação cadastrada' }}
     </v-card-title>
 
     <the-card-divider />
@@ -170,6 +170,7 @@
 
 <script lang="ts">
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
+import type { AcaoInterface } from '~/models/acao.model'
 import TheCardDivider from '../UI/TheCardDivider.vue'
 
 export default {
@@ -178,7 +179,7 @@ export default {
 
   props: {
     action: {
-      type: Object,
+      type: Object as PropType<AcaoInterface>,
       required: true,
     },
     isSubmission: {

@@ -163,6 +163,7 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilderEmpty } from '~/models/acao.search.options.model'
+import type { AcceptHandlerParamsInterface } from '~/models/props/accept.handler.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
 
 definePageMeta({
@@ -205,11 +206,6 @@ const opcoesObjetivos = objetivosStore.getObjetivos.map((obj) => ({
 const submissoes = ref([{}] as AcaoSearchInterface[])
 searchSubmissoes()
 
-interface AcceptHandlerParams {
-  accepted: boolean
-  id: number
-}
-
 async function searchSubmissoes(): Promise<void> {
   try {
     submissoes.value = await $api.submissoes.search(filter.value)
@@ -225,7 +221,7 @@ async function searchSubmissoes(): Promise<void> {
 async function acceptHandler({
   accepted,
   id,
-}: AcceptHandlerParams): Promise<void> {
+}: AcceptHandlerParamsInterface): Promise<void> {
   console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
   try {
@@ -243,7 +239,7 @@ async function acceptHandler({
       false,
     )
   } catch (error) {
-    console.log('ERRO: ', error)
+    console.log('ERRO NO ACEITE/REJEITE: ', error)
     showDialog(
       `Erro ao ${accepted ? 'aceitar' : 'recusar'}!`,
       'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
@@ -251,7 +247,7 @@ async function acceptHandler({
     )
   }
 
-  console.log('REFRESH APÓS ACEITE: ')
+  console.log('EXECUTANDO REFRESH APÓS ACEITE')
   searchSubmissoes()
 }
 

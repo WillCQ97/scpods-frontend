@@ -1,6 +1,7 @@
-import { type Unidade, type UnidadeInfo } from '~/models/unidade.model'
-import FetchFactory from '../factory'
 import type { SelectModelInterface } from '~/models/select/select.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
+import { type UnidadeInterface } from '~/models/unidade.model'
+import FetchFactory from '../factory'
 
 class UnidadesModule extends FetchFactory {
   private RESOURCE = '/unidades'
@@ -12,15 +13,15 @@ class UnidadesModule extends FetchFactory {
     )
   }
 
+  async getUnidades() {
+    return this.call<UnidadeInterface[]>('GET', `${this.RESOURCE}`)
+  }
+
   async getUnidadeInfo(codigoUnidade: string) {
-    return this.call<UnidadeInfo>(
+    return this.call<UnidadeInfoInterface>(
       'GET',
       `${this.RESOURCE}/info/${codigoUnidade}`,
     )
-  }
-
-  async getUnidades() {
-    return this.call<Unidade[]>('GET', `${this.RESOURCE}`)
   }
 }
 

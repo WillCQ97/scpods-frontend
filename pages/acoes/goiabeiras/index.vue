@@ -76,9 +76,9 @@ import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
 import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
-import type { UnidadeInfo } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
   name: 'PaginaAcoesGoiabeiras',
@@ -89,8 +89,8 @@ export default {
     return {
       nomeUnidade: 'Campus em Goiabeiras',
       codigoUnidade: 'UN_GOIABEIRAS',
-      acoesGoiabeiras: [] as AcaoInterface[],
-      goiabeirasInfo: {} as UnidadeInfo,
+      acoesGoiabeiras: [] as AcaoSearchInterface[],
+      goiabeirasInfo: {} as UnidadeInfoInterface,
       exibirAcoes: false,
       centroMapa: [-20.2764, -40.3037],
       limitesMapa: [

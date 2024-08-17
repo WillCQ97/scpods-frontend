@@ -26,9 +26,9 @@
 import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
-import type { AcaoInterface } from '~/models/acao.model'
+import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import { AcaoSearchOptionsBuilder } from '~/models/acao.search.options.model'
-import type { UnidadeInfo } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
   name: 'PaginaAcoesJeronimo',
@@ -39,8 +39,8 @@ export default {
     return {
       nomeUnidade: 'Unidade em Jerônimo Monteiro',
       codigoUnidade: 'UN_JERONIMO',
-      acoesJeronimo: [] as AcaoInterface[],
-      infoJeronimo: {} as UnidadeInfo,
+      acoesJeronimo: [] as AcaoSearchInterface[],
+      infoJeronimo: {} as UnidadeInfoInterface,
       campusGeojson: featureJeronimo,
       exibirAcoes: false,
       centroMapa: [-20.79071, -41.38887],

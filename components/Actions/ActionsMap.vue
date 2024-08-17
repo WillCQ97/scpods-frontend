@@ -28,9 +28,9 @@
 <script lang="ts">
 import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import type { LocalInfo } from '~/models/local.model'
+import type { LocalInfoInterface } from '~/models/local.info'
 import type Marker from '~/models/props/marker.model'
-import type { UnidadeInfo } from '~/models/unidade.model'
+import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
   // A ordem esperada das coordenadas é latitude, longitude
@@ -52,7 +52,7 @@ export default {
       required: true,
     },
     unidadeInfo: {
-      type: Object as PropType<UnidadeInfo>,
+      type: Object as PropType<UnidadeInfoInterface>,
       required: true,
     },
     title: {
@@ -78,7 +78,7 @@ export default {
 
       if (locaisAtivos === undefined) return []
 
-      return locaisAtivos.map((local: LocalInfo) => ({
+      return locaisAtivos.map((local: LocalInfoInterface) => ({
         ...local,
         id: local.id,
         coordinates: local.localizacao.coordinates.toReversed(),
