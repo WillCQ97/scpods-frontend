@@ -16,6 +16,7 @@ export interface AcaoInterface {
   id?: number
   titulo: string
   descricao: string
+  urlEvidencia: string
 
   dataCadastro: string
   dataInicio: string
@@ -33,6 +34,7 @@ export function AcaoInterfaceBuilder(): AcaoInterface {
   return {
     titulo: '',
     descricao: '',
+    urlEvidencia: '',
 
     dataCadastro: '',
     dataInicio: '',
