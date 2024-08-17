@@ -16,7 +16,7 @@
             <the-goal-image :goal-code="goalId" :cover="true" />
           </v-col>
 
-          <v-col>
+          <v-col cols="9">
             <v-textarea
               v-model="goalText"
               label="Objetivo de Desenvolvimento Sustentável"
@@ -31,20 +31,17 @@
               rows="3"
             ></v-textarea>
           </v-col>
-        </v-row>
 
-        <!-- TÍTULO DA AÇÃO -->
-        <v-row dense>
-          <v-col>
+          <!-- TÍTULO DA AÇÃO -->
+
+          <v-col cols="12">
             <v-text-field
               v-model="showedItem.titulo"
               label="Título ou nome da ação"
             ></v-text-field>
           </v-col>
-        </v-row>
 
-        <v-row dense>
-          <v-col>
+          <v-col cols="12">
             <v-textarea
               v-model="showedItem.descricao"
               label="Descrição da ação"
@@ -52,33 +49,40 @@
               rows="2"
             ></v-textarea>
           </v-col>
-        </v-row>
 
-        <!-- DATAS DE INÍCIO E TÉRMINO -->
-        <v-row dense>
-          <v-col>
+          <v-col v-if="isSubmission" cols="12">
+            <v-text-field
+              v-model="showedItem.urlEvidencia"
+              label="Link para evidência da ação"
+            ></v-text-field>
+          </v-col>
+
+          <!-- DATAS DE INÍCIO E TÉRMINO -->
+
+          <v-col cols="6">
             <v-text-field
               v-model="showedItem.dataInicio"
+              type="date"
               label="Data de Início"
             ></v-text-field>
           </v-col>
-          <v-col>
+          <v-col cols="6">
             <v-text-field
               v-model="showedItem.dataEncerramento"
+              type="date"
               label="Data de Encerramento"
             ></v-text-field>
           </v-col>
-        </v-row>
 
-        <!-- LOTAÇÃO DA AÇÃO -->
-        <v-row dense>
-          <v-col>
+          <!-- LOTAÇÃO DA AÇÃO -->
+
+          <v-col cols="6">
             <v-text-field
               v-model="showedItem.lotacao.descricao"
               label="Lotação da ação (sua vinculação)"
             ></v-text-field>
           </v-col>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               v-model="showedItem.lotacao.sigla"
               label="Sigla"
@@ -90,48 +94,46 @@
               label="Campus"
             ></v-text-field>
           </v-col>
-        </v-row>
 
-        <!-- LOCALIZAÇÃO DA AÇÃO -->
-        <v-row dense>
-          <v-col>
+          <!-- LOCALIZAÇÃO DA AÇÃO -->
+
+          <v-col cols="6">
             <v-text-field
               v-model="showedItem.local.nomePrincipal"
               label="Localização na unidade"
             >
             </v-text-field>
           </v-col>
-          <v-col>
+          <v-col cols="3">
             <v-text-field
               v-model="showedItem.local.unidade.nome"
               label="Unidade"
             >
             </v-text-field>
           </v-col>
-          <v-col>
+          <v-col cols="3">
             <v-text-field
               v-model="showedItem.local.unidade.campus"
               label="Campus"
             >
             </v-text-field>
           </v-col>
-        </v-row>
 
-        <!-- COORDENADOR -->
-        <v-row dense>
-          <v-col>
+          <!-- COORDENADOR -->
+
+          <v-col cols="8">
             <v-text-field
               v-model="showedItem.coordenador.nome"
               label="Nome completo do coordenador"
             ></v-text-field>
           </v-col>
-          <v-col>
+          <v-col cols="4">
             <v-text-field
               v-model="showedItem.coordenador.descricaoVinculo"
               label="Vínculo com a Ufes"
             ></v-text-field>
           </v-col>
-          <v-col v-if="isSubmission">
+          <v-col cols="12" v-if="isSubmission">
             <v-text-field
               v-model="showedItem.coordenador.email"
               label="Endereço de e-mail"
@@ -163,6 +165,10 @@
       >
         Recusar
       </v-btn>
+      <external-link-btn
+        v-if="showedItem.urlEvidencia"
+        :url="showedItem.urlEvidencia"
+      />
       <v-btn color="primary" @click="emitClose()"> Fechar </v-btn>
     </v-card-actions>
   </v-card>
@@ -172,10 +178,11 @@
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import type { AcaoInterface } from '~/models/acao.model'
 import TheCardDivider from '../UI/TheCardDivider.vue'
+import ExternalLinkBtn from '../UI/ExternalLinkBtn.vue'
 
 export default {
   name: 'ActionCardDetail',
-  components: { TheCardDivider, TheGoalImage },
+  components: { ExternalLinkBtn, TheCardDivider, TheGoalImage },
 
   props: {
     action: {
