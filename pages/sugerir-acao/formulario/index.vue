@@ -133,6 +133,18 @@
                   :rules="[obrigatorioValidator, naoVazioValidator]"
                 ></v-textarea>
               </v-col>
+              <v-col cols="12">
+                Deve ser um link (URL) para um documento, website, banco de
+                dados, artigo de jornal ou revista, disponível publicamente na
+                internet.
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="campoUrlEvidencia"
+                  label="Link para evidência da ação"
+                  :rules="[urlValidator]"
+                ></v-text-field>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card>
@@ -358,6 +370,7 @@ export default {
       ],
       campoTitulo: '',
       campoDescricao: '',
+      campoUrlEvidencia: '',
       campoDataInicial: '',
       campoDataFinal: '',
       campoNomeCoordenador: '',
@@ -499,6 +512,7 @@ export default {
       let submissao = SubmissaoInputBuilder()
       submissao.titulo = this.campoTitulo.trim()
       submissao.descricao = this.campoDescricao.trim()
+      submissao.urlEvidencia = this.campoUrlEvidencia.trim()
       submissao.dataInicio = this.campoDataInicial
       submissao.dataEncerramento = this.campoDataFinal
 
