@@ -91,6 +91,7 @@
                       label="Objetivo"
                       item-title="description"
                       item-value="value"
+                      clearable
                       :items="opcoesObjetivos"
                     ></v-select>
                   </v-col>
@@ -98,6 +99,7 @@
                     <v-select
                       v-model="filter.siglaLotacao"
                       label="Lotação da ação"
+                      clearable
                       :items="opcoesLotacao"
                     ></v-select>
                   </v-col>
@@ -105,6 +107,7 @@
                     <v-select
                       v-model="filter.campus"
                       label="Campus"
+                      clearable
                       item-title="description"
                       item-value="value"
                       :items="opcoesUnidade"
