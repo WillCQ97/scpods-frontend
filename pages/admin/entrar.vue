@@ -4,7 +4,9 @@
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>
       <the-card-divider />
-      <v-card-text>
+      <v-card-text class="dialog">
+        <v-icon icon="mdi-alert-circle" color="error" size="90"></v-icon>
+        <br /><br />
         {{ dialog.message }}
       </v-card-text>
 
@@ -62,7 +64,6 @@
 <script lang="ts">
 import type { FetchError } from 'ofetch'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
-import { encodeBasicAuth } from '~/utils/encode.auth'
 
 export default {
   name: 'PaginaLoginAdministrador',
@@ -87,30 +88,26 @@ export default {
     async entrar(): Promise<void> {
       if (!this.isFormValid) return
 
-      const authHeader = `Basic ${encodeBasicAuth(this.username, this.password)}`
-      const header = new Headers({
-        Authorization: authHeader,
-      })
-
-      const apiUrl = useRuntimeConfig().public.apiBaseUrl
+      const { $api } = useNuxtApp()
       const userStore = useUserStore()
 
       try {
-        await $fetch(`${apiUrl}usuarios/validar-admin`, {
-          headers: header,
-        })
-
+        await $api.usuarios.validarAdmin(this.username, this.password)
         userStore.setLoginAdminCredentials(this.username, this.password)
+
         navigateTo('/admin/avaliar-submissoes')
       } catch (e) {
+        console.debug('ERRO LOGIN ADMIN')
+        console.debug(e)
+
         const fetchError = e as FetchError
         if (fetchError.status === 401 || fetchError.status === 403) {
-          this.showDialog(
+          this.showErrorDialog(
             'Login inválido!',
             'Por favor, verifique suas credenciais e tente novamente!',
           )
         } else {
-          this.showDialog(
+          this.showErrorDialog(
             'Erro desconhecido!',
             'Por favor, tente novamente mais tarde!',
           )
@@ -124,7 +121,7 @@ export default {
       this.password = ''
       this.username = ''
     },
-    showDialog(title: string, message: string) {
+    showErrorDialog(title: string, message: string) {
       this.dialog.title = title
       this.dialog.message = message
       this.isDialogVisible = true
@@ -132,3 +129,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+</style>

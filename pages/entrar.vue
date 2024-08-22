@@ -1,9 +1,12 @@
 <template>
+  <!-- TEMPLATE DO DIÁLOGO -->
   <v-dialog v-model="isDialogVisible" width="500">
     <v-card>
       <v-card-title>{{ dialog.title }}</v-card-title>
       <the-card-divider />
-      <v-card-text>
+      <v-card-text class="dialog">
+        <v-icon icon="mdi-alert-circle" color="error" size="90"></v-icon>
+        <br /><br />
         {{ dialog.message }}
       </v-card-text>
 
@@ -100,30 +103,30 @@ export default {
     async validarLogin() {
       if (!this.isFormValid) return
 
-      const apiUrl = useRuntimeConfig().public.apiBaseUrl
+      const { $api } = useNuxtApp()
       const userStore = useUserStore()
 
       try {
-        await $fetch(`${apiUrl}usuarios/validar-login`, {
-          method: 'post',
-          body: { username: this.username, password: this.password },
-        })
-
+        await $api.usuarios.validarMembroAcademico(this.username, this.password)
         userStore.setUserLoggedIn()
+
         this.$router.go(-1)
       } catch (e) {
+        console.debug('ERRO VALIDAÇÃO LOGIN UFES')
+        console.debug(e)
+
         const fetchError = e as FetchError
-        if (
-          fetchError.status === 400 ||
-          fetchError.status === 401 ||
-          fetchError.status === 403
-        ) {
-          this.showDialog(
+        console.debug(fetchError.data)
+
+        if (fetchError.data && fetchError.data.mensagem) {
+          this.showErrorDialog('Erro!', fetchError.data.mensagem)
+        } else if (fetchError.status === 401 || fetchError.status === 403) {
+          this.showErrorDialog(
             'Login inválido!',
             'Por favor, verifique suas credenciais e tente novamente!',
           )
         } else {
-          this.showDialog(
+          this.showErrorDialog(
             'Erro desconhecido!',
             'Por favor, tente novamente mais tarde!',
           )
@@ -135,7 +138,7 @@ export default {
       navigateTo('/')
     },
 
-    showDialog(title: string, message: string) {
+    showErrorDialog(title: string, message: string) {
       this.dialog.title = title
       this.dialog.message = message
       this.isDialogVisible = true
@@ -143,3 +146,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.dialog {
+  text-align: center;
+  font-size: 20px !important;
+}
+</style>

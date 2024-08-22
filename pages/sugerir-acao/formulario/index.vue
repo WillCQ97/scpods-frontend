@@ -554,8 +554,8 @@ export default {
           false,
         )
       } catch (e: any) {
-        console.log('ERRO ao submeter a ação')
-        console.log(e)
+        console.debug('ERRO ao submeter a ação')
+        console.debug(e)
 
         if (e.data && e.data.mensagem) {
           // Verifica se o objeto de erro possui a propriedade 'data' com o campo 'mensagem'

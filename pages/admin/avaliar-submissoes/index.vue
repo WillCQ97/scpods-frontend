@@ -225,7 +225,7 @@ async function acceptHandler({
   accepted,
   id,
 }: AcceptHandlerParamsInterface): Promise<void> {
-  console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
+  console.debug('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
   try {
     accepted = accepted
@@ -242,7 +242,7 @@ async function acceptHandler({
       false,
     )
   } catch (error) {
-    console.log('ERRO NO ACEITE/REJEITE: ', error)
+    console.debug('ERRO NO ACEITE/REJEITE: ', error)
     showDialog(
       `Erro ao ${accepted ? 'aceitar' : 'recusar'}!`,
       'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
@@ -250,7 +250,7 @@ async function acceptHandler({
     )
   }
 
-  console.log('EXECUTANDO REFRESH APÓS ACEITE')
+  console.debug('EXECUTANDO REFRESH APÓS ACEITE')
   searchSubmissoes()
 }
 

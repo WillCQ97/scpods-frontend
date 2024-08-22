@@ -45,7 +45,8 @@ useHead({
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
   script: [
     {
-      innerHTML: "console.log('Olá, executado da meta tag config no app.vue')",
+      innerHTML:
+        "console.debug('Olá, executado da meta tag config no app.vue')",
     },
   ],
 })
@@ -60,7 +61,7 @@ await callOnce(async () => {
     const objetivos = await $api.objetivos.getObjetivos()
     odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
   } catch (error) {
-    console.log(
+    console.debug(
       'ERRO: Não foi possível obter os objetivos no carregamento inicial do site',
       error,
     )
