@@ -100,7 +100,7 @@ export default {
           headers: header,
         })
 
-        userStore.loginAdmin(this.username, this.password)
+        userStore.setLoginAdminCredentials(this.username, this.password)
         navigateTo('/admin/avaliar-submissoes')
       } catch (e) {
         const fetchError = e as FetchError

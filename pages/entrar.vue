@@ -1,4 +1,21 @@
 <template>
+  <v-dialog v-model="isDialogVisible" width="500">
+    <v-card>
+      <v-card-title>{{ dialog.title }}</v-card-title>
+      <the-card-divider />
+      <v-card-text>
+        {{ dialog.message }}
+      </v-card-text>
+
+      <the-card-divider />
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="isDialogVisible = false">OK</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
   <v-row align="center">
     <v-spacer />
     <v-col>
@@ -56,6 +73,7 @@
 </template>
 
 <script lang="ts">
+import type { FetchError } from 'ofetch'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 export default {
@@ -70,6 +88,11 @@ export default {
       username: '',
       password: '',
       execution: '',
+      isDialogVisible: false,
+      dialog: {
+        title: '',
+        message: '',
+      },
     }
   },
 
@@ -77,14 +100,45 @@ export default {
     async validarLogin() {
       if (!this.isFormValid) return
 
+      const apiUrl = useRuntimeConfig().public.apiBaseUrl
       const userStore = useUserStore()
-      userStore.isLoggedIn = true
 
-      this.$router.go(-1)
+      try {
+        await $fetch(`${apiUrl}usuarios/validar-login`, {
+          method: 'post',
+          body: { username: this.username, password: this.password },
+        })
+
+        userStore.setUserLoggedIn()
+        this.$router.go(-1)
+      } catch (e) {
+        const fetchError = e as FetchError
+        if (
+          fetchError.status === 400 ||
+          fetchError.status === 401 ||
+          fetchError.status === 403
+        ) {
+          this.showDialog(
+            'Login inválido!',
+            'Por favor, verifique suas credenciais e tente novamente!',
+          )
+        } else {
+          this.showDialog(
+            'Erro desconhecido!',
+            'Por favor, tente novamente mais tarde!',
+          )
+        }
+      }
     },
 
     cancelar(): void {
       navigateTo('/')
+    },
+
+    showDialog(title: string, message: string) {
+      this.dialog.title = title
+      this.dialog.message = message
+      this.isDialogVisible = true
     },
   },
 }
