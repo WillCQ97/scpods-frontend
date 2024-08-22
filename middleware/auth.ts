@@ -1,11 +1,11 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  console.log('[MIDDLEWARE] Verificando autenticação?!')
+  console.debug('[MIDDLEWARE] Verificando autenticação?!')
 
   const userStore = useUserStore()
   // APENAS O ADMIN PODE ACESSAR A PÁGINA PARA AVALIAR AS SUBMISSÕES
   if (to.path === '/admin/avaliar-submissoes') {
     if (!userStore.admin.isLoggedIn) {
-      console.log('O usuário não é administrador, redirecionando para /')
+      console.debug('O usuário não é administrador, redirecionando para /')
       return navigateTo({ path: '/' })
     }
   }
@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   // APENAS USUÁRIOS LOGADOS PODEM ACESSAR O FORMULÁRIO DE SUBMISSÃO
   if (to.path === '/sugerir-acao/formulario') {
     if (!userStore.isLoggedIn && !userStore.admin.isLoggedIn) {
-      console.log(
+      console.debug(
         'O usuário não está logado, redirecionando para /sugerir-acao',
       )
       return navigateTo({ path: '/sugerir-acao' })

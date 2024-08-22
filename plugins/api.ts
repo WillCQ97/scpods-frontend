@@ -6,6 +6,7 @@ import LotacoesModule from '~/repository/modules/lotacoes'
 import ObjetivosModule from '~/repository/modules/objetivos'
 import SubmissoesModule from '~/repository/modules/submissoes'
 import UnidadesModule from '~/repository/modules/unidades'
+import UsuarioModule from '~/repository/modules/usuario'
 
 interface IApiInstance {
   acoes: AcoesModule
@@ -13,6 +14,7 @@ interface IApiInstance {
   lotacoes: LotacoesModule
   submissoes: SubmissoesModule
   unidades: UnidadesModule
+  usuarios: UsuarioModule
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -32,6 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     lotacoes: new LotacoesModule(apiFetcher),
     submissoes: new SubmissoesModule(apiFetcher),
     unidades: new UnidadesModule(apiFetcher),
+    usuarios: new UsuarioModule(apiFetcher),
   }
 
   return { provide: { api: modules } }
