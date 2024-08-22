@@ -1,23 +1,14 @@
 <template>
   <!-- TEMPLATE DO DIÁLOGO -->
-  <v-dialog v-model="isDialogVisible" width="500">
-    <v-card>
-      <v-card-title>{{ dialog.title }}</v-card-title>
-      <the-card-divider />
-      <v-card-text class="dialog">
-        <v-icon icon="mdi-alert-circle" color="error" size="90"></v-icon>
-        <br /><br />
-        {{ dialog.message }}
-      </v-card-text>
-
-      <the-card-divider />
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn @click="isDialogVisible = false">OK</v-btn>
-        <v-spacer></v-spacer>
-      </v-card-actions>
-    </v-card>
+  <v-dialog v-model="isDialogVisible" width="500" height="100">
+    <!-- error, success, warning, info-->
+    <v-alert
+      closable
+      :title="dialog.title"
+      :text="dialog.message"
+      type="info"
+      v-on:click:close="isDialogVisible = false"
+    ></v-alert>
   </v-dialog>
   <v-row align="center">
     <v-spacer />
@@ -101,7 +92,10 @@ export default {
         console.debug(e)
 
         const fetchError = e as FetchError
-        if (fetchError.status === 401 || fetchError.status === 403) {
+
+        if (fetchError.data && fetchError.data.message) {
+          this.showErrorDialog('Erro', fetchError.data.message)
+        } else if (fetchError.status === 401 || fetchError.status === 403) {
           this.showErrorDialog(
             'Login inválido!',
             'Por favor, verifique suas credenciais e tente novamente!',
