@@ -1,4 +1,4 @@
-# Front-end do Sistema de Cadastro de Projetos de ODS
+# SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na UFES
 
 ## Tecnologias utilizadas
 
