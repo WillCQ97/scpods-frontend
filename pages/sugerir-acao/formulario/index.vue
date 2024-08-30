@@ -143,6 +143,7 @@
                   v-model="campoUrlEvidencia"
                   label="Link para evidência da ação"
                   :rules="[urlValidator]"
+                  clearable
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -302,6 +303,7 @@ import {
   emailValidator,
   naoVazioValidator,
   obrigatorioValidator,
+  urlValidator,
 } from '~/utils/custom.validators'
 
 definePageMeta({
