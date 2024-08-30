@@ -46,6 +46,7 @@
             <v-text-field
               v-model="username"
               label="Informe seu CPF"
+              autocomplete="username"
               prepend-icon="mdi-badge-account"
               :rules="[obrigatorioValidator, cpfValidator]"
             ></v-text-field>
@@ -53,6 +54,7 @@
             <v-text-field
               v-model="password"
               label="Informe sua senha da Ufes"
+              autocomplete="current-password"
               :prepend-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
               :type="exibirSenha ? 'text' : 'password'"
               @click:prepend="exibirSenha = !exibirSenha"

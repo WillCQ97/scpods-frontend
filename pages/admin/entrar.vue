@@ -32,6 +32,7 @@
             <v-text-field
               v-model="username"
               label="Informe seu nome de usuário"
+              autocomplete="username"
               prepend-icon="mdi-shield-account"
               :rules="[obrigatorioValidator]"
             ></v-text-field>
@@ -39,6 +40,7 @@
             <v-text-field
               v-model="password"
               label="Informe sua senha"
+              autocomplete="current-password"
               :type="exibirSenha ? 'text' : 'password'"
               :prepend-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[obrigatorioValidator]"
