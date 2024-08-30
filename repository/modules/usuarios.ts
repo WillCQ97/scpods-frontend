@@ -1,6 +1,6 @@
 import FetchFactory from '../factory'
 
-class UsuarioModule extends FetchFactory {
+class UsuariosModule extends FetchFactory {
   private RESOURCE = '/usuarios'
 
   async validarAdmin(username: string, password: string) {
@@ -22,4 +22,4 @@ class UsuarioModule extends FetchFactory {
   }
 }
 
-export default UsuarioModule
+export default UsuariosModule
