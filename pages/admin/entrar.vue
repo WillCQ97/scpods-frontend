@@ -92,7 +92,7 @@ export default {
         Authorization: authHeader,
       })
 
-      const apiUrl = useRuntimeConfig().public.apiBase
+      const apiUrl = useRuntimeConfig().public.apiBaseUrl
       const userStore = useUserStore()
 
       try {
