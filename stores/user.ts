@@ -17,10 +17,13 @@ export const useUserStore = defineStore('userStore', {
   },
 
   actions: {
-    loginAdmin(username: string, password: string) {
+    setLoginAdminCredentials(username: string, password: string) {
       this.admin.username = username
       this.admin.password = password
       this.admin.isLoggedIn = true
+    },
+    setUserLoggedIn() {
+      this.isLoggedIn = true
     },
     logout() {
       this.isLoggedIn = false

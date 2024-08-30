@@ -91,6 +91,7 @@
                       label="Objetivo"
                       item-title="description"
                       item-value="value"
+                      clearable
                       :items="opcoesObjetivos"
                     ></v-select>
                   </v-col>
@@ -98,6 +99,7 @@
                     <v-select
                       v-model="filter.siglaLotacao"
                       label="Lotação da ação"
+                      clearable
                       :items="opcoesLotacao"
                     ></v-select>
                   </v-col>
@@ -105,6 +107,7 @@
                     <v-select
                       v-model="filter.campus"
                       label="Campus"
+                      clearable
                       item-title="description"
                       item-value="value"
                       :items="opcoesUnidade"
@@ -222,7 +225,7 @@ async function acceptHandler({
   accepted,
   id,
 }: AcceptHandlerParamsInterface): Promise<void> {
-  console.log('EXECUTANDO HANDLER DE ACEITE E REJEITE')
+  console.debug('EXECUTANDO HANDLER DE ACEITE E REJEITE')
 
   try {
     accepted = accepted
@@ -239,7 +242,7 @@ async function acceptHandler({
       false,
     )
   } catch (error) {
-    console.log('ERRO NO ACEITE/REJEITE: ', error)
+    console.debug('ERRO NO ACEITE/REJEITE: ', error)
     showDialog(
       `Erro ao ${accepted ? 'aceitar' : 'recusar'}!`,
       'A ação não pode ser concluída! Por favor, tente novamente mais tarde!',
@@ -247,7 +250,7 @@ async function acceptHandler({
     )
   }
 
-  console.log('EXECUTANDO REFRESH APÓS ACEITE')
+  console.debug('EXECUTANDO REFRESH APÓS ACEITE')
   searchSubmissoes()
 }
 

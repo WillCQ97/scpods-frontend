@@ -1,5 +1,5 @@
 <template>
-  <a :href="url" target="_blank">
+  <nuxt-link :href="url" target="_blank">
     <v-btn
       append-icon="mdi-open-in-new"
       color="primary"
@@ -7,7 +7,7 @@
       text="Ir para o site"
     >
     </v-btn
-  ></a>
+  ></nuxt-link>
 </template>
 <script lang="ts">
 export default {

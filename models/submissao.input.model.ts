@@ -3,6 +3,7 @@ import type { CoordenadorInterface } from './coordenador.model'
 export interface SubmissaoInputInterface {
   titulo: string
   descricao: string
+  urlEvidencia: string
 
   dataInicio: string
   dataEncerramento: string | null

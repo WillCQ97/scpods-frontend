@@ -27,8 +27,8 @@ class FetchFactory {
     data?: object,
     fetchOptions?: FetchOptions<'json'>,
   ): Promise<T> {
-    console.log('FetchFactory call')
-    console.log(url, { method, body: data, ...fetchOptions })
+    console.debug('FetchFactory call')
+    console.debug(url, { method, body: data, ...fetchOptions })
     return this.$fetch<T>(url, { method, body: data, ...fetchOptions })
   }
 }
