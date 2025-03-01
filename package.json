@@ -2,6 +2,10 @@
   "name": "scpods-site",
   "description": "Frontend do sistema para cadastro de projetos relacionados aos ODS na UFES.",
   "version": "1.0.0-RC",
+  "author": {
+    "name": "WillCQ97",
+    "url": "https://github.com/WillCQ97"
+  },
   "private": true,
   "type": "module",
   "scripts": {
