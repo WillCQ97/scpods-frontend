@@ -5,7 +5,7 @@
 - Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.
 - Mapear as diferentes ações de ODS realizadas em diferentes locais na universidade.
 - A ideia de ser colaborativo é justamente permitir que os diferentes atores informem seus projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
-- Evolução funcional do [protótipo ODS](git@github.com:WillCQ97/prototipo-ods.git), disponível [neste link](ods-ufes.netlify.app).
+- Evolução funcional do [protótipo ODS](https://github.com/WillCQ97/prototipo-ods), disponível [neste link](https://ods-ufes.netlify.app/).
 
 ## Tecnologias utilizadas
 
