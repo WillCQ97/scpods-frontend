@@ -6,6 +6,7 @@
 - Mapear as diferentes ações relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) realizadas em diferentes *campus*.
 - A ideia de ser colaborativo é justamente permitir que os diferentes atores informem projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
 - Evolução funcional do [protótipo ODS](https://github.com/WillCQ97/prototipo-ods), disponível [neste link](https://ods-ufes.netlify.app/).
+- O código-fonte do backend em Java está disponível [neste link](https://github.com/WillCQ97/scpods-backend).
 
 ## Tecnologias utilizadas
 
