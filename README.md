@@ -3,8 +3,8 @@
 ## Objetivos deste trabalho
 
 - Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.
-- Mapear as diferentes ações de ODS realizadas em diferentes locais na universidade.
-- A ideia de ser colaborativo é justamente permitir que os diferentes atores informem seus projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
+- Mapear as diferentes ações relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) realizadas em diferentes *campus*.
+- A ideia de ser colaborativo é justamente permitir que os diferentes atores informem projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
 - Evolução funcional do [protótipo ODS](https://github.com/WillCQ97/prototipo-ods), disponível [neste link](https://ods-ufes.netlify.app/).
 
 ## Tecnologias utilizadas
@@ -31,7 +31,7 @@
 
 ## Assets
 
-- Imagens das logos para representar cada ODS foram obtidas em https://brasil.un.org/pt-br/sdgs.
+- Imagens das logos para representar cada ODS foram obtidas em <https://brasil.un.org/pt-br/sdgs>.
 
 ## Materiais
 
