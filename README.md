@@ -59,3 +59,9 @@ yarn generate
 ```bash
 python -m http.server 8001 --directory dist
 ```
+
+## Páginas de exemplo
+
+- Página inicial ![Imagem 01](docs/images/01.png)
+- Mapa com as ações demarcadas ![Imagem 02](docs/images/02.png)
+- Listagem das ações ![Imagem 03](docs/images/03.png)
