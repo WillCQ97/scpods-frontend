@@ -1,4 +1,11 @@
-# SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na UFES
+# SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na Ufes
+
+## Objetivos deste trabalho
+
+- Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.
+- Mapear as diferentes ações de ODS realizadas em diferentes locais na universidade.
+- A ideia de ser colaborativo é justamente permitir que os diferentes atores informem seus projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
+- Evolução funcional do [protótipo ODS](git@github.com:WillCQ97/prototipo-ods.git), disponível [neste link](ods-ufes.netlify.app).
 
 ## Tecnologias utilizadas
 
@@ -21,12 +28,6 @@
 - [**UfesSans**](https://prodesign.ufes.br/ufessans/): Família tipográfica _opensource_ criada pela equipe de **Prodesing**.
 
 - Foi utilizado como referência o mapa para o [campus de Alegre](https://www.google.com/maps/d/u/0/viewer?mid=1MidKiIv_2cGcV17Hkva5TOaBCRI&ll=-20.761540683896165%2C-41.53662093947712&z=18).
-
-## Objetivos deste trabalho
-
-- Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.
-- Mapear as diferentes ações de ODS realizadas em diferentes locais na universidade.
-- A ideia de ser colaborativo é justamente permitir que os diferentes atores informem seus projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
 
 ## Assets
 
