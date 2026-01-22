@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Objetivo } from './models/objetivo.model'
+import type { ObjetivoInterface } from './models/objetivo.model'
 
 // TODO: adicionar imagem e url para o site
 const siteTitle = 'Mapa Colaborativo: ODS na Ufes'
@@ -30,36 +30,35 @@ useHead({
     { name: 'format-detection', content: 'telephone=no' },
 
     // Open Graph attributes
-    { hid: 'og-type', name: 'og:type', content: 'website' },
-    { hid: 'og-title', name: 'og:title', content: siteTitle },
+    { name: 'og:type', content: 'website' },
+    { name: 'og:title', content: siteTitle },
     {
-      hid: 'og-description',
       name: 'og:description',
       content: siteDescription,
     },
-    { hid: 'og-image', name: 'og:image', content: siteImage },
-    { hid: 'og-url', name: 'og:url', content: siteUrl },
-    { hid: 'og-locale', name: 'og:locale', content: 'pt_BR' },
+    { name: 'og:image', content: siteImage },
+    { name: 'og:url', content: siteUrl },
+    { name: 'og:locale', content: 'pt_BR' },
   ],
 
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
   script: [
     {
       innerHTML:
-        "console.debug('Olá, executado da meta tag config no app.vue')",
+        "console.debug('Olá, como vão os seus objetivos?')",
     },
   ],
 })
 
 // INICIALIZA O APP COM A LISTAGEM DOS OBJETIVOS
-// usa a repository para obter os dados da api do backend, então adiciona a store
+// Usa a repository para obter os dados da api e então persiste na store
 const { $api } = useNuxtApp()
 const odsStore = useObjetivoStore()
 
 await callOnce(async () => {
   try {
     const objetivos = await $api.objetivos.getObjetivos()
-    odsStore.setObjetivos(objetivos ? objetivos : ([] as Objetivo[]))
+    odsStore.setObjetivos(objetivos ? objetivos : ([] as ObjetivoInterface[]))
   } catch (error) {
     console.debug(
       'ERRO: Não foi possível obter os objetivos no carregamento inicial do site',
