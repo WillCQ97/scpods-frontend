@@ -1,10 +1,12 @@
-# SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na UFES
+# SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na Ufes
 
 ## Objetivos deste trabalho
 
 - Servir de exemplo de um possível projeto envolvendo mapeamento na universidade.
-- Listar as diferentes ações envolvendo os Objetivos de Desenvolvimento Sustentável (ODS) realizadas em diferentes locais na universidade.
-- A ideia de ser colaborativo é justamente permitir que a comunidade acadêmica enviem seus projetos para serem adicionados em uma base de dados comum com enfoque nos ODS.
+- Mapear as diferentes ações relacionados com os Objetivos de Desenvolvimento Sustentável (ODS) realizadas em diferentes *campus*.
+- Permitir que os diferentes atores informem projetos para serem adicionados em uma base de dados comum com enfoque em ODS.
+- Evolução funcional do [protótipo ODS](https://github.com/WillCQ97/prototipo-ods), disponível [neste link](https://ods-ufes.netlify.app/).
+- O código-fonte do backend em Java está disponível [neste link](https://github.com/WillCQ97/scpods-backend).
 
 ## Tecnologias e Materiais utilizados
 
@@ -20,9 +22,11 @@
 
 - [**Mapas da UFES**](https://mapa.ufes.br): Foram utilizados os mapas dos _campus_ criados pela equipe [**Prodesign**](https://prodesign.ufes.br/).
 
-- [**UfesSans**](https://prodesign.ufes.br/ufessans/): Família tipográfica _opensource_ criada pela equipe **Prodesing**.
+- [**UfesSans**](https://prodesign.ufes.br/ufessans/): Família tipográfica _opensource_ criada pela equipe de **Prodesing**.
 
-- Imagens das logos para representar cada ODS foram obtidas em https://brasil.un.org/pt-br/sdgs.
+- Foi utilizado como referência o mapa para o [campus de Alegre](https://www.google.com/maps/d/u/0/viewer?mid=1MidKiIv_2cGcV17Hkva5TOaBCRI&ll=-20.761540683896165%2C-41.53662093947712&z=18).
+
+- Imagens para representar cada ODS foram obtidas em <https://brasil.un.org/pt-br/sdgs>.
 
 ## Build para deploy do projeto
 
@@ -53,3 +57,9 @@ python -m http.server 8001 --directory dist
 
 - [Nuxt 3 | Repository pattern: organising and managing your calls to APIs (Typescript)](https://medium.com/@luizzappa/nuxt-3-repository-pattern-organising-and-managing-your-calls-to-apis-with-typescript-acd563a4e046)
 - [Vue Lifecycle Hooks](https://vuejs.org/guide/essentials/lifecycle.html)
+
+## Páginas de exemplo
+
+- Página inicial ![Imagem 01](docs/images/01.png)
+- Mapa com as ações demarcadas ![Imagem 02](docs/images/02.png)
+- Listagem das ações ![Imagem 03](docs/images/03.png)
