@@ -5,7 +5,7 @@
     <app-map
       :attribution="attributionHOT"
       :bounds="bounds"
-      :center="center"
+      :center="center as PointTuple"
       :feature="feature"
       :markers="createMarkers"
       :tile-url="urlHOT"
@@ -45,8 +45,11 @@ export default {
       required: true,
     },
     center: {
-      type: Array as PropType<PointTuple>,
+      type: Array<Number>,
       required: true,
+      validator: (value: Array<Number>): value is PointTuple => {
+        return Array.isArray(value) && value.length === 2
+      }
     },
     feature: {
       type: Object as PropType<FeatureCollection>,

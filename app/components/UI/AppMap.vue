@@ -9,7 +9,7 @@
     <!-- PROPRIEDADES DO MAPA -->
     <l-map
       :bounds="bounds"
-      :center="center"
+      :center="center as PointTuple"
       :options="mapOptions"
       :zoom="zoom"
       :min-zoom="16"
@@ -60,8 +60,11 @@ export default {
       required: true,
     },
     center: {
-      type: Array as PropType<PointTuple>,
+      type: Array<Number>,
       required: true,
+      validator: (value: unknown): value is PointTuple => {
+        return Array.isArray(value) && value.length === 2
+      }
     },
     feature: {
       type: Object as PropType<FeatureCollection>,
