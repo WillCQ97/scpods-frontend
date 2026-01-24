@@ -11,29 +11,19 @@
 
       <!-- LOGIN/LOGOUT BUTTONS -->
       <!-- USER -->
-      <v-btn
-        :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
-        @click.stop="!isUserLoggedIn() ? navigateTo('/entrar') : logoff()"
-      >
+      <v-btn :prepend-icon="!isUserLoggedIn() ? 'mdi-login' : 'mdi-logout'"
+        @click.stop="!isUserLoggedIn() ? navigateTo('/entrar') : logoff()">
         {{ !isUserLoggedIn() ? 'Entrar' : 'Sair' }}
       </v-btn>
 
       <!-- ADMIN -->
-      <v-btn
-        prepend-icon="mdi-shield-account"
-        @click.stop="!isUserAdmin() ? navigateTo('/admin/entrar') : logoff()"
-      >
+      <v-btn prepend-icon="mdi-shield-account" @click.stop="!isUserAdmin() ? navigateTo('/admin/entrar') : logoff()">
         Admin
       </v-btn>
 
       <!-- ODS ICON-->
       <v-btn id="btn-icon-ods" icon disabled>
-        <v-img
-          src="/img/logo-ods-na-ufes.png"
-          height="40"
-          width="40"
-          contain
-        ></v-img>
+        <v-img src="/img/logo-ods-na-ufes.png" height="40" width="40" contain></v-img>
       </v-btn>
     </v-app-bar>
 
@@ -58,45 +48,25 @@
           </template>
 
           <!-- SUBMENU DOS CAMPUS -->
-          <v-list-item
-            to="/acoes/alegre"
-            prepend-icon="mdi-alpha-a"
-            router
-            exact
-          >
+          <v-list-item to="/acoes/alegre" prepend-icon="mdi-alpha-a" router exact>
             <v-list-item-title class="font-weight-bold">
               Alegre
             </v-list-item-title>
           </v-list-item>
 
-          <v-list-item
-            to="/acoes/goiabeiras"
-            prepend-icon="mdi-alpha-g"
-            router
-            exact
-          >
+          <v-list-item to="/acoes/goiabeiras" prepend-icon="mdi-alpha-g" router exact>
             <v-list-item-title class="font-weight-bold">
               Goiabeiras
             </v-list-item-title>
           </v-list-item>
 
-          <v-list-item
-            to="/acoes/maruipe"
-            prepend-icon="mdi-alpha-m"
-            router
-            exact
-          >
+          <v-list-item to="/acoes/maruipe" prepend-icon="mdi-alpha-m" router exact>
             <v-list-item-title class="font-weight-bold">
               Maruípe
             </v-list-item-title>
           </v-list-item>
 
-          <v-list-item
-            to="/acoes/sao-mateus"
-            prepend-icon="mdi-alpha-s"
-            router
-            exact
-          >
+          <v-list-item to="/acoes/sao-mateus" prepend-icon="mdi-alpha-s" router exact>
             <v-list-item-title class="font-weight-bold">
               São Mateus
             </v-list-item-title>
@@ -104,24 +74,14 @@
         </v-list-group>
 
         <!-- SUGERIR AÇÃO -->
-        <v-list-item
-          to="/sugerir-acao"
-          prepend-icon="mdi-message-outline"
-          router
-          exact
-        >
+        <v-list-item to="/sugerir-acao" prepend-icon="mdi-message-outline" router exact>
           <v-list-item-title class="font-weight-bold">
             Sugerir Ação
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item
-          v-if="isUserAdmin()"
-          to="/admin/avaliar-submissoes"
-          prepend-icon="mdi-order-bool-ascending-variant"
-          router
-          exact
-        >
+        <v-list-item v-if="isUserAdmin()" to="/admin/avaliar-submissoes" prepend-icon="mdi-order-bool-ascending-variant"
+          router exact>
           <v-list-item-title class="font-weight-bold">
             Avaliar Submissões
           </v-list-item-title>
@@ -153,7 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import colorPalleteUfes from 'assets/colors'
+import colorPalleteUfes from '~/assets/colors'
 
 const author = ref('Willian Conceição Queiroz')
 const headerColor = ref(colorPalleteUfes.monocromatic.mono6)
@@ -182,6 +142,7 @@ function logoff(): void {
 #btn-icon-ods {
   opacity: 1;
 }
+
 #title-bar {
   /* colorPalleteUfes.monocromatic.mono8 */
   text-shadow: 1px 1px 2px #94aaea;
