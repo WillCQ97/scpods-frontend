@@ -8,9 +8,12 @@
 
     <!-- PROPRIEDADES DO MAPA -->
     <l-map
+      :bounds="bounds"
       :center="center"
       :options="mapOptions"
       :zoom="zoom"
+      :min-zoom="16"
+      :max-zoom="18"
       style="height: 600px; z-index: 1"
       :use-global-leaflet="false"
     >
@@ -38,25 +41,11 @@
 </template>
 
 <script lang="ts">
+import type { FeatureCollection } from 'geojson'
+import { Point } from 'leaflet'
+import type { PropType } from 'vue'
 import type MarkerInterface from '~/models/props/marker.model'
 
-/*
-TODO: é possível usar as funções do leaflet para criar os objetos e evitar o erro do typescript
-
-
-https://docs.maptiler.com/leaflet/examples/ts-get-started/
-const options: MapOptions = {
-  center: latLng(40.731253, -73.996139),
-  zoom: 12,
-};
-
-import L from 'leaflet'
-L.latLng(number, number)
-*/
-
-/*
- * A ordem esperada das coordenadas é latitude, longitude
- */
 export default {
   name: 'AppMap',
 
@@ -71,11 +60,11 @@ export default {
       required: true,
     },
     center: {
-      type: Array,
+      type: Point,
       required: true,
     },
     feature: {
-      type: Object,
+      type: Object as PropType<FeatureCollection>,
       required: false,
       default: null,
     },
@@ -104,7 +93,7 @@ export default {
     return {
       enableTooltip: true,
       markerIconUrl: '/img/logo-ods-small.png',
-      markerIconSize: [20, 20],
+      markerIconSize: [20, 20] as [number, number],
     }
   },
 
@@ -118,7 +107,7 @@ export default {
       if (!this.enableTooltip) {
         return
       }
-      return (feature, layer) => {
+      return (feature: any, layer: any) => {
         /*
          * ESTE TOOLTIP CONSIDERA A ESTRUTURA DO GEOJSON DOS CAMPI
          */
@@ -142,9 +131,6 @@ export default {
     },
     mapOptions() {
       return {
-        maxBounds: this.bounds,
-        maxZoom: 18,
-        minZoom: 16,
         scrollWheelZoom: false,
         zoomControl: true,
       }

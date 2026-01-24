@@ -1,8 +1,8 @@
 export default interface LocalizacaoInterface {
   type: string
-  coordinates: number[]
+  coordinates: [number, number]
 }
 
 export function LocalizacaoInterfaceBuilder() {
-  return { type: '', coordinates: [] }
+  return { type: '', coordinates: [0, 0] }
 }

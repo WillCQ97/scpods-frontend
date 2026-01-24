@@ -71,6 +71,8 @@
 </template>
 
 <script lang="ts">
+import type { FeatureCollection } from 'geojson'
+import L from 'leaflet'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -92,12 +94,12 @@ export default {
       acoesGoiabeiras: [] as AcaoSearchInterface[],
       goiabeirasInfo: {} as UnidadeInfoInterface,
       exibirAcoes: false,
-      centroMapa: [-20.2764, -40.3037],
+      centroMapa: L.point(-20.2764, -40.3037),
       limitesMapa: [
         [-20.2696, -40.3089],
         [-20.2846, -40.3009],
       ],
-      campusGeojson: featureGoiabeiras,
+      campusGeojson: featureGoiabeiras as FeatureCollection,
     }
   },
 

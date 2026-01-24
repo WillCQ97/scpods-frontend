@@ -23,6 +23,8 @@
 </template>
 
 <script lang="ts">
+import type { FeatureCollection } from 'geojson'
+import L from 'leaflet'
 import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -41,9 +43,9 @@ export default {
       codigoUnidade: 'UN_JERONIMO',
       acoesJeronimo: [] as AcaoSearchInterface[],
       infoJeronimo: {} as UnidadeInfoInterface,
-      campusGeojson: featureJeronimo,
+      campusGeojson: featureJeronimo as FeatureCollection,
       exibirAcoes: false,
-      centroMapa: [-20.79071, -41.38887],
+      centroMapa: L.point(-20.79071, -41.38887),
       limitesMapa: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],

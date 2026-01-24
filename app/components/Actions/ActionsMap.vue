@@ -26,6 +26,8 @@
 </template>
 
 <script lang="ts">
+import type { FeatureCollection } from 'geojson'
+import { Point } from 'leaflet'
 import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { LocalInfoInterface } from '~/models/local.info'
@@ -33,9 +35,7 @@ import type Marker from '~/models/props/marker.model'
 import type { UnidadeInfoInterface } from '~/models/unidade.info.model'
 
 export default {
-  // A ordem esperada das coordenadas é latitude, longitude
   name: 'ActionsMap',
-
   components: { AppMap, TheCardDivider },
 
   props: {
@@ -44,11 +44,11 @@ export default {
       required: true,
     },
     center: {
-      type: Array,
+      type: Point,
       required: true,
     },
     feature: {
-      type: Object,
+      type: Object as PropType<FeatureCollection>,
       required: true,
     },
     unidadeInfo: {
@@ -81,7 +81,10 @@ export default {
       return locaisAtivos.map((local: LocalInfoInterface) => ({
         ...local,
         id: local.id,
-        coordinates: local.localizacao.coordinates.toReversed(),
+        coordinates: local.localizacao.coordinates.toReversed() as [
+          number,
+          number,
+        ],
         content:
           '<div class="map-popup">' +
           '<img class="map-popup-img" src="' +

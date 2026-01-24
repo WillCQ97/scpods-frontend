@@ -24,6 +24,8 @@
 </template>
 
 <script lang="ts">
+import type { FeatureCollection } from 'geojson'
+import L from 'leaflet'
 import featureAlegre from '~/assets/features/alegre.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -41,9 +43,9 @@ export default {
       codigoUnidade: 'UN_ALEGRE',
       acoesAlegre: [] as AcaoSearchInterface[],
       infoAlegre: {} as UnidadeInfoInterface,
-      campusGeojson: featureAlegre,
+      campusGeojson: featureAlegre as FeatureCollection,
       exibirAcoes: false,
-      centroMapa: [-20.76161, -41.536],
+      centroMapa: L.point(-20.76161, -41.536),
       limitesMapa: [
         [-20.75885, -41.53911],
         [-20.76464, -41.53211],

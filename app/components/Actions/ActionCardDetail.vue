@@ -8,7 +8,6 @@
     <the-card-divider />
 
     <v-card-text>
-      <!-- FORMULÁRIO -->
       <v-form :readonly="true">
         <!-- OBJETIVO -->
         <v-row dense>
@@ -33,7 +32,6 @@
           </v-col>
 
           <!-- TÍTULO DA AÇÃO -->
-
           <v-col cols="12">
             <v-text-field
               v-model="showedItem.titulo"
@@ -58,7 +56,6 @@
           </v-col>
 
           <!-- DATAS DE INÍCIO E TÉRMINO -->
-
           <v-col cols="6">
             <v-text-field
               v-model="showedItem.dataInicio"
@@ -75,7 +72,6 @@
           </v-col>
 
           <!-- LOTAÇÃO DA AÇÃO -->
-
           <v-col cols="6">
             <v-text-field
               v-model="showedItem.lotacao.descricao"
@@ -96,7 +92,6 @@
           </v-col>
 
           <!-- LOCALIZAÇÃO DA AÇÃO -->
-
           <v-col cols="6">
             <v-text-field
               v-model="showedItem.local.nomePrincipal"
@@ -120,7 +115,6 @@
           </v-col>
 
           <!-- COORDENADOR -->
-
           <v-col cols="8">
             <v-text-field
               v-model="showedItem.coordenador.nome"

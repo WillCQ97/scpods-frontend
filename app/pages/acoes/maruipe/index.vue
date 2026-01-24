@@ -48,7 +48,7 @@
         <v-col>
           <actions-map
             :title="nomeUnidade"
-            :bounds="limitesMaapa"
+            :bounds="limitesMapa"
             :center="centroMapa"
             :feature="featureCampus"
             :unidade-info="infoMaruipe"
@@ -66,6 +66,8 @@
 </template>
 
 <script lang="ts">
+import type { FeatureCollection } from 'geojson'
+import L from 'leaflet'
 import feature from '~/assets/features/maruipe.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -86,12 +88,12 @@ export default {
       acoesMaruipe: [] as AcaoSearchInterface[],
       infoMaruipe: {} as UnidadeInfoInterface,
       exibirAcoes: false,
-      centroMapa: [-20.29815881701748, -40.31628393322453],
-      limitesMaapa: [
+      centroMapa: L.point(-20.29815881701748, -40.31628393322453),
+      limitesMapa: [
         [-20.297085718911358, -40.32064926449737],
         [-20.301772383132487, -40.31412608305674],
       ],
-      featureCampus: feature,
+      featureCampus: feature as FeatureCollection,
     }
   },
 

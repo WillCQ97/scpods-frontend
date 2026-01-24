@@ -59,7 +59,7 @@ await callOnce(async () => {
     const objetivos = await $api.objetivos.getObjetivos()
     odsStore.setObjetivos(objetivos ? objetivos : ([] as ObjetivoInterface[]))
   } catch (error) {
-    console.debug(
+    console.error(
       'ERRO: Não foi possível obter os objetivos no carregamento inicial do site',
       error,
     )
