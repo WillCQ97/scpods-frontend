@@ -17,11 +17,8 @@
 
               <!-- TÍTULO -->
               <v-col cols="12">
-                <v-text-field
-                  v-model="campoTitulo"
-                  label="Título ou nome da ação"
-                  :rules="[obrigatorioValidator, naoVazioValidator]"
-                ></v-text-field>
+                <v-text-field v-model="campoTitulo" label="Título ou nome da ação"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"></v-text-field>
               </v-col>
 
               <!-- OBJETIVOS -->
@@ -37,22 +34,9 @@
                 para obter o objetivo a partir do indice dos botões criados
                 Talvez criar um componente que receba o objetivo.id
                 -->
-                <v-btn-toggle
-                  id="ods-btn-toggle"
-                  v-model="objetivoSelecionadoIndex"
-                >
-                  <v-btn
-                    v-for="objetivo in objetivos"
-                    :key="objetivo.id"
-                    height="120"
-                    width="120"
-                  >
-                    <the-goal-image
-                      :cover="true"
-                      :goal-code="objetivo.codigo"
-                      :height="100"
-                      :width="100"
-                    />
+                <v-btn-toggle id="ods-btn-toggle" v-model="objetivoSelecionadoIndex">
+                  <v-btn v-for="objetivo in objetivos" :key="objetivo.id" height="120" width="120">
+                    <the-goal-image :cover="true" :goal-code="objetivo.codigo" :height="100" :width="100" />
                   </v-btn>
                 </v-btn-toggle>
               </v-col>
@@ -71,67 +55,42 @@
                 </p>
                 <div v-if="isObjetivoSelecionado()" id="ods-selected">
                   <div id="ods-selected-image">
-                    <the-goal-image
-                      :cover="true"
-                      :goal-code="getCodigoObjetivo(objetivoSelecionadoIndex)"
-                      :height="50"
-                      :width="50"
-                    />
+                    <the-goal-image :cover="true" :goal-code="getCodigoObjetivo(objetivoSelecionadoIndex)" :height="50"
+                      :width="50" />
                   </div>
                   <p id="ods-selected-text">
                     <strong>{{
                       getTituloObjetivo(objetivoSelecionadoIndex! + 1)
-                    }}</strong>
+                      }}</strong>
                   </p>
                 </div>
               </v-col>
 
               <v-col cols="12">
                 <v-item-group selected-class="bg-primary">
-                  <v-select
-                    label="Escolha a meta mais relevante para o projeto"
-                    v-model="idMetaSelecionada"
-                    item-title="description"
-                    item-value="value"
-                    :items="getOpcoesMeta(objetivoSelecionadoIndex! + 1)"
-                    :disabled="showOpcoesMetas"
-                  ></v-select>
+                  <v-select label="Escolha a meta mais relevante para o projeto" v-model="idMetaSelecionada"
+                    item-title="description" item-value="value" :items="getOpcoesMeta(objetivoSelecionadoIndex! + 1)"
+                    :disabled="showOpcoesMetas"></v-select>
                 </v-item-group>
               </v-col>
 
               <!-- DEMAIS CAMPOS -->
               <v-col cols="6">
-                <v-select
-                  v-model="lotacaoSelecionada"
-                  label="Lotação da ação"
-                  item-title="description"
-                  item-value="value"
-                  :items="opcoesLotacao"
-                  :rules="[obrigatorioValidator]"
-                ></v-select>
+                <v-select v-model="lotacaoSelecionada" label="Lotação da ação" item-title="description"
+                  item-value="value" :items="opcoesLotacao" :rules="[obrigatorioValidator]"></v-select>
               </v-col>
 
               <v-col cols="3">
-                <v-text-field
-                  v-model="campoDataInicial"
-                  label="Data de Início"
-                  :rules="[obrigatorioValidator]"
-                  type="date"
-                ></v-text-field>
+                <v-text-field v-model="campoDataInicial" label="Data de Início" :rules="[obrigatorioValidator]"
+                  type="date"></v-text-field>
               </v-col>
               <v-col cols="3">
-                <v-text-field
-                  v-model="campoDataFinal"
-                  label="Data de Encerramento, se houver"
-                  type="date"
-                ></v-text-field>
+                <v-text-field v-model="campoDataFinal" label="Data de Encerramento, se houver"
+                  type="date"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea
-                  v-model="campoDescricao"
-                  label="Descrição e objetivos da sua ação"
-                  :rules="[obrigatorioValidator, naoVazioValidator]"
-                ></v-textarea>
+                <v-textarea v-model="campoDescricao" label="Descrição e objetivos da sua ação"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"></v-textarea>
               </v-col>
               <v-col cols="12">
                 Deve ser um link (URL) para um documento, website, banco de
@@ -139,12 +98,8 @@
                 internet.
               </v-col>
               <v-col cols="12">
-                <v-text-field
-                  v-model="campoUrlEvidencia"
-                  label="Link para evidência da ação"
-                  :rules="[urlValidator]"
-                  clearable
-                ></v-text-field>
+                <v-text-field v-model="campoUrlEvidencia" label="Link para evidência da ação" :rules="[urlValidator]"
+                  clearable></v-text-field>
               </v-col>
             </v-row>
           </v-card-text>
@@ -159,11 +114,8 @@
           <v-card-text>
             <v-row dense>
               <v-col cols="12">
-                <v-text-field
-                  v-model="campoNomeCoordenador"
-                  label="Nome completo"
-                  :rules="[obrigatorioValidator, naoVazioValidator]"
-                ></v-text-field>
+                <v-text-field v-model="campoNomeCoordenador" label="Nome completo"
+                  :rules="[obrigatorioValidator, naoVazioValidator]"></v-text-field>
               </v-col>
 
               <v-col cols="12">
@@ -172,19 +124,13 @@
               </v-col>
 
               <v-col cols="4">
-                <v-combobox
-                  v-model="campoVinculoCoordenador"
-                  v-model:search="search"
-                  :hide-no-data="false"
-                  label="Vínculo com a Ufes"
-                  :items="campoOpcoesVinculo"
-                  :rules="[obrigatorioValidator, naoVazioValidator]"
-                >
+                <v-combobox v-model="campoVinculoCoordenador" v-model:search="search" :hide-no-data="false"
+                  label="Vínculo com a Ufes" :items="campoOpcoesVinculo"
+                  :rules="[obrigatorioValidator, naoVazioValidator]">
                   <template v-slot:no-data>
                     <v-list-item>
                       <v-list-item-title>
-                        Opção "<strong>{{ search }}</strong
-                        >" não reconhecida. Pressione <kbd>enter</kbd> para
+                        Opção "<strong>{{ search }}</strong>" não reconhecida. Pressione <kbd>enter</kbd> para
                         adicionar
                       </v-list-item-title>
                     </v-list-item>
@@ -192,11 +138,8 @@
                 </v-combobox>
               </v-col>
               <v-col cols="8">
-                <v-text-field
-                  v-model="campoEmailCoordenador"
-                  label="Endereço de e-mail"
-                  :rules="[obrigatorioValidator, emailValidator]"
-                ></v-text-field>
+                <v-text-field v-model="campoEmailCoordenador" label="Endereço de e-mail"
+                  :rules="[obrigatorioValidator, emailValidator]"></v-text-field>
               </v-col>
             </v-row>
           </v-card-text>
@@ -213,39 +156,19 @@
           <v-card-text>
             <v-row dense>
               <v-col cols="3">
-                <v-select
-                  v-on:update:menu="setUnidadeItems()"
-                  v-model="campusSelecionado"
-                  label="Campus"
-                  item-title="description"
-                  item-value="value"
-                  :items="opcoesCampus"
-                  :rules="[obrigatorioValidator]"
-                ></v-select>
+                <v-select v-on:update:menu="setUnidadeItems()" v-model="campusSelecionado" label="Campus"
+                  item-title="description" item-value="value" :items="opcoesCampus"
+                  :rules="[obrigatorioValidator]"></v-select>
               </v-col>
               <v-col cols="4">
-                <v-select
-                  v-on:update:menu="setLocalItems()"
-                  v-model="unidadeSelecionada"
-                  label="Unidade"
-                  item-title="description"
-                  item-value="value"
-                  no-data-text="Selecione um Campus"
-                  :items="opcoesUnidade"
-                  :rules="[obrigatorioValidator]"
-                ></v-select>
+                <v-select v-on:update:menu="setLocalItems()" v-model="unidadeSelecionada" label="Unidade"
+                  item-title="description" item-value="value" no-data-text="Selecione um Campus" :items="opcoesUnidade"
+                  :rules="[obrigatorioValidator]"></v-select>
               </v-col>
 
               <v-col cols="5">
-                <v-select
-                  v-model="localSelecionado"
-                  label="Local"
-                  item-title="description"
-                  item-value="value"
-                  no-data-text="Selecione uma Unidade"
-                  :items="opcoesLocal"
-                  :rules="[obrigatorioValidator]"
-                ></v-select>
+                <v-select v-model="localSelecionado" label="Local" item-title="description" item-value="value"
+                  no-data-text="Selecione uma Unidade" :items="opcoesLocal" :rules="[obrigatorioValidator]"></v-select>
               </v-col>
             </v-row>
           </v-card-text>
@@ -267,11 +190,8 @@
       <v-card-title>{{ dialog.title }}</v-card-title>
       <the-card-divider />
       <v-card-text class="dialog">
-        <v-icon
-          :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
-          :color="dialog.isError ? 'error' : 'success'"
-          size="90"
-        ></v-icon>
+        <v-icon :icon="dialog.isError ? 'mdi-alert-circle' : 'mdi-check-circle'"
+          :color="dialog.isError ? 'error' : 'success'" size="90"></v-icon>
         <br /><br />
         {{ dialog.message }}
       </v-card-text>
@@ -288,17 +208,17 @@
 </template>
 
 <script lang="ts">
+import type { VForm } from 'vuetify/components'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import type { LocalInterface } from '~/models/local.model'
+import type { ObjetivoInterface } from '~/models/objetivo.model'
 import type { SelectModelInterface } from '~/models/select/select.model'
 import {
   SubmissaoInputBuilder,
   type SubmissaoInputInterface,
 } from '~/models/submissao.input.model'
 import type { UnidadeInterface } from '~/models/unidade.model'
-
-import type { ObjetivoInterface } from '~/models/objetivo.model'
 import {
   emailValidator,
   naoVazioValidator,
@@ -390,17 +310,18 @@ export default {
       idMetaSelecionada: null,
     }
   },
+
   methods: {
     async validate() {
-      const { valid } = await this.$refs.form.validate()
+      const { valid } = await (this.$refs.form as VForm).validate()
 
       if (valid) alert('Form is valid')
     },
     resetForm() {
-      this.$refs.form.reset()
+      (this.$refs.form as VForm).reset()
     },
     resetValidation() {
-      this.$refs.form.resetValidation()
+      (this.$refs.form as VForm).resetValidation()
     },
     goBack() {
       return navigateTo('/sugerir-acao/')
