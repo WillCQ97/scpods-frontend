@@ -1,5 +1,4 @@
 <template>
-  <!-- TEMPLATE DO DIÁLOGO -->
   <v-dialog v-model="isDialogVisible" width="500">
     <v-card>
       <v-card-title>{{ title }}</v-card-title>
