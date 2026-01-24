@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
-import L from 'leaflet'
+import type { PointTuple } from 'leaflet'
 import featureSaoMateus from '~/assets/features/sao_mateus.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -89,7 +89,7 @@ export default {
       acoesSaoMateus: [] as AcaoSearchInterface[],
       infoSaoMateus: {} as UnidadeInfoInterface,
       exibirAcoes: false,
-      centroMapa: L.point(-18.675738334093378, -39.86240690464644),
+      centroMapa: [-18.675738334093378, -39.86240690464644] as PointTuple,
       limitesMapa: [
         [-18.670727522212445, -39.866469236990035],
         [-18.680308622184185, -39.85245444148613],

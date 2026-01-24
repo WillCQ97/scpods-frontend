@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
-import L from 'leaflet'
+import type { PointTuple } from 'leaflet'
 import featureRive from '~/assets/features/rive.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -45,7 +45,7 @@ export default {
       acoesRive: [] as AcaoSearchInterface[],
       infoRive: {} as UnidadeInfoInterface,
       exibirAcoes: false,
-      centroRive: L.point(-20.7494, -41.4875),
+      centroRive: [-20.7494, -41.4875] as PointTuple,
       limitesRive: [
         [-20.7422, -41.4932],
         [-20.7562, -41.4815],

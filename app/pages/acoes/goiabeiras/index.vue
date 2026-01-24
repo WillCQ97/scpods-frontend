@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
-import L from 'leaflet'
+import type { PointTuple } from 'leaflet'
 import featureGoiabeiras from '~/assets/features/goiabeiras.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -94,7 +94,7 @@ export default {
       acoesGoiabeiras: [] as AcaoSearchInterface[],
       goiabeirasInfo: {} as UnidadeInfoInterface,
       exibirAcoes: false,
-      centroMapa: [-20.2764, -40.3037],
+      centroMapa: [-20.2764, -40.3037] as PointTuple,
       limitesMapa: [
         [-20.2696, -40.3089],
         [-20.2846, -40.3009],

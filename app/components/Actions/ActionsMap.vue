@@ -27,6 +27,8 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
+import type { PointTuple } from 'leaflet'
+import type { PropType } from 'vue'
 import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { LocalInfoInterface } from '~/models/local.info'
@@ -43,7 +45,7 @@ export default {
       required: true,
     },
     center: {
-      type: Array,
+      type: Array as PropType<PointTuple>,
       required: true,
     },
     feature: {

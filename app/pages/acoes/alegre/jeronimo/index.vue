@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
-import L from 'leaflet'
+import type { PointTuple } from 'leaflet'
 import featureJeronimo from '~/assets/features/jeronimo.json'
 import ActionsList from '~/components/Actions/ActionsList.vue'
 import ActionsMap from '~/components/Actions/ActionsMap.vue'
@@ -45,7 +45,7 @@ export default {
       infoJeronimo: {} as UnidadeInfoInterface,
       campusGeojson: featureJeronimo as FeatureCollection,
       exibirAcoes: false,
-      centroMapa: L.point(-20.79071, -41.38887),
+      centroMapa: [-20.79071, -41.38887] as PointTuple,
       limitesMapa: [
         [-20.78827, -41.39275],
         [-20.79285, -41.38471],
