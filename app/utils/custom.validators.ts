@@ -99,7 +99,7 @@ export function obrigatorioValidator(value: any) {
 }
 
 export function urlValidator(value: string) {
-  if (!value) return
+  if (!value) return true
 
   const urlPattern =
     /^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
