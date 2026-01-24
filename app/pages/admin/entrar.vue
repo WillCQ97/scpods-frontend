@@ -31,6 +31,7 @@
           <v-card-text>
             <v-text-field
               v-model="username"
+              type="text"
               label="Informe seu nome de usuário"
               autocomplete="username"
               prepend-icon="mdi-shield-account"

@@ -45,6 +45,7 @@
 
             <v-text-field
               v-model="username"
+              type="text"
               label="Informe seu CPF"
               autocomplete="username"
               prepend-icon="mdi-badge-account"
