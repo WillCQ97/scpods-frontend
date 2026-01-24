@@ -24,7 +24,7 @@ export interface AcaoInterface {
 
   aceito?: boolean
 
-  coordenador: CoordenadorInterface // campo extra nas submissões
+  coordenador: CoordenadorInterface
   meta: MetaAcaoInterface
   local: LocalAcaoInterface
   lotacao: LotacaoInterface

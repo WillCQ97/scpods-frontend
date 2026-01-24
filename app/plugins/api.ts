@@ -24,10 +24,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     baseURL: config.public.apiBaseUrl,
   }
 
-  // Create a new instance of $fecther with custom option
   const apiFetcher = $fetch.create(fetchOptions)
 
-  // An object containing all repositories we need to expose
   const modules: ApiInstanceInterface = {
     acoes: new AcoesModule(apiFetcher),
     objetivos: new ObjetivosModule(apiFetcher),

@@ -1,11 +1,10 @@
 import '@mdi/font/css/materialdesignicons.css'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
-import { pt } from 'vuetify/locale' // Translations provided by Vuetify
+import { pt } from 'vuetify/locale'
 import 'vuetify/styles'
 import colors from 'vuetify/util/colors'
 import colorPalleteUfes from '~/assets/colors'
 
-// Tema adicionado ao nuxt.config criado pela adição do vuetify na versão 2
 const oldDarkTheme: ThemeDefinition = {
   dark: true,
   colors: {
@@ -19,7 +18,7 @@ const oldDarkTheme: ThemeDefinition = {
   },
 }
 
-// Exemplo disponibilizado em https://vuetifyjs.com/en/features/theme/#typescript
+// https://vuetifyjs.com/en/features/theme/#typescript
 const exampleTheme: ThemeDefinition = {
   dark: false,
   colors: {

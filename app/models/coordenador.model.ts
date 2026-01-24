@@ -1,7 +1,7 @@
 export interface CoordenadorInterface {
   id?: number
   nome: string
-  email?: string // campo presente apenas nas submissões
+  email?: string
 
   tipoVinculo: string
   descricaoVinculo: string | null
