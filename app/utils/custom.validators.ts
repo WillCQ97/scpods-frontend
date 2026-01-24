@@ -55,9 +55,17 @@ export function formatoDataValidator(value: string) {
     return 'Formato de data inválido. Use dd/MM/aaaa.'
   }
 
-  const day = parseInt(match[1], 10)
-  const month = parseInt(match[2], 10)
-  const year = parseInt(match[3], 10)
+  const dayStr = match[1] ?? ''
+  const monthStr = match[2] ?? ''
+  const yearStr = match[3] ?? ''
+
+  if (!dayStr || !monthStr || !yearStr) {
+    return 'Formato de data inválido. Use dd/MM/aaaa.'
+  }
+
+  const day = parseInt(dayStr, 10)
+  const month = parseInt(monthStr, 10)
+  const year = parseInt(yearStr, 10)
 
   if (
     day < 1 ||
