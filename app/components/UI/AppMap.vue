@@ -41,7 +41,7 @@
 import type MarkerInterface from '~/models/props/marker.model'
 
 /*
-TODO: é possível usar as funções do leaflet para criar os objetos e evitar o erro do typescript 
+TODO: é possível usar as funções do leaflet para criar os objetos e evitar o erro do typescript
 
 
 https://docs.maptiler.com/leaflet/examples/ts-get-started/

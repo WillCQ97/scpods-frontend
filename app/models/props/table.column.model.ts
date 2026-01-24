@@ -1,4 +1,4 @@
-export interface TableColumn {
+export interface TableColumnInterface {
   title: string
   align: 'start' | 'end' | 'center'
   key: string

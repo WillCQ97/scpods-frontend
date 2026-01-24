@@ -175,10 +175,10 @@
 </template>
 
 <script lang="ts">
+import ExternalLinkBtn from '~/components/UI/ExternalLinkBtn.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import type { AcaoInterface } from '~/models/acao.model'
-import TheCardDivider from '../UI/TheCardDivider.vue'
-import ExternalLinkBtn from '../UI/ExternalLinkBtn.vue'
 
 export default {
   name: 'ActionCardDetail',

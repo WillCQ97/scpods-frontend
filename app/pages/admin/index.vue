@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Página do Admin</v-card-title>
+    <v-card-title>Página do Administrador</v-card-title>
   </v-card>
 </template>
 

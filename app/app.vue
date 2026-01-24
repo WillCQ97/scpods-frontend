@@ -44,8 +44,7 @@ useHead({
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-ods.png' }],
   script: [
     {
-      innerHTML:
-        "console.debug('Olá, como vão os seus objetivos?')",
+      innerHTML: "console.debug('Olá, como vão os seus objetivos?')",
     },
   ],
 })

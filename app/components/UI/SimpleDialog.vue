@@ -25,7 +25,7 @@
   </v-dialog>
 </template>
 <script lang="ts">
-import TheCardDivider from './TheCardDivider.vue'
+import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 
 export default {
   name: 'SimpleDialog',

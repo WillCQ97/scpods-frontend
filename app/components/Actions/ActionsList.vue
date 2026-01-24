@@ -3,7 +3,9 @@
     <v-card-title>
       Listagem das {{ isSubmission ? 'Submissões' : 'Ações' }}
     </v-card-title>
+
     <the-card-divider />
+
     <v-data-table :headers="tableHeader" :items="actions">
       <!-- TEMPLATE PARA CARREGAR A IMAGEM DENTRO DO DATA-TABLE -->
       <template #item.image="{ item: action }">
@@ -69,7 +71,7 @@ import TheGoalImage from '~/components/UI/TheGoalImage.vue'
 import { AcaoInterfaceBuilder } from '~/models/acao.model'
 import type { AcaoSearchInterface } from '~/models/acao.search.model'
 import type { AcceptHandlerParamsInterface } from '~/models/props/accept.handler.model'
-import type { TableColumn } from '~/models/props/table.column.model'
+import type { TableColumnInterface } from '~/models/props/table.column.model'
 
 export default {
   name: 'ActionsList',
@@ -108,7 +110,7 @@ export default {
         { title: 'Local', key: 'nomeLocal' },
         { title: 'Coordenador', key: 'nomeCoordenador' },
         { title: 'Opções', key: 'options', sortable: false, align: 'center' },
-      ] as TableColumn[],
+      ] as TableColumnInterface[],
       isActionDialogVisible: false,
       isMessageDialogVisible: false,
       dialog: {
