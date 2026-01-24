@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
-import { Point } from 'leaflet'
 import AppMap from '~/components/UI/AppMap.vue'
 import TheCardDivider from '~/components/UI/TheCardDivider.vue'
 import type { LocalInfoInterface } from '~/models/local.info'
@@ -44,7 +43,7 @@ export default {
       required: true,
     },
     center: {
-      type: Point,
+      type: Array,
       required: true,
     },
     feature: {

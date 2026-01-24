@@ -42,7 +42,6 @@
 
 <script lang="ts">
 import type { FeatureCollection } from 'geojson'
-import { Point } from 'leaflet'
 import type { PropType } from 'vue'
 import type MarkerInterface from '~/models/props/marker.model'
 
@@ -60,7 +59,7 @@ export default {
       required: true,
     },
     center: {
-      type: Point,
+      type: Array,
       required: true,
     },
     feature: {

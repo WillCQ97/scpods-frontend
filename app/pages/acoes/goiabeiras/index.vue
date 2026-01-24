@@ -94,7 +94,7 @@ export default {
       acoesGoiabeiras: [] as AcaoSearchInterface[],
       goiabeirasInfo: {} as UnidadeInfoInterface,
       exibirAcoes: false,
-      centroMapa: L.point(-20.2764, -40.3037),
+      centroMapa: [-20.2764, -40.3037],
       limitesMapa: [
         [-20.2696, -40.3089],
         [-20.2846, -40.3009],
