@@ -40,6 +40,7 @@ export default defineNuxtConfig({
         '@vue/devtools-core',
         '@vue/devtools-kit',
         'buffer', // CJS
+        '@vue-leaflet/vue-leaflet',
       ],
     },
     vue: {
