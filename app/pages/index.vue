@@ -1,7 +1,7 @@
 <template>
-  <v-row>
-    <v-spacer />
-    <v-col cols="8">
+  <v-spacer />
+  <v-col cols="8">
+    <v-row>
       <v-col>
         <v-card>
           <v-card-item>
@@ -27,7 +27,8 @@
           </v-card-actions>
         </v-card>
       </v-col>
-
+    </v-row>
+    <v-row>
       <v-col>
         <v-card>
           <v-card-item>
@@ -56,7 +57,8 @@
           </v-card-actions>
         </v-card>
       </v-col>
-
+    </v-row>
+    <v-row>
       <v-col>
         <v-card>
           <v-card-item>
@@ -85,9 +87,9 @@
           </v-card-actions>
         </v-card>
       </v-col>
-    </v-col>
-    <v-spacer />
-  </v-row>
+    </v-row>
+  </v-col>
+  <v-spacer />
 </template>
 
 <script lang="ts">
