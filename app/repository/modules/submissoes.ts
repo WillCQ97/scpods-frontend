@@ -34,15 +34,13 @@ class SubmissoesModule extends FetchFactory {
   }
 
   async aceitar(id: number) {
-    return this.call<void>('PATCH', `${this.RESOURCE}/aceitar`, undefined, {
-      params: { id },
+    return this.call<void>('PATCH', `${this.RESOURCE}/aceitar/${id}`, undefined, {
       headers: this.mountAuthHeader(),
     })
   }
 
   async rejeitar(id: number) {
-    return this.call<void>('DELETE', `${this.RESOURCE}/rejeitar`, undefined, {
-      params: { id },
+    return this.call<void>('DELETE', `${this.RESOURCE}/rejeitar/${id}`, undefined, {
       headers: this.mountAuthHeader(),
     })
   }
