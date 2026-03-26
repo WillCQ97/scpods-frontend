@@ -35,6 +35,14 @@ export default defineNuxtConfig({
 
   vite: {
     build: { target: 'es2022' },
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'buffer', // CJS
+        '@vue-leaflet/vue-leaflet',
+      ],
+    },
     vue: {
       template: {
         transformAssetUrls,
